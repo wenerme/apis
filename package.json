@@ -9,7 +9,7 @@
     "clean": "gts clean",
     "compile": "tsc -p .",
     "fix": "gts fix",
-    "now-build": "ts-node scripts/setup-db.ts",
+    "now-build": "ts-node scripts/setup-db.ts && next build",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
     "posttest": "yarn run check"
