@@ -3,6 +3,8 @@ import {SnakeNamingStrategy} from 'typeorm-naming-strategies'
 import {Connection} from 'typeorm/connection/Connection';
 import {PhoneDataIndexEntity, PhoneDataRecordEntity} from 'libs/phonedata/schema';
 import {SqlAr} from './entity/SqlAr';
+// tell zeit/now include sqlite
+import 'sqlite3'
 
 let _connection: Connection;
 
