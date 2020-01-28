@@ -131,3 +131,6 @@ dist
 .tern-port
 
 ### Local
+
+.idea
+ignored
