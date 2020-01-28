@@ -1,10 +1,4 @@
-// https://github.com/xluohome/phonedata/raw/master/phone.dat
-
-// https://api.github.com/repos/xluohome/phonedata/contents/phone.dat
-// https://api.github.com/repos/xluohome/phonedata/contents/
-
-// import unfetch from 'isomorphic-unfetch';
-import unfetch from 'node-fetch';
+import fetch from 'node-fetch';
 import fs from 'fs';
 import blobToBuffer from 'blob-to-buffer'
 
@@ -22,7 +16,7 @@ function toBuffer(blob: Blob): Promise<Buffer> {
 
 export async function fetchPhoneData() {
   const filename = 'phone.dat';
-  const meta = await unfetch('https://api.github.com/repos/xluohome/phonedata/contents/')
+  const meta = await fetch('https://api.github.com/repos/xluohome/phonedata/contents/')
     .then(v => v.json())
     .then(v => v.find(v => v.name === filename));
 
@@ -33,9 +27,7 @@ export async function fetchPhoneData() {
     return fs.readFileSync(path);
   } else {
     console.log(`downloading phonedata ${downloadUrl} to ${path}`);
-    const buf = await unfetch(downloadUrl)
-      .then(v => v.blob())
-      .then(v => toBuffer(v));
+    const buf = await fetch(downloadUrl).then(v => v.buffer());
     console.log(`downloaded phonedata ${path}`);
     fs.writeFileSync(path, buf);
     return buf

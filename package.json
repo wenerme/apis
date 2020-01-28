@@ -9,7 +9,8 @@
     "clean": "gts clean",
     "compile": "tsc -p .",
     "fix": "gts fix",
-    "now-build": "yarn list && node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts && next build",
+    "now-build": "yarn list && yarn setup-db && next build",
+    "setup-db": "node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
     "posttest": "yarn run check"
@@ -36,6 +37,7 @@
     "@types/jest": "^24.9.1",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.5.0",
+    "@types/node-fetch": "^2.5.4",
     "@types/react": "^16.9.19",
     "dotenv": "^8.2.0",
     "gts": "^1.1.2",

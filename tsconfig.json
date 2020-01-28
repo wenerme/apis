@@ -35,6 +35,9 @@
       "modules/*": [
         "modules/*"
       ],
+      "utils/*": [
+        "utils/*"
+      ],
       "db/*": [
         "db/*"
       ]
