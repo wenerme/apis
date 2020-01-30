@@ -1,5 +1,6 @@
 import React from 'react'
-function IndexPage({ pid }) {
+
+function IndexPage({}) {
   return (
     <div>
       <h2>Wener's API</h2>
@@ -7,7 +8,5 @@ function IndexPage({ pid }) {
     </div>
   )
 }
-IndexPage.getInitialProps = function () {
-  return { pid: process.pid }
-}
+
 export default IndexPage

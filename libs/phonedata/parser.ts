@@ -75,7 +75,6 @@ export function parsePhoneData(buffer: Buffer) {
   const data: PhoneData = {version: '', records: [], indexes: []};
   data.version = readString(buffer, 0, 4);
 
-
   const indexOffset = buffer.readInt16LE(4);
 
   debug(`Parse version ${data.version} Index Offset ${indexOffset}`);

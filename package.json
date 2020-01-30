@@ -2,6 +2,7 @@
   "name": "apis",
   "private": true,
   "scripts": {
+    "test": "jest",
     "dev": "next",
     "build": "next build",
     "start": "next start",
@@ -9,7 +10,7 @@
     "clean": "gts clean",
     "compile": "tsc -p .",
     "fix": "gts fix",
-    "now-build": "yarn list && yarn setup-db && next build",
+    "now-build": "next build",
     "setup-db": "node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
@@ -43,10 +44,22 @@
     "dotenv": "^8.2.0",
     "gts": "^1.1.2",
     "jest": "^25.1.0",
+    "lerna": "^3.20.2",
     "ts-jest": "^25.0.0",
     "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.7.5"
+  },
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "bin": "server/index.js",
+  "pkg": {
+    "assets": [
+      ".next/**/*"
+    ],
+    "scripts": [
+      ".next/server/**/*.js"
+    ]
   }
 }
