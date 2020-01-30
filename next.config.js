@@ -19,6 +19,11 @@ const envs = {
     staging: {},
 };
 
+// 添加环境变量
+require('dotenv').config();
+// no filter
+Object.assign(env, process.env);
+
 const config = {
     // distDir: 'dist',
     webpack: (config, {isServer}) => {

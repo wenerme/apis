@@ -1,6 +1,6 @@
 import {parsePhoneData} from 'libs/phonedata/parser';
 import {fetchPhoneData} from 'libs/phonedata/source';
-import {createDatabaseConnection} from 'db/connection';
+import {createPhoneDataConnection} from 'db/connection';
 import {savePhoneData} from 'libs/phonedata/persist';
 
 
@@ -8,7 +8,7 @@ async function main() {
   const buffer = await fetchPhoneData();
   const data = parsePhoneData(buffer);
 
-  const db = await createDatabaseConnection();
+  const db = await createPhoneDataConnection();
   await savePhoneData(db.manager, data);
 }
 

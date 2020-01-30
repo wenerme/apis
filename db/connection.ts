@@ -36,3 +36,24 @@ export function createDatabaseConnection() {
     // logging: true,
   }).then(v => _connection = v);
 }
+
+
+let _PhoneDataConnection;
+
+export function createPhoneDataConnection() {
+  if (_PhoneDataConnection) {
+    return _PhoneDataConnection;
+  }
+  return createConnection({
+    type: 'postgres',
+    url: process.env.PHONEDATA_DB_URL,
+    entities: [
+      //
+      PhoneDataIndexEntity,
+      PhoneDataRecordEntity,
+    ],
+    namingStrategy: new SnakeNamingStrategy(),
+    synchronize: true,
+    // logging: true,
+  }).then(v => _PhoneDataConnection = v);
+}
