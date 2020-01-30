@@ -10,7 +10,7 @@
     "clean": "gts clean",
     "compile": "tsc -p .",
     "fix": "gts fix",
-    "now-build": "next build",
+    "now-build": "next build && yarn run setup-db",
     "setup-db": "node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
