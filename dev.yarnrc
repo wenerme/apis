@@ -1,3 +1,4 @@
+# production false
 registry "https://registry.npm.taobao.org"
 network-timeout 60000
 
