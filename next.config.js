@@ -134,8 +134,8 @@ module.exports = phase => {
     return compose([
         // [withTM, {}],
         [withSass, {}],
-        [withMDX, {}],
         [withCss, {}],
+        [withMDX, {}],
         config
     ])
 };

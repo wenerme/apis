@@ -1,10 +1,10 @@
 import React from 'react'
-import {Button, ConfigProvider, Icon, Result} from 'antd';
-import 'antd/dist/antd.css';
+import {Button, Icon, Result} from 'antd';
+import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 
 function IndexPage({}) {
   return (
-    <ConfigProvider>
+    <PageLayout>
       <Result
         title="Wener's APIs"
         icon={<Icon type="api" />}
@@ -14,7 +14,7 @@ function IndexPage({}) {
           </Button>
         }
       />
-    </ConfigProvider>
+    </PageLayout>
   )
 }
 
