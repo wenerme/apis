@@ -7,17 +7,21 @@ import {PhoneAttributionDetail} from 'modules/phone/components/PhoneAttributionD
 import {useFetchEffect} from 'hooks/useFetchEffect';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
+import {API} from 'apis/api';
+
+const initialSeed = Date.now();
 
 function suggestNumbers() {
   const pre = [
     130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 141, 145, 146, 147, 149, 150, 151, 152, 153, 155, 156, 157, 158, 159, 165, 166, 167, 170, 171, 172, 173, 174, 175, 176, 177, 178, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 191, 198, 199,
   ];
-  // let seed = Date.now() >>> 18;
-  // const random = () => {
-  //   const x = Math.sin(seed++) * 10000;
-  //   return x - Math.floor(x);
-  // };
-  const random = () => Math.random();
+  // 当前页面结果不变
+  let seed = initialSeed;
+  const random = () => {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  };
+  // const random = () => Math.random();
   const result = [];
   for (let i = 0; i < 20; i++) {
     result.push(`${pre[Math.floor(random() * pre.length)]}${Math.floor(random() * 999999999)}`);
@@ -86,6 +90,21 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {
             <div style={{marginTop: 18}}>
               <SuggestSearch />
             </div>
+
+            <div style={{marginTop: 18}}>
+              <h4>接口请求</h4>
+              <div>
+                <a href={`${API.url}/api/phone/attribution/${number}`}>
+                  {`${API.url}/api/phone/attribution/${number}`}
+                </a>
+              </div>
+              <div>
+                <pre>
+                  {JSON.stringify(initialData, null, '  ')}
+                </pre>
+              </div>
+            </div>
+
           </div>
         </PageContent>
       </PageLayout>
