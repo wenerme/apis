@@ -3,13 +3,12 @@ import {Button, ConfigProvider, Icon, Layout, Menu} from 'antd';
 import Link from 'next/link';
 import 'antd/dist/antd.css';
 import {useRouter} from 'next/router';
+import {HashingAlgorithms} from 'modules/hash/types';
 
 const Header = Layout.Header;
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 const Footer = Layout.Footer;
-
-const hashTypes = ['md5', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512'];
 
 const menus = [
   {
@@ -24,10 +23,15 @@ const menus = [
     routes: ['/phone/attribution/[num]']
   },
   {
-    title: '哈希',
+    title: '摘要哈希计算',
     iconType: 'lock',
     children: [
-      ...(hashTypes.map(v => ({iconType: null, title: v.toUpperCase(), path: `/hash/${v}`})))
+      ...(HashingAlgorithms.map(v => ({
+        iconType: null,
+        title: v.toUpperCase(),
+        route: '/hash/md/[algorithm]',
+        path: `/hash/md/${v}`
+      })))
     ],
   },
 ];
@@ -56,9 +60,9 @@ const PageMenu: React.FC = () => {
               </div>
             )}
           >
-            {children.map(({title, iconType, path}) => (
+            {children.map(({title, iconType, path, route}) => (
               <Menu.Item key={path || title}>
-                <Link href={path}>
+                <Link href={route || path} as={path}>
                   <div>
                     {iconType && <Icon type={iconType} />}
                     <span>{title}</span>

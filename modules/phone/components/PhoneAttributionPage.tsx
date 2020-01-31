@@ -45,7 +45,7 @@ const SuggestSearch: React.FC = () => {
   )
 };
 
-export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {}}) => {
+const PhoneAttributionPageContent: React.FC<{ initialData }> = ({initialData}) => {
   const {number} = initialData;
   const [phoneNumber, setPhoneNumber] = useState(number);
   const [currentNumber, setCurrentNumber] = useState(number);
@@ -58,6 +58,45 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {
   }, [currentNumber]);
   const router = useRouter();
   // console.log(`Route`, router, data, initialData);
+
+  return (
+    <div>
+      <div style={{marginTop: 18}}>
+        <Input.Search
+          placeholder="电话号码"
+          loading={loading}
+          value={phoneNumber}
+          onChange={v => setPhoneNumber(v.target.value)}
+          onSearch={setCurrentNumber}
+        />
+      </div>
+      <div style={{marginTop: 18}}>
+        <PhoneAttributionDetail data={initialData} />
+      </div>
+      <div style={{marginTop: 18}}>
+        <SuggestSearch />
+      </div>
+
+      <div style={{marginTop: 18}}>
+        <h4>接口请求</h4>
+        <div>
+          <a href={`${API.url}/api/phone/attribution/${number}`} target="_blank">
+            {`${API.url}/api/phone/attribution/${number}`}
+          </a>
+        </div>
+        <div>
+          <pre>
+            {JSON.stringify(initialData, null, '  ')}
+          </pre>
+        </div>
+      </div>
+
+    </div>
+  )
+}
+export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {}}) => {
+  const {number} = initialData;
+
   return (
     <>
       <Head>
@@ -74,38 +113,8 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {
             }
             backIcon={false}
           />
-          <div>
-            <div style={{marginTop: 18}}>
-              <Input.Search
-                placeholder="电话号码"
-                loading={loading}
-                value={phoneNumber}
-                onChange={v => setPhoneNumber(v.target.value)}
-                onSearch={setCurrentNumber}
-              />
-            </div>
-            <div style={{marginTop: 18}}>
-              <PhoneAttributionDetail data={initialData} />
-            </div>
-            <div style={{marginTop: 18}}>
-              <SuggestSearch />
-            </div>
 
-            <div style={{marginTop: 18}}>
-              <h4>接口请求</h4>
-              <div>
-                <a href={`${API.url}/api/phone/attribution/${number}`}>
-                  {`${API.url}/api/phone/attribution/${number}`}
-                </a>
-              </div>
-              <div>
-                <pre>
-                  {JSON.stringify(initialData, null, '  ')}
-                </pre>
-              </div>
-            </div>
-
-          </div>
+          <PhoneAttributionPageContent initialData={initialData} />
         </PageContent>
       </PageLayout>
     </>
