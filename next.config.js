@@ -1,5 +1,4 @@
-import moment from 'moment';
-
+const moment = require('moment');
 const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD,
