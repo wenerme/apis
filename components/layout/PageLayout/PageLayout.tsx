@@ -92,7 +92,9 @@ export const PageLayout: React.FC = ({children}) => {
             </Content>
 
             <Footer style={{textAlign: 'center'}}>
-              Wener's APIs © 2020 by <Button type="link" href="https://wener.me">wener</Button>
+              Wener's APIs © 2020 by
+              <Button type="link" href="https://wener.me" style={{padding: '0 4px'}}>wener</Button>
+              {process?.env?.APP_VERSION ? `v${process?.env?.APP_VERSION}` : ''}
             </Footer>
           </Layout>
         </Layout>
