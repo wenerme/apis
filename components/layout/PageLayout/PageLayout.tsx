@@ -2,11 +2,77 @@ import React, {useState} from 'react';
 import {Button, ConfigProvider, Icon, Layout, Menu} from 'antd';
 import Link from 'next/link';
 import 'antd/dist/antd.css';
+import {useRouter} from 'next/router';
 
 const Header = Layout.Header;
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 const Footer = Layout.Footer;
+
+const hashTypes = ['md5', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512'];
+
+const menus = [
+  {
+    title: '首页',
+    iconType: 'home',
+    path: '/',
+  },
+  {
+    title: '电话归属地',
+    iconType: 'phone',
+    path: '/phone/attribution',
+    routes: ['/phone/attribution/[num]']
+  },
+  {
+    title: '哈希',
+    iconType: 'lock',
+    children: [
+      ...(hashTypes.map(v => ({iconType: null, title: v.toUpperCase(), path: `/hash/${v}`})))
+    ],
+  },
+];
+
+const PageMenu: React.FC = () => {
+  const router = useRouter();
+  return (
+    <Menu theme="light" mode="inline" selectedKeys={[router.route]}>
+      {menus.map(({path, title, iconType, children}) => (
+        path ? (
+          <Menu.Item key={path || title}>
+            <Link href={path}>
+              <div>
+                <Icon type={iconType} />
+                <span>{title}</span>
+              </div>
+            </Link>
+          </Menu.Item>
+        ) : (
+          <Menu.SubMenu
+            key={path || title}
+            title={(
+              <div>
+                <Icon type={iconType} />
+                <span>{title}</span>
+              </div>
+            )}
+          >
+            {children.map(({title, iconType, path}) => (
+              <Menu.Item key={path || title}>
+                <Link href={path}>
+                  <div>
+                    {iconType && <Icon type={iconType} />}
+                    <span>{title}</span>
+                  </div>
+                </Link>
+              </Menu.Item>
+            ))}
+          </Menu.SubMenu>
+        )
+      ))}
+
+    </Menu>
+  )
+};
 
 const PageSider: React.FC = () => {
   const [broken, setBroken] = useState(false);
@@ -23,25 +89,7 @@ const PageSider: React.FC = () => {
       onCollapse={v => setCollapse(v)}
     >
 
-      <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
-        <Menu.Item key="0">
-          <Link href="/">
-            <div>
-              <Icon type="home" />
-              <span>首页</span>
-            </div>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="1">
-          <Link href="/phone/attribution">
-            <div>
-              <Icon type="phone" />
-              <span>电话归属地</span>
-            </div>
-          </Link>
-        </Menu.Item>
-
-      </Menu>
+      <PageMenu />
 
     </Sider>
   )

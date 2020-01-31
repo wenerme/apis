@@ -1,7 +1,7 @@
 import React from 'react'
 import {NextPage} from 'next';
-import unfetch from 'isomorphic-unfetch'
 import {PhoneAttributionPage} from './_pages/PhoneAttributionPage';
+import {fetchPhoneAttribution} from 'modules/phone/apis/fetch';
 
 const Page: NextPage<{ initialData }> = PhoneAttributionPage;
 
@@ -9,7 +9,7 @@ Page.getInitialProps = async (ctx) => {
   const {query} = ctx;
   let {num} = query;
   num = `${num}`.replace(/\..*/, '');
-  const data = await unfetch(`https://wener-apis.now.sh/api/phone/attribution/${num}`).then(v => v.json());
+  const data = await fetchPhoneAttribution({number: num});
   return {initialData: data}
 };
 
