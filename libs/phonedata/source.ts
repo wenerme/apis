@@ -1,6 +1,18 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 import blobToBuffer from 'blob-to-buffer'
+import winston from 'winston';
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: {lib: 'phonedata', mod: 'source'},
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.simple()
+    })
+  ]
+});
 
 function toBuffer(blob: Blob): Promise<Buffer> {
   return new Promise((resolve, reject) => {
@@ -23,12 +35,12 @@ export async function fetchPhoneData() {
   const {sha, download_url: downloadUrl} = meta;
   const path = `/tmp/${sha}-${filename}`;
   if (fs.existsSync(path)) {
-    console.log(`using phonedata ${path}`);
+    logger.info('info', `using phonedata ${path}`);
     return fs.readFileSync(path);
   } else {
-    console.log(`downloading phonedata ${downloadUrl} to ${path}`);
+    logger.info('info', `downloading phonedata ${downloadUrl} to ${path}`);
     const buf = await fetch(downloadUrl).then(v => v.buffer());
-    console.log(`downloaded phonedata ${path}`);
+    logger.info('info', `downloaded phonedata ${path}`);
     fs.writeFileSync(path, buf);
     return buf
   }

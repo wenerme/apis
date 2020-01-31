@@ -1,8 +1,18 @@
 // https://github.com/xluohome/phonedata/raw/master/phone.dat
 import {PhoneData, PhoneDataIndex, PhoneDataRecord, vendors} from 'libs/phonedata/types';
 import _ from 'lodash';
+import winston from 'winston';
 
-const debug = require('debug')('phonedata');
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: {lib: 'phonedata', mod: 'parser'},
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.simple()
+    })
+  ]
+});
 
 function readString(buf: Buffer, offset: number, len: number) {
   let s = '';
@@ -78,7 +88,7 @@ export function parsePhoneData(buffer: Buffer) {
 
   const indexOffset = buffer.readInt16LE(4);
 
-  debug(`Parse version ${data.version} Index Offset ${indexOffset}`);
+  logger.log('info', `Parse version ${data.version} Index Offset ${indexOffset}`);
 
   data.records = readRecords(buffer, 8, indexOffset);
   data.indexes = readIndexes(buffer, indexOffset);
