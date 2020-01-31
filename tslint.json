@@ -7,6 +7,7 @@
   },
   "rules": {
     "no-any": false,
-    "no-default-export": false
+    "no-default-export": false,
+    "variable-name": false
   }
 }

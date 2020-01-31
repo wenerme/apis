@@ -1,5 +1,6 @@
 // https://github.com/xluohome/phonedata/raw/master/phone.dat
 import {PhoneData, PhoneDataIndex, PhoneDataRecord, vendors} from 'libs/phonedata/types';
+import _ from 'lodash';
 
 const debug = require('debug')('phonedata');
 
@@ -83,4 +84,24 @@ export function parsePhoneData(buffer: Buffer) {
   data.indexes = readIndexes(buffer, indexOffset);
 
   return data;
+}
+
+export function searchByPhoneNumber(data: PhoneData, num: number | string): { index?: PhoneDataIndex, record?: PhoneDataRecord } {
+  const prefix = normalizePrefix(num);
+  const idx = _.sortedIndexBy<Partial<PhoneDataIndex>>(data.indexes, {prefix}, o => o.prefix);
+  const phoneDataIndex = data.indexes[idx];
+  if (!phoneDataIndex) {
+    return
+  }
+  const recordIndex = _.sortedIndexBy<Partial<PhoneDataRecord>>(data.records, {offset: phoneDataIndex.recordOffset}, o => o.offset);
+  const phoneDataRecord = data.records[recordIndex];
+  if (!phoneDataRecord) {
+    return;
+  }
+  return {index: phoneDataIndex, record: phoneDataRecord};
+}
+
+export function normalizePrefix(num: string | number) {
+  // tslint:disable-next-line:ban
+  return parseInt((num + '').substr(0, 7).padEnd(7, '0'), 10)
 }

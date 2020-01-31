@@ -4,10 +4,22 @@ import {ObjectType} from 'typeorm/common/ObjectType';
 import {QueryDeepPartialEntity} from 'typeorm/query-builder/QueryPartialEntity';
 import _ from 'lodash';
 import {PhoneData} from 'libs/phonedata/types';
+import winston from 'winston';
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: {lib: 'phonedata', mod: 'persist'},
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.simple()
+    })
+  ]
+});
 
 const debug = require('debug')('phonedata');
 
-export async function findByPhoneNumber(em: EntityManager, num: string | number): Promise<{ index: PhoneDataIndexEntity, record: PhoneDataRecordEntity }> {
+export async function findByPhoneNumber(em: EntityManager, num: string | number): Promise<{ index?: PhoneDataIndexEntity, record?: PhoneDataRecordEntity }> {
   // tslint:disable-next-line:ban
   const prefix = parseInt((num + '').substr(0, 7), 10);
   const entities = await em.getRepository(PhoneDataIndexEntity)
@@ -21,18 +33,24 @@ export async function findByPhoneNumber(em: EntityManager, num: string | number)
       take: 1,
     });
   const index = entities[0];
+  if (!index) {
+    return {};
+  }
   const record = await em.getRepository(PhoneDataRecordEntity)
     .findOne({offset: index.recordOffset});
   return {index, record};
 }
 
-export async function savePhoneData(em: EntityManager, data: PhoneData) {
+export async function savePhoneData(em: EntityManager, data: PhoneData, {} = {}) {
   await em.clear(PhoneDataIndexEntity);
   await em.clear(PhoneDataRecordEntity);
 
-  debug(`Version ${data.version} Index ${data.indexes.length} Record ${data.records.length}`,);
+  logger.log({
+    level: 'info',
+    message: `Version ${data.version} Index ${data.indexes.length} Record ${data.records.length}`
+  });
 
-  debug('Saving record');
+  logger.log({level: 'info', message: `Saving record`});
   await saveChunks(
     em,
     PhoneDataRecordEntity,
@@ -46,7 +64,7 @@ export async function savePhoneData(em: EntityManager, data: PhoneData) {
       }))
   );
 
-  debug('Saving index');
+  logger.log('info', 'Saving index');
   await saveChunks(
     em,
     PhoneDataIndexEntity,
@@ -58,8 +76,7 @@ export async function savePhoneData(em: EntityManager, data: PhoneData) {
       vendorType: v.vendorType
     }))
   );
-
-  debug('Saving done');
+  logger.log('info', 'Saved');
 }
 
 async function saveChunks<T>(em: EntityManager, entityTarget: ObjectType<T> | EntitySchema<T> | string, all: Array<QueryDeepPartialEntity<T>>, {size = 100} = {}) {
