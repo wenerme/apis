@@ -3,7 +3,7 @@ import Head from 'next/head';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import {Icon, Input, PageHeader} from 'antd';
-import {PhoneAttributionDetail} from 'components/layout/phone/PhoneAttributionDetail';
+import {PhoneAttributionDetail} from 'modules/phone/components/PhoneAttributionDetail';
 import {useFetchEffect} from 'hooks/useFetchEffect';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
