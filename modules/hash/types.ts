@@ -8,6 +8,7 @@ export interface HashingRequest {
 export interface HashingResponse {
   digest
   algorithm?
+  encoding?
 }
 
 /* openssl list -digest-algorithms
