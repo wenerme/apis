@@ -1,6 +1,6 @@
 import React from 'react'
 import {NextPage} from 'next';
-import {PhoneAttributionPage} from './_pages/PhoneAttributionPage';
+import {PhoneAttributionPage} from 'modules/phone/components/PhoneAttributionPage';
 import {fetchPhoneAttribution} from 'modules/phone/apis/fetchs';
 
 const Page: NextPage<{ initialData }> = PhoneAttributionPage;
