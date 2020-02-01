@@ -8,29 +8,25 @@ import {useFetchEffect} from 'hooks/useFetchEffect';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import {API} from 'apis/api';
+import {createRandom} from 'utils/random';
 
-const initialSeed = Date.now();
-
-function suggestNumbers() {
+function suggestNumbers(seed) {
   const pre = [
     130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 141, 145, 146, 147, 149, 150, 151, 152, 153, 155, 156, 157, 158, 159, 165, 166, 167, 170, 171, 172, 173, 174, 175, 176, 177, 178, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 191, 198, 199,
   ];
   // 当前页面结果不变
-  let seed = initialSeed;
-  const random = () => {
-    const x = Math.sin(seed++) * 10000;
-    return x - Math.floor(x);
-  };
+  const random = createRandom({seed});
+
   // const random = () => Math.random();
   const result = [];
   for (let i = 0; i < 20; i++) {
-    result.push(`${pre[Math.floor(random() * pre.length)]}${Math.floor(random() * 999999999)}`);
+    result.push(`${pre[Math.floor(random() * pre.length)]}${(Math.floor(random() * 999999999) + '').padStart(9, '0')}`);
   }
   return result;
 }
 
-const SuggestSearch: React.FC = () => {
-  const numbers = suggestNumbers();
+const SuggestSearch: React.FC<{ seed }> = ({seed}) => {
+  const numbers = React.useMemo(() => suggestNumbers(seed), [seed]);
   return (
     <div>
       <h4>查询</h4>
@@ -53,6 +49,7 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({initialData}) =
     if (!currentNumber || currentNumber === number) {
       return initialData;
     }
+    console.log(`Route number`, currentNumber);
     return router.push('/phone/attribution/[num]', `/phone/attribution/${currentNumber}.html`);
     // return fetchPhoneAttribution({number: currentNumber})
   }, [currentNumber]);
@@ -61,6 +58,7 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({initialData}) =
 
   return (
     <div>
+
       <div style={{marginTop: 18}}>
         <Input.Search
           placeholder="电话号码"
@@ -70,18 +68,21 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({initialData}) =
           onSearch={setCurrentNumber}
         />
       </div>
+
       <div style={{marginTop: 18}}>
         <PhoneAttributionDetail data={initialData} />
       </div>
+
       <div style={{marginTop: 18}}>
-        <SuggestSearch />
+        {/* 单个页面不会变 - 刷新才会变 */}
+        <SuggestSearch seed={currentNumber} />
       </div>
 
       <div style={{marginTop: 18}}>
         <h4>接口请求</h4>
         <div>
-          <a href={`${API.url}/api/phone/attribution/${number}`} target="_blank">
-            {`${API.url}/api/phone/attribution/${number}`}
+          <a href={`${API.url}/api/phone/attribution/${number || '135000000000'}`} target="_blank">
+            {`${API.url}/api/phone/attribution/${number || '135000000000'}`}
           </a>
         </div>
         <div>
@@ -93,7 +94,8 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({initialData}) =
 
     </div>
   )
-}
+};
+
 export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {}}) => {
   const {number} = initialData;
 

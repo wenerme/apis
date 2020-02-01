@@ -5,12 +5,26 @@ import 'antd/dist/antd.css';
 import {useRouter} from 'next/router';
 import {HashingAlgorithms} from 'modules/hash/types';
 
+// import HashLock from '../../../svgs/hash-lock.svg'
+
 const Header = Layout.Header;
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 const Footer = Layout.Footer;
 
-const menus = [
+interface MenuSpec {
+  title
+  iconType?
+  iconComponent?
+  path?: string
+  route?: string
+  routes?: string[]
+
+  children?: MenuSpec[]
+}
+
+// Icon.add
+const menus: MenuSpec[] = [
   {
     title: '首页',
     iconType: 'home',
@@ -23,11 +37,15 @@ const menus = [
     routes: ['/phone/attribution/[num]']
   },
   {
+    title: '密码强度检测',
+    iconType: 'key',
+    path: '/password/strength',
+  },
+  {
     title: '摘要哈希计算',
     iconType: 'lock',
     children: [
       ...(HashingAlgorithms.map(v => ({
-        iconType: null,
         title: v.toUpperCase(),
         route: '/hash/md/[algorithm]',
         path: `/hash/md/${v}`
@@ -40,7 +58,7 @@ const PageMenu: React.FC = () => {
   const router = useRouter();
   return (
     <Menu theme="light" mode="inline" selectedKeys={[router.route]}>
-      {menus.map(({path, title, iconType, children}) => (
+      {menus.map(({path, title, iconType, iconComponent, children}) => (
         path ? (
           <Menu.Item key={path || title}>
             <Link href={path}>
@@ -55,7 +73,8 @@ const PageMenu: React.FC = () => {
             key={path || title}
             title={(
               <div>
-                <Icon type={iconType} />
+                {iconComponent && <Icon component={iconComponent} />}
+                {iconType && <Icon type={iconType} />}
                 <span>{title}</span>
               </div>
             )}
