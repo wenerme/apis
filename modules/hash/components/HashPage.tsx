@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Head from 'next/head';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import {Icon, Input, PageHeader} from 'antd';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {useRouter} from 'next/router';
-import {useFetchEffect} from 'hooks/useFetchEffect';
 import {HashingAlgorithms} from 'modules/hash/types';
 import Link from 'next/link';
 import {API} from 'apis/api';
@@ -12,24 +11,39 @@ import {Buffer} from 'buffer/'
 
 const HashPageContent: React.FC<{ algorithm, content, initialData }> = ({algorithm, content, initialData}) => {
   const [input, setInput] = useState(content);
-  const [current, setCurrent] = useState(content);
   const router = useRouter();
-  useFetchEffect(async () => {
-    if (current === content) {
-      return initialData
+  const lastInitial = useRef<{ content, algorithm }>();
+  useEffect(() => {
+    if (lastInitial.current) {
+      if (lastInitial.current.content !== content || lastInitial.current.algorithm !== algorithm) {
+        if (content) {
+          router.push(`/hash/md/[algorithm]/[content]`, `/hash/md/${algorithm}/${content}.html`)
+        } else {
+          router.push(`/hash/md/[algorithm]`, `/hash/md/${algorithm}.html`)
+        }
+      }
     }
-    // console.log(`hash`, algorithm, content);
-    return router.push(`/hash/md/[algorithm]/[content]`, `/hash/md/${algorithm}/${current}.html`)
-  }, [algorithm, current]);
+    lastInitial.current = {content, algorithm};
+  }, [algorithm, content]);
+
+  const [value, setValue] = useState({content, algorithm});
+  useEffect(() => {
+    if (value.content) {
+      const {content, algorithm} = value;
+      router.push(`/hash/md/[algorithm]/[content]`, `/hash/md/${algorithm}/${content}.html`)
+    }
+  }, [value]);
+
   return (
     <div>
       <div style={{marginTop: 18}}>
         <Input.Search
           value={input}
+          enterButton="计算"
           onChange={v => setInput(v.target.value)}
           onSearch={v => {
             if (Boolean(v)) {
-              setCurrent(v)
+              setValue({algorithm, content: v});
             }
           }}
           placeholder="哈希内容"
@@ -66,10 +80,10 @@ const HashPageContent: React.FC<{ algorithm, content, initialData }> = ({algorit
             <Link
               key={v}
               href={content ? '/hash/md/[algorithm]/[content]' : '/hash/md/[algorithm]'}
-              as={content ? `/hash/md/${v}/${content}` : `/hash/md/${v}`}
+              as={content ? `/hash/md/${v}/${content}.html` : `/hash/md/${v}.html`}
             >
               <a
-                href={content ? `/hash/md/${v}/${content}` : `/hash/md/${v}`}
+                href={content ? `/hash/md/${v}/${content}.html` : `/hash/md/${v}.html`}
                 className="ant-btn ant-btn-link"
               >
                 {v}
