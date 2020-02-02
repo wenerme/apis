@@ -11,7 +11,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
   const result = hashing(request);
+
+  res.setHeader('Cache-Control', 'public, max-age=86400');
   if (request['format'] === 'txt') {
+    res.setHeader('Content-Type', 'text/plain');
     res.status(200).send(result['digest']);
     return
   }

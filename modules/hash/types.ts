@@ -30,5 +30,5 @@ export function isValidRequest(req, errors = []): req is HashingRequest {
   if (!(encoding in ['latin1', 'hex', 'base64'])) {
     errors.push('错误的编码方式: latin1, hex, base64')
   }
-  return true;
+  return errors.length === 0;
 }

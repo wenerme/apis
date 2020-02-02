@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Head from 'next/head';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Icon, Input, PageHeader} from 'antd';
+import {Alert, Icon, Input, PageHeader} from 'antd';
 import {PhoneAttributionDetail} from 'modules/phone/components/PhoneAttributionDetail';
 import {useFetchEffect} from 'hooks/useFetchEffect';
 import {useRouter} from 'next/router';
@@ -117,6 +117,19 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {
           />
 
           <PhoneAttributionPageContent initialData={initialData} />
+
+          <div style={{marginTop: 18}}>
+            <Alert
+              type="info"
+              showIcon
+              message={(
+                <div>
+                  数据来源于 <a href="https://github.com/xluohome/phonedata" target="_blank">xluohome/phonedata</a>。
+                </div>
+              )}
+            />
+          </div>
+
         </PageContent>
       </PageLayout>
     </>

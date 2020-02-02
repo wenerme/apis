@@ -16,6 +16,7 @@ async function buildPhoneData(): Promise<PhoneData> {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {num} = req.query;
 
+  res.setHeader('Cache-Control', 'public, max-age=86400');
   try {
     const n = num + '';
     if (!/^[0-9]+$/.test(n)) {
