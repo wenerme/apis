@@ -5,8 +5,6 @@ import 'antd/dist/antd.css';
 import {useRouter} from 'next/router';
 import {HashingAlgorithms} from 'modules/hash/types';
 
-// import HashLock from '../../../svgs/hash-lock.svg'
-
 const Header = Layout.Header;
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -40,6 +38,16 @@ const menus: MenuSpec[] = [
     title: '密码强度检测',
     iconType: 'key',
     path: '/password/strength',
+  },
+  {
+    title: '搜狗词库',
+    iconType: 'book',
+    children: [
+      {
+        title: '词库解析',
+        path: '/scel/read',
+      },
+    ]
   },
   {
     title: '摘要哈希计算',
