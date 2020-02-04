@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Button, ConfigProvider, Icon, Layout, Menu} from 'antd';
+import {Button, ConfigProvider, Icon, Layout} from 'antd';
 import Link from 'next/link';
 import 'antd/dist/antd.css';
 import {useRouter} from 'next/router';
-import {HashingAlgorithms} from 'modules/hash/types';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
+import {PageMenu} from 'components/layout/PageLayout/PageMenu';
 
 NProgress.configure({showSpinner: true});
 
@@ -14,101 +14,6 @@ const Header = Layout.Header;
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 const Footer = Layout.Footer;
-
-interface MenuSpec {
-  title
-  iconType?
-  iconComponent?
-  path?: string
-  route?: string
-  routes?: string[]
-
-  children?: MenuSpec[]
-}
-
-// Icon.add
-const menus: MenuSpec[] = [
-  {
-    title: '首页',
-    iconType: 'home',
-    path: '/',
-  },
-  {
-    title: '电话归属地',
-    iconType: 'phone',
-    path: '/phone/attribution',
-    routes: ['/phone/attribution/[num]']
-  },
-  {
-    title: '密码强度检测',
-    iconType: 'key',
-    path: '/password/strength',
-  },
-  {
-    title: '搜狗词库',
-    iconType: 'book',
-    children: [
-      {
-        title: '词库解析',
-        path: '/scel/read',
-      },
-    ]
-  },
-  {
-    title: '摘要哈希计算',
-    iconType: 'lock',
-    children: [
-      ...(HashingAlgorithms.map(v => ({
-        title: v.toUpperCase(),
-        route: '/hash/md/[algorithm]',
-        path: `/hash/md/${v}`
-      })))
-    ],
-  },
-];
-
-const PageMenu: React.FC = () => {
-  const router = useRouter();
-  return (
-    <Menu theme="light" mode="inline" selectedKeys={[router.route]}>
-      {menus.map(({path, title, iconType, iconComponent, children}) => (
-        path ? (
-          <Menu.Item key={path || title}>
-            <Link href={path}>
-              <div>
-                <Icon type={iconType} />
-                <span>{title}</span>
-              </div>
-            </Link>
-          </Menu.Item>
-        ) : (
-          <Menu.SubMenu
-            key={path || title}
-            title={(
-              <div>
-                {iconComponent && <Icon component={iconComponent} />}
-                {iconType && <Icon type={iconType} />}
-                <span>{title}</span>
-              </div>
-            )}
-          >
-            {children.map(({title, iconType, path, route}) => (
-              <Menu.Item key={path || title}>
-                <Link href={route || path} as={path}>
-                  <div>
-                    {iconType && <Icon type={iconType} />}
-                    <span>{title}</span>
-                  </div>
-                </Link>
-              </Menu.Item>
-            ))}
-          </Menu.SubMenu>
-        )
-      ))}
-
-    </Menu>
-  )
-};
 
 const PageSider: React.FC = () => {
   const [broken, setBroken] = useState(false);
@@ -195,7 +100,7 @@ export const PageLayout: React.FC = ({children}) => {
 
             <Footer style={{textAlign: 'center'}}>
               Wener's APIs © 2020 by
-              <Button type="link" href="https://wener.me" style={{padding: '0 4px'}}>wener</Button>
+              <Button type="link" href="https://wener.me" target="_blank" style={{padding: '0 4px'}}>wener</Button>
               {process?.env?.APP_VERSION ? `v${process?.env?.APP_VERSION}` : ''}
             </Footer>
           </Layout>
