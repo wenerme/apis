@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, ConfigProvider, Icon, Layout, Menu} from 'antd';
 import Link from 'next/link';
 import 'antd/dist/antd.css';
 import {useRouter} from 'next/router';
 import {HashingAlgorithms} from 'modules/hash/types';
+
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'
+
+NProgress.configure({showSpinner: true});
 
 const Header = Layout.Header;
 const Sider = Layout.Sider;
@@ -152,6 +157,24 @@ div.logo {
 };
 
 export const PageLayout: React.FC = ({children}) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleStart = () => NProgress.start();
+    const handleComplete = () => NProgress.done();
+    const handleError = () => NProgress.done();
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleError);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleError)
+    }
+  }, []);
+
   return (
     <ConfigProvider>
 

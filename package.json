@@ -32,6 +32,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "next": "^9.2.1",
+    "nprogress": "^0.2.0",
     "null-loader": "^3.0.0",
     "pg": "^7.18.1",
     "react": "^16.12.0",
