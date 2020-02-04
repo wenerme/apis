@@ -3,12 +3,12 @@ import {NextPage} from 'next';
 import {fetchHashing} from 'modules/hash/apis/fetchs';
 
 const Page: NextPage<{ algorithm, content?, initialData? }> = HashPage;
-Page.getInitialProps = async ({query: {algorithm, content: rawContent}}) => {
+Page.getInitialProps = async ({query: {algorithm, content}}) => {
   algorithm = (algorithm + '').replace(/[.]html$/, '');
-  if (!rawContent) {
+  if (!content) {
     return {algorithm}
   }
-  const content = (rawContent + '').replace(/[.]html$/, '');
+  content = (content + '').replace(/[.]html$/, '');
   const data = await fetchHashing({algorithm, content});
   return {algorithm, content, initialData: data}
 };

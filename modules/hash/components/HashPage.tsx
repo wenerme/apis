@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Head from 'next/head';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Icon, Input, PageHeader} from 'antd';
+import {Alert, Icon, Input, PageHeader} from 'antd';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {useRouter} from 'next/router';
 import {HashingAlgorithms} from 'modules/hash/types';
@@ -36,6 +36,7 @@ const HashPageContent: React.FC<{ algorithm, content, initialData }> = ({algorit
 
   return (
     <div>
+      {initialData?.message && <Alert message={`请求失败 ${initialData.message}`} type="error" showIcon />}
       <div style={{marginTop: 18}}>
         <Input.Search
           value={input}
