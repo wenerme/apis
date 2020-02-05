@@ -5,38 +5,44 @@ import {getCache} from 'libs/sqlar/cache';
 import {URL} from 'url';
 import cheerio from 'cheerio';
 import {SnakeNamingStrategy} from 'typeorm-naming-strategies';
+import {SougouDictMetaEntity} from 'libs/sougou/dict/schema';
 
 export interface SougouDictMeta {
   id?
   name: string
   size: number
   count: number
+  downloadCount?: number
   downloadUrl
   version
   createdBy
   updatedAt
 }
 
-export async function createSougouDictFetcher({cache = null} = {}) {
+export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cache.sqlite', db = null} = {}) {
   const fetcher = new SougouDictFetcher();
   fetcher.cache = await createConnection({
     type: 'sqlite',
-    database: cache ?? './sougou-dict-cache.sqlite',
+    database: cacheDbFile,
     entities: [
       //
       SqlArEntity,
+      // use same
+      ...(!db ? [SougouDictMetaEntity] : [])
     ],
     namingStrategy: new SnakeNamingStrategy(),
     synchronize: true,
   });
 
+  fetcher.db = db || fetcher.cache;
+
   fetcher.sqlArRepo = fetcher.cache.getRepository(SqlArEntity);
   return fetcher;
 }
 
-
 export class SougouDictFetcher {
   cache: Connection;
+  db: Connection
   sqlArRepo: Repository<SqlArEntity>;
   em: EntityManager;
 
@@ -59,7 +65,8 @@ export class SougouDictFetcher {
     );
 
     return {
-      id: doc('#dict_id').attr('value'),
+      // tslint:disable-next-line:ban
+      id: parseInt(doc('#dict_id').attr('value'), 0),
       name: doc('.dict_detail_title').text(),
       // tslint:disable-next-line:ban
       size: parseInt(size, 10),
@@ -67,6 +74,8 @@ export class SougouDictFetcher {
       count: parseInt(count, 10),
       createdBy,
       updatedAt: new Date(updatedAt),
+      // tslint:disable-next-line:ban
+      downloadCount: parseInt(doc('#dict_dl_num .num_mark').text(), 10),
       // tslint:disable-next-line:ban
       version: parseInt(version.replace(/\D/g, ''), 10),
       downloadUrl: downloadHref.replace(/^(https?:)?/, 'https:'),
@@ -136,5 +145,20 @@ export class SougouDictFetcher {
       order by id desc
       limit 1
     `).then(v => v[0]?.id ?? 1)
+  }
+
+  async updateMeta(id): Promise<SougouDictMetaEntity | null> {
+    const meta = await this.getMeta(id);
+    if (!meta) {
+      return null
+    }
+    return this.db.getRepository(SougouDictMetaEntity).save(meta)
+  }
+
+  async updateAllMeta() {
+    const maxId = await this.getLargestMetaId();
+    for (let id = 1; id <= maxId; id++) {
+      await this.updateMeta(id)
+    }
   }
 }
