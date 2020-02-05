@@ -38,7 +38,9 @@ export function enrichContent({pinyins, words}: ScelContent) {
 }
 
 function toString(slice: Buffer) {
-  return slice.toString(ENCODING, 0, slice.indexOf(Buffer.from([0, 0])));
+  let end = slice.indexOf(Buffer.from([0, 0]));
+  end = end - end % 2;
+  return slice.toString(ENCODING, 0, end);
 }
 
 function readPinyins(buf: Buffer) {

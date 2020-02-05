@@ -25,6 +25,7 @@
     "@reduxjs/toolkit": "^1.2.3",
     "antd": "^3.26.7",
     "blob-to-buffer": "^1.2.8",
+    "cheerio": "^1.0.0-rc.3",
     "cli-progress": "^3.6.0",
     "immer": "^5.3.2",
     "isomorphic-unfetch": "^3.0.0",
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "@types/blob-to-buffer": "^1.2.0",
+    "@types/cheerio": "^0.22.16",
     "@types/cli-progress": "^3.4.1",
     "@types/jest": "^24.9.1",
     "@types/lodash": "^4.14.149",

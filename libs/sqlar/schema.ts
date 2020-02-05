@@ -1,7 +1,7 @@
 import {Column, Entity, PrimaryColumn} from 'typeorm';
 
 @Entity('sqlar')
-export class SqlAr {
+export class SqlArEntity {
   @PrimaryColumn({type: 'text'})
   name: string;
   @Column('int')
@@ -11,5 +11,6 @@ export class SqlAr {
   @Column('int', {name: 'sz'})
   size: number;
   @Column('blob')
-  data: number[]
+    // data: number[]
+  data: string
 }

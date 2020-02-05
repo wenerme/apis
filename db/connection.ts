@@ -2,9 +2,9 @@ import {createConnection} from 'typeorm';
 import {SnakeNamingStrategy} from 'typeorm-naming-strategies'
 import {Connection} from 'typeorm/connection/Connection';
 import {PhoneDataIndexEntity, PhoneDataRecordEntity} from 'libs/phonedata/schema';
-import {SqlAr} from './entity/SqlAr';
 // tell zeit/now include sqlite
 import {Database} from 'sqlite3'
+import {SqlArEntity} from 'libs/sqlar/schema';
 
 let _connection: Connection;
 
@@ -29,7 +29,7 @@ export function createDatabaseConnection() {
       PhoneDataIndexEntity,
       PhoneDataRecordEntity,
       //
-      SqlAr,
+      SqlArEntity,
     ],
     namingStrategy: new SnakeNamingStrategy(),
     synchronize: true,
