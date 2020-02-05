@@ -23,6 +23,11 @@ const menus: MenuSpec[] = [
     path: '/',
   },
   {
+    title: '我的定位',
+    iconType: 'environment',
+    path: '/geo/me',
+  },
+  {
     title: '电话归属地',
     iconType: 'phone',
     path: '/phone/attribution',
