@@ -8,22 +8,22 @@ export class SougouDictMetaEntity {
   name: string;
   @Column('text', {nullable: true})
   createdBy: string;
-  @Column('datetime', {
-    comment: 'Unix Timestamp',
-    transformer: {
-      from(value: any): any {
-        if (value instanceof Date) {
-          return value;
-        }
-        return value ? new Date(value * 1000) : null
-      },
-      to(value: any): any {
-        if (typeof value === 'number') {
-          return value;
-        }
-        return value ? Math.fround(+(value as Date) / 1000) : null
-      }
-    }
+  @Column('timestamp', {
+    // comment: 'Unix Timestamp',
+    // transformer: {
+    //   from(value: any): any {
+    //     if (value instanceof Date) {
+    //       return value;
+    //     }
+    //     return value ? new Date(value * 1000) : null
+    //   },
+    //   to(value: any): any {
+    //     if (typeof value === 'number') {
+    //       return value;
+    //     }
+    //     return value ? Math.fround(+(value as Date) / 1000) : null
+    //   }
+    // }
   })
   updatedAt: Date;
   @Column('int')

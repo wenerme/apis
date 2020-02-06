@@ -1,7 +1,7 @@
 import {parsePhoneData} from 'libs/phonedata/parser';
 import {fetchPhoneData} from 'libs/phonedata/source';
-import {createPhoneDataConnection} from 'db/connection';
 import {savePhoneData} from 'libs/phonedata/persist';
+import {createPhoneDataConnection} from 'libs/phonedata/connection';
 
 
 async function main() {

@@ -26,11 +26,23 @@ function toBuffer(blob: Blob): Promise<Buffer> {
   })
 }
 
-export async function fetchPhoneData() {
+export async function fetchPhoneData({checkUpdate = true} = {}) {
   const filename = 'phone.dat';
-  const meta = await fetch('https://api.github.com/repos/xluohome/phonedata/contents/')
-    .then(v => v.json())
-    .then(v => v.find(v => v.name === filename));
+  const metaCacheFile = `/tmp/${filename}.meta.json`;
+
+  let meta;
+  try {
+    meta = JSON.parse(fs.readFileSync(metaCacheFile).toString());
+  } catch (e) {
+    //
+  }
+  if (checkUpdate || !meta) {
+    meta = await fetch('https://api.github.com/repos/xluohome/phonedata/contents/')
+      .then(v => v.json())
+      .then(v => v.find(v => v.name === filename));
+
+    fs.writeFileSync(metaCacheFile, JSON.stringify(meta));
+  }
 
   const {sha, download_url: downloadUrl} = meta;
   const path = `/tmp/${sha}-${filename}`;

@@ -6,6 +6,7 @@ import {URL} from 'url';
 import cheerio from 'cheerio';
 import {SnakeNamingStrategy} from 'typeorm-naming-strategies';
 import {SougouDictMetaEntity} from 'libs/sougou/dict/schema';
+import {createApisConnectionFactory} from 'db/apis';
 
 export interface SougouDictMeta {
   id?
@@ -21,7 +22,14 @@ export interface SougouDictMeta {
 
 export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cache.sqlite', db = null} = {}) {
   const fetcher = new SougouDictFetcher();
+  // NOTE different db type
+  db = db ?? await createApisConnectionFactory({
+    name: 'sougou-dict',
+    entities: [SougouDictMetaEntity]
+  })();
+
   fetcher.cache = await createConnection({
+    name: 'sougou-dict-cache',
     type: 'sqlite',
     database: cacheDbFile,
     entities: [
@@ -42,7 +50,7 @@ export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cach
 
 export class SougouDictFetcher {
   cache: Connection;
-  db: Connection
+  db: Connection;
   sqlArRepo: Repository<SqlArEntity>;
   em: EntityManager;
 
@@ -157,8 +165,31 @@ export class SougouDictFetcher {
 
   async updateAllMeta() {
     const maxId = await this.getLargestMetaId();
+    let batch = [];
+    const save = batch => {
+      return this.db.getRepository(SougouDictMetaEntity)
+        .createQueryBuilder()
+        .insert()
+        .values(batch)
+        // todo update
+        .onConflict('("id") DO NOTHING')
+        // .onConflict(`("id") DO UPDATE SET "name" = :name`)
+        // .setParameter("name", post2.name)
+        .execute()
+    };
     for (let id = 1; id <= maxId; id++) {
-      await this.updateMeta(id)
+      const meta = await this.getMeta(id);
+      if (!meta) {
+        continue
+      }
+      batch.push(meta);
+      if (batch.length === 100) {
+        await save(batch);
+        batch = [];
+      }
+    }
+    if (batch.length > 0) {
+      await save(batch);
     }
   }
 }

@@ -64,7 +64,7 @@ function readIndex(buf: Buffer, offset: number): PhoneDataIndex {
 
 function readRecord(buf: Buffer, offset: number): { record: PhoneDataRecord, size: number } {
   const {data: s, size} = readStringUntil(buf, offset, 0);
-  const split = s.split('|');
+  const split = s.split('|').map(v => v.trim());
   return {record: {province: split[0], city: split[1], zip: split[2], code: split[3], offset}, size};
 }
 
