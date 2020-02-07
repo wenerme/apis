@@ -1,5 +1,5 @@
 const moment = require('moment');
-const {flow} = require('lodash-es');
+const {flow} = require('lodash');
 
 const {
   PHASE_DEVELOPMENT_SERVER,
