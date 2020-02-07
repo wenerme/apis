@@ -2,7 +2,7 @@ import {DependencyList, useEffect, useMemo} from 'react';
 
 export function useAsyncEffect(effect: () => Promise<void | (() => void | undefined)>, deps?: DependencyList) {
   const cleaner = useMemo(() => {
-    let a: any = () => this?.real();
+    const a: any = () => this?.real();
     a.real = null;
     return a.bind(a);
   }, []);

@@ -2,7 +2,7 @@ import {EntityManager, EntitySchema, MoreThanOrEqual} from 'typeorm';
 import {PhoneDataIndexEntity, PhoneDataRecordEntity} from 'libs/phonedata/schema';
 import {ObjectType} from 'typeorm/common/ObjectType';
 import {QueryDeepPartialEntity} from 'typeorm/query-builder/QueryPartialEntity';
-import _ from 'lodash';
+import {chunk} from 'lodash-es';
 import {PhoneData} from 'libs/phonedata/types';
 import winston from 'winston';
 
@@ -80,7 +80,7 @@ export async function savePhoneData(em: EntityManager, data: PhoneData, {} = {})
 }
 
 async function saveChunks<T>(em: EntityManager, entityTarget: ObjectType<T> | EntitySchema<T> | string, all: Array<QueryDeepPartialEntity<T>>, {size = 100} = {}) {
-  const chunks = _.chunk(all, size);
+  const chunks = chunk(all, size);
 
   for (const chunk of chunks) {
     await em.createQueryBuilder()

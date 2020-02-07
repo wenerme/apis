@@ -1,6 +1,6 @@
 // https://github.com/xluohome/phonedata/raw/master/phone.dat
 import {PhoneData, PhoneDataIndex, PhoneDataRecord, vendors} from 'libs/phonedata/types';
-import _ from 'lodash';
+import {sortedIndexBy} from 'lodash-es';
 import winston from 'winston';
 
 const logger = winston.createLogger({
@@ -98,12 +98,12 @@ export function parsePhoneData(buffer: Buffer) {
 
 export function searchByPhoneNumber(data: PhoneData, num: number | string): { index?: PhoneDataIndex, record?: PhoneDataRecord } {
   const prefix = normalizePrefix(num);
-  const idx = _.sortedIndexBy<Partial<PhoneDataIndex>>(data.indexes, {prefix}, o => o.prefix);
+  const idx = sortedIndexBy<Partial<PhoneDataIndex>>(data.indexes, {prefix}, o => o.prefix);
   const phoneDataIndex = data.indexes[idx];
   if (!phoneDataIndex) {
     return
   }
-  const recordIndex = _.sortedIndexBy<Partial<PhoneDataRecord>>(data.records, {offset: phoneDataIndex.recordOffset}, o => o.offset);
+  const recordIndex = sortedIndexBy<Partial<PhoneDataRecord>>(data.records, {offset: phoneDataIndex.recordOffset}, o => o.offset);
   const phoneDataRecord = data.records[recordIndex];
   if (!phoneDataRecord) {
     return;

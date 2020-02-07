@@ -1,5 +1,10 @@
-const isDev = (process?.env?.NODE_ENV || '').startsWith('dev');
+import {isDev} from 'utils/utils';
 
 export const API = {
-  url: isDev ? 'http://localhost:3000' : 'https://apis.wener.me'
+  get url(): string {
+    if (typeof window === 'undefined') {
+      return isDev() ? 'http://localhost:3000' : 'https://apis.wener.me';
+    }
+    return window.location.origin;
+  }
 };

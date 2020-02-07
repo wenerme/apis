@@ -163,7 +163,7 @@ export class SougouDictFetcher {
     return this.db.getRepository(SougouDictMetaEntity).save(meta)
   }
 
-  async updateAllMeta() {
+  async updateAllMeta({fromId = 1} = {}) {
     const maxId = await this.getLargestMetaId();
     let batch = [];
     const save = batch => {
@@ -177,7 +177,7 @@ export class SougouDictFetcher {
         // .setParameter("name", post2.name)
         .execute()
     };
-    for (let id = 1; id <= maxId; id++) {
+    for (let id = fromId; id <= maxId; id++) {
       const meta = await this.getMeta(id);
       if (!meta) {
         continue

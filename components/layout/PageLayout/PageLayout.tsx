@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, ConfigProvider, Icon, Layout} from 'antd';
 import Link from 'next/link';
-import 'antd/dist/antd.css';
 import {useRouter} from 'next/router';
 
 import NProgress from 'nprogress';
