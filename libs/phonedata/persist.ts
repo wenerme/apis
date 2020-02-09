@@ -2,7 +2,7 @@ import {EntityManager, EntitySchema, MoreThanOrEqual} from 'typeorm';
 import {PhoneDataIndexEntity, PhoneDataRecordEntity} from 'libs/phonedata/schema';
 import {ObjectType} from 'typeorm/common/ObjectType';
 import {QueryDeepPartialEntity} from 'typeorm/query-builder/QueryPartialEntity';
-import {chunk} from 'lodash-es';
+import {chunk} from 'lodash';
 import {PhoneData} from 'libs/phonedata/types';
 import winston from 'winston';
 

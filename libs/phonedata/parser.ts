@@ -1,6 +1,6 @@
 // https://github.com/xluohome/phonedata/raw/master/phone.dat
 import {PhoneData, PhoneDataIndex, PhoneDataRecord, vendors} from 'libs/phonedata/types';
-import {sortedIndexBy} from 'lodash-es';
+import {sortedIndexBy} from 'lodash';
 import winston from 'winston';
 
 const logger = winston.createLogger({

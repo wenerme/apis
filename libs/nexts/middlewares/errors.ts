@@ -21,7 +21,7 @@ export function normalizeErrorDetail(detail: ErrorDetail) {
   detail.status = detail.status ?? 500;
   detail.code = detail.code ?? detail.status;
 
-  detail.failedAt = detail.failedAt ?? new Date()
+  detail.failedAt = detail.failedAt ?? new Date();
 
   return detail
 }
@@ -31,8 +31,8 @@ export function normalizeError(err: Error) {
   if (err instanceof RequestError) {
     detail = err.detail;
   } else {
-    const {message} = err;
-    detail = {message};
+    const {message, status, code} = err as any;
+    detail = {message, status, code};
   }
 
   return normalizeErrorDetail(detail);

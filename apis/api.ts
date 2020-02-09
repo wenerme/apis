@@ -6,5 +6,12 @@ export const API = {
       return isDev() ? 'http://localhost:3000' : 'https://apis.wener.me';
     }
     return window.location.origin;
+  },
+
+  apiOf(apiPath) {
+    if (/^http?s:/.test(apiPath)) {
+      return apiPath;
+    }
+    return `${API.url}${apiPath}`
   }
 };

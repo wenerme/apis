@@ -135,7 +135,17 @@ export class SougouDictFetcher {
     });
   }
 
-  async getLargestMetaId(): Promise<number> {
+  getLargestMetaId(): Promise<number> {
+    return this.db.getRepository(SougouDictMetaEntity)
+      .find({
+        order: {
+          id: 'DESC'
+        },
+        take: 1,
+      }).then(v => v[0]?.id ?? 1)
+  }
+
+  async getLargestCacheMetaId(): Promise<number> {
     return this.sqlArRepo.query(`
       select cast(substr(name, length('detail/') + 1, length(name) - length('detail/.html')) as integer) as id
       from sqlar
@@ -145,7 +155,7 @@ export class SougouDictFetcher {
     `).then(v => v[0]?.id ?? 1)
   }
 
-  async getLargestDataId(): Promise<number> {
+  async getLargestCacheDataId(): Promise<number> {
     return this.sqlArRepo.query(`
       select cast(substr(name, length('scel/') + 1, length(name) - length('scel/.html')) as integer) as id
       from sqlar
@@ -164,7 +174,7 @@ export class SougouDictFetcher {
   }
 
   async updateAllMeta({fromId = 1} = {}) {
-    const maxId = await this.getLargestMetaId();
+    const maxId = await this.getLargestCacheMetaId();
     let batch = [];
     const save = batch => {
       return this.db.getRepository(SougouDictMetaEntity)
