@@ -9,7 +9,7 @@ export function getCandidates(conn: RTCPeerConnection): Promise<RTCIceCandidate[
       candidates.push(e.candidate);
     }
 
-    if ((e.target as RTCPeerConnection).iceGatheringState === 'complete') {
+    if (conn.iceGatheringState === 'complete') {
       candidatesPromise.resolve(candidates)
     }
   });

@@ -6,6 +6,9 @@ export class ServiceRegistry {
   async invoke(req: ServiceInvocation): Promise<ServiceResponse> {
     const {service: serviceName, method: methodName, arguments: args, requestId} = req;
     const service = this.services[serviceName];
+    if (!service) {
+      throw Object.assign(new Error(`service not found: ${serviceName}/${methodName}`), {status: 404})
+    }
     const method = service?.methods[methodName];
     if (!method) {
       throw Object.assign(new Error(`method not found: ${serviceName}/${methodName}`), {status: 404})

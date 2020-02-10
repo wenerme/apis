@@ -1,5 +1,6 @@
 import {addMinutes} from 'date-fns';
 import moment from 'moment';
+import {ApiError} from 'next/dist/next-server/server/api-utils';
 
 export interface PeerService {
   registerPeer(data: Partial<PeerData>): Promise<PeerData>;
@@ -14,12 +15,12 @@ export interface PeerService {
 }
 
 export interface PeerData {
-  id
-  name
-  profile
-  setting
-  expireAt
-  updatedAt
+  id?
+  name?
+  profile?
+  setting?
+  expireAt?
+  updatedAt?
 }
 
 export type PeerSessionState = 'new' | 'offer' | 'answer' | 'connected' | 'error'
@@ -57,8 +58,14 @@ export abstract class AbstractPeerService implements PeerService {
 
   abstract pollInitialSessions({calleeId, updatedAt}): Promise<PeerSessionData[]>
 
-  createSession(data: Partial<PeerSessionData> & { callerId; calleeId }): Promise<PeerSessionData> {
+  async createSession(data: Partial<PeerSessionData> & { callerId; calleeId }): Promise<PeerSessionData> {
     const {callerId, calleeId} = data;
+
+    const callee = await this.findPeerById(calleeId);
+    const caller = await this.findPeerById(callerId);
+    if (!callee || !caller) {
+      throw new ApiError(400, '错误的会话请求')
+    }
 
     const session = Object.assign(
       {callerId, calleeId, state: 'new', data: {}},

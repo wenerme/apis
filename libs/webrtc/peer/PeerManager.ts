@@ -1,6 +1,7 @@
 import {PeerData, PeerService, PeerSessionData} from 'libs/webrtc/peer/PeerService';
 import {clearAsyncInterval, setAsyncInterval} from 'utils/promises';
 import {PeerSession} from 'libs/webrtc/peer/PeerSession';
+import {BehaviorSubject} from 'rxjs';
 
 export interface PeerManagerInit {
   id?: string;
@@ -8,9 +9,7 @@ export interface PeerManagerInit {
 }
 
 export class PeerManager {
-  id: string;
-  name: string;
-  data: PeerData;
+  data = new BehaviorSubject<PeerData>({});
   sessions: Record<string, PeerSession> = {};
   service: PeerService;
   configuration: RTCConfiguration = {
@@ -23,6 +22,18 @@ export class PeerManager {
   };
   private sessionPollId;
 
+  get id() {
+    return this.currentData.id;
+  }
+
+  get name() {
+    return this.currentData.name;
+  }
+
+  get currentData() {
+    return this.data.value
+  }
+
   constructor(options: PeerManagerInit = {}) {
     Object.assign(this, options);
   }
@@ -33,21 +44,25 @@ export class PeerManager {
 
   async init() {
     const {service} = this;
-    this.id = globalThis?.sessionStorage?.store?.['peerId'];
-    this.data = await service.registerPeer({id: this.id, name: this.name});
-    this.id = this.data.id;
-    this.name = this.data.name;
-    (globalThis?.sessionStorage ?? {})['peerId'] = this.id;
+    let store = {};
+    try {
+      store = localStorage
+    } catch (e) {
+      //
+    }
+    this.data.next(await service.registerPeer({id: store['peerId'], name: store['peerName']}));
+    store['peerId'] = this.id;
+    store['peerName'] = this.name;
 
     let updatedAt: any = 0;
     this.sessionPollId = setAsyncInterval(async () => {
       const all = await service.pollInitialSessions({calleeId: this.id, updatedAt});
-      console.debug(`PEER [${this.id}] polling initial session`, all);
+      console.debug(`PEER [${this.id}] [${updatedAt}] polling initial session`, all);
 
-      all.forEach(v => this.handleSession(v));
       if (all.length) {
-        updatedAt = all.map(v => v.updatedAt).sort((a, b) => a > b ? -1 : 1)?.[0]
+        updatedAt = all.map(v => v.updatedAt).sort((a, b) => a > b ? -1 : 1)?.[0] ?? updatedAt
       }
+      all.forEach(v => this.handleSession(v));
     }, 8000, 1000);
 
     return this
@@ -58,7 +73,7 @@ export class PeerManager {
       console.warn(`ignore duplicated session ${data.id}`);
       return
     }
-    console.log(`handle session`);
+    console.log(`handle session`, data);
     const session = this.sessions[data.id] = await this.createSession();
     await session.init(data);
     session.answer();

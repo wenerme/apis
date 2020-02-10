@@ -6,6 +6,8 @@ import produce from 'immer';
 import {isFunction} from 'lodash';
 import {promiseOfSubject} from 'utils/rxjsx';
 import {PeerManager} from 'libs/webrtc/peer/PeerManager';
+import {RTCPeerConnection} from 'isomorphic-webrtc'
+import moment from 'moment';
 
 export interface PeerSessionInitialState {
   state: string
@@ -30,7 +32,7 @@ export class PeerSession {
   connection: RTCPeerConnection;
   meta: RTCDataChannel;
 
-  offerOptions: RTCOfferOptions = {};
+  offerOptions: RTCOfferOptions = {offerToReceiveVideo: false, offerToReceiveAudio: false};
 
   data = new BehaviorSubject<PeerSessionData>(null);
   connectionState = new BehaviorSubject<PeerConnectionState>(null);
@@ -95,7 +97,7 @@ export class PeerSession {
         id,
         updateAt: this.currentData.updatedAt,
       });
-      log('debug', `[${+this.currentData.updatedAt}] polling session update`, session);
+      log('debug', `[${+moment(this.currentData.updatedAt)}] polling session update`, session);
       if (session?.data) {
         this.data.next(session);
       }
