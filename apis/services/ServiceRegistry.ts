@@ -32,7 +32,7 @@ export class ServiceRegistry {
   }
 }
 
-export function createServiceDefinition(target, {name, includes = [], excludes = []}): ServiceDefinition {
+export function createServiceDefinition({name, target, includes = [], excludes = []}): ServiceDefinition {
   const prototype = Object.getPrototypeOf(target);
   if (includes.length === 0) {
     includes = Object.getOwnPropertyNames(prototype).filter(v => !['constructor'].includes(v))

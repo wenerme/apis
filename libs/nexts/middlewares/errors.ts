@@ -1,4 +1,5 @@
 import {NextApiRequest, NextApiResponse} from 'next';
+import {ApiError} from 'next/dist/next-server/server/api-utils';
 
 export interface ErrorDetail {
   code?
@@ -26,9 +27,12 @@ export function normalizeErrorDetail(detail: ErrorDetail) {
   return detail
 }
 
-export function normalizeError(err: Error) {
-  let detail: ErrorDetail
-  if (err instanceof RequestError) {
+export function normalizeError(err: Error): ErrorDetail {
+  let detail: ErrorDetail;
+  if (err instanceof ApiError) {
+    const {message, statusCode: status} = err;
+    detail = {message, status};
+  } else if (err instanceof RequestError) {
     detail = err.detail;
   } else {
     const {message, status, code} = err as any;
