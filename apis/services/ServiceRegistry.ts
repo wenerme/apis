@@ -1,4 +1,4 @@
-import {ServiceDefinition, ServiceInvocation, ServiceResponse} from 'apis/services/types';
+import {ServiceDefinition, ServiceInvocation, ServiceResponse} from './types';
 
 export class ServiceRegistry {
   services: Record<string, ServiceDefinition> = {};

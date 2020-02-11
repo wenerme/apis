@@ -1,4 +1,4 @@
-import {ServiceInvocationHandler} from 'apis/services/types';
+import {ServiceInvocationHandler} from './types';
 import unfetch from 'isomorphic-unfetch';
 
 export function createFetchConsumer<T>({url, fetch = unfetch}): ServiceInvocationHandler {

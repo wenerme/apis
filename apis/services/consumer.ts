@@ -1,16 +1,24 @@
-import {ServiceInvocationHandler} from 'apis/services/types';
+import {ServiceInvocationHandler} from './types';
 
-export function consumeService<T extends object>(options: {
-  consumer: ServiceInvocationHandler,
+interface ProxyContext {
+  invokers: Record<string, Function>
+}
+
+export interface ConsumeOptions {
+  consumer?: ServiceInvocationHandler,
   service: string,
   includes?: string[],
   excludes?: string[],
-}): T {
+}
+
+export function consumeService<T extends object>(options: ConsumeOptions): T {
   const {consumer, service, includes = [], excludes = []} = options;
 
-  const t: any = {};
+  const t: ProxyContext = {
+    invokers: {}
+  };
 
-  return new Proxy<T>(t, {
+  return new Proxy<T>(t as any, {
     get(target: T, p: any, receiver: any): any {
       if (target !== t) {
         return;
@@ -25,8 +33,8 @@ export function consumeService<T extends object>(options: {
           return
         }
       }
-
-      return createInvoker({
+      // cache invoker
+      return t.invokers[p] = t.invokers[p] ?? createInvoker({
         consumer,
         service,
         method: p,
@@ -35,7 +43,7 @@ export function consumeService<T extends object>(options: {
   })
 }
 
-export function createInvoker(context: { consumer: ServiceInvocationHandler, service, method }) {
+function createInvoker(context: { consumer: ServiceInvocationHandler, service, method }) {
   const {consumer, service, method} = context;
   return (...args) => {
     const res = consumer({
@@ -44,5 +52,13 @@ export function createInvoker(context: { consumer: ServiceInvocationHandler, ser
       arguments: args,
     });
     return res.then(v => v?.result);
+  }
+}
+
+export function createServiceConsumer(opts: Partial<ConsumeOptions> & { consumer }): (options: ConsumeOptions & { service }) => any {
+  const services = {};
+  return options => {
+    const {service} = options;
+    return services[service] = services[service] ?? consumeService(Object.assign({}, opts, options))
   }
 }
