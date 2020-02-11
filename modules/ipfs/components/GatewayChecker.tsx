@@ -20,6 +20,23 @@ export const GatewayChecker: React.FC<{ gateways: string[] }> = ({gateways}) => 
 
   return (
     <div>
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        <div
+          className="check-status"
+          style={{backgroundColor: '#0b3a53'}}
+        >
+          {checks.filter(v => v.endTime).length}/{checks.length} 测试
+        </div>
+        <div
+          className="check-status"
+          style={{backgroundColor: '#0cb892'}}
+        >
+          {checks.filter(v => v.status.status === 'success').length} 在线
+        </div>
+        <div>
+          {stateEmoji(checks.find(v => !v.endTime) ? 'running' : 'success')}
+        </div>
+      </div>
       <table className="check-table">
         <thead>
         <tr>
@@ -54,6 +71,18 @@ export const GatewayChecker: React.FC<{ gateways: string[] }> = ({gateways}) => 
       </table>
 
       <style jsx>{`
+.check-status{
+  width: 8em;
+  text-align: center;
+  margin: 0 0.8em;
+  user-select: none;
+  color: white;
+
+  font-family: monospace;
+  border-radius: 1em;
+  font-size: 1.2em;
+}
+
 .check-table {
  font-family: monospace;
  text-align: center;
