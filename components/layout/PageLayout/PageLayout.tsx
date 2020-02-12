@@ -16,7 +16,7 @@ const Footer = Layout.Footer;
 
 const PageSider: React.FC = () => {
   const [broken, setBroken] = useState(false);
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useState(true);
   return (
     <Sider
       breakpoint="md"

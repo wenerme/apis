@@ -24,6 +24,8 @@ export interface GatewayCheckNodeState {
   error?
 }
 
+export type CheckStatus = 'new' | 'running' | 'error' | 'success';
+
 export interface CheckerState {
   startTime?
   endTime?
@@ -196,6 +198,7 @@ export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeS
     hostname: gatewayHostname(new URL(gateway.replace(':hash', HASH_TO_TEST))),
 
     startTime: Date.now(),
+
     status: {status: 'new'},
     cors: {status: 'new'},
     origin: {status: 'new'},
@@ -221,6 +224,10 @@ export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeS
     check({...opts, name: 'cors', checker: checkCors}),
     check({...opts, name: 'origin', checker: checkOrigin}),
   ]);
+
+  opts.onStateChange(s => {
+    s.endTime = Date.now()
+  });
 
   return state
 }

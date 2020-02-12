@@ -1,5 +1,6 @@
-import {BehaviorSubject} from 'rxjs';
 import {createLazyPromise} from 'utils/promises';
+import produce from 'immer';
+import {PeerConnectionState} from 'libs/webrtc/types';
 
 export function getCandidates(conn: RTCPeerConnection): Promise<RTCIceCandidate[]> {
   const candidatesPromise = createLazyPromise();
@@ -80,20 +81,6 @@ export function addChannelEventLogger({
   }));
 }
 
-export interface PeerConnectionState {
-  connectionState: RTCPeerConnectionState;
-  iceConnectionState: RTCIceConnectionState;
-  iceGatheringState: RTCIceGatheringState;
-  signalingState: RTCSignalingState
-
-  sctpState?: RTCSctpTransportState
-  sctpTransportState?: RTCDtlsTransportState
-
-  idpErrorInfo?
-
-  metaChannelState?: RTCDataChannelState
-  metaChannelPing?: number
-}
 
 export function getPeerConnectionState(conn: RTCPeerConnection): PeerConnectionState {
   const {
@@ -111,8 +98,23 @@ export function getPeerConnectionState(conn: RTCPeerConnection): PeerConnectionS
   }
 }
 
-export function subscribeDataChannelState(target: RTCDataChannel) {
-  const subject = new BehaviorSubject(target.readyState);
+export function addPeerConnectionStateListener(conn: RTCPeerConnection, onStateChange: (s: PeerConnectionState) => void): () => void {
+  let state = getPeerConnectionState(conn);
+  const handler = (e) => {
+    const neo = produce(state, s => {
+      Object.assign(s, getPeerConnectionState(conn));
+    });
+    if (neo !== state) {
+      state = neo;
+      onStateChange(state);
+    }
+  };
+  onStateChange(state);
 
-// target.addEventListener()
+  const events = ['connectionstatechange', 'icegatheringstatechange', 'signalingstatechange', 'negotiationneeded']
+  events.forEach(v => conn.addEventListener(v, handler))
+
+  return () => {
+    events.forEach(v => conn.removeEventListener(v, handler))
+  }
 }

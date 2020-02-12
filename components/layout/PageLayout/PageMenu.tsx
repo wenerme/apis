@@ -39,6 +39,16 @@ const menus: MenuSpec[] = [
     path: '/password/strength',
   },
   {
+    title: 'WebRTC',
+    iconType: 'retweet',
+    children: [
+      {
+        title: '浏览器检测',
+        path: '/webrtc/checker',
+      },
+    ]
+  },
+  {
     title: 'IPFS',
     iconType: 'file',
     children: [

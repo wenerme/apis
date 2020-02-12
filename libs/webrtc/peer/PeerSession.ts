@@ -1,6 +1,6 @@
 import {BehaviorSubject} from 'rxjs';
 import {PeerSessionData} from 'libs/webrtc/peer/PeerService';
-import {getCandidates, getPeerConnectionState, PeerConnectionState} from 'libs/webrtc/utils/rtcs';
+import {getCandidates, getPeerConnectionState} from 'libs/webrtc/rtcs';
 import {clearAsyncInterval, createLazyPromise, setAsyncInterval} from 'utils/promises';
 import produce from 'immer';
 import {isFunction} from 'lodash';
@@ -8,6 +8,7 @@ import {promiseOfSubject} from 'utils/rxjsx';
 import {PeerManager} from 'libs/webrtc/peer/PeerManager';
 import {RTCPeerConnection} from 'isomorphic-webrtc'
 import moment from 'moment';
+import {PeerConnectionState} from 'libs/webrtc/types';
 
 export interface PeerSessionInitialState {
   state: string
@@ -23,6 +24,15 @@ export interface PeerInitialState {
   candidates?: RTCIceCandidateInit[]
 }
 
+export interface PeerSessionStateProvider {
+  update(state: PeerSessionInitialState);
+}
+
+export interface PeerSessionConnectionState extends PeerConnectionState {
+  metaChannelState?: RTCDataChannelState
+  metaChannelPing?: number
+}
+
 export class PeerSession {
   id: string;
   localId: string;
@@ -35,7 +45,7 @@ export class PeerSession {
   offerOptions: RTCOfferOptions = {offerToReceiveVideo: false, offerToReceiveAudio: false};
 
   data = new BehaviorSubject<PeerSessionData>(null);
-  connectionState = new BehaviorSubject<PeerConnectionState>(null);
+  connectionState = new BehaviorSubject<PeerSessionConnectionState>(null);
 
   private pollSessionUpdateId;
 
@@ -62,14 +72,14 @@ export class PeerSession {
   }
 
   updatePeerConnectionState = (updater?) => {
-    const neo = produce<PeerConnectionState>(this.connectionState.value ?? getPeerConnectionState(this.connection), s => {
+    const neo = produce<PeerSessionConnectionState>(this.connectionState.value ?? getPeerConnectionState(this.connection), s => {
       Object.assign(s, getPeerConnectionState(this.connection));
 
       s.metaChannelState = this.meta?.readyState;
       if (isFunction(updater)) {
         updater(s);
       }
-    }) as PeerConnectionState;
+    }) as PeerSessionConnectionState;
 
     if (this.connectionState.value === neo) {
       return
@@ -240,7 +250,7 @@ export class PeerSession {
     log('info', 'connected');
   }
 
-  async promiseOfConnection(s: (state: PeerConnectionState) => boolean): Promise<PeerConnectionState> {
+  async promiseOfConnection(s: (state: PeerSessionConnectionState) => boolean): Promise<PeerSessionConnectionState> {
     return promiseOfSubject(this.connectionState, s);
   }
 
