@@ -312,10 +312,10 @@ export const WebRTCChecker: React.FC = () => {
             <table style={{tableLayout: 'auto'}}>
               <thead>
               <tr>
-                <td style={{minWidth: 40}}>标签</td>
-                <td>类型</td>
-                <td>分组ID</td>
-                <td>设备ID</td>
+                <th style={{minWidth: 40}}>标签</th>
+                <th>类型</th>
+                <th>分组ID</th>
+                <th>设备ID</th>
               </tr>
               </thead>
               <tbody>
