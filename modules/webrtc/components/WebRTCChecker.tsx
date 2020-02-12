@@ -1,10 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Descriptions, Icon} from 'antd';
 import {addPeerConnectionStateListener, getCandidates} from 'libs/webrtc/rtcs';
 import {PeerConnectionState} from 'libs/webrtc/types';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import produce from 'immer';
 import {createLazyPromise} from 'utils/promises';
+import {getGlobalThis} from 'utils/utils';
 
 const CandidateErrorLine: React.FC<{ candidate }> = ({candidate}) => {
   const {url, errorCode, errorText, hostCandidate} = candidate;
@@ -26,11 +27,19 @@ export const WebRTCChecker: React.FC = () => {
   const [candidates, setCandidates] = useState<any[]>([]);
   const [iceServers, setIceServers] = useState(['stun:111.231.102.99']);
 
+  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+
   const connRef = useRef<RTCPeerConnection>();
   const remoteRef = useRef<RTCPeerConnection>();
   const metaRef = useRef<RTCDataChannel>();
 
   const globalThis = require('globalthis')();
+
+  useAsyncEffect(async () => {
+    if (navigator.mediaDevices?.enumerateDevices) {
+      setDevices(await navigator.mediaDevices.enumerateDevices());
+    }
+  }, []);
 
   useAsyncEffect(async ({setCloser}) => {
     if (!globalThis.RTCPeerConnection) {
@@ -164,38 +173,43 @@ export const WebRTCChecker: React.FC = () => {
     {label: 'SCTP 传输状态', name: 'sctpTransportState'},
   ];
 
+  const columns = useBreakpoints({values: [1, 2, 3]});
+
   return (
     <div>
       <h3>WebRTC 支持</h3>
       <Descriptions column={4} layout="vertical" bordered>
-        <Descriptions.Item label="RTCPeerConnection" span={2}>
+        <Descriptions.Item label="RTCPeerConnection">
           {emojiOfBoolean(globalThis.RTCPeerConnection)}
         </Descriptions.Item>
-        <Descriptions.Item label="RTCDataChannel" span={2}>
+        <Descriptions.Item label="RTCDataChannel">
           {emojiOfBoolean(globalThis.RTCDataChannel)}
+        </Descriptions.Item>
+        <Descriptions.Item label="getUserMedia">
+          {emojiOfBoolean(globalThis.navigator?.mediaDevices?.getUserMedia)}
+        </Descriptions.Item>
+        <Descriptions.Item label="getDisplayMedia">
+          {emojiOfBoolean(globalThis.navigator?.mediaDevices?.getDisplayMedia)}
         </Descriptions.Item>
       </Descriptions>
 
       <h3>
-        WebRTC 链接
+        WebRTC 链接 - {phase}
       </h3>
 
-      <Descriptions column={4} layout="vertical" bordered>
-        <Descriptions.Item label="阶段">
-          <span>{phase}</span>
-        </Descriptions.Item>
-
+      <Descriptions
+        className="descriptions-table-fixed"
+        column={columns}
+        layout="vertical"
+        bordered
+      >
         {ConnectionStates.map(({name, label}) => (
           <Descriptions.Item label={label} key={name}>
             {connState[name] ?? 'N/A'}
           </Descriptions.Item>
         ))}
-        <Descriptions.Item label={''}>
-          {''}
-        </Descriptions.Item>
 
-
-        <Descriptions.Item span={4} label="媒体信息">
+        <Descriptions.Item span={columns} label="媒体信息">
           <div>
             <table className="media">
               <thead>
@@ -222,7 +236,7 @@ export const WebRTCChecker: React.FC = () => {
           </div>
         </Descriptions.Item>
 
-        <Descriptions.Item span={4} label="编码格式">
+        <Descriptions.Item span={columns} label="编码格式">
           <div>
             <table className="encoding">
               <thead>
@@ -230,7 +244,6 @@ export const WebRTCChecker: React.FC = () => {
                 <th>类型</th>
                 <th>编码</th>
                 <th>频率</th>
-                <th>参数</th>
               </tr>
               </thead>
               <tbody>
@@ -239,7 +252,6 @@ export const WebRTCChecker: React.FC = () => {
                   <td>{type}</td>
                   <td>{encodingName}</td>
                   <td>{clockRate}/{clockRate / 1000}Khz</td>
-                  <td>{encodingParameter}</td>
                 </tr>
               ))}
               </tbody>
@@ -247,14 +259,14 @@ export const WebRTCChecker: React.FC = () => {
           </div>
         </Descriptions.Item>
 
-        <Descriptions.Item span={4} label={
+        <Descriptions.Item span={columns} label={
           <div>
             链接待选信息 / candidates / {candidates.length}
             {connState.iceGatheringState === 'gathering' ? <Icon type="loading" /> : null}
           </div>
         }>
           <div>
-            <table className="candidate-table">
+            <table className="candidate">
               <thead>
               <tr>
                 <th className="sdp-mid">媒体</th>
@@ -295,7 +307,41 @@ export const WebRTCChecker: React.FC = () => {
           </div>
         </Descriptions.Item>
 
-        <Descriptions.Item span={4} label="请求方描述信息 / offer">
+        <Descriptions.Item span={columns} label="设备信息">
+          <div>
+            <table style={{tableLayout: 'auto'}}>
+              <thead>
+              <tr>
+                <td style={{minWidth: 40}}>标签</td>
+                <td>类型</td>
+                <td>分组ID</td>
+                <td>设备ID</td>
+              </tr>
+              </thead>
+              <tbody>
+              {devices.map(({label, kind, groupId, deviceId}, i) => (
+                <tr key={i}>
+                  <td style={{minWidth: 40}}>{label || 'N/A'}</td>
+                  <td>{kind}</td>
+                  <td>{renderSummary(groupId)}</td>
+                  <td>{renderSummary(deviceId)}</td>
+                </tr>
+              ))}
+              </tbody>
+            </table>
+          </div>
+        </Descriptions.Item>
+
+        <Descriptions.Item label="支持的设备限制" span={columns}>
+          <div>
+            <pre>
+              {JSON.stringify(globalThis?.navigator?.mediaDevices?.getSupportedConstraints?.() ?? {}, null, '  ')}
+            </pre>
+          </div>
+        </Descriptions.Item>
+
+
+        <Descriptions.Item span={columns} label="请求方描述信息 / offer">
           <div style={{width: '100%', overflowX: 'scroll'}}>
             <pre>
 {connRef.current?.localDescription?.sdp}
@@ -303,7 +349,7 @@ export const WebRTCChecker: React.FC = () => {
           </div>
         </Descriptions.Item>
 
-        <Descriptions.Item span={4} label="接受方描述信息 / answer">
+        <Descriptions.Item span={columns} label="接受方描述信息 / answer">
           <div style={{width: '100%', overflowX: 'scroll'}}>
             <pre>
 {remoteRef.current?.localDescription?.sdp}
@@ -312,32 +358,49 @@ export const WebRTCChecker: React.FC = () => {
         </Descriptions.Item>
       </Descriptions>
 
+      <style jsx global>{`
+@media (max-width: 576px) { 
+  .descriptions-table-fixed .ant-descriptions-view > table {
+    table-layout: fixed !important;
+  }
+  
+  table.media, table.candidate, table.encoding{
+    display: block !important;
+  }
+}
+`}</style>
       <style jsx>{`
 h3, h4 {
   margin-top: 16px;
   margin-bottom: 8px;
 }
 
+table.media, table.candidate, table.encoding {
+  overflow-x: auto;
+  white-space: nowrap;
+  table-layout: unset;
+}
+
 table tr:hover {
   background-color: #edf0f4;
 }
 
-.candidate-table td,.candidate-table th, table.media td, table.media th,
+table.candidate td,table.candidate th, table.media td, table.media th,
 table.encoding td, table.encoding th{
   width: 70px;
   text-align: center;
 }
-.candidate-table td.address,.candidate-table th.address{
+.candidate td.address,.candidate th.address{
   white-space: nowrap;
   
   width: unset;
   text-align: left;
 }
-.candidate-table td.priority,.candidate-table th.priority{
+.candidate td.priority,.candidate th.priority{
   width: 140px;
   text-align: right;
 }
-.candidate-table td.sdp-mid,.candidate-table th.sdp-mid{
+.candidate td.sdp-mid,.candidate th.sdp-mid{
   width: 40px;
 }
 
@@ -361,7 +424,7 @@ pre {
 
 
 function emojiOfBoolean(s) {
-  return s ? '✅' : '❌'
+  return s ? '✅ - 支持' : '❌ - 不支持'
 }
 
 function parseMediaDescription(sdp) {
@@ -385,4 +448,45 @@ function parsePayloadType(sdp) {
       clockRate,
       encodingParameter
     }))
+}
+
+/// https://getbootstrap.com/docs/4.1/layout/overview/
+/// xm md lg xl
+function useBreakpoints({breaks = [575.98, 768.98, 991.98, 1199.98], values = null} = {}) {
+  const onResize = () => {
+    const w = getGlobalThis()['innerWidth'] || 0;
+    let i = breaks.findIndex(v => v > w);
+    i = i === -1 ? breaks.length : i;
+    let v = i;
+    if (values) {
+      if (i > values.length - 1) {
+        v = values[values.length - 1];
+      } else {
+        v = values[i]
+      }
+    }
+    return v;
+  };
+
+  const [val, setVal] = useState(onResize);
+
+  useEffect(() => {
+    setVal(onResize());
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize)
+  }, []);
+
+  return val
+}
+
+function renderSummary(s: string) {
+  if (s.length < 10) {
+    return s;
+  }
+  return (
+    <details>
+      <summary title={s}>{s.substring(0, 8)}</summary>
+      {s}
+    </details>
+  )
 }

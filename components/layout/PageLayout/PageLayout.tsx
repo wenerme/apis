@@ -83,9 +83,9 @@ export const PageLayout: React.FC = ({children}) => {
     <ConfigProvider>
 
       <Layout style={{minHeight: '100vh'}}>
-        <Header>
-          <PageLogo />
-        </Header>
+        {/*<Header>*/}
+        {/*  <PageLogo />*/}
+        {/*</Header>*/}
         <Layout hasSider>
 
           <PageSider />

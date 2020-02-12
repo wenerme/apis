@@ -4,8 +4,10 @@ import React from 'react';
 import Head from 'next/head';
 import {Icon, PageHeader} from 'antd';
 import {WebRTCChecker} from 'modules/webrtc/components/WebRTCChecker';
+import {useMounted} from 'hooks/useMounted';
 
 const Page = () => {
+  const mounted = useMounted();
   return (
     <PageLayout>
       <PageContent>
@@ -22,7 +24,7 @@ const Page = () => {
           backIcon={false}
         />
 
-        <WebRTCChecker />
+        {mounted && <WebRTCChecker />}
 
       </PageContent>
     </PageLayout>
