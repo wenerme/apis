@@ -10,7 +10,7 @@ export class SqlArEntity {
   mtime: number;
   @Column('int', {name: 'sz'})
   size: number;
-  @Column('blob')
-    // data: number[]
-  data: string
+  // Buffer | string
+  @Column('blob', {nullable: true})
+  data: any
 }

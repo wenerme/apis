@@ -5,7 +5,7 @@ import {PeerConnectionState} from 'libs/webrtc/types';
 export function getCandidates(conn: RTCPeerConnection): Promise<RTCIceCandidate[]> {
   const candidatesPromise = createLazyPromise();
   const candidates = [];
-  conn.addEventListener('icecandidate', e => {
+  const handler = e => {
     if (e.candidate) {
       candidates.push(e.candidate);
     }
@@ -13,6 +13,14 @@ export function getCandidates(conn: RTCPeerConnection): Promise<RTCIceCandidate[
     if (conn.iceGatheringState === 'complete') {
       candidatesPromise.resolve(candidates)
     }
+  };
+
+  conn.addEventListener('icecandidate', handler);
+  conn.addEventListener('icegatheringstatechange', handler);
+
+  candidatesPromise.finally?.(() => {
+    conn.removeEventListener('icecandidate', handler);
+    conn.removeEventListener('icegatheringstatechange', handler);
   });
   return candidatesPromise
 }

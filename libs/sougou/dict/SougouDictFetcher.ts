@@ -1,12 +1,11 @@
 import {Connection, createConnection, EntityManager, Repository} from 'typeorm';
 import {SqlArEntity} from 'libs/sqlar/schema';
 import fetch from 'node-fetch';
-import {getCache} from 'libs/sqlar/cache';
+import {getCache, getCacheDataAsString} from 'libs/sqlar/cache';
 import {URL} from 'url';
 import cheerio from 'cheerio';
 import {SnakeNamingStrategy} from 'typeorm-naming-strategies';
-import {SougouDictMetaEntity} from 'libs/sougou/dict/schema';
-import {createApisConnectionFactory} from 'db/apis';
+import {SougouDictCacheMetaEntity} from 'libs/sougou/dict/cache';
 
 export interface SougouDictMeta {
   id?
@@ -18,15 +17,14 @@ export interface SougouDictMeta {
   version
   createdBy
   updatedAt
+
+  type: string
+  example: string
+  description: string
 }
 
-export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cache.sqlite', db = null} = {}) {
+export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cache.sqlite'} = {}) {
   const fetcher = new SougouDictFetcher();
-  // NOTE different db type
-  db = db ?? await createApisConnectionFactory({
-    name: 'sougou-dict',
-    entities: [SougouDictMetaEntity]
-  })();
 
   fetcher.cache = await createConnection({
     name: 'sougou-dict-cache',
@@ -35,14 +33,12 @@ export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cach
     entities: [
       //
       SqlArEntity,
-      // use same
-      ...(!db ? [SougouDictMetaEntity] : [])
+      //
+      SougouDictCacheMetaEntity,
     ],
     namingStrategy: new SnakeNamingStrategy(),
     synchronize: true,
   });
-
-  fetcher.db = db || fetcher.cache;
 
   fetcher.sqlArRepo = fetcher.cache.getRepository(SqlArEntity);
   return fetcher;
@@ -50,11 +46,10 @@ export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cach
 
 export class SougouDictFetcher {
   cache: Connection;
-  db: Connection;
   sqlArRepo: Repository<SqlArEntity>;
   em: EntityManager;
 
-  static parseMeta(content): SougouDictMeta {
+  static parseMeta(content: string | Buffer): SougouDictMeta {
     const doc: CheerioStatic = cheerio.load(content);
     const downloadHref = doc('#dict_dl_btn a').attr('href');
     if (!downloadHref) {
@@ -87,6 +82,10 @@ export class SougouDictFetcher {
       // tslint:disable-next-line:ban
       version: parseInt(version.replace(/\D/g, ''), 10),
       downloadUrl: downloadHref.replace(/^(https?:)?/, 'https:'),
+
+      type: doc('#dict_cate_show .select_now').text().trim().replace(/\(.*/, '').trim() || null,
+      example: doc('#dict_info_sample .sample_center').text().split('、').map(v => v.trim()).filter(v => v).join(' '),
+      description: doc('#dict_info_intro .dict_info_str').text(),
     }
   }
 
@@ -97,46 +96,17 @@ export class SougouDictFetcher {
     })
   }
 
-  async getMeta(id): Promise<SougouDictMeta | null> {
-    const name = `detail/${id}.html`;
-    let content = await this.sqlArRepo.findOne(name);
-    if (!content) {
-      const html = await this.fetchDetail(id);
-      console.log(`Fetch dict ${id} ${html?.length ?? 0}`);
-      if (!html) {
-        return null;
-      }
-
-      content = await this.sqlArRepo.save<SqlArEntity>({
-        name,
-        mode: 0o77,
-        mtime: Date.now() / 1000,
-        size: html.length,
-        data: html
-      })
-    }
-    return SougouDictFetcher.parseMeta(content.data)
-  }
-
   getScelData(meta: SougouDictMeta): Promise<SqlArEntity> {
-    return getCache(`scel/${meta.id}.scel`, this.sqlArRepo, async name => {
+    return getCache(`scel/files/${meta.id}/v${meta.version}.scel`, this.sqlArRepo, async name => {
       const url = new URL(meta.downloadUrl);
-      const buf = await fetch(url.toString()).then(v => v.buffer());
-      const encoded = buf.toString('base64');
-
-      console.log(`download scel ${name} ${url.searchParams.get('name')} ${meta.downloadUrl}`);
-      return {
-        name,
-        mode: 0o77,
-        mtime: Date.now() / 1000,
-        size: encoded.length,
-        data: encoded,
-      }
+      const data = await fetch(url.toString()).then(v => v.buffer());
+      console.log(`download scel ${name} ${data.length} ${url.searchParams.get('name')} ${meta.downloadUrl}`);
+      return {data}
     });
   }
 
   getLargestMetaId(): Promise<number> {
-    return this.db.getRepository(SougouDictMetaEntity)
+    return this.cache.getRepository(SougouDictCacheMetaEntity)
       .find({
         order: {
           id: 'DESC'
@@ -145,61 +115,43 @@ export class SougouDictFetcher {
       }).then(v => v[0]?.id ?? 1)
   }
 
-  async getLargestCacheMetaId(): Promise<number> {
+  async findMeta(id, {version = null} = {}): Promise<SougouDictCacheMetaEntity> {
+    return this.em
+      .getRepository(SougouDictCacheMetaEntity)
+      .find({
+        where: {
+          id,
+          ...(version ? {version} : {})
+        },
+        order: {
+          version: 'DESC',
+        },
+        take: 1
+      }).then(v => v[0])
+  }
+
+  async getParsedPageMeta(id): Promise<SougouDictMeta | null> {
+    const name = `cache/scel/html/${id}.html`;
+    const content = await getCache(name, this.sqlArRepo, async name => {
+      const data = await this.fetchDetail(id);
+      console.log(`Fetch dict ${id} ${data?.length ?? 0}`);
+      if (!data) {
+        return null;
+      }
+
+      return {data}
+    });
+
+    return SougouDictFetcher.parseMeta(getCacheDataAsString(content.data))
+  }
+
+  async getLargestCachePageId(): Promise<number> {
     return this.sqlArRepo.query(`
-      select cast(substr(name, length('detail/') + 1, length(name) - length('detail/.html')) as integer) as id
+      select cast(substr(name, length('cache/scel/html/') + 1, length(name) - length('cache/scel/html/.html')) as integer) as id
       from sqlar
-      where name like 'detail/%'
+      where name like 'cache/scel/html/%'
       order by id desc
       limit 1
     `).then(v => v[0]?.id ?? 1)
-  }
-
-  async getLargestCacheDataId(): Promise<number> {
-    return this.sqlArRepo.query(`
-      select cast(substr(name, length('scel/') + 1, length(name) - length('scel/.html')) as integer) as id
-      from sqlar
-      where name like 'scel/%'
-      order by id desc
-      limit 1
-    `).then(v => v[0]?.id ?? 1)
-  }
-
-  async updateMeta(id): Promise<SougouDictMetaEntity | null> {
-    const meta = await this.getMeta(id);
-    if (!meta) {
-      return null
-    }
-    return this.db.getRepository(SougouDictMetaEntity).save(meta)
-  }
-
-  async updateAllMeta({fromId = 1} = {}) {
-    const maxId = await this.getLargestCacheMetaId();
-    let batch = [];
-    const save = batch => {
-      return this.db.getRepository(SougouDictMetaEntity)
-        .createQueryBuilder()
-        .insert()
-        .values(batch)
-        // todo update
-        .onConflict('("id") DO NOTHING')
-        // .onConflict(`("id") DO UPDATE SET "name" = :name`)
-        // .setParameter("name", post2.name)
-        .execute()
-    };
-    for (let id = fromId; id <= maxId; id++) {
-      const meta = await this.getMeta(id);
-      if (!meta) {
-        continue
-      }
-      batch.push(meta);
-      if (batch.length === 100) {
-        await save(batch);
-        batch = [];
-      }
-    }
-    if (batch.length > 0) {
-      await save(batch);
-    }
   }
 }

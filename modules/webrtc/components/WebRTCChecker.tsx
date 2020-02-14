@@ -76,7 +76,7 @@ export const WebRTCChecker: React.FC = () => {
     });
 
     conn.addEventListener('icecandidate', e => {
-      // console.log('candidate', e);
+      console.log('WebRTC Checker local candidate', e.candidate);
 
       if (e.candidate) {
         candidates.push(e.candidate);
@@ -174,11 +174,12 @@ export const WebRTCChecker: React.FC = () => {
   ];
 
   const columns = useBreakpoints({values: [1, 2, 3]});
+  const supportColumns = useBreakpoints({values: [2, 2, 4, 4]});
 
   return (
     <div>
       <h3>WebRTC 支持</h3>
-      <Descriptions column={4} layout="vertical" bordered>
+      <Descriptions column={supportColumns} layout="vertical" bordered>
         <Descriptions.Item label="RTCPeerConnection">
           {emojiOfBoolean(globalThis.RTCPeerConnection)}
         </Descriptions.Item>
