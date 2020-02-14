@@ -49,22 +49,26 @@ const menus: MenuSpec[] = [
     ]
   },
   {
+    title: '搜狗词库',
+    iconType: 'book',
+    children: [
+      {
+        title: '词库列表',
+        path: '/scel/list',
+      },
+      {
+        title: '词库解析',
+        path: '/scel/read',
+      },
+    ]
+  },
+  {
     title: 'IPFS',
     iconType: 'file',
     children: [
       {
         title: '网关检测',
         path: '/ipfs/gateway/checker',
-      },
-    ]
-  },
-  {
-    title: '搜狗词库',
-    iconType: 'book',
-    children: [
-      {
-        title: '词库解析',
-        path: '/scel/read',
       },
     ]
   },

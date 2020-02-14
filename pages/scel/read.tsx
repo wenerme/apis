@@ -9,9 +9,9 @@ import './read.css'
 import {enrichContent, parseScelContent, parseScelHeader} from 'libs/formats/scel/parser';
 
 import {ScelContent, ScelHeader} from 'libs/formats/scel/types';
-import {AutoSizer, List} from 'react-virtualized';
 
 import 'react-virtualized/styles.css';
+import {ScelContentList} from 'modules/scel/components/ScelContentList';
 
 interface ScelState {
   file?: File
@@ -54,29 +54,6 @@ const ScelReaderFileUploader: React.FC<{ onFileChange? }> = ({onFileChange}) => 
     </div>
   )
 }
-const ScelList: React.FC<{ scel: ScelState }> = ({scel}) => {
-  return (
-    <AutoSizer>
-      {({width, height}) => (
-        <List
-          height={height}
-          width={width}
-          rowCount={scel.content.words.length}
-          rowHeight={32}
-          rowRenderer={({index, key, style}) => {
-            return (
-              <div className="scel-list-item" key={key} style={style}>
-                <span>{scel.content.words[index].word}</span>
-                <small style={{marginLeft: 4, paddingTop: 4}}>{scel.content.words[index].pinyin.join(' ')}</small>
-              </div>
-            )
-          }}
-        />
-
-      )}
-    </AutoSizer>
-  )
-};
 
 const Page: NextPage = () => {
   const [scel, setScel] = useState<ScelState>();
@@ -125,7 +102,7 @@ const Page: NextPage = () => {
           <div style={{flex: 1, display: 'flex', flexFlow: 'column'}}>
             <h3>词库内容</h3>
             <div style={{minHeight: 320, flex: 1}} className="scel-list-container">
-              {scel && <ScelList scel={scel} />}
+              {scel && <ScelContentList content={scel.content} />}
             </div>
           </div>
 

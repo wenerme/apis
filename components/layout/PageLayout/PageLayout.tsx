@@ -3,6 +3,8 @@ import {Button, ConfigProvider, Icon, Layout} from 'antd';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
+import 'moment/locale/zh-cn'
+
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
 import {PageMenu} from 'components/layout/PageLayout/PageMenu';
