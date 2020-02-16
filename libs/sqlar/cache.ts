@@ -20,6 +20,19 @@ export async function getCache(name, repo: Repository<SqlArEntity>, fetcher: (na
   return repo.save(entity);
 }
 
+export function getUncompressedCacheData(data) {
+  if (typeof data === 'string') {
+    return data
+  }
+
+  if (data[0] === 0x78) {
+    const zlib = require('zlib');
+    return zlib.inflateSync(data).toString();
+  }
+
+  return data
+}
+
 export function getCacheDataAsString(data): string {
   if (typeof data === 'string') {
     return data

@@ -1,4 +1,4 @@
-import {Connection, createConnection, EntityManager, Repository} from 'typeorm';
+import {Connection, createConnection, Repository} from 'typeorm';
 import {SqlArEntity} from 'libs/sqlar/schema';
 import fetch from 'node-fetch';
 import {getCache, getCacheDataAsString} from 'libs/sqlar/cache';
@@ -47,7 +47,6 @@ export async function createSougouDictFetcher({cacheDbFile = './sougou-dict-cach
 export class SougouDictFetcher {
   cache: Connection;
   sqlArRepo: Repository<SqlArEntity>;
-  em: EntityManager;
 
   static parseMeta(content: string | Buffer): SougouDictMeta {
     const doc: CheerioStatic = cheerio.load(content);
@@ -116,7 +115,7 @@ export class SougouDictFetcher {
   }
 
   async findMeta(id, {version = null} = {}): Promise<SougouDictCacheMetaEntity> {
-    return this.em
+    return this.cache
       .getRepository(SougouDictCacheMetaEntity)
       .find({
         where: {
