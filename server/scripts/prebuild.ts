@@ -15,7 +15,7 @@ async function main() {
     file: '.env'
   });
 
-  fs.writeFileSync('public/data/scel/index.json', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelIpfsHash, 'index.json')).then(v => v.json()), {hash: ScelIpfsHash})));
+  fs.writeFileSync('public/data/scel/index.csv', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelIpfsHash, 'index.csv')).then(v => v.json()), {hash: ScelIpfsHash})));
   fs.writeFileSync('public/data/scel/index.full.json', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelIpfsHash, 'index.full.json')).then(v => v.json()), {hash: ScelIpfsHash})));
 }
 
