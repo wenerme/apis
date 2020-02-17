@@ -1,5 +1,3 @@
-import get from 'lodash/get'
-
 export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export const isDev = () => (process?.env?.NODE_ENV || '').startsWith('dev');
 
@@ -12,7 +10,8 @@ export const getGlobalThis = (): typeof globalThis => {
   throw new Error('Unable to locate global `this`');
 };
 
-export function urljoin(...strArray) {
+/// see https://github.com/jfromaniello/url-join
+export function urljoin(...strArray: string[]) {
   const resultArray = [];
   if (strArray.length === 0) {
     return '';
@@ -73,18 +72,4 @@ export function urljoin(...strArray) {
   str = parts.shift() + (parts.length > 0 ? '?' : '') + parts.join('&');
 
   return str;
-}
-
-/**
- * 替换类似于 JS 的模板字符串
- *
- * @example
- * templateString('My name is ${name}',{name:'wener'})
- */
-export function templateString(template, variables) {
-  return template.replace(/\${(.*?)}/g, (_, g) => {
-    // variables[g.trim()]
-    // 支持路径 - 例如 a.b[0]
-    return get(variables, g.trim())
-  });
 }

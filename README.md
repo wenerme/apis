@@ -24,3 +24,13 @@ pkg -t node12-macos-x64 . --out-dir dist
 # 执行服务端生成脚本
 TS_NODE_PROJECT=$PWD/tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/prebuild.ts 
 ```
+
+## SCEL
+
+```bash
+# update index file
+sqlite3 sougou-dict-cache.sqlite -Ax scel/index.full.json
+ipfs files write -etp /scel/index.full.json scel/index.full.json
+# get new hash
+ipfs files stat /scel
+```

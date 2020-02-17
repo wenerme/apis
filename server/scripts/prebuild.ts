@@ -1,7 +1,8 @@
 import {ScelIpfsHash} from 'libs/sougou/dict/ScelDataService';
 import {PublicGateways} from 'libs/ipfs/gateway/gateways';
 import fs from 'fs'
-import {detectingDummyFastestGateway} from 'libs/ipfs/gateway/selector';
+import {buildIpfsUrl, detectingDummyFastestGateway} from 'libs/ipfs/gateway/selector';
+import unfetch from 'isomorphic-unfetch';
 
 async function main() {
   console.log(`Use Scel IPFS HASH ${ScelIpfsHash}`);
@@ -12,8 +13,10 @@ async function main() {
     line: `IPFS_PREFER_GW=${gateway}`,
     regex: /IPFS_PREFER_GW=/,
     file: '.env'
-  })
+  });
 
+  fs.writeFileSync('public/data/scel/index.json', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelIpfsHash, 'index.json')).then(v => v.json()), {hash: ScelIpfsHash})));
+  fs.writeFileSync('public/data/scel/index.full.json', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelIpfsHash, 'index.full.json')).then(v => v.json()), {hash: ScelIpfsHash})));
 }
 
 function lineInFile({line, regex, file}) {
