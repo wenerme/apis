@@ -1,7 +1,7 @@
 import unfetch from 'isomorphic-unfetch';
 import {getGlobalThis, isDev, urljoin} from 'utils/utils';
 
-const HASH = 'QmehCds7FhEKv9J78izwTtqCKGZkMzxE8FKqGFeLjkwqu4';
+export const ScelIpfsHash = 'QmehCds7FhEKv9J78izwTtqCKGZkMzxE8FKqGFeLjkwqu4';
 
 export interface ScelMetadata extends ScelIndexRecord {
   size
@@ -39,28 +39,52 @@ export class ScelDataService {
   private indexRaw;
 
   constructor() {
-    console.log(`initial ScelDataService ${HASH}`);
+    console.log(`initial ScelDataService ${ScelIpfsHash}`);
   }
 
   async getIpfsHash() {
-    return HASH;
+    return ScelIpfsHash;
   }
 
   getScelUrl({id, version}) {
-    return getIpfsFilePath(HASH, 'files', id, `v${version}.scel`)
+    return getIpfsFilePath(ScelIpfsHash, 'files', id, `v${version}.scel`)
   }
 
   async getMetadata({id, version}) {
-    return unfetch(getIpfsFilePath(HASH, 'files', id, `v${version}.json`))
+    return unfetch(getIpfsFilePath(ScelIpfsHash, 'files', id, `v${version}.json`))
       .then(v => v.json())
   }
 
   async getRawIndex(): Promise<string> {
-    return this.indexRaw = this.indexRaw ?? await unfetch(getIpfsFilePath(HASH, 'index.csv')).then(v => v.text())
+    return this.indexRaw = this.indexRaw ?? await unfetch(getIpfsFilePath(ScelIpfsHash, 'index.csv')).then(v => v.text())
   }
 
   async getFullIndex(): Promise<ScelIndexRecord[]> {
-    return this.indexFull = this.indexFull ?? await unfetch(getIpfsFilePath(HASH, 'index.full.json')).then(v => v.json());
+    if (!this.indexFull) {
+      const filePath = `/tmp/${ScelIpfsHash}-index.full.json`;
+      let fs = {} as any;
+      try {
+        fs = require('fs')
+      } catch (e) {
+      }
+
+      if (fs.promises) {
+        if (fs.existsSync(filePath)) {
+          this.indexFull = JSON.parse(fs.readFileSync(filePath).toString())
+        }
+      }
+
+      if (!this.indexFull) {
+        this.indexFull = await unfetch(getIpfsFilePath(ScelIpfsHash, 'index.full.json')).then(v => v.json());
+      }
+
+      if (fs.writeFileSync && JSON.stringify(this.indexFull)) {
+        fs.writeFileSync(filePath, JSON.stringify(this.indexFull))
+      }
+
+      console.log(`load full index ${this.indexFull.length}`);
+    }
+    return this.indexFull;
   }
 
   async getIndex(): Promise<ScelIndexRecord[]> {
@@ -120,7 +144,7 @@ function getIpfsGateway() {
   if (isDev()) {
     gw = process.env.IPFS_PREFER_GW || 'http://127.0.0.1:8080/ipfs/:hash';
   } else {
-    gw = getGlobalThis()?.localStorage?.['IPFS_PREFER_GW'] ?? process.env.IPFS_PREFER_GW ?? 'https://ipfs.io/ipfs/:hash'
+    gw = getGlobalThis()?.localStorage?.['IPFS_PREFER_GW'] ?? getGlobalThis()?.['IPFS_PREFER_GW'] ?? process.env.IPFS_PREFER_GW ?? 'https://ipfs.io/ipfs/:hash'
   }
 
   return gw

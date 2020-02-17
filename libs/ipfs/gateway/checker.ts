@@ -3,9 +3,10 @@
  */
 import produce from 'immer';
 
-const HASH_TO_TEST = 'bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m';
-const SCRIPT_HASH = 'bafybeietzsezxbgeeyrmwicylb5tpvf7yutrm3bxrfaoulaituhbi7q6yi';
-const HASH_STRING = 'Hello from IPFS Gateway Checker';
+export const CheckTextHash = 'bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m';
+export const CheckTextContent = 'Hello from IPFS Gateway Checker';
+
+export const CheckScriptHash = 'bafybeietzsezxbgeeyrmwicylb5tpvf7yutrm3bxrfaoulaituhbi7q6yi';
 
 export interface GatewayCheckNodeState {
   id
@@ -38,21 +39,38 @@ export interface CheckerState {
 
 export const GlobalResolver: Record<string, (...any) => void> = {};
 
-function checkCors({getState}) {
-  const gatewayAndHash = getState().gateway.replace(':hash', HASH_TO_TEST);
+export function fetchGatewayChecker(gateway, {hash = null, content = null} = {}) {
+  if (!hash) {
+    hash = CheckTextHash;
+    content = CheckTextContent
+  }
+
+  const gatewayAndHash = gateway.replace(':hash', hash);
   const now = Date.now();
   const testUrl = `${gatewayAndHash}?now=${now}#x-ipfs-companion-no-redirect`;
 
   return fetch(testUrl)
+    .then(res => {
+      if (res.status >= 400) {
+        throw new Error(`gateway ${gateway} request failed ${res.status}`)
+      }
+      return res;
+    })
     .then((res) => res.text())
     .then((text) => {
-      const matched = (HASH_STRING === text.trim());
-      if (matched) {
-        return true
-      } else {
-        throw new Error(`content not match: ${text.trim()}`)
+      if (content) {
+        const matched = (content === text.trim());
+        if (!matched) {
+          throw new Error(`gateway ${gateway} content not match: ${text.trim()}`)
+        }
       }
+      return gateway
+
     });
+}
+
+function checkCors({getState}) {
+  return fetchGatewayChecker(getState().gateway)
 }
 
 async function checkOrigin({getState}) {
@@ -83,7 +101,7 @@ export function OnScriptloaded(src) {
 async function checkStatus({getState}) {
   return new Promise(((resolve, reject) => {
     try {
-      const gatewayAndScriptHash = getState().gateway.replace(':hash', SCRIPT_HASH);
+      const gatewayAndScriptHash = getState().gateway.replace(':hash', CheckScriptHash);
 
       // we set a unused number as a url parameter, to try to prevent content caching
       // is it right ? ... do you know a better way ? ... does it always work ?
@@ -186,7 +204,7 @@ export async function checkGateways(gateways: string[], onStateChange: (s: Gatew
         onStateChange(state);
       })
     )
-  )
+  );
   return state;
 }
 
@@ -195,7 +213,7 @@ export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeS
     id: _uid++,
 
     gateway,
-    hostname: gatewayHostname(new URL(gateway.replace(':hash', HASH_TO_TEST))),
+    hostname: gatewayHostname(new URL(gateway.replace(':hash', CheckTextHash))),
 
     startTime: Date.now(),
 
@@ -234,6 +252,6 @@ export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeS
 
 function gatewayHostname(url) {
   if (url && url.hostname) url = url.hostname.toString();
-  return url.replace(`${HASH_TO_TEST}.ipfs.`, '') // skip .ipfs. in subdomain gateways
-    .replace(`${HASH_TO_TEST}.`, '') // path-based
+  return url.replace(`${CheckTextHash}.ipfs.`, '') // skip .ipfs. in subdomain gateways
+    .replace(`${CheckTextHash}.`, '') // path-based
 }

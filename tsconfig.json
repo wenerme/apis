@@ -43,6 +43,12 @@
       ],
       "db/*": [
         "db/*"
+      ],
+      "server/*": [
+        "server/*"
+      ],
+      "public/*": [
+        "public/*"
       ]
     }
   },
