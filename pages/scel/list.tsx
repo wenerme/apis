@@ -1,6 +1,6 @@
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Alert, Icon, PageHeader} from 'antd';
+import {Icon, PageHeader} from 'antd';
 import React from 'react';
 import Head from 'next/head';
 import {createScelDataService, ScelIndexRecord} from 'libs/sougou/dict/ScelDataService';
@@ -10,6 +10,7 @@ import {getGlobalThis} from 'utils/utils';
 import moment from 'moment';
 import Link from 'next/link';
 import 'react-virtualized/styles.css';
+import {ScelFooter} from 'modules/scel/components/ScelFooter';
 
 const ScelIndexList: React.FC<{ index: ScelIndexRecord[] }> = ({index}) => {
   return (
@@ -32,16 +33,19 @@ const ScelIndexList: React.FC<{ index: ScelIndexRecord[] }> = ({index}) => {
     </AutoSizer>
   )
 };
-const ScelIndexItem: React.FC<{ item: ScelIndexRecord }> = ({item: {id, name, count, type, version, updatedAt}}) => {
+const ScelIndexItem: React.FC<{ item: ScelIndexRecord }> = ({item: {id, name, count, size, type, version, updatedAt}}) => {
   return (
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <div>
         <span style={{marginRight: 12}}>{name}</span>
         <small style={{marginRight: 12}}>{type}</small>
         <small style={{marginRight: 12}}>{count} 词条</small>
+        <small style={{marginRight: 12}}>{(size / 1000).toFixed(2)}k</small>
 
         <span>
-          <Link href="/scel/dict/[dictId]/v/[dictVersion]" as={`/scel/dict/${id}/v/${version}`}>查看详情</Link>
+          <Link href="/scel/dict/[dictId]/v/[dictVersion]" as={`/scel/dict/${id}/v/${version}`}>
+            <a href={`/scel/dict/${id}/v/${version}.html`}>查看详情</a>
+          </Link>
         </span>
       </div>
 
@@ -60,9 +64,11 @@ const ScelIndexItem: React.FC<{ item: ScelIndexRecord }> = ({item: {id, name, co
 
     </div>
   )
-}
+};
 
-const Page: NextPage<{ index: ScelIndexRecord[] }> = ({index}) => {
+const Page: NextPage<{ index?: ScelIndexRecord[], raw? }> = ({index, raw}) => {
+  const service = createScelDataService();
+  index = index ?? service.parseScelIndex(raw);
   getGlobalThis()['ScelIndex'] = index;
   return (
     <PageLayout>
@@ -81,31 +87,31 @@ const Page: NextPage<{ index: ScelIndexRecord[] }> = ({index}) => {
         />
 
         <div style={{flex: 1, display: 'flex', flexFlow: 'column'}}>
-          <h3>词库索引</h3>
+          <h2>词库索引</h2>
           <div style={{minHeight: 320, flex: 1}}>
             <ScelIndexList index={index} />
           </div>
         </div>
 
-        <div style={{marginTop: 18}}>
-          <Alert
-            type="info"
-            showIcon
-            message={(
-              <div>
-                数据来源于 <a href="https://pinyin.sogou.com/dict/" target="_blank">搜狗官方词库</a>，仅用于分析学习。
-              </div>
-            )}
-          />
-        </div>
+        <ScelFooter />
       </PageContent>
     </PageLayout>
   )
+};
+
+//getStaticProps
+// Page.getInitialProps = async () => {
+//   const service = createScelDataService();
+//   // reduce page props data size
+//   return {raw: await service.getRawIndex()}
+// };
+
+export async function getStaticProps() {
+  const service = createScelDataService();
+  // reduce page props data size
+  return {props: {raw: await service.getRawIndex()}}
 }
 
-Page.getInitialProps = async () => {
-  const service = createScelDataService();
-  return {index: await service.getIndex()}
-};
+export const unstable_getStaticProps = getStaticProps;
 
 export default Page

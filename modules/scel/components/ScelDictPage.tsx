@@ -1,15 +1,15 @@
+import React, {useState} from 'react';
+import {createScelDataService, ScelMetadata} from 'libs/sougou/dict/ScelDataService';
+import {Button, Descriptions, Icon, PageHeader} from 'antd';
+import moment from 'moment';
+import unfetch from 'isomorphic-unfetch';
+import {enrichContent, parseScelContent, parseScelHeader} from 'libs/formats/scel/parser';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Alert, Button, Descriptions, Icon, PageHeader} from 'antd';
-import React, {useState} from 'react';
 import Head from 'next/head';
-import {NextPage} from 'next';
-import {createScelDataService, ScelMetadata} from 'libs/sougou/dict/ScelDataService';
-import moment from 'moment';
 import {ScelContentList} from 'modules/scel/components/ScelContentList';
-import unfetch from 'isomorphic-unfetch';
 import {Buffer} from 'buffer/'
-import {enrichContent, parseScelContent, parseScelHeader} from 'libs/formats/scel/parser';
+import {ScelFooter} from 'modules/scel/components/ScelFooter';
 
 const ScelMetaDescription: React.FC<{ metadata: ScelMetadata }> = ({metadata}) => {
   const {name, type, description, example, count, size, version, updatedAt} = metadata
@@ -34,8 +34,8 @@ const ScelMetaDescription: React.FC<{ metadata: ScelMetadata }> = ({metadata}) =
   )
 };
 
-const Page: NextPage<{ dictId, dictVersion?, metadata: ScelMetadata }> = ({dictId, dictVersion, metadata}) => {
-  const {name, updatedAt, type, version, size} = metadata;
+export const ScelDictPage: React.FC<{ dictId, dictVersion?, metadata?: ScelMetadata }> = ({dictId, dictVersion, metadata}) => {
+  const {name, updatedAt, type, version, size, createdBy, example, description} = metadata;
   const [loading, setLoading] = useState(false)
   const [scel, setScel] = useState({content: null, header: null});
   const service = createScelDataService();
@@ -46,8 +46,8 @@ const Page: NextPage<{ dictId, dictVersion?, metadata: ScelMetadata }> = ({dictI
       const url = service.getScelUrl({id: dictId, version: dictVersion})
       const buffer = Buffer.from(await unfetch(url).then(v => v.arrayBuffer()) as any)
 
-      const content = parseScelContent(buffer);
-      const header = parseScelHeader(buffer);
+      const content = parseScelContent(buffer as any);
+      const header = parseScelHeader(buffer as any);
       enrichContent(content);
 
       setScel({content, header})
@@ -60,7 +60,12 @@ const Page: NextPage<{ dictId, dictVersion?, metadata: ScelMetadata }> = ({dictI
     <PageLayout>
       <PageContent style={{display: 'flex', flexFlow: 'column'}}>
         <Head>
-          <title>搜狗词库 {type} {name} ID {dictVersion} 版本{dictVersion}</title>
+          <title>搜狗词库 {type} {name} ID {dictVersion} 版本{dictVersion} 作者 {createdBy}</title>
+
+          <meta name="description" content={`搜狗词库 scel 解析 ${type} ${name} ${createdBy} ${example} ${description}`} />
+          <meta name="og:title" property="og:title" content={`${name} - ${type} - ${createdBy} - 搜狗词库`} />
+          <meta name="og:description" property="og:description"
+                content={`搜狗词库 ${name} - ${type}: ${description} 示例 ${example}`} />
         </Head>
         <PageHeader
           title={
@@ -97,42 +102,20 @@ const Page: NextPage<{ dictId, dictVersion?, metadata: ScelMetadata }> = ({dictI
         />
 
         <div>
-          <h3>基础信息</h3>
+          <h2>基础信息</h2>
           <ScelMetaDescription metadata={metadata} />
         </div>
 
         <div style={{flex: 1, display: 'flex', flexFlow: 'column'}}>
-          <h3>词库内容</h3>
+          <h2>词库内容</h2>
           <div style={{minHeight: 320, flex: 1}}>
             {scel.content && <ScelContentList content={scel.content} />}
             {!scel.content && <Button loading={loading} onClick={loadScel}>加载词库</Button>}
           </div>
         </div>
 
-        <div style={{marginTop: 18}}>
-          <Alert
-            type="info"
-            showIcon
-            message={(
-              <div>
-                数据来源于 <a href="https://pinyin.sogou.com/dict/" target="_blank">搜狗官方词库</a>，仅用于分析学习。
-              </div>
-            )}
-          />
-        </div>
+        <ScelFooter />
       </PageContent>
     </PageLayout>
   )
 };
-
-Page.getInitialProps = async ({query: {dictId, dictVersion}}) => {
-  if (dictVersion) {
-    dictVersion = (dictVersion + '').replace('.html', '');
-  }
-
-  const service = createScelDataService();
-  const metadata = await service.getMetadata({id: dictId, version: dictVersion});
-  return {dictId, dictVersion, metadata}
-}
-
-export default Page
