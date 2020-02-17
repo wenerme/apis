@@ -1,22 +1,51 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {checkGateways, compareCheckState, OnScriptloaded} from 'libs/ipfs/gateway/checker';
+import {getPreferIpfsGateway, setPreferIpfsGateway} from 'libs/ipfs/gateway/selector';
+import {Button} from 'antd';
 
 
 export const GatewayChecker: React.FC<{ gateways: string[] }> = ({gateways}) => {
-
+  const abortRef = useRef<AbortController>();
   const [checks, setChecks] = useState([]);
+  const [prefer, setPrefer] = useState(getPreferIpfsGateway);
 
   useEffect(() => {
     window['OnScriptloaded'] = OnScriptloaded
   }, []);
 
   useEffect(() => {
-    checkGateways(gateways, setChecks)
+    abortRef.current?.abort();
+    let abort: AbortController = null;
+    try {
+      abort = new AbortController()
+    } catch (e) {
+      // ignore
+    }
+    abortRef.current = abort;
+
+    abort?.signal?.addEventListener('abort', () => {
+      console.log(`Abort checking`)
+    });
+
+    checkGateways(gateways, setChecks, {signal: abort?.signal})
       .then(v => {
-        localStorage['IPFS_PREFER_GW'] = v[0].gateway
+        if (!abort?.signal?.aborted) {
+          setPrefer(v[0].gateway)
+        }
       })
     ;
+
+    return () => {
+      abort?.abort();
+    }
   }, [gateways]);
+
+  useEffect(() => {
+    if (prefer === getPreferIpfsGateway()) {
+      return
+    }
+    setPreferIpfsGateway(prefer);
+  }, [prefer]);
 
   return (
     <div>
@@ -35,6 +64,9 @@ export const GatewayChecker: React.FC<{ gateways: string[] }> = ({gateways}) => 
         </div>
         <div>
           {stateEmoji(checks.find(v => !v.endTime) ? 'running' : 'success')}
+        </div>
+        <div>
+          当前偏好网关 {prefer}
         </div>
       </div>
       <table className="check-table">
@@ -63,7 +95,22 @@ export const GatewayChecker: React.FC<{ gateways: string[] }> = ({gateways}) => 
             <td title={latency(cors)}>{stateEmoji(status.status)}</td>
             <td title={latency(cors)}>{stateEmoji(cors.status)}</td>
             <td>{stateEmoji(origin.status)}</td>
-            <td title={gateway}>{hostname}</td>
+            <td>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div>{hostname}</div>
+                <div>
+                  <span>{gateway}</span>
+                  <span>
+                    <Button
+                      type="link"
+                      size="small"
+                      disabled={prefer === gateway}
+                      onClick={() => setPrefer(gateway)}
+                    >使用</Button>
+                  </span>
+                </div>
+              </div>
+            </td>
             <td>{latency(status)}</td>
           </tr>
         ))}
@@ -100,6 +147,9 @@ export const GatewayChecker: React.FC<{ gateways: string[] }> = ({gateways}) => 
 }
 .check-table td:nth-child(5),.check-table th:nth-child(5){
   text-align: right;
+}
+.check-table th{
+  min-width: 50px;
 }
 `}</style>
 

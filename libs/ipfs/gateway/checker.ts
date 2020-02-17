@@ -23,6 +23,8 @@ export interface GatewayCheckNodeState {
   origin: CheckerState,
 
   error?
+
+  signal?: AbortSignal,
 }
 
 export type CheckStatus = 'new' | 'running' | 'error' | 'success';
@@ -39,7 +41,7 @@ export interface CheckerState {
 
 export const GlobalResolver: Record<string, (...any) => void> = {};
 
-export function fetchGatewayChecker(gateway, {hash = null, content = null} = {}) {
+export function fetchGatewayChecker(gateway, {hash = null, content = null, signal = null} = {}) {
   if (!hash) {
     hash = CheckTextHash;
     content = CheckTextContent
@@ -49,7 +51,7 @@ export function fetchGatewayChecker(gateway, {hash = null, content = null} = {})
   const now = Date.now();
   const testUrl = `${gatewayAndHash}?now=${now}#x-ipfs-companion-no-redirect`;
 
-  return fetch(testUrl)
+  return fetch(testUrl, {signal})
     .then(res => {
       if (res.status >= 400) {
         throw new Error(`gateway ${gateway} request failed ${res.status}`)
@@ -70,7 +72,8 @@ export function fetchGatewayChecker(gateway, {hash = null, content = null} = {})
 }
 
 function checkCors({getState}) {
-  return fetchGatewayChecker(getState().gateway)
+  const {gateway, signal} = getState()
+  return fetchGatewayChecker(gateway, {signal})
 }
 
 async function checkOrigin({getState}) {
@@ -98,22 +101,28 @@ export function OnScriptloaded(src) {
   }
 }
 
-async function checkStatus({getState}) {
+async function checkStatus({getState}: { getState(): GatewayCheckNodeState }) {
+  const {id, signal, gateway} = getState();
+  const gatewayAndScriptHash = gateway.replace(':hash', CheckScriptHash);
+
+  // we set a unused number as a url parameter, to try to prevent content caching
+  // is it right ? ... do you know a better way ? ... does it always work ?
+  const now = Date.now();
+
+  // 3 important things here
+  //   1) we add #x-ipfs-companion-no-redirect to the final url (self explanatory)
+  //   2) we add ?filename=anyname.js as a parameter to let the gateway guess Content-Type header
+  //      to be sent in headers in order to prevent CORB
+  //   3) parameter 'i' is the one used to identify the gateway once the script executes
+  const src = `${gatewayAndScriptHash}?i=${id}&now=${now}&filename=anyname.js#x-ipfs-companion-no-redirect`;
+
+  // 不支持 abort - 除非 先 fetch
+  if (signal) {
+    await fetch(src, {signal}).then(v => v.text());
+  }
+
   return new Promise(((resolve, reject) => {
     try {
-      const gatewayAndScriptHash = getState().gateway.replace(':hash', CheckScriptHash);
-
-      // we set a unused number as a url parameter, to try to prevent content caching
-      // is it right ? ... do you know a better way ? ... does it always work ?
-      const now = Date.now();
-
-      // 3 important things here
-      //   1) we add #x-ipfs-companion-no-redirect to the final url (self explanatory)
-      //   2) we add ?filename=anyname.js as a parameter to let the gateway guess Content-Type header
-      //      to be sent in headers in order to prevent CORB
-      //   3) parameter 'i' is the one used to identify the gateway once the script executes
-      const src = `${gatewayAndScriptHash}?i=${getState().id}&now=${now}&filename=anyname.js#x-ipfs-companion-no-redirect`;
-
       const script = document.createElement('script');
       script.src = src;
       document.body.append(script);
@@ -126,8 +135,8 @@ async function checkStatus({getState}) {
         setTimeout(() => reject('load script is invalid'), 500)
       };
 
-      GlobalResolver[getState().id] = (v) => {
-        delete GlobalResolver[getState().id];
+      GlobalResolver[id] = (v) => {
+        delete GlobalResolver[id];
         resolve(v)
       };
     } catch (e) {
@@ -192,7 +201,7 @@ export function compareCheckState(a: GatewayCheckNodeState, b: GatewayCheckNodeS
   return 0
 }
 
-export async function checkGateways(gateways: string[], onStateChange: (s: GatewayCheckNodeState[]) => void) {
+export async function checkGateways(gateways: string[], onStateChange: (s: GatewayCheckNodeState[]) => void, {signal = null} = {}) {
   let state = new Array(gateways.length);
 
   await Promise.all(
@@ -208,7 +217,7 @@ export async function checkGateways(gateways: string[], onStateChange: (s: Gatew
   return state;
 }
 
-export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeState) => void) {
+export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeState) => void, {signal = null} = {}) {
   let state: GatewayCheckNodeState = {
     id: _uid++,
 
@@ -220,6 +229,8 @@ export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeS
     status: {status: 'new'},
     cors: {status: 'new'},
     origin: {status: 'new'},
+
+    signal,
   };
   onStateChange(state);
 

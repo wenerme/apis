@@ -1,5 +1,5 @@
 import unfetch from 'isomorphic-unfetch';
-import {getGlobalThis, isDev, urljoin} from 'utils/utils';
+import {buildIpfsUrl} from 'libs/ipfs/gateway/selector';
 
 export const ScelIpfsHash = 'QmaTARJ73WduELvCkPtnYfoBD4Qn74fFEicuc76eTT8p62';
 
@@ -61,27 +61,7 @@ export class ScelDataService {
 
   async getFullIndex(): Promise<ScelIndexRecord[]> {
     if (!this.indexFull) {
-      const filePath = `/tmp/${ScelIpfsHash}-index.full.json`;
-      let fs = {} as any;
-      try {
-        fs = require('fs')
-      } catch (e) {
-      }
-
-      if (fs.promises) {
-        if (fs.existsSync(filePath)) {
-          this.indexFull = JSON.parse(fs.readFileSync(filePath).toString())
-        }
-      }
-
-      if (!this.indexFull) {
-        this.indexFull = await unfetch(getIpfsFilePath(ScelIpfsHash, 'index.full.json')).then(v => v.json());
-      }
-
-      if (fs.writeFileSync && JSON.stringify(this.indexFull)) {
-        fs.writeFileSync(filePath, JSON.stringify(this.indexFull))
-      }
-
+      this.indexFull = await unfetch(getIpfsFilePath(ScelIpfsHash, 'index.full.json')).then(v => v.json());
       console.log(`load full index ${this.indexFull.length}`);
     }
     return this.indexFull;
@@ -135,19 +115,5 @@ export function parseScelIndex(text: string): ScelIndexRecord[] {
 }
 
 function getIpfsFilePath(hash, ...path) {
-  return urljoin(getIpfsGateway().replace(':hash', hash), ...path)
+  return buildIpfsUrl(null, hash, ...path);
 }
-
-function getIpfsGateway() {
-  // localStorage['IPFS_PREFER_GW'].replace(':hash','111')
-  let gw;
-  if (isDev()) {
-    gw = process.env.IPFS_PREFER_GW || 'http://127.0.0.1:8080/ipfs/:hash';
-  } else {
-    gw = getGlobalThis()?.localStorage?.['IPFS_PREFER_GW'] ?? getGlobalThis()?.['IPFS_PREFER_GW'] ?? process.env.IPFS_PREFER_GW ?? 'https://ipfs.io/ipfs/:hash'
-  }
-
-  return gw
-}
-
-// http://127.0.0.1:8080/ipfs/QmVfkpF7MKeZNSbcSyTxtWFCsLFetXM6B1oZTGQabMqdzf

@@ -13,6 +13,7 @@ function firstSuccessResolve(promises) {
 }
 
 export function buildIpfsUrl(gateway, hash, ...path) {
+  gateway = gateway || getPreferIpfsGateway();
   return urljoin(gateway.replace(':hash', hash), ...path)
 }
 

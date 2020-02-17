@@ -16,6 +16,13 @@ export default class MyApp extends App {
   // }
 
   componentDidMount() {
+    try {
+      if (progress.env.NODE_ENV.startsWith('dev')) {
+        return
+      }
+    } catch (e) {
+      //
+    }
     initGA();
     logPageView();
     Router.events.on('routeChangeComplete', logPageView)
