@@ -1,7 +1,7 @@
 import unfetch from 'isomorphic-unfetch';
 import {getGlobalThis, isDev, urljoin} from 'utils/utils';
 
-const HASH = 'QmXKxDqA3vNbrCttpTkyztPLGJfQtY9rkk8tjB8fnGDfHq';
+const HASH = 'Qmduh8ZzrERJHRKtUvAvMBUC2VVsntZDm5nHrgrLGLEBAk';
 
 export interface ScelMetadata extends ScelIndexRecord {
   size
