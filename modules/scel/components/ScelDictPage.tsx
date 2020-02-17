@@ -62,7 +62,13 @@ export const ScelDictPage: React.FC<{ dictId, dictVersion?, metadata?: ScelMetad
         <Head>
           <title>搜狗词库 {type} {name} ID {dictVersion} 版本{dictVersion} 作者 {createdBy}</title>
 
-          <meta name="description" content={`搜狗词库 scel 解析 ${type} ${name} ${createdBy} ${example} ${description}`} />
+          <meta name="keywords"
+                content={`搜狗,词库,SCEl,解析,接口,API,查询,${createdBy},${name},${example.replace(/[\s,，]+/, ',')}`}
+          />
+          <meta name="author" content={createdBy ?? 'wener'} />
+
+          <meta name="description"
+                content={`搜狗词库 scel 解析 ${type} ${name} ${createdBy} ${example} ${description}`} />
           <meta name="og:title" property="og:title" content={`${name} - ${type} - ${createdBy} - 搜狗词库`} />
           <meta name="og:description" property="og:description"
                 content={`搜狗词库 ${name} - ${type}: ${description} 示例 ${example}`} />
@@ -108,7 +114,7 @@ export const ScelDictPage: React.FC<{ dictId, dictVersion?, metadata?: ScelMetad
 
         <div style={{flex: 1, display: 'flex', flexFlow: 'column'}}>
           <h2>词库内容</h2>
-          <div style={{minHeight: 320, flex: 1}}>
+          <div style={{minHeight: 320, flex: 1, display: 'flex'}}>
             {scel.content && <ScelContentList content={scel.content} />}
             {!scel.content && <Button loading={loading} onClick={loadScel}>加载词库</Button>}
           </div>

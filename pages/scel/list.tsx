@@ -1,7 +1,7 @@
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Icon, PageHeader} from 'antd';
-import React from 'react';
+import {Descriptions, Icon, Input, PageHeader} from 'antd';
+import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
 import {createScelDataService, ScelIndexRecord} from 'libs/sougou/dict/ScelDataService';
 import {NextPage} from 'next';
@@ -33,14 +33,50 @@ const ScelIndexList: React.FC<{ index: ScelIndexRecord[] }> = ({index}) => {
     </AutoSizer>
   )
 };
-const ScelIndexItem: React.FC<{ item: ScelIndexRecord }> = ({item: {id, name, count, size, type, version, updatedAt}}) => {
+
+const ScelIndex: React.FC<{ index: ScelIndexRecord[] }> = ({index}) => {
+  const [list, setList] = useState(index);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    if (!search) {
+      setList(index);
+      return
+    }
+
+    setList(index.filter(v => v.name.includes(search) || v.createdBy.includes(search) || v.type.includes(search)))
+  }, [search]);
+
+  return (
+    <div style={{flex: 1, display: 'flex', flexFlow: 'column'}}>
+      <h2>词库索引</h2>
+      <div style={{margin: '8px 0'}}>
+        <Input.Search
+          placeholder="搜索 标题、类型、创建人"
+          allowClear
+          onSearch={setSearch}
+        />
+        <Descriptions>
+          <Descriptions.Item label="总数">{index.length}</Descriptions.Item>
+          <Descriptions.Item label="结果数">{list.length}</Descriptions.Item>
+        </Descriptions>
+      </div>
+      <div style={{minHeight: 320, flex: 1}}>
+        <ScelIndexList index={list} />
+      </div>
+    </div>
+  )
+};
+
+const ScelIndexItem: React.FC<{ item: ScelIndexRecord }> = ({item: {id, name, count, size, type, version, updatedAt, createdBy}}) => {
   return (
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <div>
-        <span style={{marginRight: 12}}>{name}</span>
-        <small style={{marginRight: 12}}>{type}</small>
+        <span style={{marginRight: 24, minWidth: 120, display: 'inline-block'}}>{name}</span>
+        {type && <small style={{marginRight: 12}}>{type}</small>}
         <small style={{marginRight: 12}}>{count} 词条</small>
         <small style={{marginRight: 12}}>{(size / 1000).toFixed(2)}k</small>
+        {createdBy && <small style={{marginRight: 12}}>作者: {createdBy}</small>}
 
         <span>
           <Link href="/scel/dict/[dictId]/v/[dictVersion]" as={`/scel/dict/${id}/v/${version}`}>
@@ -74,7 +110,13 @@ const Page: NextPage<{ index?: ScelIndexRecord[], raw? }> = ({index, raw}) => {
     <PageLayout>
       <PageContent style={{display: 'flex', flexFlow: 'column'}}>
         <Head>
-          <title>词库列表</title>
+          <title>搜狗词库列表</title>
+
+          <meta name="keywords" content={`搜狗,词库,SCEl,解析,接口,API,查询}`} />
+
+          <meta name="description" content={`搜狗词库 SCEL 解析索引查询`} />
+          <meta name="og:title" property="og:title" content={`搜狗词库查询`} />
+          <meta name="og:description" property="og:description" content={`搜狗词库 SCEL 词库文件索引查询`} />
         </Head>
         <PageHeader
           title={
@@ -86,12 +128,7 @@ const Page: NextPage<{ index?: ScelIndexRecord[], raw? }> = ({index, raw}) => {
           backIcon={false}
         />
 
-        <div style={{flex: 1, display: 'flex', flexFlow: 'column'}}>
-          <h2>词库索引</h2>
-          <div style={{minHeight: 320, flex: 1}}>
-            <ScelIndexList index={index} />
-          </div>
-        </div>
+        <ScelIndex index={index} />
 
         <ScelFooter />
       </PageContent>
