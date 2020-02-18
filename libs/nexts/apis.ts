@@ -19,7 +19,7 @@ export function getClientAddress(req: IncomingMessage) {
 
 
 /// https://github.com/jekrb/next-absolute-url/blob/master/index.ts
-export function parseRequestUrl(req: IncomingMessage, def: string) {
+export function parseRequestUrl(req: IncomingMessage, def = 'http://localhost:3000') {
   let host = (req ? req.headers.host : window.location.host) || def;
   let protocol = /^localhost(:\d+)?$/.test(host) ? 'http:' : 'https:';
 

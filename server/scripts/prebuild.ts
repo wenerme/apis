@@ -6,7 +6,7 @@ import unfetch from 'isomorphic-unfetch';
 
 async function main() {
   console.log(`Use Scel IPFS HASH ${ScelDirectoryIpfsHash}`);
-  const gateway = await detectingDummyFastestGateway(PublicGateways);
+  const gateway = await detectingDummyFastestGateway(PublicGateways.filter(v => !v.includes('//:hash')));
   console.log(`Found fastest gateway ${gateway}`);
 
   lineInFile({
