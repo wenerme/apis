@@ -48,5 +48,6 @@ export const handleErrors = () => handler => async (req: NextApiRequest, res: Ne
   } catch (e) {
     const detail = normalizeError(e);
     res.status(detail.status).json(detail)
+    console.error(`ERROR Handle ${req.url}`, e)
   }
 };

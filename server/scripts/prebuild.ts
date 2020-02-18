@@ -1,11 +1,11 @@
-import {ScelIpfsHash} from 'libs/sougou/dict/ScelDataService';
+import {ScelDirectoryIpfsHash} from 'libs/sougou/dict/ScelDataService';
 import {PublicGateways} from 'libs/ipfs/gateway/gateways';
 import fs from 'fs'
 import {buildIpfsUrl, detectingDummyFastestGateway} from 'libs/ipfs/gateway/selector';
 import unfetch from 'isomorphic-unfetch';
 
 async function main() {
-  console.log(`Use Scel IPFS HASH ${ScelIpfsHash}`);
+  console.log(`Use Scel IPFS HASH ${ScelDirectoryIpfsHash}`);
   const gateway = await detectingDummyFastestGateway(PublicGateways);
   console.log(`Found fastest gateway ${gateway}`);
 
@@ -15,8 +15,8 @@ async function main() {
     file: '.env'
   });
 
-  fs.writeFileSync('public/data/scel/index.csv', await unfetch(buildIpfsUrl(gateway, ScelIpfsHash, 'index.csv')).then(v => v.text()));
-  fs.writeFileSync('public/data/scel/index.full.json', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelIpfsHash, 'index.full.json')).then(v => v.json()), {hash: ScelIpfsHash})));
+  fs.writeFileSync('public/data/scel/index.csv', await unfetch(buildIpfsUrl(gateway, ScelDirectoryIpfsHash, 'index.csv')).then(v => v.text()));
+  fs.writeFileSync('public/data/scel/index.full.json', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelDirectoryIpfsHash, 'index.full.json')).then(v => v.json()), {hash: ScelDirectoryIpfsHash})));
 }
 
 function lineInFile({line, regex, file}) {

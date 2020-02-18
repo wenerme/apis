@@ -153,4 +153,18 @@ export class SougouDictFetcher {
       limit 1
     `).then(v => v[0]?.id ?? 1)
   }
+
+  async getLargestCacheScelId(): Promise<number> {
+    return this.sqlArRepo.query(`
+      with names(name) as (
+          select substr(name, length('scel/files/') + 1)
+          from sqlar
+          where name like 'scel/files/%'
+            and data is not null
+      )
+      select cast(substr(name, 0, instr(name, '/')) as integer) as id
+      from names
+      order by id desc
+    `).then(v => v[0]?.id ?? 1)
+  }
 }

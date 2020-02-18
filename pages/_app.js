@@ -17,8 +17,11 @@ export default class MyApp extends App {
 
   componentDidMount() {
     try {
-      if (progress.env.NODE_ENV.startsWith('dev')) {
-        return
+      if (typeof window !== 'undefined' && window.location.origin.includes('localhost')) {
+        return;
+      }
+      if (process.env.NODE_ENV.startsWith('dev')) {
+        return;
       }
     } catch (e) {
       //

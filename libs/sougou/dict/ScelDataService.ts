@@ -1,7 +1,13 @@
 import unfetch from 'isomorphic-unfetch';
 import {buildIpfsUrl} from 'libs/ipfs/gateway/selector';
+import {API} from 'apis/api';
 
-export const ScelIpfsHash = 'QmaTARJ73WduELvCkPtnYfoBD4Qn74fFEicuc76eTT8p62';
+export const ScelDirectoryIpfsHash = 'QmaTARJ73WduELvCkPtnYfoBD4Qn74fFEicuc76eTT8p62';
+
+export interface ScelCompactIndex {
+  fields: string[]
+  rows: any[][]
+}
 
 export interface ScelMetadata extends ScelIndexRecord {
   size
@@ -21,6 +27,8 @@ export interface ScelIndexRecord {
   size?
   example?
   description?
+
+  fileIpfsHash?
 }
 
 let _instance: ScelDataService;
@@ -39,29 +47,29 @@ export class ScelDataService {
   private indexRaw;
 
   constructor() {
-    console.log(`initial ScelDataService ${ScelIpfsHash}`);
+    console.log(`initial ScelDataService ${ScelDirectoryIpfsHash}`);
   }
 
   async getIpfsHash() {
-    return ScelIpfsHash;
+    return ScelDirectoryIpfsHash;
   }
 
   getScelUrl({id, version}) {
-    return getIpfsFilePath(ScelIpfsHash, 'files', id, `v${version}.scel`)
+    return getIpfsFilePath(ScelDirectoryIpfsHash, 'files', id, `v${version}.scel`)
   }
 
-  async getMetadata({id, version}) {
-    return unfetch(getIpfsFilePath(ScelIpfsHash, 'files', id, `v${version}.json`))
-      .then(v => v.json())
+  async getMetadata({id, version, req = null}) {
+    return unfetch(API.apiOf(`/api/scel/dict?id=${id}&version=${version ?? 0}`, req)).then(v => v.json());
+    // return unfetch(getIpfsFilePath(ScelDirectoryIpfsHash, 'files', id, `v${version}.json`)).then(v => v.json())
   }
 
   async getRawIndex(): Promise<string> {
-    return this.indexRaw = this.indexRaw ?? await unfetch(getIpfsFilePath(ScelIpfsHash, 'index.csv')).then(v => v.text())
+    return this.indexRaw = this.indexRaw ?? await unfetch(getIpfsFilePath(ScelDirectoryIpfsHash, 'index.csv')).then(v => v.text())
   }
 
   async getFullIndex(): Promise<ScelIndexRecord[]> {
     if (!this.indexFull) {
-      this.indexFull = await unfetch(getIpfsFilePath(ScelIpfsHash, 'index.full.json')).then(v => v.json());
+      this.indexFull = await unfetch(getIpfsFilePath(ScelDirectoryIpfsHash, 'index.full.json')).then(v => v.json());
       console.log(`load full index ${this.indexFull.length}`);
     }
     return this.indexFull;

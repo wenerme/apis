@@ -1,4 +1,6 @@
-import {isDev} from 'utils/utils';
+import {isDev, urljoin} from 'utils/utils';
+import {IncomingMessage} from 'http';
+import {parseRequestUrl} from 'libs/nexts/apis';
 
 export const API = {
   get url(): string {
@@ -8,9 +10,12 @@ export const API = {
     return window.location.origin;
   },
 
-  apiOf(apiPath) {
+  apiOf(apiPath, req?: IncomingMessage) {
     if (/^http?s:/.test(apiPath)) {
       return apiPath;
+    }
+    if (req) {
+      return urljoin(parseRequestUrl(req, API.url).origin, apiPath)
     }
     return `${API.url}${apiPath}`
   }
