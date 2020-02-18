@@ -25,7 +25,11 @@ export const WebRTCChecker: React.FC = () => {
 
   const [connState, setConnState] = useState<PeerConnectionState>({} as any);
   const [candidates, setCandidates] = useState<any[]>([]);
-  const [iceServers, setIceServers] = useState(['stun:111.231.102.99']);
+  // https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
+  const [iceServers, setIceServers] = useState<RTCIceServer[]>([
+    {urls: ['stun:stun.wener.me']},
+    {urls: ['stun:stun2.wener.me']},
+  ]);
 
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
 
@@ -50,9 +54,7 @@ export const WebRTCChecker: React.FC = () => {
 
     setPhase('初始化');
     const configuration = {
-      iceServers: [{
-        urls: iceServers
-      }]
+      iceServers
     };
     const conn = connRef.current = new RTCPeerConnection(configuration);
     closer.push(addPeerConnectionStateListener(conn, setConnState));
@@ -275,6 +277,7 @@ export const WebRTCChecker: React.FC = () => {
                 <th>协议</th>
                 <th>类型</th>
                 <th>用户</th>
+                <th className="priority">Foundation</th>
                 <th className="priority">优先级</th>
               </tr>
               </thead>
@@ -284,6 +287,7 @@ export const WebRTCChecker: React.FC = () => {
                   ip, address, port, protocol, type, component,
                   relatedAddress, relatePort,
                   priority,
+                  foundation,
                   usernameFragment,
 
                   sdpMid,
@@ -294,6 +298,7 @@ export const WebRTCChecker: React.FC = () => {
                   <td>{protocol}</td>
                   <td>{type}/{component}</td>
                   <td>{usernameFragment}</td>
+                  <td className="priority">{foundation}</td>
                   <td className="priority">{priority}</td>
                 </tr>
               ))}
