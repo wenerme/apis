@@ -3,6 +3,7 @@ import {PublicGateways} from 'libs/ipfs/gateway/gateways';
 import fs from 'fs'
 import {buildIpfsUrl, detectingDummyFastestGateway} from 'libs/ipfs/gateway/selector';
 import unfetch from 'isomorphic-unfetch';
+import {lineInFile} from 'server/scripts/utils';
 
 async function main() {
   console.log(`Use Scel IPFS HASH ${ScelDirectoryIpfsHash}`);
@@ -17,33 +18,6 @@ async function main() {
 
   fs.writeFileSync('public/data/scel/index.csv', await unfetch(buildIpfsUrl(gateway, ScelDirectoryIpfsHash, 'index.csv')).then(v => v.text()));
   fs.writeFileSync('public/data/scel/index.full.json', JSON.stringify(Object.assign(await unfetch(buildIpfsUrl(gateway, ScelDirectoryIpfsHash, 'index.full.json')).then(v => v.json()), {hash: ScelDirectoryIpfsHash})));
-}
-
-function lineInFile({line, regex, file}) {
-  let content = '';
-  if (fs.existsSync(file)) {
-    content = fs.readFileSync(file).toString().trimEnd()
-  }
-  let done = false;
-  const lines = content.split('\n')
-    .map(v => {
-      if (regex.test(v)) {
-        done = true;
-        return line
-      }
-      return v
-    });
-
-  if (!done) {
-    lines.push(line);
-  }
-
-  lines.push('');
-
-  const neo = lines.join('\n');
-  if (neo !== content) {
-    fs.writeFileSync(file, neo)
-  }
 }
 
 (async function run() {
