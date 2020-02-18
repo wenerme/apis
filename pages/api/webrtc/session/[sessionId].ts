@@ -1,26 +1,40 @@
 import {NextApiRequest, NextApiResponse} from 'next'
-import {parseRequestUrl} from 'libs/nexts/apis';
 import {ApiError} from 'next/dist/next-server/server/api-utils';
 import {BehaviorSubject} from 'rxjs';
 import {handleErrors} from 'libs/nexts/middlewares/errors';
 import {flow} from 'lodash';
 import {addMinutes, min} from 'date-fns';
-
+import {applyPatches} from 'immer';
+import {cors} from 'libs/nexts/middlewares/cors';
+import uuidv4 from 'uuid/v4'
+import {isDev} from 'utils/utils';
 
 interface SessionInit {
   id
 }
 
+interface SessionData {
+  id: string
+  data: object
+}
+
 class Session {
   id: string;
-  state = new BehaviorSubject<any>({});
+  state: BehaviorSubject<SessionData>;
   peers = []
   createdAt = new Date();
-  expiredAt = addMinutes(new Date(), 3);
+  expiredAt = addMinutes(new Date(), 5);
   uid = 0;
 
   constructor(init: SessionInit) {
-    Object.assign(this, init)
+    Object.assign(this, init);
+    this.touch();
+    this.state = new BehaviorSubject<any>({
+      id: this.id,
+      data: {},
+      createdAt: this.createdAt,
+      expiredAt: this.expiredAt,
+    })
   }
 
   get expired(): boolean {
@@ -28,12 +42,26 @@ class Session {
   }
 
   touch() {
-    this.expiredAt = min([addMinutes(new Date(), 3), addMinutes(this.createdAt, 10)])
+    this.expiredAt = min([addMinutes(new Date(), 5), addMinutes(this.createdAt, 60)])
   }
 
-  handle(body) {
-    this.state.next(body);
+  put(body) {
     this.touch();
+    this.state.next(Object.assign(this.state.value, {data: body, expiredAt: this.expiredAt}));
+  }
+
+  patch(body) {
+    if (!Array.isArray(body)) {
+      this.put(Object.assign({}, this.state.value.data, body));
+      return
+    }
+
+    const neo = applyPatches(this.state.value.data, body);
+    if (this.state.value.data !== neo) {
+      this.put(neo)
+    } else {
+      this.touch();
+    }
   }
 
   join({peerId = null, onChange, onClose = null}) {
@@ -78,7 +106,10 @@ class SessionManager {
     }, 30000)
   }
 
-  getSession(id): Session {
+  async getSession(id): Promise<Session> {
+    if (!id) {
+      throw new ApiError(400, `no session id`)
+    }
     const session = this.sessions[id];
     if (!session) {
       throw new ApiError(404, `session expired or not exists: ${id}`)
@@ -86,7 +117,7 @@ class SessionManager {
     return session;
   }
 
-  getOrCreateSession(id): Session {
+  async getOrCreateSession(id): Promise<Session> {
     return this.sessions[id] = this.sessions[id] ?? new Session({id});
   }
 
@@ -98,7 +129,10 @@ class SessionManager {
       .forEach(v => this.closeSession(v))
   }
 
-  closeSession(v) {
+  async closeSession(v) {
+    if (typeof v === 'string') {
+      v = await this.getSession(v);
+    }
     console.log(`close session ${v.id}`);
     try {
       v.close();
@@ -115,26 +149,20 @@ class SessionManager {
 
 const manager = new SessionManager();
 
-const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
-  const {peerId, sessionId} = req.query;
-  let body = req.body;
-  if (typeof body === 'string') {
-    body = JSON.parse(body);
-  }
-  const session = manager.getSession(sessionId);
-  session.handle(body);
-
-  res.status(200).json({message: 'success', expiredAt: session.expiredAt})
-};
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
-  res.setHeader('Access-Control-Allow-Origin', parseRequestUrl(req).origin);
+  const {peerId, sessionId} = req.query;
+
+  if (!req.headers['accept']?.includes('text/event-stream')) {
+    const session = await manager.getSession(sessionId);
+    res.status(200).json(session.state.value);
+    return
+  }
+
   res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
   res.setHeader('Cache-Control', 'no-cache, no-transform');
   res.setHeader('X-Accel-Buffering', 'no');
 
-  const {peerId, sessionId} = req.query;
-  const session = manager.getOrCreateSession(sessionId);
-
+  const session = await manager.getOrCreateSession(isDev() ? (sessionId ?? uuidv4()) : uuidv4());
   await new Promise(((resolve, reject) => {
     const leave = session.join({
       peerId,
@@ -153,19 +181,44 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   res.end();
 };
 
-// curl -Nv localhost:3000/api/webrtc/session/test
-// curl -X POST -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '{"a":1}' -v
+// curl -Nv -H 'Accept: text/event-stream' localhost:3000/api/webrtc/session/test
+// curl -X PUT -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '{"a":1}' -v
+// curl -X PATCH -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '[{"op":"replace","path":["a"],"value":2}]' -v
+//
+// curl -Nv -H 'Accept: text/event-stream' https://wener.herokuapp.com/api/webrtc/session
+// curl -X PUT -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '{"a":1}' -v
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const {peerId, sessionId} = req.query;
+
   switch (req.method) {
-    case 'GET':
+    case 'GET': {
       await handleGet(req, res);
+      break
+    }
+    case 'PUT':
+    case 'PATCH': {
+      const session = await manager.getSession(sessionId);
+      if (req.method === 'PUT') {
+        session.put(req.body);
+      } else {
+        session.patch(req.body);
+      }
+
+      res.status(200).json({message: 'success', expiredAt: session.expiredAt})
       break;
-    case 'POST':
-      await handlePost(req, res);
+    }
+
+    case 'DELETE':
+      await manager.closeSession(sessionId);
       break;
     default:
       throw new ApiError(400, 'invalid request')
   }
 };
 
-export default flow([handleErrors()])(handler);
+export default flow([
+  cors({
+    origin: ['http://localhost:3000', 'https://apis.wener.me']
+  }),
+  handleErrors(),
+])(handler);

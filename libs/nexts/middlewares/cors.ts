@@ -1,3 +1,5 @@
+import {parseRequestUrl} from 'libs/nexts/apis';
+
 const DEFAULT_ALLOW_METHODS = [
   'POST',
   'GET',
@@ -19,7 +21,7 @@ const DEFAULT_ALLOW_HEADERS = [
 const DEFAULT_MAX_AGE_SECONDS = 60 * 60 * 24; // 24 hours
 
 export interface CorsOption {
-  origin: string
+  origin: string | string[]
   maxAge: number
   allowMethods: string[]
   allowHeaders: string[]
@@ -37,7 +39,15 @@ export const cors = (options: Partial<CorsOption> = {}) => handler => (req, res,
     exposeHeaders = []
   } = options as any;
 
-  res.setHeader('Access-Control-Allow-Origin', origin);
+  if (typeof origin === 'string') {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else if (Array.isArray(origin)) {
+    const requestOrigin = parseRequestUrl(req).origin;
+    if (origin.includes(requestOrigin)) {
+      res.setHeader('Access-Control-Allow-Origin', requestOrigin);
+    }
+  }
+
   if (allowCredentials) {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
   }
