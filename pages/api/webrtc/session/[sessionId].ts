@@ -13,6 +13,12 @@ interface SessionInit {
   id
 }
 
+interface SessionPeer {
+  peerId
+  onClose?: (reason?) => void
+  onChange: (o: any) => void
+}
+
 interface SessionData {
   id: string
   data: object
@@ -21,10 +27,12 @@ interface SessionData {
 class Session {
   id: string;
   state: BehaviorSubject<SessionData>;
-  peers = []
+  peers: SessionPeer[] = []
   createdAt = new Date();
   expiredAt = addMinutes(new Date(), 5);
-  uid = 0;
+  uid = 1;
+
+  keepaliveInterval
 
   constructor(init: SessionInit) {
     Object.assign(this, init);
@@ -35,10 +43,29 @@ class Session {
       createdAt: this.createdAt,
       expiredAt: this.expiredAt,
     })
+
+    this.keepaliveInterval = setInterval(() => {
+      this.emit({type: 'Keepalive'});
+    }, 30 * 1000)
   }
 
   get expired(): boolean {
     return this.expiredAt.getTime() < Date.now()
+  }
+
+  emit(body) {
+    body = Object.assign(body, {id: this.id});
+    let peers = this.peers;
+    if (body.peerId) {
+      peers = peers.filter(({peerId}) => peerId === body.peerId)
+    }
+    peers.forEach(({onChange, peerId}) => {
+      try {
+        onChange(body)
+      } catch (e) {
+        console.error(`[${this.id}]failed to send to ${peerId}`, e)
+      }
+    })
   }
 
   touch() {
@@ -67,7 +94,7 @@ class Session {
   join({peerId = null, onChange, onClose = null}) {
     peerId = this.uid++;
     const sub = this.state.subscribe(v => {
-      onChange(v)
+      onChange(Object.assign({}, v, {type: 'Data'}))
     });
 
     const closer = () => {
@@ -77,18 +104,18 @@ class Session {
       const i = this.peers.findIndex(v => v.peerId === peerId);
       this.peers.splice(i, 1);
 
-      onClose?.();
+      onClose?.('Leave');
     };
 
-    this.peers.push({peerId, closer});
+    this.peers.push({peerId, onClose: closer, onChange});
     console.log(`[${this.id}]: peer join ${peerId}`);
     return closer
   }
 
   close(reason?) {
-    this.peers.forEach(({closer, peerId}) => {
+    this.peers.forEach(({onClose, peerId}) => {
       try {
-        closer()
+        onClose()
       } catch (e) {
         console.error(`failed to close ${peerId}`, e)
       }
@@ -169,7 +196,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
       onChange(v) {
         res.write(`data: ${JSON.stringify(v)}\n\n`)
       },
-      onClose() {
+      onClose(reason) {
         resolve();
       }
     });
@@ -177,7 +204,6 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     res.on('close', () => leave())
   }));
 
-  res.write(`data: {"__type":"Close"}`);
   res.end();
 };
 
@@ -186,7 +212,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 // curl -X PATCH -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '[{"op":"replace","path":["a"],"value":2}]' -v
 //
 // curl -Nv -H 'Accept: text/event-stream' https://wener.herokuapp.com/api/webrtc/session
-// curl -X PUT -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '{"a":1}' -v
+// curl -X PUT -H "Content-Type: application/json" https://wener.herokuapp.com/api/webrtc/session/test --data '{"a":1}' -v
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {peerId, sessionId} = req.query;
 

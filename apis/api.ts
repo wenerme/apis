@@ -3,7 +3,7 @@ import {IncomingMessage} from 'http';
 import {parseRequestUrl} from 'libs/nexts/apis';
 
 export const API = {
-  get url(): string {
+  get origin(): string {
     if (typeof window === 'undefined') {
       return isDev() ? 'http://localhost:3000' : 'https://apis.wener.me';
     }
@@ -14,9 +14,19 @@ export const API = {
     if (/^http?s:/.test(apiPath)) {
       return apiPath;
     }
+
+    let origin = API.origin;
     if (req) {
-      return urljoin(parseRequestUrl(req, API.url).origin, apiPath)
+      origin = parseRequestUrl(req, API.origin).origin;
     }
-    return `${API.url}${apiPath}`
+
+    // https://wener-apis.herokuapp.com
+    if (!origin.includes('localhost')) {
+      if (/^[/]api[/]webrtc[/]session/.test(apiPath)) {
+        origin = 'https://wener-apis.herokuapp.com';
+      }
+    }
+
+    return urljoin(origin, apiPath)
   }
 };
