@@ -136,8 +136,8 @@ const PasswordStrengthPageContent: React.FC<{ initialValue? }> = ({initialValue 
       <div style={{marginTop: 18}}>
         <h4>接口请求</h4>
         <div>
-          <a href={`${API.url}/api/password/zxcvbn/${value}`} target="_blank">
-            {`${API.url}/api/password/zxcvbn/${value}`}
+          <a href={`${API.origin}/api/password/zxcvbn/${value}`} target="_blank">
+            {`${API.origin}/api/password/zxcvbn/${value}`}
           </a>
         </div>
         <div>

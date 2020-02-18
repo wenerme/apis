@@ -98,10 +98,10 @@ const HashPageContent: React.FC<{ algorithm, content, initialData }> = ({algorit
         <h4>接口请求</h4>
         <div style={{opacity: content ? 1 : 0}}>
           <a
-            href={`${API.url}/api/hash/md/${algorithm}/base64/json/${content}`}
+            href={`${API.origin}/api/hash/md/${algorithm}/base64/json/${content}`}
             target="_blank"
           >
-            {`${API.url}/api/hash/md/${algorithm}/base64/json/${content}`}
+            {`${API.origin}/api/hash/md/${algorithm}/base64/json/${content}`}
           </a>
         </div>
         <div>

@@ -81,8 +81,8 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({initialData}) =
       <div style={{marginTop: 18}}>
         <h4>接口请求</h4>
         <div>
-          <a href={`${API.url}/api/phone/attribution/${number || '135000000000'}`} target="_blank">
-            {`${API.url}/api/phone/attribution/${number || '135000000000'}`}
+          <a href={`${API.origin}/api/phone/attribution/${number || '135000000000'}`} target="_blank">
+            {`${API.origin}/api/phone/attribution/${number || '135000000000'}`}
           </a>
         </div>
         <div>
