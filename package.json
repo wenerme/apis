@@ -17,7 +17,7 @@
     "compile": "tsc -p .",
     "fix": "gts fix",
     "heroku-postbuild": "yarn run set-platform HEROKU && yarn run build",
-    "now-build": "yarn run set-platform HEROKU && yarn run build",
+    "now-build": "yarn run set-platform NOW && yarn run build",
     "setup-db": "node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",

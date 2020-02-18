@@ -8,6 +8,7 @@ import {applyPatches} from 'immer';
 import {cors} from 'libs/nexts/middlewares/cors';
 import uuidv4 from 'uuid/v4'
 import {isDev} from 'utils/utils';
+import {platformNotSupported} from 'server/platforms';
 
 interface SessionInit {
   id
@@ -211,9 +212,11 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 // curl -X PUT -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '{"a":1}' -v
 // curl -X PATCH -H "Content-Type: application/json" localhost:3000/api/webrtc/session/test --data '[{"op":"replace","path":["a"],"value":2}]' -v
 //
-// curl -Nv -H 'Accept: text/event-stream' https://wener.herokuapp.com/api/webrtc/session
-// curl -X PUT -H "Content-Type: application/json" https://wener.herokuapp.com/api/webrtc/session/test --data '{"a":1}' -v
+// curl -Nv -H 'Accept: text/event-stream' https://wener-apis.herokuapp.com/api/webrtc/session
+// curl -X PUT -H "Content-Type: application/json" https://wener-apis.herokuapp.com/api/webrtc/session/test --data '{"a":1}' -v
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  platformNotSupported('now')
+
   const {peerId, sessionId} = req.query;
 
   switch (req.method) {
