@@ -34,6 +34,11 @@ const menus: MenuSpec[] = [
     routes: ['/phone/attribution/[num]']
   },
   {
+    title: 'URI',
+    iconType: 'link',
+    path: '/misc/uri',
+  },
+  {
     title: '密码强度检测',
     iconType: 'key',
     path: '/password/strength',
