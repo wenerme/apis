@@ -1,32 +1,56 @@
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
 import {Descriptions, Icon, Input, PageHeader} from 'antd';
 import url from 'url'
 import ContentEditable from 'react-contenteditable';
 import produce from 'immer';
 import sanitizeHtml from 'sanitize-html';
+import {useRouter} from 'next/router';
+import {firstOf} from 'utils/arrays';
+import pick from 'lodash/pick'
 
 const UriPageContent: React.FC = () => {
-  const [uri, setUri] = useState('https://admin:pass@wener.me:8443/notes/java/java/?name=wener#hero');
-  const [value, setValue] = useState(uri);
+  const router = useRouter();
+  const [current, setCurrent] = useState(firstOf(router.query['url']) ?? 'https://admin:pass@wener.me:8443/notes/java/java/?name=wener#hero');
+  const [value, setValue] = useState(current);
   const [parsed, setParsed] = useState<URL>(null);
-  const rawUriRef = useRef<URL>();
 
   useEffect(() => {
     let o: URL;
     try {
-      o = new URL(uri);
-      // o = _.pick(new URL(uri), ['href', 'origin', 'protocol', 'username', 'password', 'host', 'hostname', 'port', 'pathname', 'search', 'searchParams', 'hash']) as URL;
+      o = new URL(current);
+      o = pick(o, ['href', 'origin', 'protocol', 'username', 'password', 'host', 'hostname', 'port', 'pathname', 'search', 'searchParams', 'hash']) as URL;
     } catch (e) {
-      console.warn(`invalid url ${uri}`);
-      o = url.parse(uri, true) as any
+      console.warn(`invalid url ${current}`);
+      o = url.parse(current, true) as any
     }
-    setParsed(o);
-    rawUriRef.current = o
-  }, [uri]);
+    console.log(`do parse ${current}`, o);
 
+    setParsed(o);
+    // sync url param
+    if (firstOf(router.query['url']) !== current) {
+      router.push({pathname: location.pathname, query: {url: current}})
+    }
+  }, [current]);
+
+  useEffect(() => {
+    if (!parsed) {
+      return
+    }
+    let v;
+    if (parsed.origin) {
+      const {origin, searchParams, ...o} = parsed;
+      const u = Object.assign(new URL(current), o);
+      v = u.toString();
+
+    } else {
+      console.info(`format parsed`, parsed);
+      v = url.format(parsed);
+    }
+    setValue(v)
+  }, [parsed]);
   const fields = [
     {label: '来源', field: 'origin', editable: false},
     {
@@ -37,7 +61,7 @@ const UriPageContent: React.FC = () => {
     },
     {label: '账号', field: 'username'},
     {label: '密码', field: 'password'},
-    {label: '主机', field: 'host'},
+    {label: '主机', field: 'hostname'},
     {label: '端口', field: 'port'},
     {label: '路径', field: 'pathname'},
     {label: '搜索', field: 'search'},
@@ -45,12 +69,6 @@ const UriPageContent: React.FC = () => {
   ];
 
   const onBlur = () => {
-    if (parsed instanceof URL) {
-      setValue(parsed.toString())
-    } else {
-      console.info(`format parsed`, parsed);
-      setValue(url.format(parsed))
-    }
   };
   return (
     <div>
@@ -58,7 +76,7 @@ const UriPageContent: React.FC = () => {
         value={value}
         onChange={v => setValue(v.target.value)}
         enterButton="解析"
-        onSearch={setUri}
+        onSearch={setCurrent}
       />
 
       <div style={{marginTop: 16}}>
