@@ -28,12 +28,10 @@ interface SessionData {
 class Session {
   id: string;
   state: BehaviorSubject<SessionData>;
-  peers: SessionPeer[] = []
+  peers: SessionPeer[] = [];
   createdAt = new Date();
   expiredAt = addMinutes(new Date(), 5);
   uid = 1;
-
-  keepaliveInterval
 
   constructor(init: SessionInit) {
     Object.assign(this, init);
@@ -43,11 +41,7 @@ class Session {
       data: {},
       createdAt: this.createdAt,
       expiredAt: this.expiredAt,
-    })
-
-    this.keepaliveInterval = setInterval(() => {
-      this.emit({type: 'Keepalive'});
-    }, 30 * 1000)
+    });
   }
 
   get expired(): boolean {
@@ -67,6 +61,10 @@ class Session {
         console.error(`[${this.id}]failed to send to ${peerId}`, e)
       }
     })
+  }
+
+  tick() {
+    this.emit({type: 'Keepalive'});
   }
 
   touch() {
@@ -125,13 +123,13 @@ class Session {
 }
 
 class SessionManager {
+  id = Date.now();
   sessions: Record<string, Session> = {};
-  cleanerInterval;
+  tickTimeout: NodeJS.Timeout;
+  shouldDispose?: (v) => boolean;
 
   constructor() {
-    this.cleanerInterval = setInterval(() => {
-      this.clean()
-    }, 30000)
+    this.tick()
   }
 
   async getSession(id): Promise<Session> {
@@ -146,11 +144,31 @@ class SessionManager {
   }
 
   async getOrCreateSession(id): Promise<Session> {
-    return this.sessions[id] = this.sessions[id] ?? new Session({id});
+    if (!this.sessions[id]) {
+      const session = new Session({id});
+      this.sessions[id] = session;
+      console.log(`[${this.id}] create session ${session.id}`)
+    }
+    return this.sessions[id];
+  }
+
+  tick() {
+    if (this.shouldDispose?.(this)) {
+      this.close('dispose');
+      return
+    }
+
+    this.clean();
+    Object
+      .values(this.sessions)
+      .forEach(v => v.tick());
+
+    this.tickTimeout = setTimeout(() => this.tick(), 30000);
+    this.tickTimeout.unref?.()
   }
 
   clean() {
-    console.log(`cleaning sessions`);
+    console.log(`[${this.id}] cleaning sessions`);
     Object
       .values(this.sessions)
       .filter(v => v.expired || v.peers.length === 0)
@@ -161,7 +179,7 @@ class SessionManager {
     if (typeof v === 'string') {
       v = await this.getSession(v);
     }
-    console.log(`close session ${v.id}`);
+    console.log(`[${this.id}] close session ${v.id}`);
     try {
       v.close();
     } finally {
@@ -169,13 +187,23 @@ class SessionManager {
     }
   }
 
-  close() {
-    Object.values(this.sessions).forEach(v => this.closeSession(v))
-    clearInterval(this.cleanerInterval)
+  close(reason?) {
+    console.log(`[${this.id}] close manager ${reason ?? ''}`);
+    Object.values(this.sessions).forEach(v => this.closeSession(v));
+    clearTimeout(this.tickTimeout)
   }
 }
 
 const manager = new SessionManager();
+manager.shouldDispose = (v) => manager !== v;
+
+if (module['hot']) {
+  module['hot'].dispose(data => {
+    console.log(`hmr dispose manager`);
+    manager.close()
+  });
+  console.log(`hmr register disposer`)
+}
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const {peerId, sessionId} = req.query;
@@ -215,7 +243,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 // curl -Nv -H 'Accept: text/event-stream' https://wener-apis.herokuapp.com/api/webrtc/session
 // curl -X PUT -H "Content-Type: application/json" https://wener-apis.herokuapp.com/api/webrtc/session/test --data '{"a":1}' -v
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  platformNotSupported('now')
+  platformNotSupported('now');
 
   const {peerId, sessionId} = req.query;
 
@@ -233,7 +261,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         session.patch(req.body);
       }
 
-      res.status(200).json({message: 'success', expiredAt: session.expiredAt})
+      res.status(200).json({message: 'success', expiredAt: session.expiredAt});
       break;
     }
 

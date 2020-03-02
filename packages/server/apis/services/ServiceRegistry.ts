@@ -32,20 +32,38 @@ export class ServiceRegistry {
   }
 }
 
-export function createServiceDefinition({name, target, includes = [], excludes = []}): ServiceDefinition {
-  const prototype = Object.getPrototypeOf(target);
+export function createServiceDefinition({name, target = null, provider = null, prototype = null, includes = [], excludes = []}): ServiceDefinition {
+  if (!target) {
+    if (!provider) {
+      throw new Error(`${name}: no target or provider for service`)
+    }
+    if (!includes.length && !prototype) {
+      throw new Error(`${name}: use provider for service need includes or prototype`)
+    }
+  }
+
+  prototype = prototype ?? (target ? Object.getPrototypeOf(target) : null);
   if (includes.length === 0) {
     includes = Object.getOwnPropertyNames(prototype).filter(v => !['constructor'].includes(v))
   }
-  let entries: Array<[string, Function]>;
-  entries = includes.filter(v => target[v]).map(v => ([v, target[v]]));
   if (excludes.length) {
-    entries = entries.filter(([k, v]) => !excludes.includes(k))
+    includes = includes.filter(v => !excludes.includes(v))
   }
+
+  let methods = {}
+  // build methods
+  if (target) {
+    let entries: Array<[string, Function]>;
+    entries = includes.filter(v => target[v]).map(v => ([v, target[v]]));
+    methods = Object.fromEntries(entries);
+  } else {
+
+  }
+
   return {
     name,
     target,
-    methods: Object.fromEntries(entries),
+    methods,
   }
 }
 

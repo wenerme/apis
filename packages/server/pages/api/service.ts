@@ -7,6 +7,7 @@ import {PersistPeerService} from 'libs/webrtc/persist/PersistPeerService';
 import {createRtcPeerConnection} from 'libs/webrtc/persist/connection';
 import {createServiceDefinition} from 'apis/services/ServiceRegistry';
 import {PingService} from 'apis/services/PingService';
+import {ScelDataService} from 'libs/sougou/dict/ScelDataService';
 
 let _init = false;
 
@@ -24,6 +25,16 @@ async function registryServices() {
     const svc = new PersistPeerService();
     svc.em = (await createRtcPeerConnection()).manager;
     GlobalRegistry.provide(createServiceDefinition({name: 'PeerService', target: svc, includes: svc.methods}))
+  }
+  {
+    GlobalRegistry.provide(createServiceDefinition({
+      name: 'ScelDataService',
+      target: new ScelDataService(),
+      prototype: ScelDataService.prototype,
+      provider: () => {
+        return new ScelDataService();
+      }
+    }))
   }
   _init = true
 }

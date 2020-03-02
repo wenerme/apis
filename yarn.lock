@@ -2517,7 +2517,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@>= 8", "@types/node@^13.5.0", "@types/node@^13.7.1":
+"@types/node@*", "@types/node@>= 8", "@types/node@^13.5.0":
   version "13.7.1"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.7.1.tgz#238eb34a66431b71d2aaddeaa7db166f25971a0d"
   integrity sha1-I46zSmZDG3HSqt3qp9sWbyWXGg0=
@@ -2595,7 +2595,7 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.19", "@types/react@^16.9.20":
+"@types/react@*", "@types/react@^16.9.19":
   version "16.9.20"
   resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.9.20.tgz#e83285766340fb1a7fafe7e5c4708c53832e3641"
   integrity sha1-6DKFdmNA+xp/r+flxHCMU4MuNkE=
@@ -3067,7 +3067,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-antd@^3.26.11, antd@^3.26.7:
+antd@^3.26.7:
   version "3.26.11"
   resolved "https://registry.npm.taobao.org/antd/download/antd-3.26.11.tgz#28d17b8c664251b879e25ad22b3102b1d04c5a10"
   integrity sha1-KNF7jGZCUbh54lrSKzECsdBMWhA=
@@ -9885,7 +9885,7 @@ next-transpile-modules@^3.0.2:
     micromatch "^4.0.2"
     slash "^3.0.0"
 
-next@^9.2.1, next@^9.2.2:
+next@^9.2.1:
   version "9.2.2"
   resolved "https://registry.npm.taobao.org/next/download/next-9.2.2.tgz#c41a793011747cc51dc7c9b3b5d2a932caca5c57"
   integrity sha1-xBp5MBF0fMUdx8mztdKpMsrKXFc=
