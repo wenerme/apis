@@ -3,8 +3,9 @@ import {PageContent} from 'components/layout/PageLayout/PageContent';
 import {GatewayChecker} from 'modules/ipfs/components/GatewayChecker';
 import Head from 'next/head';
 import React from 'react';
-import {Alert, Icon, PageHeader} from 'antd';
+import {Alert, PageHeader} from 'antd';
 import {PublicGateways} from 'libs/ipfs/gateway/gateways';
+import {FileOutlined} from '@ant-design/icons';
 
 
 const Page = () => {
@@ -17,7 +18,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <Icon type="file" style={{marginRight: 8}} />
+              <FileOutlined style={{marginRight: 8}} />
               IPFS 公共网关检测
             </div>
           }

@@ -1,6 +1,6 @@
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Descriptions, Icon, Input, PageHeader} from 'antd';
+import {Descriptions, Input, PageHeader} from 'antd';
 import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
 import {createScelDataService, ScelIndexRecord} from 'libs/sougou/dict/ScelDataService';
@@ -11,6 +11,7 @@ import moment from 'moment';
 import Link from 'next/link';
 import 'react-virtualized/styles.css';
 import {ScelFooter} from 'modules/scel/components/ScelFooter';
+import {BookOutlined} from '@ant-design/icons';
 
 const ScelIndexList: React.FC<{ index: ScelIndexRecord[] }> = ({index}) => {
   return (
@@ -121,7 +122,7 @@ const Page: NextPage<{ index?: ScelIndexRecord[], raw? }> = ({index, raw}) => {
         <PageHeader
           title={
             <div>
-              <Icon type="book" style={{marginRight: 8}} />
+              <BookOutlined style={{marginRight: 8}} />
               词库列表
             </div>
           }

@@ -1,7 +1,7 @@
 import {NextPage} from 'next';
 import Head from 'next/head';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {Descriptions, Icon, message, PageHeader, Upload} from 'antd';
+import {Descriptions, message, PageHeader, Upload} from 'antd';
 import React, {useState} from 'react';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import {Buffer} from 'buffer/'
@@ -12,6 +12,7 @@ import {ScelContent, ScelHeader} from 'libs/formats/scel/types';
 
 import 'react-virtualized/styles.css';
 import {ScelContentList} from 'modules/scel/components/ScelContentList';
+import {BookOutlined} from '@ant-design/icons';
 
 interface ScelState {
   file?: File
@@ -47,7 +48,7 @@ const ScelReaderFileUploader: React.FC<{ onFileChange? }> = ({onFileChange}) => 
           width: 128,
           textAlign: 'center',
         }}>
-          <div><Icon type="book" /> 选择 .scel 文件</div>
+          <div><BookOutlined /> 选择 .scel 文件</div>
         </div>
       </Upload>
 
@@ -68,7 +69,7 @@ const Page: NextPage = () => {
           <PageHeader
             title={
               <div>
-                <Icon type="book" style={{marginRight: 8}} />
+                <BookOutlined style={{marginRight: 8}} />
                 搜狗词库 Scel 解析
               </div>
             }

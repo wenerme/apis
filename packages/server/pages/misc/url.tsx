@@ -2,7 +2,7 @@ import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
-import {Descriptions, Icon, Input, PageHeader} from 'antd';
+import {Descriptions, Input, PageHeader} from 'antd';
 import url from 'url'
 import ContentEditable from 'react-contenteditable';
 import produce from 'immer';
@@ -10,6 +10,7 @@ import sanitizeHtml from 'sanitize-html';
 import {useRouter} from 'next/router';
 import {firstOf} from 'utils/arrays';
 import pick from 'lodash/pick'
+import {LinkOutlined} from '@ant-design/icons';
 
 const UriPageContent: React.FC = () => {
   const router = useRouter();
@@ -138,7 +139,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <Icon type="link" style={{marginRight: 8}} />
+              <LinkOutlined style={{marginRight: 8}} />
               URI 解析格式化
             </div>
           }

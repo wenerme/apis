@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Icon, PageHeader} from 'antd';
+import {PageHeader} from 'antd';
 import React from 'react';
 
 import dynamic from 'next/dynamic';
+import {EnvironmentOutlined} from '@ant-design/icons';
 
 const LocationMePageContent = dynamic(() => import('modules/geo/components/LocationMePageContent').then(v => v.LocationMePageContent), {
   ssr: false,
@@ -22,7 +23,7 @@ const LocationMePage: React.FC = () => {
           <PageHeader
             title={
               <div>
-                <Icon type="environment" style={{marginRight: 8}} />
+                <EnvironmentOutlined style={{marginRight: 8}} />
                 我的定位
               </div>
             }

@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import Head from 'next/head';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Alert, Icon, Input, PageHeader} from 'antd';
+import {Alert, Input, PageHeader} from 'antd';
 import {PhoneAttributionDetail} from 'modules/phone/components/PhoneAttributionDetail';
 import {useFetchEffect} from 'hooks/useFetchEffect';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import {API} from 'apis/api';
 import {createRandom} from 'utils/random';
+import {PhoneOutlined} from '@ant-design/icons';
 
 function suggestNumbers(seed) {
   const pre = [
@@ -109,7 +110,7 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {
           <PageHeader
             title={
               <div>
-                <Icon type="phone" style={{marginRight: 8}} />
+                <PhoneOutlined style={{marginRight: 8}} />
                 手机号{number ?? ''}归属地查询
               </div>
             }

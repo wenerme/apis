@@ -2,12 +2,13 @@ import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import React, {useEffect, useRef, useState} from 'react';
 import Head from 'next/head';
-import {Alert, Descriptions, Icon, Input, PageHeader} from 'antd';
+import {Alert, Descriptions, Input, PageHeader} from 'antd';
 import Link from 'next/link';
 import {createRandom} from 'utils/random';
 import {createPasswordGenerator} from 'modules/password/libs/generates';
 import {API} from 'apis/api';
 import zxcvbn from 'zxcvbn';
+import {KeyOutlined} from '@ant-design/icons';
 
 const ZxcvbnDescription: React.FC<{ password, result? }> = ({password, result}) => {
   const {score, guesses, guesses_log10, feedback, crack_times_display: times} = result;
@@ -162,7 +163,7 @@ export const PasswordStrengthPage: React.FC<{ initialValue? }> = ({initialValue}
           <PageHeader
             title={
               <div>
-                <Icon type="key" style={{marginRight: 8}} />
+                <KeyOutlined style={{marginRight: 8}} />
                 Zxcvbn 密码强度检测
               </div>
             }

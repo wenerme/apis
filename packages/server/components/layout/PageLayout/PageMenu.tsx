@@ -1,8 +1,19 @@
-import {Icon, Menu} from 'antd';
+import {Menu} from 'antd';
 import {HashingAlgorithms} from 'modules/hash/types';
 import React from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
+import {
+  BookOutlined,
+  EnvironmentOutlined,
+  FileOutlined,
+  HomeOutlined,
+  LinkOutlined,
+  LockOutlined,
+  PhoneOutlined,
+  QrcodeOutlined,
+  RetweetOutlined
+} from '@ant-design/icons';
 
 interface MenuSpec {
   title
@@ -19,22 +30,26 @@ interface MenuSpec {
 const menus: MenuSpec[] = [
   {
     title: '首页',
+    iconComponent: <HomeOutlined />,
     iconType: 'home',
     path: '/',
   },
   {
     title: '我的定位',
+    iconComponent: <EnvironmentOutlined />,
     iconType: 'environment',
     path: '/geo/me',
   },
   {
     title: '电话归属地',
+    iconComponent: <PhoneOutlined />,
     iconType: 'phone',
     path: '/phone/attribution',
     routes: ['/phone/attribution/[num]']
   },
   {
     title: 'URL',
+    iconComponent: <LinkOutlined />,
     iconType: 'link',
     path: '/misc/url',
   },
@@ -44,7 +59,19 @@ const menus: MenuSpec[] = [
     path: '/password/strength',
   },
   {
+    title: 'QRCode',
+    iconComponent: <QrcodeOutlined />,
+    iconType: 'qrcode',
+    children: [
+      {
+        title: 'QR生成',
+        path: '/qrcode/builder',
+      },
+    ]
+  },
+  {
     title: 'WebRTC',
+    iconComponent: <RetweetOutlined />,
     iconType: 'retweet',
     children: [
       {
@@ -55,6 +82,7 @@ const menus: MenuSpec[] = [
   },
   {
     title: '搜狗词库',
+    iconComponent: <BookOutlined />,
     iconType: 'book',
     children: [
       {
@@ -69,6 +97,7 @@ const menus: MenuSpec[] = [
   },
   {
     title: 'IPFS',
+    iconComponent: <FileOutlined />,
     iconType: 'file',
     children: [
       {
@@ -79,6 +108,7 @@ const menus: MenuSpec[] = [
   },
   {
     title: '摘要哈希计算',
+    iconComponent: <LockOutlined />,
     iconType: 'lock',
     children: [
       ...(HashingAlgorithms.map(v => ({
@@ -100,7 +130,8 @@ export const PageMenu: React.FC = () => {
             <Link href={path}>
               <a href={path}>
                 <div>
-                  <Icon type={iconType} />
+                  {/*<Icon type={iconType} />*/}
+                  {iconComponent}
                   <span>{title}</span>
                 </div>
               </a>
@@ -111,8 +142,8 @@ export const PageMenu: React.FC = () => {
             key={path || title}
             title={(
               <div>
-                {iconComponent && <Icon component={iconComponent} />}
-                {iconType && <Icon type={iconType} />}
+                {iconComponent}
+                {/*{iconType && <Icon type={iconType} />}*/}
                 <span>{title}</span>
               </div>
             )}
@@ -122,7 +153,8 @@ export const PageMenu: React.FC = () => {
                 <Link href={route || path} as={path}>
                   <a href={path}>
                     <div>
-                      {iconType && <Icon type={iconType} />}
+                      {iconComponent}
+                      {/*{iconType && <Icon type={iconType} />}*/}
                       <span>{title}</span>
                     </div>
                   </a>

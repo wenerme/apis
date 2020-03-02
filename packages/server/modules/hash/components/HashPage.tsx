@@ -1,13 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Head from 'next/head';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import {Alert, Icon, Input, PageHeader} from 'antd';
+import {Alert, Input, PageHeader} from 'antd';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {useRouter} from 'next/router';
 import {HashingAlgorithms} from 'modules/hash/types';
 import Link from 'next/link';
 import {API} from 'apis/api';
 import {Buffer} from 'buffer/'
+import {LockOutlined} from '@ant-design/icons';
 
 const HashPageContent: React.FC<{ algorithm, content, initialData }> = ({algorithm, content, initialData}) => {
   const [input, setInput] = useState(content);
@@ -126,7 +127,7 @@ export const HashPage: React.FC<{ algorithm, content, initialData }> = ({algorit
           <PageHeader
             title={
               <div>
-                <Icon type="lock" style={{marginRight: 8}} />
+                <LockOutlined style={{marginRight: 8}} />
                 {algorithm}哈希计算
               </div>
             }

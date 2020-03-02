@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createScelDataService, ScelMetadata} from 'libs/sougou/dict/ScelDataService';
-import {Button, Descriptions, Icon, PageHeader} from 'antd';
+import {Button, Descriptions, PageHeader} from 'antd';
 import moment from 'moment';
 import unfetch from 'isomorphic-unfetch';
 import {enrichContent, parseScelContent, parseScelHeader} from 'libs/formats/scel/parser';
@@ -11,6 +11,7 @@ import {ScelContentList} from 'modules/scel/components/ScelContentList';
 import {Buffer} from 'buffer/'
 import {ScelFooter} from 'modules/scel/components/ScelFooter';
 import {fetchProgress} from 'utils/fetch-progress';
+import {BookOutlined} from '@ant-design/icons';
 
 const ScelMetaDescription: React.FC<{ metadata: ScelMetadata }> = ({metadata}) => {
   const {name, type, description, example, count, size, version, updatedAt} = metadata;
@@ -105,7 +106,7 @@ export const ScelDictPage: React.FC<{ dictId, dictVersion?, metadata?: ScelMetad
         <PageHeader
           title={
             <div>
-              <Icon type="book" style={{marginRight: 8}} />
+              <BookOutlined style={{marginRight: 8}} />
               {name}
             </div>
           }

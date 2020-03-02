@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Button, ConfigProvider, Icon, Layout} from 'antd';
+import {Button, ConfigProvider, Layout} from 'antd';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
 import 'moment/locale/zh-cn'
+import {PageMenu} from 'components/layout/PageLayout/PageMenu';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
-import {PageMenu} from 'components/layout/PageLayout/PageMenu';
+import {ApiOutlined} from '@ant-design/icons'
 
 NProgress.configure({showSpinner: true});
 
@@ -54,7 +55,8 @@ div.logo {
 `}</style>
       <Link href="/">
         <div style={{display: 'flex', alignItems: 'center', height: 30}}>
-          <Icon type="api" style={{fontSize: '24px', margin: '0 4px', color: '#9ccfe7'}} />
+
+          <ApiOutlined style={{fontSize: '24px', margin: '0 4px', color: '#9ccfe7'}} />
           <span>Wener's APIs</span>
         </div>
       </Link>

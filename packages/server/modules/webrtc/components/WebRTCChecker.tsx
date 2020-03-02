@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Descriptions, Icon} from 'antd';
+import {Descriptions} from 'antd';
 import {addPeerConnectionStateListener, getCandidates} from 'libs/webrtc/rtcs';
 import {PeerConnectionState} from 'libs/webrtc/types';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import produce from 'immer';
 import {createLazyPromise} from 'utils/promises';
 import {getGlobalThis} from 'utils/utils';
+import {LoadingOutlined} from '@ant-design/icons';
 
 const CandidateErrorLine: React.FC<{ candidate }> = ({candidate}) => {
   const {url, errorCode, errorText, hostCandidate} = candidate;
@@ -265,7 +266,7 @@ export const WebRTCChecker: React.FC = () => {
         <Descriptions.Item span={columns} label={
           <div>
             链接待选信息 / candidates / {candidates.length}
-            {connState.iceGatheringState === 'gathering' ? <Icon type="loading" /> : null}
+            {connState.iceGatheringState === 'gathering' ? <LoadingOutlined /> : null}
           </div>
         }>
           <div>
