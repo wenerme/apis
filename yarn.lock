@@ -56,18 +56,7 @@
   resolved "https://registry.npm.taobao.org/@ant-design/icons-svg/download/@ant-design/icons-svg-4.0.0.tgz?cache=0&sync_timestamp=1582859447353&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons-svg%2Fdownload%2F%40ant-design%2Ficons-svg-4.0.0.tgz#6683db0df97c0c6900bb28a280faf391522ec734"
   integrity sha1-ZoPbDfl8DGkAuyiigPrzkVIuxzQ=
 
-"@ant-design/icons@^4.0.0-rc.0":
-  version "4.0.2"
-  resolved "https://registry.npm.taobao.org/@ant-design/icons/download/@ant-design/icons-4.0.2.tgz#6fce64b3e207d99d1e258ff527674e22b9b2afc0"
-  integrity sha1-b85ks+IH2Z0eJY/1J2dOIrmyr8A=
-  dependencies:
-    "@ant-design/colors" "^3.1.0"
-    "@ant-design/icons-svg" "^4.0.0"
-    classnames "^2.2.6"
-    insert-css "^2.0.0"
-    rc-util "^4.9.0"
-
-"@ant-design/icons@^4.0.2":
+"@ant-design/icons@^4.0.0-rc.0", "@ant-design/icons@^4.0.2":
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/@ant-design/icons/download/@ant-design/icons-4.0.2.tgz?cache=0&sync_timestamp=1582988469989&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons%2Fdownload%2F%40ant-design%2Ficons-4.0.2.tgz#6fce64b3e207d99d1e258ff527674e22b9b2afc0"
   integrity sha1-b85ks+IH2Z0eJY/1J2dOIrmyr8A=
@@ -2293,7 +2282,7 @@
   resolved "https://registry.npm.taobao.org/@tinacms/core/download/@tinacms/core-0.7.1.tgz#d0d683ae44a409544902746eabe91cc664c23ee5"
   integrity sha1-0NaDrkSkCVRJAnRuq+kcxmTCPuU=
 
-"@tinacms/fields@^0.5.0":
+"@tinacms/fields@^0.5.1":
   version "0.5.1"
   resolved "https://registry.npm.taobao.org/@tinacms/fields/download/@tinacms/fields-0.5.1.tgz#b30b75ebf5c7858733168362b2b2bd1c24e9a0dd"
   integrity sha1-swt16/XHhYczFoNisrK9HCTpoN0=
@@ -14131,13 +14120,13 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tinacms@^0.13.1:
-  version "0.13.1"
-  resolved "https://registry.npm.taobao.org/tinacms/download/tinacms-0.13.1.tgz#94cc9dec10249f226134803b63d0b6430bcddfc6"
-  integrity sha1-lMyd7BAknyJhNIA7Y9C2QwvN38Y=
+tinacms@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.npm.taobao.org/tinacms/download/tinacms-0.14.0.tgz#fabc10d39974d0de2caba612aa0dce3c6cc6fe9e"
+  integrity sha1-+rwQ05l00N4sq6YSqg3OPGzG/p4=
   dependencies:
     "@tinacms/core" "^0.7.1"
-    "@tinacms/fields" "^0.5.0"
+    "@tinacms/fields" "^0.5.1"
     "@tinacms/form-builder" "^0.2.15"
     "@tinacms/forms" "^0.2.0"
     "@tinacms/icons" "^0.5.2"
