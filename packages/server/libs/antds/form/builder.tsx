@@ -1,7 +1,6 @@
 import {normalizeOptions} from 'libs/antds/form/utils';
 import {Form, Input, InputNumber, Select, Switch} from 'antd';
 import React from 'react';
-import isFunction from 'lodash/isFunction'
 
 const Option = Select.Option;
 
@@ -15,59 +14,51 @@ export function normalizeItem(item) {
   return item;
 }
 
-export type Widget = (item: any) => any
+export type Widget = React.ComponentClass | React.FunctionComponent | ((item: any) => React.ReactNode)
 export const DefaultWidgets: Record<string, Widget> = {
-  default: () => <Input />,
-  number: () => <InputNumber />,
-  switch: () => <Switch />,
-  select: ({options, name}) => {
-    options = normalizeOptions(options);
-    if (!options.length) {
-      console.error(`no options`, name)
-    }
-    return (
-      <Select>
-        {options.map(({label, value}, i) => (
-          <Option value={value} key={i}>{label}</Option>
-        ))}
-      </Select>
-    );
+    default: Input,
+    text: Input,
+    password: Input.Password,
+    textarea: Input.TextArea,
+    number: InputNumber,
+    switch: Switch,
+    select: Object.assign(({options, name}) => {
+      options = normalizeOptions(options);
+      if (!options.length) {
+        console.error(`no options`, name)
+      }
+      return (
+        <Select>
+          {options.map(({label, value}, i) => (
+            <Option value={value} key={i}>{label}</Option>
+          ))}
+        </Select>
+      );
+    }, {factoryName: 'select'})
   }
-};
+;
 
 export function buildWidget(item, widgets = []) {
-  const {widget} = item;
-  if (isFunction(widget)) {
-    return React.createElement(widget)
+  let {widget} = item;
+  widget = widget ?? 'default';
+  if (typeof widget === 'string') {
+    widget = widgets.find(v => v['displayName'] === widget || v['factoryName'] === widget) ?? DefaultWidgets[widget]
+    if (!widget) {
+      console.error(`invalid widget`, item);
+      widget = DefaultWidgets['default']
+    }
   }
-  if (widget && typeof widget !== 'string') {
+  if (widget['factoryName']) {
+    return widget(item)
+  }
+  if (React.isValidElement(widget)) {
     return widget
   }
+  return React.createElement(widget)
+}
 
-  let w: any;
-  for (const Widget of widgets) {
-    if (isFunction(Widget)) {
-      w = Widget(item)
-    } else if (widget === Widget.displayName) {
-      w = <Widget />
-    }
-    if (w) {
-      break
-    }
-  }
-  if (!w) {
-    w = DefaultWidgets[widget];
-  }
-  if (!w) {
-    if (widget) {
-      console.warn(`no widget found`, widget, item)
-    }
-    w = DefaultWidgets['default']
-  }
-  if (isFunction(w)) {
-    w = w(item);
-  }
-  return w
+export function buildFormItems(items, opt?) {
+  return items.map(v => buildFormItem(v, opt))
 }
 
 export function buildFormItem(item, {widgets = []} = {}) {

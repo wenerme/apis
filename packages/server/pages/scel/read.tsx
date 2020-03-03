@@ -45,10 +45,10 @@ const ScelReaderFileUploader: React.FC<{ onFileChange? }> = ({onFileChange}) => 
         }}
       >
         <div style={{
-          width: 128,
+          width: 160,
           textAlign: 'center',
         }}>
-          <div><BookOutlined /> 选择 .scel 文件</div>
+          <div><BookOutlined /> 选择/拖拽 .scel 文件</div>
         </div>
       </Upload>
 

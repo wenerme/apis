@@ -2,7 +2,7 @@ export type OptionLike = string[] | string[][] | Array<{ label, value, [k: strin
 
 export function normalizeOptions(o: OptionLike): Array<{ label, value }> {
   if (typeof o?.[0] === 'string') {
-    return (o as string[]).map((label, value) => ({label: label ?? value, value: value ?? label}))
+    return (o as string[]).map((value) => ({label: value, value}))
   }
   if (Array.isArray(o?.[0])) {
     return (o as string[][]).map(([value, label]) => ({label, value}))

@@ -8585,6 +8585,11 @@ js-yaml@~3.7.0:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
+jsbarcode@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.npm.taobao.org/jsbarcode/download/jsbarcode-3.11.0.tgz#20623e008b101ef45d0cce9c8022cdf49be28547"
+  integrity sha1-IGI+AIsQHvRdDM6cgCLN9JvihUc=
+
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/jsbn/download/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"

@@ -64,17 +64,21 @@ const menus: MenuSpec[] = [
     path: '/password/strength',
   },
   {
-    title: 'QRCode',
+    title: '条形码',
     iconComponent: <QrcodeOutlined />,
     iconType: 'qrcode',
     children: [
       {
-        title: 'QR生成',
-        path: '/qrcode/builder',
+        title: '二维码生成',
+        path: '/barcode/qrcode/builder',
       },
       {
-        title: 'QR解析',
-        path: '/qrcode/reader',
+        title: '二维码解析',
+        path: '/barcode/qrcode/reader',
+      },
+      {
+        title: '条形码生成',
+        path: '/barcode/linear/builder',
       },
     ]
   },

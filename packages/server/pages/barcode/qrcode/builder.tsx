@@ -105,7 +105,7 @@ const QRCodeBuilderPageContent = () => {
   const doCopyImgLink = () => {
     const {value, imageSettings, renderAs, ...query} = options;
     const svgUrl = API.apiOf(format({
-      pathname: `/api/qrcode/svg/${encodeURIComponent(value)}`,
+      pathname: `/api/barcode/qrcode/svg/${encodeURIComponent(value)}`,
       query: query as any,
     } as UrlObject));
 
