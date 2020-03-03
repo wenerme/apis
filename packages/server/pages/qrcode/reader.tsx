@@ -5,15 +5,7 @@ import {message, notification, PageHeader, Spin, Upload} from 'antd';
 import React, {useEffect, useRef, useState} from 'react';
 import {InboxOutlined, QrcodeOutlined} from '@ant-design/icons/lib';
 import {QRCode} from 'jsqr';
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
+import {sleep} from 'utils/utils';
 
 const decoders = {
   'image/jpeg': buf => import('jpeg-js').then(({decode}) => decode(buf)),
@@ -42,25 +34,72 @@ const ImageUploader: React.FC<{ onFileChange?, onImageDataChange?, decoderType?:
       message.error(`无法解析 ${file.type} 文件`);
       return;
     }
-    setLoading(true)
+    setLoading(true);
 
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = async (e) => {
       try {
+        console.log(`read file length ${reader.result?.['byteLength']} <=> ${file.size}`);
         onImageDataChange(await decoder(reader.result as ArrayBuffer))
       } catch (e) {
-        console.log(`failed parse file`, file, e);
-        notification.error({message: '解析文件失败', description: `${file.name}`})
+        console.log(`parse file failed ${file.name} ${file.type} ${file.size}`, e);
+        notification.error({message: '解析文件失败', description: `${file.name} :${e.message}`, duration: 8})
       } finally {
         setLoading(false)
       }
     };
     reader.onerror = error => {
       console.log(`failed file reading`, file, error);
-      notification.error({message: '读取文件失败', description: `${file.name}`})
+      notification.error({message: '读取文件失败', description: `${file.name}`, duration: 8});
       setLoading(false)
     };
+  }, [file]);
+
+  useEffect(() => {
+    const onPaste = async (e: ClipboardEvent) => {
+      const items: DataTransferItemList = (e.clipboardData || e['originalEvent']?.['clipboardData'])?.items ?? [];
+      console.log(`paste item`, items);
+
+      if (items.length === 2 && items[0].kind === 'string' && items[1].kind === 'file' && items[1].type.startsWith('image/')) {
+        let file = items[1].getAsFile();
+        const text: string = await new Promise(resolve => {
+          items[0].getAsString(v => resolve(v))
+        });
+        let type = file.type;
+        if (text.endsWith('.jpg') || text.endsWith('.jpeg')) {
+          type = 'image/jpeg'
+        } else if (text.endsWith('.png')) {
+          type = 'image/png'
+        }
+        // NOTE paste file can not parse by libs
+        if (type !== file.type) {
+          const blob = file.slice(0, file.size);
+          file = new File([blob], text, {type});
+        }
+        // file = file;
+        console.log(`Get file`, text, file.name, file.type, file);
+        setFile(file)
+      } else {
+        console.log(`paste item not match`, [...items].map(v => ({type: v.type, kind: v.kind})));
+      }
+    };
+
+    document.addEventListener('paste', onPaste);
+    return () => document.removeEventListener('paste', onPaste);
+  }, []);
+
+  useEffect(() => {
+    if (!file) {
+      return
+    }
+    setPreview(s => {
+      if (s) {
+        URL.revokeObjectURL(s);
+      }
+      return URL.createObjectURL(file)
+    });
+    onFileChange?.(file);
   }, [file]);
 
   return (
@@ -81,20 +120,17 @@ const ImageUploader: React.FC<{ onFileChange?, onImageDataChange?, decoderType?:
         console.log(`upload`, opts);
         if (opts.file instanceof File) {
           setFile(opts.file);
-          setPreview(s => {
-            if (s) {
-              URL.revokeObjectURL(s);
-            }
-            return URL.createObjectURL(opts.file)
-          });
-
-          onFileChange?.(opts.file);
         } else {
           message.error('无效的上传文件')
         }
       }}
     >
-      <canvas ref={canvasRef} style={{display: 'none'}} />
+      <canvas
+        style={{width: '100%', display: 'none'}}
+        ref={canvasRef}
+        width={imageInfo?.width ?? 0}
+        height={imageInfo?.height ?? 0}
+      />
       <Spin spinning={loading}>
         {
           !preview && (
@@ -103,7 +139,7 @@ const ImageUploader: React.FC<{ onFileChange?, onImageDataChange?, decoderType?:
                 <InboxOutlined />
               </p>
               <p className="ant-upload-text">
-                点击选择图片或拖拽图片到该区域
+                点击<b>选择</b>图片、<b>拖拽</b>图片到该区域、<b>粘贴</b>图片
               </p>
               <p className="ant-upload-hint">
                 支持解析 JPG、PNG 格式图片中的二维码
@@ -126,9 +162,10 @@ const ImageUploader: React.FC<{ onFileChange?, onImageDataChange?, decoderType?:
                   setImageInfo({width, height});
 
                   if (onImageDataChange && decoderType === 'canvas') {
+                    setLoading(true);
                     setTimeout(() => {
                       canvasRef.current.getContext('2d').drawImage(img, 0, 0);
-                      onImageDataChange(canvasRef.current.getContext('2d').getImageData(0, 0, img.width, img.height))
+                      onImageDataChange(canvasRef.current.getContext('2d').getImageData(0, 0, width, height))
                     }, 0)
                   }
                 }}
@@ -166,15 +203,23 @@ const ChunkInfo: React.FC<{ chunk }> = ({chunk}) => {
 const QRCodeReaderPageContent: React.FC = () => {
   const [qrInfo, setQrInfo] = useState<QRCode>();
   const [imageData, setImageData] = useState<ImageData>();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (!imageData) {
       return
     }
+    setLoading(true);
+
     console.log(`Parse data ${imageData.data.length} ${imageData.width}x${imageData.height}`);
     import('jsqr')
-      .then(({default: jsQR}) => {
+      .then(async ({default: jsQR}) => {
         try {
+          // update loading state
+          await sleep(100);
+          console.time('jsqr.decode');
           const code = jsQR(imageData.data, imageData.width, imageData.height, {inversionAttempts: 'attemptBoth'});
+          console.timeEnd('jsqr.decode');
           setQrInfo(code);
           console.log(`Code`, code)
         } catch (e) {
@@ -184,35 +229,42 @@ const QRCodeReaderPageContent: React.FC = () => {
             message: '解析失败',
             description: e.message,
           })
+        } finally {
+          setLoading(false)
         }
       })
+
   }, [imageData]);
   return (
     <div style={{display: 'flex'}} className="container">
       <div style={{flex: 1}}>
-        <h2>二维码中的信息</h2>
-        <div>
-          <div>
-            <h3>数据</h3>
-            <pre>{qrInfo?.data}</pre>
-          </div>
-          <div>
-            <h3>区块</h3>
-            {
-              qrInfo && (qrInfo.chunks.map((v, i) => (
-                <div key={i}>
-                  <ChunkInfo chunk={v} />
-                  <hr />
-                </div>
-              )))
-            }
-          </div>
+        <div style={{margin: 20}}>
+          <h2>二维码中的信息</h2>
+          <Spin spinning={loading}>
+            <div>
+              <div>
+                <h3>数据</h3>
+                <pre>{qrInfo?.data}</pre>
+              </div>
+              <div>
+                <h3>区块</h3>
+                {
+                  qrInfo && (qrInfo.chunks.map((v, i) => (
+                    <div key={i}>
+                      <ChunkInfo chunk={v} />
+                      <hr />
+                    </div>
+                  )))
+                }
+              </div>
+            </div>
+          </Spin>
         </div>
       </div>
       <div style={{flex: 1}}>
-        <div style={{margin: '40px 60px'}}>
+        <div>
           <ImageUploader
-            decoderType="js"
+            decoderType="canvas"
             onImageDataChange={setImageData}
           />
         </div>
