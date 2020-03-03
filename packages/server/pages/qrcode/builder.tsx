@@ -1,7 +1,7 @@
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Button, Form, message, PageHeader} from 'antd';
+import {Alert, Button, Form, Input, message, PageHeader} from 'antd';
 import React, {useEffect, useState} from 'react';
 import QRCode, {CanvasQRCodeProps, SvgQRCodeProps} from 'qrcode.react'
 import {QrcodeOutlined} from '@ant-design/icons';
@@ -11,9 +11,29 @@ import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
 import {format, UrlObject} from 'url';
 import {API} from 'apis/api';
 import {copy} from 'utils/clipboard';
+import {merge} from 'lodash';
+
+function buildValue(o) {
+  const v = o[o.type];
+  switch (o.type) {
+    case 'wifi': {
+      // WIFI:T:WPA;S:mynetwork;P:mypass;;
+      const {encryption, ssid, password, hidden} = v;
+      return `WIFI:T:${encryption};S:${ssid ?? ''};P:${(!encryption || encryption === 'nopass') ? '' : password ?? ''};${hidden ? 'H:true' : ''};`
+    }
+    case 'tel': {
+      const {countryCode, number} = v
+      return `tel:${countryCode}${number ?? ''}`
+    }
+    default:
+    case 'text':
+      return v;
+  }
+}
 
 const QRCodeBuilderPageContent = () => {
   const [form] = Form.useForm();
+  const [valueForm] = Form.useForm();
 
   const [options, setOptions] = useState<CanvasQRCodeProps | SvgQRCodeProps>({
     value: 'https://apis.wener.me',
@@ -28,12 +48,38 @@ const QRCodeBuilderPageContent = () => {
       height: 48,
     },
   });
+
   useEffect(() => {
     form.setFieldsValue(options)
   }, []);
 
+  // https://github.com/zxing/zxing/wiki/Barcode-Contents
+  const [valueObject, setValueObject] = useState({
+    type: 'text',
+    text: 'https://apis.wener.me',
+    wifi: {
+      encryption: 'WAP',
+      ssid: 'wener-wifi',
+      password: 'wifi-password',
+    },
+    tel: {
+      countryCode: '+86',
+      number: '10086',
+    }
+  });
+  useEffect(() => {
+    valueForm.setFieldsValue(valueObject)
+  }, []);
+  useEffect(() => {
+    const value = buildValue(valueObject);
+    setOptions(produce(s => {
+      s.value = value
+    }))
+    form.setFieldsValue({value})
+    console.log('update value', value)
+  }, [valueObject]);
+
   const fields = [
-    {key: 'value', name: null, label: '二维码内容', required: true},
     {key: 'size', label: '尺寸', widget: 'number'},
     {
       key: 'renderAs',
@@ -73,6 +119,52 @@ const QRCodeBuilderPageContent = () => {
         <h3>生成参数</h3>
         <div>
           <Form
+            form={valueForm}
+            onValuesChange={v => {
+              setValueObject(produce(s => {
+                merge(s, v);
+              }))
+            }}
+            labelCol={{span: 6}}
+            wrapperCol={{span: 18}}
+          >
+            {buildFormItem({
+              key: 'type',
+              label: '值类型',
+              required: true,
+              widget: 'select',
+              options: [['text', '文本'], ['wifi', 'WiFi'], ['tel', '电话号码'],]
+            })}
+            {valueObject.type === 'text' && buildFormItem({key: 'text', name: null, label: '文本内容', required: true})}
+            {valueObject.type === 'wifi' && (
+              <>
+                {buildFormItem({key: 'wifi.ssid', label: 'SSID/网络名', required: true})}
+                {buildFormItem({
+                  key: 'wifi.encryption', label: '加密方式', widget: 'select',
+                  options: [['WPA', 'WPA/WPA2'], ['WEP', 'WEP'], ['nopass', '无密码'],]
+                })}
+                {valueObject['wifi']?.encryption !== 'nopass' && buildFormItem({
+                  key: 'wifi.password',
+                  label: '密码',
+                  widget: Input.Password
+                })}
+                {buildFormItem({key: 'wifi.hidden', label: '隐藏网络', widget: 'switch'})}
+              </>
+            )}
+
+            {valueObject.type === 'tel' && (
+              <>
+                {buildFormItem({
+                  key: 'tel.number',
+                  label: '电话号码',
+                  required: true,
+                  widget: <Input pattern="^[-0-9]*$" addonBefore={valueObject.tel.countryCode} />
+                })}
+              </>
+            )}
+          </Form>
+          <hr />
+          <Form
             form={form}
             onValuesChange={v => {
               setOptions(produce(s => {
@@ -82,6 +174,13 @@ const QRCodeBuilderPageContent = () => {
             labelCol={{span: 6}}
             wrapperCol={{span: 18}}
           >
+            {buildFormItem({
+              key: 'value',
+              name: null,
+              label: '二维码内容',
+              required: true,
+              disabled: true,
+            })}
             {
               fields.map(v => buildFormItem(v, {widgets: [SketchColorPicker]}))
             }
@@ -109,7 +208,7 @@ const QRCodeBuilderPageContent = () => {
 `}</style>
     </div>
   )
-}
+};
 
 const Page = () => {
   return (
@@ -130,6 +229,23 @@ const Page = () => {
 
         <QRCodeBuilderPageContent />
 
+        <div style={{marginTop: 18}}>
+          <Alert
+            type="info"
+            showIcon
+            message={(
+              <div>
+                二维码内容规格参考
+                <a href="https://github.com/zxing/zxing/wiki/Barcode-Contents">Barcode-Contents</a> <br />
+                开发库参考
+                <ul>
+                  <li><a href="https://github.com/zpao/qrcode.react">qrcode.react</a></li>
+                  <li><a href="https://github.com/cozmo/jsQR">jsQR</a></li>
+                </ul>
+              </div>
+            )}
+          />
+        </div>
       </PageContent>
     </PageLayout>
   )

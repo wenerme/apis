@@ -37,6 +37,13 @@ export const DefaultWidgets: Record<string, Widget> = {
 
 export function buildWidget(item, widgets = []) {
   const {widget} = item;
+  if (isFunction(widget)) {
+    return React.createElement(widget)
+  }
+  if (widget && typeof widget !== 'string') {
+    return widget
+  }
+
   let w: any;
   for (const Widget of widgets) {
     if (isFunction(Widget)) {
@@ -65,10 +72,15 @@ export function buildWidget(item, widgets = []) {
 
 export function buildFormItem(item, {widgets = []} = {}) {
   item = normalizeItem(item);
-  const {label, key, name, required, valuePropName} = item;
+  const {label, key, name, required, valuePropName, disabled, children} = item;
   return (
-    <Form.Item key={key} valuePropName={valuePropName} label={label} name={name || key} rules={[{required}]}>
-      {buildWidget(item, widgets)}
+    <Form.Item
+      key={key}
+      valuePropName={valuePropName}
+      label={label}
+      name={name || key}
+      rules={[{required}]}>
+      {children ?? buildWidget(item, widgets)}
     </Form.Item>
   )
 }
