@@ -2,8 +2,16 @@
   "version": 2,
   "routes": [
     {
-      "src": "/",
+      "src": "/(.*)",
       "dest": "/packages/server/"
+    },
+    {
+      "src": "^/service-worker.js$",
+      "dest": "/packages/server/_next/static/service-worker.js",
+      "headers": {
+        "cache-control": "public, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
     }
   ],
   "builds": [
