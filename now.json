@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/packages/server/"
+      "dest": "/packages/server/$1"
     },
     {
       "src": "^/service-worker.js$",
