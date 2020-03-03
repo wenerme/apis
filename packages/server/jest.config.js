@@ -8,8 +8,8 @@ module.exports = {
   },
   globals: {
     'ts-jest': {
-      // tsConfig: 'tsconfig.jest.json',
-      tsConfig: 'tsconfig.json',
+      tsConfig: 'tsconfig.jest.json',
+      // tsConfig: 'tsconfig.json',
     }
   },
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'})

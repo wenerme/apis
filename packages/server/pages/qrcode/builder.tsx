@@ -1,13 +1,16 @@
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Form, PageHeader} from 'antd';
+import {Button, Form, message, PageHeader} from 'antd';
 import React, {useEffect, useState} from 'react';
 import QRCode, {CanvasQRCodeProps, SvgQRCodeProps} from 'qrcode.react'
 import {QrcodeOutlined} from '@ant-design/icons';
 import produce from 'immer';
 import {buildFormItem} from 'libs/antds/form/builder';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
+import {format, UrlObject} from 'url';
+import {API} from 'apis/api';
+import {copy} from 'utils/clipboard';
 
 const QRCodeBuilderPageContent = () => {
   const [form] = Form.useForm();
@@ -53,6 +56,17 @@ const QRCodeBuilderPageContent = () => {
     {key: 'imageSettings.excavate', label: '图片位置镂空', widget: 'switch'},
   ];
 
+  const doCopyImgLink = () => {
+    const {value, imageSettings, renderAs, ...query} = options;
+    const svgUrl = API.apiOf(format({
+      pathname: `/api/qrcode/svg/${encodeURIComponent(value)}`,
+      query: query as any,
+    } as UrlObject));
+
+    copy(svgUrl);
+    message.success('复制成功')
+  };
+
   return (
     <div className="container">
       <div style={{flex: 1}}>
@@ -75,6 +89,9 @@ const QRCodeBuilderPageContent = () => {
         </div>
       </div>
       <div style={{flex: 1}}>
+        <div style={{display: 'flex', justifyContent: 'space-around', marginBottom: 32}}>
+          <Button onClick={doCopyImgLink}>复制图片链接</Button>
+        </div>
         <figure style={{textAlign: 'center'}}>
           <QRCode {...(options as any)} />
           <figcaption>二维码</figcaption>
