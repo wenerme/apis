@@ -69,6 +69,10 @@ const menus: MenuSpec[] = [
         title: 'QR生成',
         path: '/qrcode/builder',
       },
+      {
+        title: 'QR解析',
+        path: '/qrcode/reader',
+      },
     ]
   },
   {
