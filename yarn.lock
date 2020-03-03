@@ -2528,6 +2528,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-color@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/@types/react-color/download/@types/react-color-3.0.1.tgz#5433e2f503ea0e0831cbc6fd0c20f8157d93add0"
+  integrity sha1-VDPi9QPqDggxy8b9DCD4FX2TrdA=
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@*":
   version "16.9.5"
   resolved "https://registry.npm.taobao.org/@types/react-dom/download/@types/react-dom-16.9.5.tgz#5de610b04a35d07ffd8f44edad93a71032d9aaa7"
@@ -12203,7 +12210,7 @@ react-beautiful-dnd@^11.0.5:
     tiny-invariant "^1.0.4"
     use-memo-one "^1.1.0"
 
-react-color@^2.17.3:
+react-color@^2.17.3, react-color@^2.18.0:
   version "2.18.0"
   resolved "https://registry.npm.taobao.org/react-color/download/react-color-2.18.0.tgz#34956f0bac394f6c3bc01692fd695644cc775ffd"
   integrity sha1-NJVvC6w5T2w7wBaS/WlWRMx3X/0=

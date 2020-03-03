@@ -8,6 +8,7 @@ import {
   EnvironmentOutlined,
   FileOutlined,
   HomeOutlined,
+  KeyOutlined,
   LinkOutlined,
   LockOutlined,
   PhoneOutlined,
@@ -55,6 +56,7 @@ const menus: MenuSpec[] = [
   },
   {
     title: '密码强度检测',
+    iconComponent: <KeyOutlined />,
     iconType: 'key',
     path: '/password/strength',
   },
