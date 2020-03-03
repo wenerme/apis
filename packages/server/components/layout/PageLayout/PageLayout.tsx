@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, ConfigProvider, Layout} from 'antd';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
 
 import 'moment/locale/zh-cn'
 import {PageMenu} from 'components/layout/PageLayout/PageMenu';
 
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css'
 import {ApiOutlined} from '@ant-design/icons'
+import {useRouteProgress} from 'libs/nexts/hooks/useRouteProgress';
+import {PageContext} from 'components/layout/PageLayout/PageContext';
+import {useDarkLightTheme} from '../../../reducers';
 
-NProgress.configure({showSpinner: true});
 
 const Header = Layout.Header;
 const Sider = Layout.Sider;
@@ -20,10 +19,12 @@ const Footer = Layout.Footer;
 const PageSider: React.FC = () => {
   const [broken, setBroken] = useState(false);
   const [collapse, setCollapse] = useState(true);
+  const theme = useDarkLightTheme();
+
   return (
     <Sider
       breakpoint="md"
-      theme="light"
+      theme={theme}
       collapsedWidth={broken ? 0 : 80}
       onBreakpoint={setBroken}
 
@@ -55,7 +56,6 @@ div.logo {
 `}</style>
       <Link href="/">
         <div style={{display: 'flex', alignItems: 'center', height: 30}}>
-
           <ApiOutlined style={{fontSize: '24px', margin: '0 4px', color: '#9ccfe7'}} />
           <span>Wener's APIs</span>
         </div>
@@ -64,28 +64,9 @@ div.logo {
   )
 };
 
-export const PageLayout: React.FC = ({children}) => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleStart = () => NProgress.start();
-    const handleComplete = () => NProgress.done();
-    const handleError = () => NProgress.done();
-
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleError);
-
-    return () => {
-      router.events.off('routeChangeStart', handleStart);
-      router.events.off('routeChangeComplete', handleComplete);
-      router.events.off('routeChangeError', handleError)
-    }
-  }, []);
-
+const AntdLayout: React.FC = ({children}) => {
   return (
     <ConfigProvider>
-
       <Layout style={{minHeight: '100vh'}}>
         {/*<Header>*/}
         {/*  <PageLogo />*/}
@@ -112,5 +93,17 @@ export const PageLayout: React.FC = ({children}) => {
         </Layout>
       </Layout>
     </ConfigProvider>
+  )
+};
+
+export const PageLayout: React.FC = ({children}) => {
+  useRouteProgress();
+
+  return (
+    <PageContext>
+      <AntdLayout>
+        {children}
+      </AntdLayout>
+    </PageContext>
   )
 };

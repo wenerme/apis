@@ -2282,15 +2282,15 @@
   resolved "https://registry.npm.taobao.org/@tinacms/core/download/@tinacms/core-0.7.1.tgz#d0d683ae44a409544902746eabe91cc664c23ee5"
   integrity sha1-0NaDrkSkCVRJAnRuq+kcxmTCPuU=
 
-"@tinacms/fields@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.npm.taobao.org/@tinacms/fields/download/@tinacms/fields-0.5.1.tgz#b30b75ebf5c7858733168362b2b2bd1c24e9a0dd"
-  integrity sha1-swt16/XHhYczFoNisrK9HCTpoN0=
+"@tinacms/fields@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.npm.taobao.org/@tinacms/fields/download/@tinacms/fields-0.6.0.tgz#7a6b6c52b26b42adb1823d6aa94a0b493f7e16af"
+  integrity sha1-emtsUrJrQq2xgj1qqUoLST9+Fq8=
   dependencies:
     "@sambego/storybook-styles" "^1.0.0"
     "@tinacms/core" "^0.7.1"
-    "@tinacms/icons" "^0.5.2"
-    "@tinacms/styles" "^0.1.2"
+    "@tinacms/icons" "^0.6.0"
+    "@tinacms/styles" "^0.2.0"
     "@types/react-select" "^2.0.11"
     codemirror "^5.42.2"
     color-string "^1.5.3"
@@ -2332,10 +2332,10 @@
     final-form "^4.18.2"
     final-form-arrays "^3.0.1"
 
-"@tinacms/icons@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.npm.taobao.org/@tinacms/icons/download/@tinacms/icons-0.5.2.tgz#6ea07aabb769dea137f12bfffc53829c21dc04af"
-  integrity sha1-bqB6q7dp3qE38Sv//FOCnCHcBK8=
+"@tinacms/icons@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.npm.taobao.org/@tinacms/icons/download/@tinacms/icons-0.6.0.tgz#752c3b38e479a7906a79af70979c2c59d3f1be59"
+  integrity sha1-dSw7OOR5p5Bqea9wl5wsWdPxvlk=
 
 "@tinacms/react-core@^0.2.7":
   version "0.2.7"
@@ -2345,10 +2345,10 @@
     "@tinacms/core" "^0.7.1"
     "@tinacms/forms" "^0.2.0"
 
-"@tinacms/styles@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.npm.taobao.org/@tinacms/styles/download/@tinacms/styles-0.1.2.tgz#6bed4d78d52268901f105f0252302d69472c12a3"
-  integrity sha1-a+1NeNUiaJAfEF8CUjAtaUcsEqM=
+"@tinacms/styles@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/@tinacms/styles/download/@tinacms/styles-0.2.0.tgz#eb1f228567d53b855228eb64cc39b5cbcd0d4368"
+  integrity sha1-6x8ihWfVO4VSKOtkzDm1y80NQ2g=
 
 "@types/babel__core@^7.1.0":
   version "7.1.6"
@@ -2852,6 +2852,14 @@
     ignore-loader "0.1.2"
     mini-css-extract-plugin "0.4.3"
     postcss-loader "3.0.0"
+
+"@zeit/next-less@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/@zeit/next-less/download/@zeit/next-less-1.0.1.tgz#9a18930dc4bf04c1e9e5089365b9e40e42565a68"
+  integrity sha1-mhiTDcS/BMHp5QiTZbnkDkJWWmg=
+  dependencies:
+    "@zeit/next-css" "1.0.1"
+    less-loader "4.1.0"
 
 "@zeit/next-sass@^1.0.1":
   version "1.0.1"
@@ -4426,6 +4434,11 @@ clone@^1.0.2:
   resolved "https://registry.npm.taobao.org/clone/download/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+clone@^2.1.1, clone@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.npm.taobao.org/clone/download/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
+  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
+
 clsx@^1.0.1:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/clsx/download/clsx-1.1.0.tgz#62937c6adfea771247c34b54d320fb99624f5702"
@@ -5839,7 +5852,7 @@ err-code@^2.0.0:
   resolved "https://registry.npm.taobao.org/err-code/download/err-code-2.0.0.tgz#452dadddde12356b1dd5a85f33b28ddda377ef2a"
   integrity sha1-RS2t3d4SNWsd1ahfM7KN3aN37yo=
 
-errno@^0.1.3, errno@~0.1.7:
+errno@^0.1.1, errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"
   resolved "https://registry.npm.taobao.org/errno/download/errno-0.1.7.tgz#4684d71779ad39af177e3f007996f7c67c852618"
   integrity sha1-RoTXF3mtOa8Xfj8AeZb3xnyFJhg=
@@ -7317,6 +7330,11 @@ ignore@^4.0.3:
   version "4.0.6"
   resolved "https://registry.npm.taobao.org/ignore/download/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
   integrity sha1-dQ49tYYgh7RzfrrIIH/9HvJ7Jfw=
+
+image-size@~0.5.0:
+  version "0.5.5"
+  resolved "https://registry.npm.taobao.org/image-size/download/image-size-0.5.5.tgz?cache=0&sync_timestamp=1569841504754&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fimage-size%2Fdownload%2Fimage-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
+  integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
 
 immer@^4.0.1:
   version "4.0.2"
@@ -8839,6 +8857,39 @@ lerna@^3.20.2:
     import-local "^2.0.0"
     npmlog "^4.1.2"
 
+less-loader@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npm.taobao.org/less-loader/download/less-loader-4.1.0.tgz#2c1352c5b09a4f84101490274fd51674de41363e"
+  integrity sha1-LBNSxbCaT4QQFJAnT9UWdN5BNj4=
+  dependencies:
+    clone "^2.1.1"
+    loader-utils "^1.1.0"
+    pify "^3.0.0"
+
+less-vars-to-js@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npm.taobao.org/less-vars-to-js/download/less-vars-to-js-1.3.0.tgz#c322cf43a3c8fc3fab655da3e51a14c1499ab571"
+  integrity sha1-wyLPQ6PI/D+rZV2j5RoUwUmatXE=
+  dependencies:
+    strip-json-comments "^2.0.1"
+
+less@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.npm.taobao.org/less/download/less-3.11.1.tgz#c6bf08e39e02404fe6b307a3dfffafdc55bd36e2"
+  integrity sha1-xr8I454CQE/mswej3/+v3FW9NuI=
+  dependencies:
+    clone "^2.1.2"
+    tslib "^1.10.0"
+  optionalDependencies:
+    errno "^0.1.1"
+    graceful-fs "^4.1.2"
+    image-size "~0.5.0"
+    mime "^1.4.1"
+    mkdirp "^0.5.0"
+    promise "^7.1.1"
+    request "^2.83.0"
+    source-map "~0.6.0"
+
 leven@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/leven/download/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
@@ -9460,7 +9511,7 @@ mime-types@^2.1.12, mime-types@~2.1.19, mime-types@~2.1.24:
   dependencies:
     mime-db "1.43.0"
 
-mime@1.6.0:
+mime@1.6.0, mime@^1.4.1:
   version "1.6.0"
   resolved "https://registry.npm.taobao.org/mime/download/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha1-Ms2eXGRVO9WNGaVor0Uqz/BJgbE=
@@ -12837,7 +12888,7 @@ request-promise-native@^1.0.7:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.87.0, request@^2.88.0:
+request@^2.83.0, request@^2.87.0, request@^2.88.0:
   version "2.88.2"
   resolved "https://registry.npm.taobao.org/request/download/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha1-1zyRhzHLWofaBH4gcjQUb2ZNErM=
@@ -13478,7 +13529,7 @@ source-map-url@^0.4.0:
   resolved "https://registry.npm.taobao.org/source-map-url/download/source-map-url-0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
   integrity sha1-PpNdfd1zYxuXZZlW1VEo6HtQhKM=
 
-source-map@0.6.1, source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
+source-map@0.6.1, source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.0, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha1-dHIq8y6WFOnCh6jQu95IteLxomM=
@@ -13843,7 +13894,7 @@ strip-indent@^2.0.0:
   resolved "https://registry.npm.taobao.org/strip-indent/download/strip-indent-2.0.0.tgz#5ef8db295d01e6ed6cbf7aab96998d7822527b68"
   integrity sha1-XvjbKV0B5u1sv3qrlpmNeCJSe2g=
 
-strip-json-comments@~2.0.1:
+strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.npm.taobao.org/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
@@ -14159,18 +14210,18 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tinacms@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.npm.taobao.org/tinacms/download/tinacms-0.14.0.tgz#fabc10d39974d0de2caba612aa0dce3c6cc6fe9e"
-  integrity sha1-+rwQ05l00N4sq6YSqg3OPGzG/p4=
+tinacms@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.npm.taobao.org/tinacms/download/tinacms-0.15.0.tgz#6df479f8b9aaf7961aad22bc729e90b46fc6bcd2"
+  integrity sha1-bfR5+Lmq95YarSK8cp6QtG/GvNI=
   dependencies:
     "@tinacms/core" "^0.7.1"
-    "@tinacms/fields" "^0.5.1"
+    "@tinacms/fields" "^0.6.0"
     "@tinacms/form-builder" "^0.2.15"
     "@tinacms/forms" "^0.2.0"
-    "@tinacms/icons" "^0.5.2"
+    "@tinacms/icons" "^0.6.0"
     "@tinacms/react-core" "^0.2.7"
-    "@tinacms/styles" "^0.1.2"
+    "@tinacms/styles" "^0.2.0"
     "@types/react-beautiful-dnd" "^11.0.3"
     lodash.clonedeep "^4.5.0"
     lodash.merge "^4.6.2"

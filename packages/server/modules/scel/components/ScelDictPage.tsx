@@ -11,7 +11,7 @@ import {ScelContentList} from 'modules/scel/components/ScelContentList';
 import {Buffer} from 'buffer/'
 import {ScelFooter} from 'modules/scel/components/ScelFooter';
 import {fetchProgress} from 'utils/fetch-progress';
-import {BookOutlined} from '@ant-design/icons';
+import {BookOutlined, DownloadOutlined} from '@ant-design/icons';
 
 const ScelMetaDescription: React.FC<{ metadata: ScelMetadata }> = ({metadata}) => {
   const {name, type, description, example, count, size, version, updatedAt} = metadata;
@@ -128,7 +128,7 @@ export const ScelDictPage: React.FC<{ dictId, dictVersion?, metadata?: ScelMetad
                 download={`${name}-v${version}.scel`}
                 href={service.getScelUrl({id: dictId, version: dictVersion})}
                 type="primary"
-                icon="download"
+                icon={<DownloadOutlined />}
               >
                 下载 {name}.scel <small style={{marginLeft: 8}}>{(size / 1000).toFixed(2)}k</small>
               </Button>

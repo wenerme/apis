@@ -14,7 +14,17 @@ const withSass = require('@zeit/next-sass');
 const withTranspile = require('next-transpile-modules');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-})
+});
+
+// andt less - 无法很好的限定 dark - 不全局
+// const fs = require('fs');
+// const path = require('path');
+// const withLess = require('@zeit/next-less');
+// const lessToJS = require('less-vars-to-js');
+// const themeVariables = lessToJS(
+//   fs.readFileSync(path.resolve(__dirname, './assets/antd-custom.less'), 'utf8')
+// );
+// const themeVariables = require('antd/dist/dark-theme');
 
 // 环境变量
 const env = {
@@ -67,6 +77,28 @@ const config = {
       })
     }
 
+    // antd 模块 less 处理
+    // if (isServer) {
+    //   const antStyles = /antd\/.*?\/style.*?/;
+    //   const origExternals = [...config.externals];
+    //   config.externals = [
+    //     (context, request, callback) => {
+    //       if (request.match(antStyles)) return callback();
+    //       if (typeof origExternals[0] === 'function') {
+    //         origExternals[0](context, request, callback)
+    //       } else {
+    //         callback()
+    //       }
+    //     },
+    //     ...(typeof origExternals[0] === 'function' ? [] : origExternals),
+    //   ];
+    //
+    //   config.module.rules.unshift({
+    //     test: antStyles,
+    //     use: 'null-loader',
+    //   })
+    // }
+
     config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
       use: {
@@ -89,6 +121,14 @@ const config = {
   env,
   // no X-Powered-By header
   poweredByHeader: false,
+  // next-sass next-css
+  // cssModules: true,
+
+  // antd less
+  // lessLoaderOptions: {
+  //   javascriptEnabled: true,
+  //   modifyVars: themeVariables, // make your antd custom effective
+  // },
 };
 
 module.exports = (phase, {defaultConfig}) => {
@@ -106,6 +146,7 @@ module.exports = (phase, {defaultConfig}) => {
   Object.assign(env, envs.default, envs[envType]);
 
   return flow([
+    // withLess,
     withSass,
     withCss,
     withMDX,

@@ -15,6 +15,9 @@ import {
   QrcodeOutlined,
   RetweetOutlined
 } from '@ant-design/icons';
+import {useRootSelector} from '../../../reducers';
+import {useDispatch} from 'react-redux';
+import {setMenuOpenKeys} from 'reducers/layout';
 
 interface MenuSpec {
   title
@@ -128,8 +131,18 @@ const menus: MenuSpec[] = [
 
 export const PageMenu: React.FC = () => {
   const router = useRouter();
+  const menuOpenKeys = useRootSelector(v => v.layout.menuOpenKeys);
+  const dispatch = useDispatch();
+
+  const selected = router.pathname.replace(/[.]html$/, '');
   return (
-    <Menu theme="light" mode="inline" selectedKeys={[router.asPath.replace(/[.]html$/, '')]}>
+    <Menu
+      theme="light"
+      mode="inline"
+      openKeys={menuOpenKeys}
+      onOpenChange={v => dispatch(setMenuOpenKeys(v))}
+      selectedKeys={[selected]}
+    >
       {menus.map(({path, title, iconType, iconComponent, children}) => (
         path ? (
           <Menu.Item key={path || title}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Result} from 'antd';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {ApiOutlined} from '@ant-design/icons';
+import {ApiOutlined, GithubOutlined} from '@ant-design/icons';
 
 function IndexPage({}) {
   return (
@@ -10,7 +10,7 @@ function IndexPage({}) {
         title="Wener's APIs"
         icon={<ApiOutlined style={{marginRight: 8}} />}
         extra={
-          <Button type="primary" icon="github" target="_blank" href="https://github.com/wenerme/apis">
+          <Button type="primary" icon={<GithubOutlined />} target="_blank" href="https://github.com/wenerme/apis">
             wenerme/apis
           </Button>
         }
