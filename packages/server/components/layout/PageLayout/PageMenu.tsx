@@ -15,7 +15,7 @@ import {
   QrcodeOutlined,
   RetweetOutlined
 } from '@ant-design/icons';
-import {useRootSelector} from '../../../reducers';
+import {useRootSelector} from 'reducers/index';
 import {useDispatch} from 'react-redux';
 import {setMenuOpenKeys} from 'reducers/layout';
 
@@ -79,6 +79,10 @@ const menus: MenuSpec[] = [
       {
         title: '条形码生成',
         path: '/barcode/linear/builder',
+      },
+      {
+        title: '条形码解析',
+        path: '/barcode/linear/reader',
       },
     ]
   },

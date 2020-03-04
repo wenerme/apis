@@ -6,6 +6,7 @@ const {
   PHASE_PRODUCTION_BUILD,
 } = require('next/constants');
 
+const withPWA = require('next-pwa')
 const withCss = require('@zeit/next-css');
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/
@@ -152,5 +153,6 @@ module.exports = (phase, {defaultConfig}) => {
     withMDX,
     // withTranspile,
     withBundleAnalyzer,
+    // withPWA,
   ])(config)
 };
