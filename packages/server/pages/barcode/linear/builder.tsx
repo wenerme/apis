@@ -5,16 +5,17 @@ import Head from 'next/head';
 import {Alert, Form, message, PageHeader} from 'antd';
 import {QrcodeOutlined} from '@ant-design/icons/lib';
 import JsBarcode, {Options as BarcodeOptions} from 'jsbarcode';
-import {FormFieldListBuilder} from 'libs/antds/form/builder';
+import {FormBuilderFieldProps, FormFieldListBuilder} from 'libs/antds/form/builder';
 import produce from 'immer';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
 import {API} from 'apis/api';
 import {ResourceLinkButton} from 'components/ResourceLinkButton';
+import {useDebounceEffect} from 'hooks/useDebounceEffect';
 
 const Barcode: React.FC<BarcodeOptions & { value: string, renderer?: 'svg' | 'canvas' | 'img' }> = (props) => {
   const {renderer = 'svg'} = props;
   const eleRef = useRef();
-  useEffect(() => {
+  useDebounceEffect(() => {
     if (!eleRef.current) {
       return
     }
@@ -28,7 +29,7 @@ const Barcode: React.FC<BarcodeOptions & { value: string, renderer?: 'svg' | 'ca
     } finally {
       console.timeEnd(`JsBarcode`)
     }
-  }, [props]);
+  }, [props], 1000);
 
   const Ele = renderer;
   // not support high dpi
@@ -113,13 +114,13 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
   }, []);
 
 
-  const fields = useMemo(() => [
+  const fields: FormBuilderFieldProps[] = useMemo(() => [
     {key: 'value', label: '数据', widget: 'textarea'},
     {key: 'format', label: '格式', widget: 'select', options: formats},
     {key: 'renderer', label: '渲染方式', widget: 'select', options: ['svg', 'canvas', 'img']},
 
-    {key: 'width', label: '宽', widget: 'number'},
-    {key: 'height', label: '高', widget: 'number'},
+    {key: 'width', label: '宽', widget: 'slider', widgetProps: {min: 1, max: 4}},
+    {key: 'height', label: '高', widget: 'slider', widgetProps: {min: 10, max: 150}},
     {key: 'displayValue', label: '显示值', widget: 'switch'},
     {key: 'background', label: '背景色', widget: SketchColorPicker},
     {key: 'lineColor', label: '线条色', widget: SketchColorPicker},
@@ -152,7 +153,8 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
           linkProvider={({format: imageFormat}) => `${API.origin}/api/barcode/gen/${options.format}/${encodeURIComponent(options.value)}.${imageFormat}`}
         />
         <figure style={{textAlign: 'center', marginTop: 16}}>
-          <Barcode {...options} />
+          {/*<Barcode {...options} />*/}
+          {React.createElement(Barcode, options)}
           <figcaption>条形码</figcaption>
         </figure>
       </div>

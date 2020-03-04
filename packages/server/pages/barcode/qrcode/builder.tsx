@@ -83,7 +83,7 @@ const QRCodeBuilderPageContent = () => {
       key: 'value', label: '二维码内容',
       required: true, 'widget:readOnly': true,
     },
-    {key: 'size', label: '尺寸', widget: 'number'},
+    {key: 'size', label: '尺寸', widget: 'slider', widgetProps: {min: 64, max: 300}},
     {
       key: 'renderAs',
       label: '渲染方式',
@@ -100,8 +100,8 @@ const QRCodeBuilderPageContent = () => {
     {key: 'fgColor', label: '前景色', widget: 'SketchColorPicker'},
     {key: 'bgColor', label: '背景色', widget: 'SketchColorPicker'},
     {key: 'imageSettings.src', label: '图片地址'},
-    {key: 'imageSettings.height', label: '图片宽', widget: 'number'},
-    {key: 'imageSettings.width', label: '图片高', widget: 'number'},
+    {key: 'imageSettings.height', label: '图片宽', widget: 'slider', widgetProps: {min: 16, max: 150}},
+    {key: 'imageSettings.width', label: '图片高', widget: 'slider', widgetProps: {min: 16, max: 150}},
     {key: 'imageSettings.excavate', label: '图片位置镂空', widget: 'switch'},
   ], []);
 

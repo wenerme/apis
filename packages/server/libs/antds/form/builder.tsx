@@ -1,5 +1,5 @@
 import {normalizeOptions, OptionLike} from 'libs/antds/form/utils';
-import {Form, Input, InputNumber, Select, Switch} from 'antd';
+import {Form, Input, InputNumber, Select, Slider, Switch} from 'antd';
 import React, {useMemo} from 'react';
 
 
@@ -61,21 +61,22 @@ export function normalizeItem(item: FormBuilderFieldProps) {
 }
 
 export const DefaultWidgets: Record<string, Widget> = {
-    default: Input,
-    text: Input,
-    password: Input.Password,
-    textarea: Input.TextArea,
-    number: InputNumber,
-    switch: Switch,
-    select: Object.assign(({options, name}) => {
-      options = normalizeOptions(options);
-      if (!options.length) {
-        console.error(`no options`, name)
-      }
-      return (
-        <Select>
-          {options.map(({label, value}) => (
-            <Select.Option value={value} key={label}>{label}</Select.Option>
+  default: Input,
+  text: Input,
+  password: Input.Password,
+  textarea: Input.TextArea,
+  number: InputNumber,
+  slider: Slider,
+  switch: Switch,
+  select: Object.assign(({options, name}) => {
+    options = normalizeOptions(options);
+    if (!options.length) {
+      console.error(`no options`, name)
+    }
+    return (
+      <Select>
+        {options.map(({label, value}) => (
+          <Select.Option value={value} key={label}>{label}</Select.Option>
           ))}
         </Select>
       );
