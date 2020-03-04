@@ -3,11 +3,13 @@ import {NextApiRequest, NextApiResponse} from 'next'
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import objectHash from 'object-hash'
+import {handleErrors} from 'libs/nexts/middlewares/errors';
+import {flow} from 'lodash';
 
 type QrCodeProps = CanvasQRCodeProps | SvgQRCodeProps;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  let v = req.query.slug;
+  let {value: v} = req.query;
   if (Array.isArray(v)) {
     v = v.join('/')
   }
@@ -52,4 +54,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).send(svg)
 };
 
-export default handler;
+export default flow([handleErrors()])(handler);

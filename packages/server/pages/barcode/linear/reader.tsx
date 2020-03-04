@@ -2,62 +2,26 @@ import React, {useEffect, useState} from 'react';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Descriptions, PageHeader, Spin} from 'antd';
+import {Descriptions, notification, PageHeader, Spin} from 'antd';
 import {QrcodeOutlined} from '@ant-design/icons/lib';
 import {ImageReceiver} from 'components/ImageReceiver';
 import {Result} from '@zxing/library';
+import {getZxingFormat} from 'libs/barcodes/formats';
 
-const formats = Object.entries({
-  /** Aztec 2D barcode format. */
-  AZTEC: 0,
-  /** CODABAR 1D format. */
-  CODABAR: 1,
-  /** Code 39 1D format. */
-  CODE_39: 2,
-  /** Code 93 1D format. */
-  CODE_93: 3,
-  /** Code 128 1D format. */
-  CODE_128: 4,
-  /** Data Matrix 2D barcode format. */
-  DATA_MATRIX: 5,
-  /** EAN-8 1D format. */
-  EAN_8: 6,
-  /** EAN-13 1D format. */
-  EAN_13: 7,
-  /** ITF (Interleaved Two of Five) 1D format. */
-  ITF: 8,
-  /** MaxiCode 2D barcode format. */
-  MAXICODE: 9,
-  /** PDF417 format. */
-  PDF_417: 10,
-  /** QR Code 2D barcode format. */
-  QR_CODE: 11,
-  /** RSS 14 */
-  RSS_14: 12,
-  /** RSS EXPANDED */
-  RSS_EXPANDED: 13,
-  /** UPC-A 1D format. */
-  UPC_A: 14,
-  /** UPC-E 1D format. */
-  UPC_E: 15,
-  /** UPC/EAN extension format. Not a stand-alone format. */
-  UPC_EAN_EXTENSION: 16
-})
+
 const LinearBarCodeReaderPageContent: React.FC = () => {
   const [image, setImage] = useState<HTMLImageElement>();
   const [result, setResult] = useState<Result>();
   const [loading, setLoading] = useState(false);
 
-  let format: any = result?.getBarcodeFormat() ?? null
-  if (format !== null) {
-    format = formats.find(([_, v]) => v === format)?.[0]
-  }
+  const format = getZxingFormat(result?.getBarcodeFormat())?.label;
+
   useEffect(() => {
     if (!image) {
       return
     }
 
-    setLoading(true)
+    setLoading(true);
 
     import('@zxing/library')
       .then(async ({BrowserBarcodeReader}) => {
@@ -65,6 +29,10 @@ const LinearBarCodeReaderPageContent: React.FC = () => {
         const result = await reader.decodeFromImageElement(image);
         setResult(result);
         console.log(`decode result`, result)
+      })
+      .catch(e => {
+        console.log(`parse barcode failed`, e);
+        notification.error({message: '解析失败', description: e.message, duration: 8})
       })
       .finally(() => {
         setLoading(false)

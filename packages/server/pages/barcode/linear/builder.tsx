@@ -8,6 +8,8 @@ import JsBarcode, {Options as BarcodeOptions} from 'jsbarcode';
 import {buildFormItems} from 'libs/antds/form/builder';
 import produce from 'immer';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
+import {API} from 'apis/api';
+import {ResourceLinkButton} from 'components/ResourceLinkButton';
 
 const Barcode: React.FC<BarcodeOptions & { value: string, renderer?: 'svg' | 'canvas' | 'img' }> = (props) => {
   const {renderer = 'svg'} = props;
@@ -38,7 +40,7 @@ const Barcode: React.FC<BarcodeOptions & { value: string, renderer?: 'svg' | 'ca
 
 const LinearBarCodeBuilderPageContent: React.FC = () => {
   const [form] = Form.useForm();
-  const initRef = useRef<boolean>()
+  const initRef = useRef<boolean>();
 
   const defaults = {
     'CODE128': 'https://apis.wener.me',
@@ -118,7 +120,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
     // valid: () => null
   });
   useEffect(() => {
-    form.setFieldsValue(options)
+    form.setFieldsValue(options);
     initRef.current = true;
   }, []);
 
@@ -144,7 +146,11 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
         </Form>
       </div>
       <div>
-        <figure style={{textAlign: 'center'}}>
+        <ResourceLinkButton
+          nameProvider={({format: imageFormat}) => `${options.value}-${options.format}.${imageFormat}`}
+          linkProvider={({format: imageFormat}) => `${API.origin}/api/barcode/gen/${options.format}/${encodeURIComponent(options.value)}.${imageFormat}`}
+        />
+        <figure style={{textAlign: 'center', marginTop: 16}}>
           <Barcode {...options} />
           <figcaption>条形码</figcaption>
         </figure>

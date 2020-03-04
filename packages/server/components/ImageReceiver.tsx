@@ -35,6 +35,7 @@ export const ImageReceiver: React.FC<{ onFileChange?, onImageLoad?, onImageDataC
     reader.readAsArrayBuffer(file);
     reader.onload = async (e) => {
       try {
+        const reader = e.target;
         console.log(`read file length ${reader.result?.['byteLength']} <=> ${file.size}`);
         onImageDataChange(await decoder(reader.result as ArrayBuffer))
       } catch (e) {
@@ -82,7 +83,7 @@ export const ImageReceiver: React.FC<{ onFileChange?, onImageLoad?, onImageDataC
       } else {
         console.log(`paste item not match`, [...items].map(v => ({type: v.type, kind: v.kind})));
       }
-    }
+    };
 
     document.addEventListener('paste', onPaste);
     return () => document.removeEventListener('paste', onPaste);

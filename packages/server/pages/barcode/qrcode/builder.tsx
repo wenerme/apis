@@ -1,17 +1,17 @@
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Alert, Button, Form, Input, message, PageHeader} from 'antd';
+import {Alert, Form, Input, PageHeader} from 'antd';
 import React, {useEffect, useState} from 'react';
 import QRCode, {CanvasQRCodeProps, SvgQRCodeProps} from 'qrcode.react'
 import {QrcodeOutlined} from '@ant-design/icons';
 import produce from 'immer';
 import {buildFormItem} from 'libs/antds/form/builder';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
-import {format, UrlObject} from 'url';
+import {UrlObject} from 'url';
 import {API} from 'apis/api';
-import {copy} from 'utils/clipboard';
 import {merge} from 'lodash';
+import {ResourceLinkButton} from 'components/ResourceLinkButton';
 
 function buildValue(o) {
   const v = o[o.type];
@@ -22,7 +22,7 @@ function buildValue(o) {
       return `WIFI:T:${encryption};S:${ssid ?? ''};P:${(!encryption || encryption === 'nopass') ? '' : password ?? ''};${hidden ? 'H:true' : ''};`
     }
     case 'tel': {
-      const {countryCode, number} = v
+      const {countryCode, number} = v;
       return `tel:${countryCode}${number ?? ''}`
     }
     default:
@@ -74,9 +74,8 @@ const QRCodeBuilderPageContent = () => {
     const value = buildValue(valueObject);
     setOptions(produce(s => {
       s.value = value
-    }))
-    form.setFieldsValue({value})
-    console.log('update value', value)
+    }));
+    form.setFieldsValue({value});
   }, [valueObject]);
 
   const fields = [
@@ -102,20 +101,18 @@ const QRCodeBuilderPageContent = () => {
     {key: 'imageSettings.excavate', label: '图片位置镂空', widget: 'switch'},
   ];
 
-  const doCopyImgLink = () => {
+  const linkProvider = ({format}) => {
     const {value, imageSettings, renderAs, ...query} = options;
     const svgUrl = API.apiOf(format({
       pathname: `/api/barcode/qrcode/svg/${encodeURIComponent(value)}`,
       query: query as any,
     } as UrlObject));
-
-    copy(svgUrl);
-    message.success('复制成功')
+    return svgUrl
   };
 
   return (
     <div className="container">
-      <div style={{flex: 1}}>
+      <div>
         <h3>生成参数</h3>
         <div>
           <Form
@@ -180,6 +177,7 @@ const QRCodeBuilderPageContent = () => {
               label: '二维码内容',
               required: true,
               disabled: true,
+              widget: <Input readOnly />,
             })}
             {
               fields.map(v => buildFormItem(v, {widgets: [SketchColorPicker]}))
@@ -187,11 +185,12 @@ const QRCodeBuilderPageContent = () => {
           </Form>
         </div>
       </div>
-      <div style={{flex: 1}}>
-        <div style={{display: 'flex', justifyContent: 'space-around', marginBottom: 32}}>
-          <Button onClick={doCopyImgLink}>复制图片链接</Button>
-        </div>
-        <figure style={{textAlign: 'center'}}>
+      <div>
+        <ResourceLinkButton
+          linkProvider={linkProvider}
+          formats={['svg']}
+        />
+        <figure style={{textAlign: 'center', marginTop: 16}}>
           <QRCode {...(options as any)} />
           <figcaption>二维码</figcaption>
         </figure>
@@ -199,6 +198,9 @@ const QRCodeBuilderPageContent = () => {
       <style jsx>{`
 .container {
   display: flex;
+}
+.container > div{
+  flex:1;
 }
 @media (max-width: 767.98px) { 
   .container {
