@@ -1,0 +1,8 @@
+
+.TorrentTable th {
+  white-space: nowrap !important;
+}
+
+.TorrentTable .no-wrap {
+  white-space: nowrap !important;
+}

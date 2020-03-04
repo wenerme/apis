@@ -64,7 +64,7 @@ div.logo {
   )
 };
 
-const AntdLayout: React.FC = ({children}) => {
+const AntdLayout: React.FC<{ showFooter? }> = ({children, showFooter = true}) => {
   return (
     <ConfigProvider>
       <Layout style={{minHeight: '100vh'}}>
@@ -82,7 +82,7 @@ const AntdLayout: React.FC = ({children}) => {
 
             </Content>
 
-            <Footer style={{textAlign: 'center'}}>
+            <Footer style={{textAlign: 'center', ...(showFooter ? {} : {display: 'none'})}}>
               Wener's APIs © 2020 by
               <Button type="link" href="https://wener.me" target="_blank" style={{padding: '0 4px'}}>wener</Button>
               <span title={`${process?.env?.BUILD_PLATFORM ?? 'Wener'}${process?.env?.APP_BUILD_DATE ?? ''}`}>
@@ -96,12 +96,12 @@ const AntdLayout: React.FC = ({children}) => {
   )
 };
 
-export const PageLayout: React.FC = ({children}) => {
+export const PageLayout: React.FC<{ showFooter? }> = ({children, showFooter}) => {
   useRouteProgress();
 
   return (
     <PageContext>
-      <AntdLayout>
+      <AntdLayout showFooter={showFooter}>
         {children}
       </AntdLayout>
     </PageContext>

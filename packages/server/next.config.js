@@ -55,6 +55,12 @@ const config = {
       config.resolve.plugins = [new TsconfigPathsPlugin()];
     }
 
+    if (!isServer) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
+
     // https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/next.config.js
     // antd 模块 css 处理
     if (isServer) {

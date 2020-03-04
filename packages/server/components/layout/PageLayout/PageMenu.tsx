@@ -87,6 +87,17 @@ const menus: MenuSpec[] = [
     ]
   },
   {
+    title: 'WebTorrent',
+    iconComponent: <RetweetOutlined />,
+    iconType: 'retweet',
+    children: [
+      {
+        title: '客户端',
+        path: '/webtorrent/client',
+      },
+    ]
+  },
+  {
     title: 'WebRTC',
     iconComponent: <RetweetOutlined />,
     iconType: 'retweet',
