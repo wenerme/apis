@@ -2,11 +2,11 @@ import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
 import {Alert, Form, Input, PageHeader} from 'antd';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import QRCode, {CanvasQRCodeProps, SvgQRCodeProps} from 'qrcode.react'
 import {QrcodeOutlined} from '@ant-design/icons';
 import produce from 'immer';
-import {buildFormItem} from 'libs/antds/form/builder';
+import {FormBuilderFieldProps, FormFieldBuilder, FormFieldListBuilder} from 'libs/antds/form/builder';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
 import {UrlObject} from 'url';
 import {API} from 'apis/api';
@@ -78,7 +78,11 @@ const QRCodeBuilderPageContent = () => {
     form.setFieldsValue({value});
   }, [valueObject]);
 
-  const fields = [
+  const fields: FormBuilderFieldProps[] = useMemo(() => [
+    {
+      key: 'value', label: '二维码内容',
+      required: true, 'widget:readOnly': true,
+    },
     {key: 'size', label: '尺寸', widget: 'number'},
     {
       key: 'renderAs',
@@ -99,7 +103,7 @@ const QRCodeBuilderPageContent = () => {
     {key: 'imageSettings.height', label: '图片宽', widget: 'number'},
     {key: 'imageSettings.width', label: '图片高', widget: 'number'},
     {key: 'imageSettings.excavate', label: '图片位置镂空', widget: 'switch'},
-  ];
+  ], []);
 
   const linkProvider = ({format}) => {
     const {value, imageSettings, renderAs, ...query} = options;
@@ -125,39 +129,41 @@ const QRCodeBuilderPageContent = () => {
             labelCol={{span: 6}}
             wrapperCol={{span: 18}}
           >
-            {buildFormItem({
+            <FormFieldBuilder pure field={{
               key: 'type',
               label: '值类型',
               required: true,
               widget: 'select',
               options: [['text', '文本'], ['wifi', 'WiFi'], ['tel', '电话号码'],]
-            })}
-            {valueObject.type === 'text' && buildFormItem({key: 'text', name: null, label: '文本内容', required: true})}
+            }} />
+            {valueObject.type === 'text' && (
+              <FormFieldBuilder pure field={{key: 'text', name: null, label: '文本内容', required: true}} />
+            )}
             {valueObject.type === 'wifi' && (
               <>
-                {buildFormItem({key: 'wifi.ssid', label: 'SSID/网络名', required: true})}
-                {buildFormItem({
-                  key: 'wifi.encryption', label: '加密方式', widget: 'select',
-                  options: [['WPA', 'WPA/WPA2'], ['WEP', 'WEP'], ['nopass', '无密码'],]
-                })}
-                {valueObject['wifi']?.encryption !== 'nopass' && buildFormItem({
+                <FormFieldListBuilder pure fields={[
+                  {key: 'wifi.ssid', label: 'SSID/网络名', required: true},
+                  {
+                    key: 'wifi.encryption', label: '加密方式', widget: 'select',
+                    options: [['WPA', 'WPA/WPA2'], ['WEP', 'WEP'], ['nopass', '无密码'],]
+                  },
+                ]} />
+                {valueObject['wifi']?.encryption !== 'nopass' && <FormFieldBuilder pure field={{
                   key: 'wifi.password',
                   label: '密码',
-                  widget: Input.Password
-                })}
-                {buildFormItem({key: 'wifi.hidden', label: '隐藏网络', widget: 'switch'})}
+                  widget: 'password',
+                }} />}
+                {<FormFieldBuilder pure field={{key: 'wifi.hidden', label: '隐藏网络', widget: 'switch'}} />}
               </>
             )}
 
             {valueObject.type === 'tel' && (
-              <>
-                {buildFormItem({
-                  key: 'tel.number',
-                  label: '电话号码',
-                  required: true,
-                  widget: <Input pattern="^[-0-9]*$" addonBefore={valueObject.tel.countryCode} />
-                })}
-              </>
+              <FormFieldBuilder pure field={{
+                key: 'tel.number',
+                label: '电话号码',
+                required: true,
+                widget: <Input pattern="^[-0-9]*$" addonBefore={valueObject.tel.countryCode} />
+              }} />
             )}
           </Form>
           <hr />
@@ -171,17 +177,8 @@ const QRCodeBuilderPageContent = () => {
             labelCol={{span: 6}}
             wrapperCol={{span: 18}}
           >
-            {buildFormItem({
-              key: 'value',
-              name: null,
-              label: '二维码内容',
-              required: true,
-              disabled: true,
-              widget: <Input readOnly />,
-            })}
-            {
-              fields.map(v => buildFormItem(v, {widgets: [SketchColorPicker]}))
-            }
+
+            <FormFieldListBuilder fields={fields} widgets={[SketchColorPicker]} />
           </Form>
         </div>
       </div>

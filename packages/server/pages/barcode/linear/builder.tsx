@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
 import {Alert, Form, message, PageHeader} from 'antd';
 import {QrcodeOutlined} from '@ant-design/icons/lib';
 import JsBarcode, {Options as BarcodeOptions} from 'jsbarcode';
-import {buildFormItems} from 'libs/antds/form/builder';
+import {FormFieldListBuilder} from 'libs/antds/form/builder';
 import produce from 'immer';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
 import {API} from 'apis/api';
@@ -38,64 +38,52 @@ const Barcode: React.FC<BarcodeOptions & { value: string, renderer?: 'svg' | 'ca
   )
 };
 
+const defaults = {
+  'CODE128': 'https://apis.wener.me',
+  'CODE128A': 'WENER',
+  'CODE128B': 'Wener.me',
+  'CODE128C': '12345678',
+
+  'CODE39': 'WENER ME',
+
+  EAN2: '10',
+  EAN5: '12340',
+  EAN8: '12345670',
+  EAN13: '1234567890128',
+
+  UPC: '123456789999',
+  UPCE: '0123456',
+
+  ITF14: '10012345000017',
+  ITF: '123456',
+
+  MSI: '123456',
+  MSI10: '123456',
+  MSI11: '123456',
+  MSI1010: '123456',
+  MSI1110: '123456',
+
+  'pharmacode': '123456',
+
+  'codabar': '123456',
+  'GenericBarcode': '123456',
+};
+
+const formats = [
+  'CODE39', 'CODE128', 'CODE128A', 'CODE128B', 'CODE128C',
+  'EAN13', 'EAN8', 'EAN5', 'EAN2', 'UPC', 'UPCE',
+  'ITF14',
+  'ITF',
+  'MSI', 'MSI10', 'MSI11', 'MSI1010', 'MSI1110',
+  'pharmacode',
+  'codabar',
+  'GenericBarcode'
+];
+
 const LinearBarCodeBuilderPageContent: React.FC = () => {
   const [form] = Form.useForm();
   const initRef = useRef<boolean>();
 
-  const defaults = {
-    'CODE128': 'https://apis.wener.me',
-    'CODE128A': 'WENER',
-    'CODE128B': 'Wener.me',
-    'CODE128C': '12345678',
-
-    'CODE39': 'WENER ME',
-
-    EAN2: '10',
-    EAN5: '12340',
-    EAN8: '12345670',
-    EAN13: '1234567890128',
-
-    UPC: '123456789999',
-    UPCE: '0123456',
-
-    ITF14: '10012345000017',
-    ITF: '123456',
-
-    MSI: '123456',
-    MSI10: '123456',
-    MSI11: '123456',
-    MSI1010: '123456',
-    MSI1110: '123456',
-
-    'pharmacode': '123456',
-
-    'codabar': '123456',
-    'GenericBarcode': '123456',
-  };
-
-  const formats = [
-    'CODE39', 'CODE128', 'CODE128A', 'CODE128B', 'CODE128C',
-    'EAN13', 'EAN8', 'EAN5', 'EAN2', 'UPC', 'UPCE',
-    'ITF14',
-    'ITF',
-    'MSI', 'MSI10', 'MSI11', 'MSI1010', 'MSI1110',
-    'pharmacode',
-    'codabar',
-    'GenericBarcode'
-  ];
-
-  const fields = [
-    {key: 'value', label: '数据', widget: 'textarea'},
-    {key: 'format', label: '格式', widget: 'select', options: formats},
-    {key: 'renderer', label: '渲染方式', widget: 'select', options: ['svg', 'canvas', 'img']},
-
-    {key: 'width', label: '宽', widget: 'number'},
-    {key: 'height', label: '高', widget: 'number'},
-    {key: 'displayValue', label: '显示值', widget: 'switch'},
-    {key: 'background', label: '背景色', widget: SketchColorPicker},
-    {key: 'lineColor', label: '线条色', widget: SketchColorPicker},
-
-  ];
   const [options, setOptions] = useState<{ value, renderer } & BarcodeOptions>({
     renderer: 'svg',
     value: 'https://apis.wener.me',
@@ -124,6 +112,19 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
     initRef.current = true;
   }, []);
 
+
+  const fields = useMemo(() => [
+    {key: 'value', label: '数据', widget: 'textarea'},
+    {key: 'format', label: '格式', widget: 'select', options: formats},
+    {key: 'renderer', label: '渲染方式', widget: 'select', options: ['svg', 'canvas', 'img']},
+
+    {key: 'width', label: '宽', widget: 'number'},
+    {key: 'height', label: '高', widget: 'number'},
+    {key: 'displayValue', label: '显示值', widget: 'switch'},
+    {key: 'background', label: '背景色', widget: SketchColorPicker},
+    {key: 'lineColor', label: '线条色', widget: SketchColorPicker},
+  ], []);
+
   return (
     <div className="container">
       <div>
@@ -142,7 +143,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
           labelCol={{span: 6}}
           wrapperCol={{span: 18}}
         >
-          {buildFormItems(fields)}
+          <FormFieldListBuilder fields={fields} />
         </Form>
       </div>
       <div>

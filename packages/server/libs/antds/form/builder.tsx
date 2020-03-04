@@ -1,20 +1,65 @@
-import {normalizeOptions} from 'libs/antds/form/utils';
+import {normalizeOptions, OptionLike} from 'libs/antds/form/utils';
 import {Form, Input, InputNumber, Select, Switch} from 'antd';
-import React from 'react';
+import React, {useMemo} from 'react';
 
-const Option = Select.Option;
 
-export function normalizeItem(item) {
+export type Widget =
+  string
+  | React.ReactNode
+  | React.ComponentClass
+  | React.FunctionComponent
+  | ((item: any) => React.ReactNode)
+
+export interface FormBuilderFieldProps {
+  key: string
+  name?: string | string[]
+  label?: string | React.ReactNode
+
+  widget?: Widget
+  widgetProps?: any
+
+  fieldProps?: any
+
+  required?: boolean
+
+  options?: OptionLike
+
+  [k: string]: any
+}
+
+export interface FormBuilderOptions {
+  widgets?: Widget[]
+}
+
+function prefixedObject(entries: any, prefix) {
+  return Object.fromEntries(
+    entries
+      .filter(([v]) => v.startsWith(prefix))
+      .map(([k, v]) => [k.substring(prefix.length), v])
+  );
+}
+
+export function normalizeItem(item: FormBuilderFieldProps) {
   if (item.key.includes('.') && !item.name) {
     item.name = item.name = item.key.split('.');
   }
   if (!item.valuePropName && item.widget === 'switch') {
     item.valuePropName = 'checked'
   }
+  const entries = Object.entries(item);
+
+  item.widgetProps = Object.assign(
+    prefixedObject(entries, 'widget:'),
+    item.widgetProps
+  );
+  item.fieldProps = Object.assign(
+    prefixedObject(entries, 'field:'),
+    item.fieldProps
+  );
+
   return item;
 }
 
-export type Widget = React.ComponentClass | React.FunctionComponent | ((item: any) => React.ReactNode)
 export const DefaultWidgets: Record<string, Widget> = {
     default: Input,
     text: Input,
@@ -29,8 +74,8 @@ export const DefaultWidgets: Record<string, Widget> = {
       }
       return (
         <Select>
-          {options.map(({label, value}, i) => (
-            <Option value={value} key={i}>{label}</Option>
+          {options.map(({label, value}) => (
+            <Select.Option value={value} key={label}>{label}</Select.Option>
           ))}
         </Select>
       );
@@ -38,11 +83,13 @@ export const DefaultWidgets: Record<string, Widget> = {
   }
 ;
 
-export function buildWidget(item, widgets = []) {
-  let {widget} = item;
-  widget = widget ?? 'default';
+function buildWidget(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
+  const {widget: w, widgetProps} = item;
+  let widget: any = w ?? 'default';
   if (typeof widget === 'string') {
-    widget = widgets.find(v => v['displayName'] === widget || v['factoryName'] === widget) ?? DefaultWidgets[widget]
+    const {widgets = []} = opts ?? {};
+
+    widget = widgets.find(v => v['displayName'] === widget || v['factoryName'] === widget) ?? DefaultWidgets[widget];
     if (!widget) {
       console.error(`invalid widget`, item);
       widget = DefaultWidgets['default']
@@ -54,24 +101,63 @@ export function buildWidget(item, widgets = []) {
   if (React.isValidElement(widget)) {
     return widget
   }
-  return React.createElement(widget)
+  return React.createElement(widget, widgetProps ?? {})
 }
 
-export function buildFormItems(items, opt?) {
+function buildFormItems(items, opt?) {
   return items.map(v => buildFormItem(v, opt))
 }
 
-export function buildFormItem(item, {widgets = []} = {}) {
+function buildFormItem(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
   item = normalizeItem(item);
-  const {label, key, name, required, valuePropName, disabled, children} = item;
+  const {label, key, name, required, valuePropName, fieldProps, children} = item;
   return (
     <Form.Item
       key={key}
       valuePropName={valuePropName}
       label={label}
       name={name || key}
-      rules={[{required}]}>
-      {children ?? buildWidget(item, widgets)}
+      rules={[{required}]}
+      {...fieldProps}
+    >
+      {children ?? buildWidget(item, opts)}
     </Form.Item>
   )
 }
+
+let objectHash;
+export const FormFieldBuilder: React.FC<{ field: FormBuilderFieldProps, hash?: boolean, pure?: boolean } & FormBuilderOptions> = (props) => {
+  const {field, children, hash, pure, ...opts} = props;
+  let deps;
+  if (pure) {
+    deps = []
+  } else if (hash) {
+    if (objectHash) {
+      deps = [objectHash(field)]
+    } else {
+      import('object-hash')
+        .then(({default: oh}) => objectHash = oh)
+    }
+  }
+  deps = deps || [field, children];
+  return useMemo(() => {
+    // debug rerender
+    // console.log(`render ${field.key}`, field)
+
+    if (children) {
+      return buildFormItem({...field, children}, opts)
+    }
+    return buildFormItem(field, opts)
+  }, deps)
+};
+export const FormFieldListBuilder: React.FC<{ fields: FormBuilderFieldProps[], pure?: boolean } & FormBuilderOptions> = (props) => {
+  const {fields, children, pure, ...opts} = props;
+
+  let deps;
+  if (pure) {
+    deps = []
+  }
+  deps = deps || [fields];
+
+  return useMemo(() => buildFormItems(fields, opts), deps)
+};
