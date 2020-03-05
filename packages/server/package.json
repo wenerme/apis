@@ -52,7 +52,7 @@
     "globalthis": "^1.0.1",
     "gun": "^0.2020.116",
     "if-env": "^1.0.4",
-    "immer": "^5.3.2",
+    "immer": "^6.0.1",
     "ipfs-http-client": "^42.0.0",
     "isomorphic-unfetch": "^3.0.0",
     "isomorphic-webrtc": "^0.1.3",
@@ -102,7 +102,7 @@
     "webtorrent": "^0.107.17",
     "winston": "^3.2.1",
     "wrtc": "^0.4.3",
-    "xmldom": "^0.2.1",
+    "xmldom": "^0.3.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
