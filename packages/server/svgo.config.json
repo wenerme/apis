@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    {
+      "removeAttrs": {
+        "attrs": "data-.*"
+      }
+    },
+    {
+      "sortAttrs": {}
+    }
+  ]
+}

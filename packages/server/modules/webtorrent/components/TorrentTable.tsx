@@ -143,6 +143,7 @@ export const TorrentTable: React.FC<{ client: Instance }> = ({client}) => {
     ];
     columns.forEach(v => {
       v.key = v.key ?? v.title as string;
+      // v.width = v.width ?? 80
     });
     return columns;
   }, []);
@@ -159,7 +160,8 @@ export const TorrentTable: React.FC<{ client: Instance }> = ({client}) => {
       columns={columns}
       dataSource={torrents}
 
-      // scroll={{scrollToFirstRowOnChange: true, x: 1300, y: 800}}
+      scroll={{x: 1800, y: 500}}
+      // tableLayout="fixed"
 
       // expandRowByClick
       expandedRowKeys={expanded}

@@ -4,20 +4,21 @@ import React from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import {
-  BookOutlined,
   EnvironmentOutlined,
-  FileOutlined,
   HomeOutlined,
   KeyOutlined,
   LinkOutlined,
-  LockOutlined,
   PhoneOutlined,
-  QrcodeOutlined,
-  RetweetOutlined
+  QrcodeOutlined
 } from '@ant-design/icons';
 import {useRootSelector} from 'reducers/index';
 import {useDispatch} from 'react-redux';
 import {setMenuOpenKeys} from 'reducers/layout';
+import {BarcodeOutlined, BorderlessTableOutlined} from '@ant-design/icons/lib';
+import TorrentSolid from 'components/icons/TorrentSolid';
+import IpfsOutlined from 'components/icons/IpfsOutlined';
+import DictOutlined from 'components/icons/DictOutlined';
+import RtcOutlined from 'components/icons/RtcOutlined';
 
 interface MenuSpec {
   title
@@ -65,16 +66,18 @@ const menus: MenuSpec[] = [
   },
   {
     title: '条形码',
-    iconComponent: <QrcodeOutlined />,
+    iconComponent: <BarcodeOutlined />,
     iconType: 'qrcode',
     children: [
       {
         title: '二维码生成',
         path: '/barcode/qrcode/builder',
+        iconComponent: <QrcodeOutlined />
       },
       {
         title: '二维码解析',
         path: '/barcode/qrcode/reader',
+        iconComponent: <QrcodeOutlined />
       },
       {
         title: '条形码生成',
@@ -88,8 +91,9 @@ const menus: MenuSpec[] = [
   },
   {
     title: 'WebTorrent',
-    iconComponent: <RetweetOutlined />,
-    iconType: 'retweet',
+    iconComponent: <TorrentSolid />,
+    // iconComponent: <Icon component={<Torrent />} />,
+    // iconType: 'retweet',
     children: [
       {
         title: '客户端',
@@ -99,8 +103,7 @@ const menus: MenuSpec[] = [
   },
   {
     title: 'WebRTC',
-    iconComponent: <RetweetOutlined />,
-    iconType: 'retweet',
+    iconComponent: <RtcOutlined />,
     children: [
       {
         title: '浏览器检测',
@@ -110,7 +113,8 @@ const menus: MenuSpec[] = [
   },
   {
     title: '搜狗词库',
-    iconComponent: <BookOutlined />,
+    // iconComponent: <BookOutlined />,
+    iconComponent: <DictOutlined />,
     iconType: 'book',
     children: [
       {
@@ -125,7 +129,7 @@ const menus: MenuSpec[] = [
   },
   {
     title: 'IPFS',
-    iconComponent: <FileOutlined />,
+    iconComponent: <IpfsOutlined />,
     iconType: 'file',
     children: [
       {
@@ -136,7 +140,8 @@ const menus: MenuSpec[] = [
   },
   {
     title: '摘要哈希计算',
-    iconComponent: <LockOutlined />,
+    // iconComponent: <LockOutlined />,
+    iconComponent: <BorderlessTableOutlined />,
     iconType: 'lock',
     children: [
       ...(HashingAlgorithms.map(v => ({
@@ -186,7 +191,7 @@ export const PageMenu: React.FC = () => {
               </div>
             )}
           >
-            {children.map(({title, iconType, path, route}) => (
+            {children.map(({title, iconType, iconComponent, path, route}) => (
               <Menu.Item key={path || title}>
                 <Link href={route || path} as={path}>
                   <a href={path}>

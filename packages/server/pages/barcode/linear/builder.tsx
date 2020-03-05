@@ -3,7 +3,7 @@ import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
 import {Alert, Form, message, PageHeader} from 'antd';
-import {QrcodeOutlined} from '@ant-design/icons/lib';
+import {BarcodeOutlined} from '@ant-design/icons/lib';
 import JsBarcode, {Options as BarcodeOptions} from 'jsbarcode';
 import {FormBuilderFieldProps, FormFieldListBuilder} from 'libs/antds/form/builder';
 import produce from 'immer';
@@ -188,7 +188,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <QrcodeOutlined style={{marginRight: 8}} />
+              <BarcodeOutlined style={{marginRight: 8}} />
               条形码生成
             </div>
           }

@@ -3,11 +3,11 @@ import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
 import {Button, PageHeader} from 'antd';
-import {QrcodeOutlined} from '@ant-design/icons/lib';
 import {useMounted} from 'hooks/useMounted';
 import {getCurrentWebTorrentClient, getWebTorrentClient} from 'modules/webtorrent/client';
 import {Instance} from 'webtorrent';
 import dynamic from 'next/dynamic';
+import TorrentSolid from 'components/icons/TorrentSolid';
 
 const WebTorrentClient = dynamic(
   () => import('modules/webtorrent/components/WebTorrentClient').then(({WebTorrentClient}) => WebTorrentClient), {
@@ -56,7 +56,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <QrcodeOutlined style={{marginRight: 8}} />
+              <TorrentSolid style={{marginRight: 8}} />
               WebTorrent 网页客户端
             </div>
           }

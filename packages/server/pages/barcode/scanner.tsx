@@ -1,35 +1,41 @@
+import React from 'react';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
-import React from 'react';
 import Head from 'next/head';
 import {PageHeader} from 'antd';
-import {WebRTCChecker} from 'modules/webrtc/components/WebRTCChecker';
-import {useMounted} from 'hooks/useMounted';
-import RtcOutlined from 'components/icons/RtcOutlined';
+import {QrcodeOutlined} from '@ant-design/icons/lib';
+
+// https://github.com/nimiq/qr-scanner
+
+const ScannerPageContent: React.FC = () => {
+  return (
+    <div></div>
+  )
+};
 
 const Page = () => {
-  const mounted = useMounted();
   return (
     <PageLayout>
       <PageContent>
         <Head>
-          <title>WebRTC 浏览器检测</title>
+          <title>Demo Page</title>
+          <meta name="description" content="演示页面" />
+          <meta name="keywords" content="demo, react nextjs, zeit now" />
         </Head>
         <PageHeader
           title={
             <div>
-              <RtcOutlined style={{marginRight: 8}} />
-              WebRTC 浏览器检测
+              <QrcodeOutlined style={{marginRight: 8}} />
+              Demo Page
             </div>
           }
           backIcon={false}
         />
 
-        {mounted && <WebRTCChecker />}
+        <ScannerPageContent />
 
       </PageContent>
     </PageLayout>
   )
 };
-
 export default Page

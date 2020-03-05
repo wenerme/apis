@@ -3,7 +3,7 @@ import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
 import {Descriptions, notification, PageHeader, Spin} from 'antd';
-import {QrcodeOutlined} from '@ant-design/icons/lib';
+import {BarcodeOutlined} from '@ant-design/icons/lib';
 import {ImageReceiver} from 'components/ImageReceiver';
 import {Result} from '@zxing/library';
 import {getZxingFormat} from 'libs/barcodes/formats';
@@ -88,7 +88,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <QrcodeOutlined style={{marginRight: 8}} />
+              <BarcodeOutlined style={{marginRight: 8}} />
               条形码扫描
             </div>
           }
