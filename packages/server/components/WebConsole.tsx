@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import produce from 'immer';
+import './WebConsole.module.css'
 
 export const AllMethods: Methods[] = ['log', 'warn', 'error', 'info', 'debug', 'command', 'result'];
 export type Methods =

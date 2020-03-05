@@ -1,7 +1,13 @@
 import React from 'react';
 import {Instance} from 'webtorrent';
 import {Button, Dropdown, Menu, Tooltip} from 'antd';
-import {ArrowDownOutlined, ArrowUpOutlined, ExpandAltOutlined, SettingFilled} from '@ant-design/icons/lib';
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  CodeOutlined,
+  ExpandAltOutlined,
+  SettingFilled
+} from '@ant-design/icons/lib';
 import {useDispatch} from 'react-redux';
 import {toggleConsole} from 'reducers/webtorrent';
 
@@ -16,7 +22,7 @@ export const StatusBar: React.FC<{ client: Instance }> = ({client}) => {
           overlay={(
             <Menu>
               <Menu.Item onClick={() => dispatch(toggleConsole())}>
-                日志
+                <CodeOutlined /> 日志
               </Menu.Item>
             </Menu>
           )}

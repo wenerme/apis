@@ -1,6 +1,7 @@
 import {normalizeOptions, OptionLike} from 'libs/antds/form/utils';
 import {Form, Input, InputNumber, Select, Slider, Switch} from 'antd';
 import React, {useMemo} from 'react';
+import {Rule} from 'rc-field-form/lib/interface';
 
 
 export type Widget =
@@ -23,6 +24,8 @@ export interface FormBuilderFieldProps {
   required?: boolean
 
   options?: OptionLike
+
+  rules?: Rule[]
 
   [k: string]: any
 }
@@ -61,22 +64,22 @@ export function normalizeItem(item: FormBuilderFieldProps) {
 }
 
 export const DefaultWidgets: Record<string, Widget> = {
-  default: Input,
-  text: Input,
-  password: Input.Password,
-  textarea: Input.TextArea,
-  number: InputNumber,
-  slider: Slider,
-  switch: Switch,
-  select: Object.assign(({options, name}) => {
-    options = normalizeOptions(options);
-    if (!options.length) {
-      console.error(`no options`, name)
-    }
-    return (
-      <Select>
-        {options.map(({label, value}) => (
-          <Select.Option value={value} key={label}>{label}</Select.Option>
+    default: Input,
+    text: Input,
+    password: Input.Password,
+    textarea: Input.TextArea,
+    number: InputNumber,
+    slider: Slider,
+    switch: Switch,
+    select: Object.assign(({options, name}) => {
+      options = normalizeOptions(options);
+      if (!options.length) {
+        console.error(`no options`, name)
+      }
+      return (
+        <Select>
+          {options.map(({label, value}) => (
+            <Select.Option value={value} key={label}>{label}</Select.Option>
           ))}
         </Select>
       );
@@ -105,6 +108,18 @@ function buildWidget(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
   return React.createElement(widget, widgetProps ?? {})
 }
 
+function buildRules(item: FormBuilderFieldProps) {
+  const rules = Array.from(item.rules ?? []);
+
+  const {required, label, key} = item;
+
+  if (required) {
+    rules.push({required, message: `请填写${typeof label === 'string' ? label : '该字段'}`})
+  }
+
+  return rules;
+}
+
 function buildFormItems(items, opt?) {
   return items.map(v => buildFormItem(v, opt))
 }
@@ -118,7 +133,7 @@ function buildFormItem(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
       valuePropName={valuePropName}
       label={label}
       name={name || key}
-      rules={[{required}]}
+      rules={buildRules(item)}
       {...fieldProps}
     >
       {children ?? buildWidget(item, opts)}

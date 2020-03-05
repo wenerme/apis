@@ -49,11 +49,7 @@ const config = {
   webpack: (config, {isServer}) => {
     // https://github.com/zeit/next.js/issues/7779
     const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-    if (config.resolve.plugins) {
-      config.resolve.plugins.push(new TsconfigPathsPlugin());
-    } else {
-      config.resolve.plugins = [new TsconfigPathsPlugin()];
-    }
+    config.resolve.plugins = [...(config.resolve.plugins || []), new TsconfigPathsPlugin()];
 
     if (!isServer) {
       config.node = {

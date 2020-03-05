@@ -1,8 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+type DialogType = 'new-seed' | 'new-download'
+
 export interface WebTorrentState {
   showConsole: boolean
-  showDialog?: 'new-seed' | 'new-download'
+  showDialog?: DialogType
+
+  showTorrentDetail?: string
 }
 
 const slice = createSlice({
@@ -20,8 +24,14 @@ const slice = createSlice({
     hideDialog(state) {
       state.showDialog = null
     },
+    showTorrentDetail(state, {payload}) {
+      state.showTorrentDetail = payload
+    },
+    hideTorrentDetail(state) {
+      state.showTorrentDetail = null
+    },
   },
 });
 
-export const {toggleConsole, showDialog, hideDialog} = slice.actions;
+export const {toggleConsole, showDialog, hideDialog, showTorrentDetail, hideTorrentDetail} = slice.actions;
 export const webtorrentReducer = slice.reducer;

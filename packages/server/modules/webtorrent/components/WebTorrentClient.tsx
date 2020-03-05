@@ -15,6 +15,7 @@ import {useRootSelector} from 'reducers/index';
 import {DialogModal} from 'modules/webtorrent/components/DialogModal';
 import {useDispatch} from 'react-redux';
 import {showDialog} from 'reducers/webtorrent';
+import {TorrentDetailDrawer} from 'modules/webtorrent/components/TorrentDetailDrawer';
 
 const WebTorrentToolbar: React.FC<{ client: Instance }> = ({client}) => {
   const dispatch = useDispatch()
@@ -39,6 +40,7 @@ export const WebTorrentClient: React.FC<{ client: Instance }> = ({client}) => {
     <div style={{display: 'flex', flexFlow: 'column', flex: 1}}>
       <div style={{flex: 1, display: 'flex', flexFlow: 'column',}}>
         <DialogModal />
+        <TorrentDetailDrawer />
         <WebTorrentToolbar client={client} />
         <WebTorrentPanel client={client} />
       </div>
