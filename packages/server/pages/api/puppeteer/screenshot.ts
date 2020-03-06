@@ -1,0 +1,47 @@
+import {NextApiRequest, NextApiResponse} from 'next'
+import devices from 'puppeteer/DeviceDescriptors';
+import {firstOf} from 'utils/arrays';
+import {ApiError} from 'next/dist/next-server/server/api-utils';
+import {handleErrors} from 'libs/nexts/middlewares/errors';
+import {flow} from 'lodash';
+import puppeteer from 'puppeteer';
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const browser = await puppeteer.launch({
+    args: ['--window-size=1024,968'],
+    defaultViewport: {width: 1024, height: 968, deviceScaleFactor: 2}
+  });
+
+
+  let {url, device} = req.query;
+  url = firstOf(url);
+  device = firstOf(device);
+  if (!url) {
+    throw new ApiError(400, 'invalid url')
+  }
+
+  let dev: devices.Device;
+  if (device) {
+    dev = devices[device];
+    if (!dev) {
+      throw new ApiError(400, 'invalid device')
+    }
+  }
+  const page = await browser.newPage();
+
+  if (dev) {
+    await page.emulate(dev);
+  }
+
+  await page.goto(url);
+
+  const buffer = await page.screenshot({
+    // path: `/tmp/${device ?? 'default'}-${encodeURIComponent(url)}.png`,
+    fullPage: true,
+  });
+  await browser.close();
+  res.setHeader('Content-Type', 'image/png');
+  res.status(200).send(buffer)
+};
+
+export default flow([handleErrors()])(handler);
