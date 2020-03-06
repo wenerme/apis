@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from 'next'
-import devices from 'puppeteer/DeviceDescriptors';
+import devices from 'puppeteer-core/DeviceDescriptors';
 import {firstOf} from 'utils/arrays';
 import {ApiError} from 'next/dist/next-server/server/api-utils';
 import {handleErrors} from 'libs/nexts/middlewares/errors';
