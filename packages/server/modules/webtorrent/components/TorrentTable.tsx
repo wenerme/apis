@@ -8,7 +8,8 @@ import {InfoCircleOutlined, MoreOutlined} from '@ant-design/icons/lib';
 import './TorrentTable.module.css'
 import {copy} from 'utils/clipboard';
 import {useDispatch} from 'react-redux';
-import {showTorrentDetail} from 'reducers/webtorrent';
+import {showTorrentDetail, updateSelection} from 'reducers/webtorrent';
+import {useRootSelector} from 'reducers/index';
 
 export const TorrentTable: React.FC<{ client: Instance }> = ({client}) => {
   const [count, setCount] = useState(0);
@@ -154,7 +155,7 @@ export const TorrentTable: React.FC<{ client: Instance }> = ({client}) => {
     return columns;
   }, []);
 
-  const [expanded, setExpanded] = useState([]);
+  const selections = useRootSelector(v => v.webtorrent.selections)
 
   return (
     <Table
@@ -168,6 +169,11 @@ export const TorrentTable: React.FC<{ client: Instance }> = ({client}) => {
 
       scroll={{x: 1800, y: 500}}
       // tableLayout="fixed"
+
+      rowSelection={{
+        selections: selections as any,
+        onChange: (v) => dispatch(updateSelection(v)),
+      }}
 
       // expandRowByClick
 

@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Form, message, Modal, Radio} from 'antd';
-import produce from 'immer';
 import {FormFieldBuilder, FormFieldListBuilder} from 'libs/antds/form/builder';
 import MagnetOutlined from 'components/icons/MagnetOutlined';
 import TorrentFileFilled from 'components/icons/TorrentFileFilled';
 import {useRootSelector} from 'reducers/index';
 import {useDispatch} from 'react-redux';
 import {hideDialog} from 'reducers/webtorrent';
-import {createDownload} from 'modules/webtorrent/libs/downloads';
-import {getCurrentWebTorrentClient} from 'modules/webtorrent/client';
+import {doCreateDownload} from 'reducers/webtorrent/actions';
 
 export const NewDownloadModal: React.FC = () => {
   const visible = useRootSelector(v => v.webtorrent.showDialog === 'new-download');
@@ -16,15 +14,11 @@ export const NewDownloadModal: React.FC = () => {
 
   const [form] = Form.useForm();
 
-  const [options, setOptions] = useState({type: 'magnet'});
-  useEffect(() => {
-    form.setFieldsValue(options);
-  }, []);
   const doHide = () => dispatch(hideDialog());
 
   const doCreate = async (values) => {
     try {
-      await createDownload(getCurrentWebTorrentClient(), values as any);
+      await dispatch(doCreateDownload(values));
       doHide()
     } catch (e) {
       console.error(`failed seed`, values, e);
@@ -32,15 +26,18 @@ export const NewDownloadModal: React.FC = () => {
     }
   };
 
+  const [type, setType] = useState('magnet');
+
   return (
-    <Modal title="新建下载" centered visible={visible} onCancel={doHide} onOk={() => form.submit()}>
+    <Modal title="新建下载" forceRender centered visible={visible} onCancel={doHide} onOk={() => form.submit()}>
       <Form
         form={form}
+        initialValues={{type}}
         onFinish={doCreate}
         onValuesChange={v => {
-          setOptions(produce(s => {
-            Object.assign(s, v)
-          }))
+          if (v['type']) {
+            setType(v['type'])
+          }
         }}
 
         labelCol={{span: 4}}
@@ -52,9 +49,8 @@ export const NewDownloadModal: React.FC = () => {
             <Radio.Button value="torrent"><TorrentFileFilled />种子文件</Radio.Button>
           </Radio.Group>
         </FormFieldBuilder>
-
         {
-          options.type === 'magnet' && (
+          type === 'magnet' && (
             <FormFieldListBuilder pure fields={[
               {key: 'magnet.uri', label: '链接', required: true, 'widget:placeholder': 'magnet:?xt=urn:btih:......'},
             ]} />
@@ -62,7 +58,7 @@ export const NewDownloadModal: React.FC = () => {
         }
 
         {
-          options.type === 'torrent' && (
+          type === 'torrent' && (
             <FormFieldListBuilder pure fields={[
               {key: 'torrent.file', label: '文件', required: true},
             ]} />

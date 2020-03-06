@@ -7,12 +7,16 @@ export interface WebTorrentState {
   showDialog?: DialogType
 
   showTorrentDetail?: string
+
+  selections: string[],
 }
 
 const slice = createSlice({
   name: 'webtorrent',
   initialState: {
     showConsole: true,
+
+    selections: [],
   } as WebTorrentState,
   reducers: {
     toggleConsole(state) {
@@ -30,8 +34,12 @@ const slice = createSlice({
     hideTorrentDetail(state) {
       state.showTorrentDetail = null
     },
+
+    updateSelection(state, {payload}) {
+      state.selections = payload ?? []
+    }
   },
 });
 
-export const {toggleConsole, showDialog, hideDialog, showTorrentDetail, hideTorrentDetail} = slice.actions;
+export const {toggleConsole, showDialog, hideDialog, showTorrentDetail, hideTorrentDetail, updateSelection} = slice.actions;
 export const webtorrentReducer = slice.reducer;

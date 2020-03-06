@@ -1,9 +1,8 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {rootReducer} from 'reducers';
 import {Provider} from 'react-redux';
 import React from 'react';
+import {configRootStore} from 'reducers/store';
 
-const store = configureStore({reducer: rootReducer});
+const store = configRootStore();
 
 export const PageContext: React.FC = ({children}) => {
   return (

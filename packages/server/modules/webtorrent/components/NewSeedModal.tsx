@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Form, Input, message, Modal, Radio} from 'antd';
 import {FormFieldBuilder, FormFieldListBuilder} from 'libs/antds/form/builder';
-import produce from 'immer';
 import {FileOutlined, FileTextOutlined} from '@ant-design/icons/lib';
 import {useRootSelector} from 'reducers/index';
 import {useDispatch} from 'react-redux';
 import {hideDialog} from 'reducers/webtorrent';
-import {createSeed} from 'modules/webtorrent/libs/seeds';
-import {getCurrentWebTorrentClient} from 'modules/webtorrent/client';
+import {doCreateSeed} from 'reducers/webtorrent/actions';
 
 export const NewSeedModal: React.FC = () => {
   const visible = useRootSelector(v => v.webtorrent.showDialog === 'new-seed');
@@ -15,15 +13,11 @@ export const NewSeedModal: React.FC = () => {
 
   const [form] = Form.useForm();
 
-  const [options, setOptions] = useState({type: 'text'});
-  useEffect(() => {
-    form.setFieldsValue(options);
-  }, []);
   const doHide = () => dispatch(hideDialog());
 
   const doCreate = async (values) => {
     try {
-      await createSeed(getCurrentWebTorrentClient(), values as any)
+      await dispatch(doCreateSeed(values));
       doHide()
     } catch (e) {
       console.error(`failed seed`, values, e);
@@ -31,16 +25,19 @@ export const NewSeedModal: React.FC = () => {
     }
   };
 
+  const [type, setType] = useState('text');
+
   // Instance created by `useForm` is not connect to any Form element. Forget to pass `form` prop?
   return (
-    <Modal title="新建种子" centered visible={visible} onCancel={doHide} onOk={() => form.submit()}>
+    <Modal title="新建种子" forceRender centered visible={visible} onCancel={doHide} onOk={() => form.submit()}>
       <Form
         form={form}
+        initialValues={{type}}
         onFinish={doCreate}
         onValuesChange={v => {
-          setOptions(produce(s => {
-            Object.assign(s, v)
-          }))
+          if (v['type']) {
+            setType(v['type'])
+          }
         }}
 
         labelCol={{span: 4}}
@@ -54,7 +51,7 @@ export const NewSeedModal: React.FC = () => {
         </FormFieldBuilder>
 
         {
-          options.type === 'text' && (
+          type === 'text' && (
             <FormFieldListBuilder pure fields={[
               {key: 'text.filename', label: '文件名', required: true},
               {key: 'text.content', label: '文本内容', required: true, widget: Input.TextArea,},
@@ -63,7 +60,7 @@ export const NewSeedModal: React.FC = () => {
         }
 
         {
-          options.type === 'magnet' && (
+          type === 'magnet' && (
             <FormFieldListBuilder pure fields={[
               {key: 'magnet.uri', label: '链接', required: true, 'widget:placeholder': 'magnet:?xt=urn:btih:......'},
             ]} />
