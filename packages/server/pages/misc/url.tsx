@@ -100,8 +100,8 @@ const UriPageContent: React.FC = () => {
                     }
                   }}
                   onChange={v => {
+                    let t = sanitizeHtml(v.target.value, {allowedTags: []});
                     setParsed(produce(s => {
-                      let t = sanitizeHtml(v.target.value, {allowedTags: []});
                       t = to?.(t) ?? t;
                       t = t.replace(/[\r\n]/g, '');
                       // console.log(`Change`, v.target.value, t);
