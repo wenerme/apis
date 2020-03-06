@@ -4,15 +4,10 @@ import {firstOf} from 'utils/arrays';
 import {ApiError} from 'next/dist/next-server/server/api-utils';
 import {handleErrors} from 'libs/nexts/middlewares/errors';
 import {flow} from 'lodash';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from 'chrome-aws-lambda';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const browser = await puppeteer.launch({
-    args: ['--window-size=1024,968'],
-    defaultViewport: {width: 1024, height: 968, deviceScaleFactor: 2}
-  });
-
-
   let {url, device} = req.query;
   url = firstOf(url);
   device = firstOf(device);
@@ -27,6 +22,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new ApiError(400, 'invalid device')
     }
   }
+
+  const browser = await puppeteer.launch({
+    // args: ['--window-size=1024,968'],
+    // defaultViewport: {width: 1024, height: 968, deviceScaleFactor: 2}
+
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
+  });
   const page = await browser.newPage();
 
   if (dev) {
