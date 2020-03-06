@@ -28,7 +28,7 @@ async function generate(svgPath, compPath) {
       svgImport: path.join(path.relative(compPath, svgPath), f),
       name,
       comp: path.join(compPath, `${name}.tsx`),
-      force: true,
+      // force: true,
     })
   }
 }
@@ -38,6 +38,7 @@ async function gen({svg, comp, name, svgImport, force = false}) {
   if (fs.existsSync(comp) && !force) {
     return
   }
+  console.log(`Generate ${name}`);
   fs.writeFileSync(comp, `
 import React, {ForwardRefRenderFunction} from 'react';
 import ${name}Svg from '${svgImport}'

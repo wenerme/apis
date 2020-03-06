@@ -7,7 +7,7 @@ import {useMounted} from 'hooks/useMounted';
 import {getCurrentWebTorrentClient, getWebTorrentClient} from 'modules/webtorrent/client';
 import {Instance} from 'webtorrent';
 import dynamic from 'next/dynamic';
-import TorrentSolid from 'components/icons/TorrentSolid';
+import WebTorrentFilled from 'components/icons/WebTorrentFilled';
 
 const WebTorrentClient = dynamic(
   () => import('modules/webtorrent/components/WebTorrentClient').then(({WebTorrentClient}) => WebTorrentClient), {
@@ -56,7 +56,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <TorrentSolid style={{marginRight: 8}} />
+              <WebTorrentFilled style={{marginRight: 8}} />
               WebTorrent 网页客户端
             </div>
           }

@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "icons-svgo": "svgo -f public/icons/svg/ --config svgo.config.json --pretty",
-    "icons": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts",
+    "icons-gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts",
+    "icons": "yarn run icons-svgo && yarn run icons-gen",
     "test": "jest",
     "dev": "next dev -p ${PORT:-3000}",
     "gen": "TS_NODE_PROJECT=tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/scripts/prebuild.ts",

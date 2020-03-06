@@ -3,22 +3,19 @@ import {HashingAlgorithms} from 'modules/hash/types';
 import React from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
-import {
-  EnvironmentOutlined,
-  HomeOutlined,
-  KeyOutlined,
-  LinkOutlined,
-  PhoneOutlined,
-  QrcodeOutlined
-} from '@ant-design/icons';
+import {EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined} from '@ant-design/icons';
 import {useRootSelector} from 'reducers/index';
 import {useDispatch} from 'react-redux';
 import {setMenuOpenKeys} from 'reducers/layout';
 import {BarcodeOutlined, BorderlessTableOutlined} from '@ant-design/icons/lib';
-import TorrentSolid from 'components/icons/TorrentSolid';
 import IpfsOutlined from 'components/icons/IpfsOutlined';
 import DictOutlined from 'components/icons/DictOutlined';
 import RtcOutlined from 'components/icons/RtcOutlined';
+import QrcodePrintOutlined from 'components/icons/QrcodePrintOutlined';
+import QrcodeReadOutlined from 'components/icons/QrcodeReadOutlined';
+import BarcodePrintOutlined from 'components/icons/BarcodePrintOutlined';
+import BarcodeReadOutlined from 'components/icons/BarcodeReadOutlined';
+import WebTorrentFilled from 'components/icons/WebTorrentFilled';
 
 interface MenuSpec {
   title
@@ -72,28 +69,28 @@ const menus: MenuSpec[] = [
       {
         title: '二维码生成',
         path: '/barcode/qrcode/builder',
-        iconComponent: <QrcodeOutlined />
+        iconComponent: <QrcodePrintOutlined />
       },
       {
         title: '二维码解析',
         path: '/barcode/qrcode/reader',
-        iconComponent: <QrcodeOutlined />
+        iconComponent: <QrcodeReadOutlined />,
       },
       {
         title: '条形码生成',
         path: '/barcode/linear/builder',
+        iconComponent: <BarcodePrintOutlined />,
       },
       {
         title: '条形码解析',
         path: '/barcode/linear/reader',
+        iconComponent: <BarcodeReadOutlined />,
       },
     ]
   },
   {
     title: 'WebTorrent',
-    iconComponent: <TorrentSolid />,
-    // iconComponent: <Icon component={<Torrent />} />,
-    // iconType: 'retweet',
+    iconComponent: <WebTorrentFilled />,
     children: [
       {
         title: '客户端',
