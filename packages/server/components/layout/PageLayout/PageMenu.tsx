@@ -96,6 +96,10 @@ const menus: MenuSpec[] = [
         title: '客户端',
         path: '/webtorrent/client',
       },
+      {
+        title: 'BT文件解析',
+        path: '/webtorrent/torrent/reader',
+      },
     ]
   },
   {
