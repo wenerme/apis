@@ -1,10 +1,9 @@
 import {NextApiRequest, NextApiResponse} from 'next'
-import devices from 'puppeteer-core/DeviceDescriptors';
 import {firstOf} from 'utils/arrays';
 import {ApiError} from 'next/dist/next-server/server/api-utils';
 import {handleErrors} from 'libs/nexts/middlewares/errors';
 import {flow} from 'lodash';
-import puppeteer from 'puppeteer-core';
+import puppeteer, {devices} from 'puppeteer-core';
 import chromium from 'chrome-aws-lambda';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -17,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   let dev: devices.Device;
   if (device) {
-    dev = devices[device];
+    dev = puppeteer.devices[device];
     if (!dev) {
       throw new ApiError(400, 'invalid device')
     }
