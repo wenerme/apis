@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {message, notification, Spin, Upload} from 'antd';
 import {InboxOutlined} from '@ant-design/icons/lib';
+import {usePasteFileEffect} from 'hooks/usePasteFileEffect';
 
 const decoders = {
   'image/jpeg': buf => import('jpeg-js').then(({decode}) => decode(buf)),
@@ -52,42 +53,24 @@ export const ImageReceiver: React.FC<{ onFileChange?, onImageLoad?, onImageDataC
     };
   }, [file]);
 
-  useEffect(() => {
-    const onPaste = async (e: ClipboardEvent) => {
-      const items: DataTransferItemList = (e.clipboardData || e['originalEvent']?.['clipboardData'])?.items ?? [];
-      console.log(`paste item`, items);
-
-      if (items.length >= 2 && items[0].kind === 'string' && items[1].kind === 'file' && items[1].type.startsWith('image/')) {
-        let file = items[1].getAsFile();
-        const text: string = await new Promise(resolve => {
-          items[0].getAsString(v => resolve(v))
-        });
+  usePasteFileEffect({
+    onFile({file, filename}) {
+      if (file.name !== filename) {
         let type = file.type;
-        if (text.endsWith('.jpg') || text.endsWith('.jpeg')) {
+        if (filename.endsWith('.jpg') || filename.endsWith('.jpeg')) {
           type = 'image/jpeg'
-        } else if (text.endsWith('.png')) {
+        } else if (filename.endsWith('.png')) {
           type = 'image/png'
         }
-        // NOTE paste file can not parse by libs
         if (type !== file.type) {
           const blob = file.slice(0, file.size);
-          file = new File([blob], text, {type});
+          file = new File([blob], filename, {type});
         }
-        // file = file;
-        console.log(`Get file`, text, file.name, file.type);
-        setFile(file)
-      } else if (items[0].kind === 'file' && items[0].type.startsWith('image/')) {
-        const file = items[0].getAsFile();
-        console.log(`Get file`, file.name, file.type);
-        setFile(file)
-      } else {
-        console.log(`paste item not match`, [...items].map(v => ({type: v.type, kind: v.kind})));
       }
-    };
 
-    document.addEventListener('paste', onPaste);
-    return () => document.removeEventListener('paste', onPaste);
-  }, []);
+      setFile(file);
+    }
+  });
 
   useEffect(() => {
     if (!file) {

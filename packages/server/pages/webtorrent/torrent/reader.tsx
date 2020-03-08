@@ -15,6 +15,7 @@ import produce from 'immer';
 import {uniq} from 'lodash';
 import ContentEditable from 'react-contenteditable';
 import sanitizeHtml from 'sanitize-html';
+import {usePasteFileEffect} from 'hooks/usePasteFileEffect';
 
 export const FileReceiver: React.FC<{ onFileChange?: (file: File) => void, accept?: string, extensions?: string[] }> = ({onFileChange, accept, extensions = []}) => {
   const [file, setFile] = useState<File>();
@@ -25,59 +26,11 @@ export const FileReceiver: React.FC<{ onFileChange?: (file: File) => void, accep
     }
     onFileChange?.(file);
   }, [file]);
-  // fixme can not receive torrent file
-  // useEffect(() => {
-  //   const onPaste = async (e: ClipboardEvent) => {
-  //     const clipboardData: DataTransfer = e.clipboardData || window['clipboardData'] || e['originalEvent']?.['clipboardData'];
-  //     const items: DataTransferItemList = clipboardData?.items;
-  //     if (!items) {
-  //       return
-  //     }
-  //     console.log(`Text ${clipboardData.getData('text')}`);
-  //
-  //     for (const item of items) {
-  //       console.log(`ITEM ${item.kind} ${item.type}`, 'file ', item.getAsFile())
-  //     }
-  //     for (const item of clipboardData.files) {
-  //       console.log(`FILE ${item.type} ${item.size}`)
-  //     }
-  //     // window['items'] = items;
-  //     // if (items.length >= 2 && items[0].kind === 'string' && items[1].kind === 'file') {
-  //     //   const lazyText = createLazyPromise<string>();
-  //     //   // items[0].getAsString(v => lazyText.)
-  //     //   pasteRef.current = [items[0], items[1]]
-  //     //   const text: string = await new Promise(resolve => {
-  //     //
-  //     //   });
-  //     //   let file = pasteRef.current[1].getAsFile();
-  //     //   debugger
-  //     //   if (!file) {
-  //     //     console.error(`No file`, items[1])
-  //     //     return
-  //     //   }
-  //     //
-  //     //   let type = file.type;
-  //     //   // fix type
-  //     //   type = type;
-  //     //   // NOTE paste file can not parse by libs
-  //     //   if (type !== file.type) {
-  //     //     const blob = file.slice(0, file.size);
-  //     //     file = new File([blob], text, {type});
-  //     //   }
-  //     //   console.log(`Get file`, text, file.name, file.type);
-  //     //   setFile(file)
-  //     // } else if (items[0].kind === 'file') {
-  //     //   const file = items[0].getAsFile();
-  //     //   console.log(`Get file`, file.name, file.type);
-  //     //   setFile(file)
-  //     // } else {
-  //     //   console.log(`paste item not match`, [...items].map(v => ({type: v.type, kind: v.kind})));
-  //     // }
-  //   };
-  //
-  //   document.addEventListener('paste', onPaste);
-  //   return () => document.removeEventListener('paste', onPaste);
-  // }, []);
+  usePasteFileEffect({
+    onFile({file, filename}) {
+      setFile(file)
+    }
+  });
 
   return (
     <Upload.Dragger
@@ -316,7 +269,7 @@ const TorrentReaderPageContent: React.FC = () => {
         />
       </div>
       <div>
-        <div>
+        <div style={{margin: 12}}>
           <FileReceiver extensions={['torrent']} accept="application/x-bittorrent" onFileChange={setFile} />
         </div>
       </div>
