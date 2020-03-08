@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
@@ -12,6 +12,10 @@ import dynamic from 'next/dynamic';
 import {decode, encode} from 'bencode'
 import TextArea from 'antd/lib/input/TextArea';
 import {JsonEditor} from 'components/JsonEditor/JsonEditor';
+import {readFileAsBuffer} from 'utils/web-io';
+import {FileReceiver} from 'components/FileReceiver';
+import {download} from 'utils/download';
+import {useDebounceEffect} from 'hooks/useDebounceEffect';
 
 const JsonEditorDyn: any = dynamic(() => import('components/JsonEditor/JsonEditor').then(({JsonEditor}) => JsonEditor), {
   loading: () => <div>Loading editor</div>,
@@ -28,10 +32,14 @@ const BencodePageContent: React.FC = () => {
   const [encoded, setEncoded] = useState('');
   const [decoded, setDecoded] = useState('');
 
-  useEffect(() => {
+  useDebounceEffect(() => {
     setEncoded(encode(value).toString())
-  }, [value]);
+  }, [value], 200);
 
+
+  const doDownload = () => {
+    download(`generated.torrent`, encode(value), {type: 'application/x-bittorrent'})
+  };
   const doDecode = () => {
     try {
       const v = decode(new Buffer(decoded) as any, 'utf8' as any);
@@ -54,12 +62,21 @@ const BencodePageContent: React.FC = () => {
 
         <div>
           <Divider orientation="left">编码内容</Divider>
+          <Button type="primary" onClick={doDownload}>下载编码内容</Button>
           <TextArea style={{width: '100%'}} value={encoded} readOnly />
         </div>
         <div>
           <Divider orientation="left">解码内容</Divider>
           <Button type="primary" onClick={doDecode}>解码</Button>
           <TextArea style={{width: '100%'}} value={decoded} onChange={e => setDecoded(e.currentTarget.value)} />
+        </div>
+        <div>
+          <Divider orientation="left">Torrent 解码</Divider>
+          <FileReceiver
+            onFileChange={async file => {
+              setValue(decode(await readFileAsBuffer(file), 'utf-8' as any))
+            }}
+          />
         </div>
 
       </div>

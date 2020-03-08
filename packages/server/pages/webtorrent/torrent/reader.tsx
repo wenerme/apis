@@ -2,9 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Button, Descriptions, Divider, Input, List, message, PageHeader, Upload} from 'antd';
+import {Button, Descriptions, Divider, Input, List, message, PageHeader} from 'antd';
 import TorrentFileFilled from 'components/icons/TorrentFileFilled';
-import {InboxOutlined} from '@ant-design/icons/lib';
 import ParseTorrent, {toMagnetURI, toTorrentFile} from 'parse-torrent';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import {format} from 'date-fns';
@@ -15,73 +14,8 @@ import produce from 'immer';
 import {uniq} from 'lodash';
 import ContentEditable from 'react-contenteditable';
 import sanitizeHtml from 'sanitize-html';
-import {usePasteFileEffect} from 'hooks/usePasteFileEffect';
-
-export const FileReceiver: React.FC<{ onFileChange?: (file: File) => void, accept?: string, extensions?: string[] }> = ({onFileChange, accept, extensions = []}) => {
-  const [file, setFile] = useState<File>();
-
-  useEffect(() => {
-    if (!file) {
-      return
-    }
-    onFileChange?.(file);
-  }, [file]);
-  usePasteFileEffect({
-    onFile({file, filename}) {
-      setFile(file)
-    }
-  });
-
-  return (
-    <Upload.Dragger
-      showUploadList={false}
-      supportServerRender={true}
-      accept={accept}
-      beforeUpload={file => {
-        if (extensions.length) {
-          if (file?.name && !extensions.find(v => file.name.endsWith(`.${v}`))) {
-            message.error(`只支持 ${extensions.join(', ')} 文件`);
-            return false
-          }
-        }
-        return true
-      }}
-      customRequest={async opts => {
-        if (opts.file instanceof File) {
-          setFile(opts.file);
-        } else {
-          console.error(`invalid file`, opts.file);
-          message.error('无效的文件')
-        }
-      }}
-    >
-      <div>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">
-          点击<b>选择</b>文件、<b>拖拽</b>文件到该区域、<b>粘贴</b>文件
-        </p>
-        <p className="ant-upload-hint">
-          支持{extensions.join(',')}文件
-        </p>
-      </div>
-    </Upload.Dragger>
-  )
-};
-
-function readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
-  const reader = new FileReader();
-  reader.readAsArrayBuffer(file);
-  return new Promise((resolve, reject) => {
-    reader.onload = async (e) => {
-      resolve(e.target.result as ArrayBuffer);
-    };
-    reader.onerror = error => {
-      reject(error)
-    };
-  })
-}
+import {readFileAsArrayBuffer} from 'utils/web-io';
+import {FileReceiver} from 'components/FileReceiver';
 
 const Editable: React.FC<{ disabled?, onEdit?, initialValue? }> = ({disabled, onEdit, initialValue}) => {
   const [value, setValue] = useState(initialValue);

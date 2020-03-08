@@ -5,7 +5,7 @@ import {debounce} from 'lodash';
 export function useDebounceEffect(cb: EffectCallback, deps?, wait?) {
   const bounce = useMemo(() => debounce(() => {
     cb?.()
-  }, wait), [wait]);
+  }, wait), [cb, wait]);
 
   useEffect(() => {
     bounce();
