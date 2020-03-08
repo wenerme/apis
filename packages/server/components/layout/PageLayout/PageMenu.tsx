@@ -100,6 +100,10 @@ const menus: MenuSpec[] = [
         title: 'BT文件解析',
         path: '/webtorrent/torrent/reader',
       },
+      {
+        title: 'Bencode',
+        path: '/webtorrent/bencode',
+      },
     ]
   },
   {
