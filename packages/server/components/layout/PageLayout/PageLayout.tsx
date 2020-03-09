@@ -8,10 +8,9 @@ import {PageMenu} from 'components/layout/PageLayout/PageMenu';
 import {ApiOutlined} from '@ant-design/icons'
 import {useRouteProgress} from 'libs/nexts/hooks/useRouteProgress';
 import {PageContext} from 'components/layout/PageLayout/PageContext';
-import {useDarkLightTheme} from '../../../reducers';
+import {useDarkLightTheme} from 'reducers/index';
 
 
-const Header = Layout.Header;
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 const Footer = Layout.Footer;

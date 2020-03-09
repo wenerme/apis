@@ -16,6 +16,7 @@ import QrcodeReadOutlined from 'components/icons/QrcodeReadOutlined';
 import BarcodePrintOutlined from 'components/icons/BarcodePrintOutlined';
 import BarcodeReadOutlined from 'components/icons/BarcodeReadOutlined';
 import WebTorrentFilled from 'components/icons/WebTorrentFilled';
+import KongLogo from 'components/icons/KongLogo';
 
 interface MenuSpec {
   title
@@ -89,6 +90,16 @@ const menus: MenuSpec[] = [
         title: '条形码解析',
         path: '/barcode/linear/reader',
         iconComponent: <BarcodeReadOutlined />,
+      },
+    ]
+  },
+  {
+    title: 'Kong网关',
+    iconComponent: <KongLogo />,
+    children: [
+      {
+        title: '管理',
+        path: '/kong/admin',
       },
     ]
   },
