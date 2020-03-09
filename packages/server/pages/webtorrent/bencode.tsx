@@ -12,7 +12,7 @@ import dynamic from 'next/dynamic';
 import {decode, encode} from 'bencode'
 import TextArea from 'antd/lib/input/TextArea';
 import {JsonEditor} from 'components/JsonEditor/JsonEditor';
-import {readFileAsBuffer} from 'utils/web-io';
+import {readFileAsBuffer} from 'utils/io';
 import {FileReceiver} from 'components/FileReceiver';
 import {download} from 'utils/download';
 import {useDebounceEffect} from 'hooks/useDebounceEffect';

@@ -50,10 +50,14 @@ const menus: MenuSpec[] = [
     routes: ['/phone/attribution/[num]']
   },
   {
-    title: 'URL',
+    title: 'URI',
     iconComponent: <LinkOutlined />,
-    iconType: 'link',
-    path: '/misc/url',
+    children: [
+      {
+        title: 'URL',
+        path: '/uri/url',
+      }
+    ]
   },
   {
     title: '密码强度检测',

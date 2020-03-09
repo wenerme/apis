@@ -2,7 +2,7 @@
   "name": "@wener-apis/server",
   "private": true,
   "scripts": {
-    "icons-svgo": "svgo -f public/icons/svg/ --config svgo.config.json --pretty",
+    "icons-svgo": "svgo -f public/icons/svg/ --config svgo.config.json",
     "icons-gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts",
     "icons": "yarn run icons-svgo && yarn run icons-gen",
     "test": "jest",
