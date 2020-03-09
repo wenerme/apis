@@ -3,8 +3,8 @@ import {firstOf} from 'utils/arrays';
 import {ApiError} from 'next/dist/next-server/server/api-utils';
 import {handleErrors} from 'libs/nexts/middlewares/errors';
 import {flow} from 'lodash';
-import puppeteer, {devices} from 'puppeteer-core';
-import chromium from 'chrome-aws-lambda';
+import puppeteer, {Browser, devices} from 'puppeteer-core';
+
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let {url, device} = req.query;
@@ -22,7 +22,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
-  const browser = await puppeteer.launch({
+  let browser: Browser;
+  const chromium = require('chrome-aws-lambda');
+  browser = await puppeteer.launch({
     // args: ['--window-size=1024,968'],
     // defaultViewport: {width: 1024, height: 968, deviceScaleFactor: 2}
 
