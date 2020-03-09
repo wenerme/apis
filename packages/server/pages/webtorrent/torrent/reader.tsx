@@ -14,7 +14,7 @@ import produce from 'immer';
 import {uniq} from 'lodash';
 import ContentEditable from 'react-contenteditable';
 import sanitizeHtml from 'sanitize-html';
-import {readFileAsArrayBuffer} from 'utils/web-io';
+import {readFileAsArrayBuffer} from 'utils/io';
 import {FileReceiver} from 'components/FileReceiver';
 
 const Editable: React.FC<{ disabled?, onEdit?, initialValue? }> = ({disabled, onEdit, initialValue}) => {
