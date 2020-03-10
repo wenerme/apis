@@ -1,10 +1,10 @@
 import React, {CSSProperties, useMemo, useState} from 'react'
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {KongRouteEntity} from 'modules/kong/apis/types';
-import {renderArrayOfString, renderBoolean, renderTimeStamp} from 'modules/kong/components/renders';
+import {renderArrayOfString, renderBoolean} from 'modules/kong/components/renders';
 import {Button, Divider, Form, Input, Select} from 'antd';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
-import {KongEntityTable, OperationColumn} from 'modules/kong/components/KongEntityTable';
+import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
 import {flatMapDeep, keyBy, omitBy, uniq} from 'lodash';
 import {MinusCircleOutlined, PlusOutlined} from '@ant-design/icons/lib';
 
@@ -293,9 +293,7 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
 
 
 export const KongRouteList: React.FC = () => {
-  const columns = useMemo(() => normalizeColumns<KongRouteEntity>([
-    {dataIndex: 'name', title: '名字', fixed: 'left', width: 160, className: 'no-wrap'},
-    {dataIndex: 'id', title: 'ID', width: 300},
+  const columns = useMemo(() => normalizeColumns<KongRouteEntity>(createEntityColumns([
     {key: 'service.id', title: '服务ID', width: 300},
 
     {dataIndex: 'methods', title: '方法', width: 100, render: renderArrayOfString},
@@ -309,11 +307,7 @@ export const KongRouteList: React.FC = () => {
     {dataIndex: 'path_handling', title: 'Path Handling', width: 120},
     {dataIndex: 'preserve_host', title: '保留主机', width: 80, render: renderBoolean},
 
-    {dataIndex: 'created_at', title: '创建时间', width: 160, render: renderTimeStamp},
-    {dataIndex: 'updated_at', title: '更新时间', width: 160, render: renderTimeStamp},
-
-    OperationColumn,
-  ]), []);
+  ])), []);
 
 
   return <KongEntityTable

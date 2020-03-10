@@ -4,6 +4,7 @@ import {Button, Drawer, message, Popconfirm, Spin, Table} from 'antd';
 import {kongService} from 'modules/kong/apis/client';
 import produce from 'immer';
 import {CopyOutlined, DeleteOutlined, InfoCircleOutlined, PlusOutlined, ReloadOutlined} from '@ant-design/icons/lib';
+import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
 
 export interface KongEntityTableProps {
   label
@@ -64,6 +65,22 @@ export const KongEntityOperationColumn: React.FC<{ record }> = ({record, childre
 export const OperationColumn: ColumnProps<any> = {
   title: '操作', fixed: 'right', width: 160, render: (v, r, i) => <KongEntityOperationColumn record={r} />
 };
+
+export function createEntityColumns<T = any>(columns: Array<ColumnProps<T>>): Array<ColumnProps<T>> {
+  return [
+    {dataIndex: 'name', title: '名字', fixed: 'left', width: 140, className: 'no-wrap'},
+    {dataIndex: 'id', title: 'ID', width: 300},
+
+    ...columns,
+
+    {dataIndex: 'tags', title: '标签', width: 120, render: renderTags},
+
+    {dataIndex: 'created_at', title: '创建时间', width: 160, render: renderTimeStamp},
+    {dataIndex: 'updated_at', title: '更新时间', width: 160, render: renderTimeStamp},
+
+    OperationColumn,
+  ]
+}
 
 function createKongEntityTableService(props: KongEntityTableProps, setState): KongEntityTableService {
   const {name, label} = props;
@@ -210,9 +227,11 @@ const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose,
             try {
               setLoading(true);
               await kongService[`update${name}`](v);
-              setLoading(false)
             } catch (e) {
-              message.error(`更新失败: ${e}`)
+              console.error(`update ${name} failed `, v, e)
+              message.error(`更新失败: ${e.message || e.toString()}`)
+            } finally {
+              setLoading(false)
             }
           }}
         />

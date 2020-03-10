@@ -4,7 +4,7 @@ import {RenderedCell} from 'rc-table/lib/interface';
 
 export type ColumnRender<T> = (value: any, record: T, index: number) => React.ReactNode | RenderedCell<T>;
 
-export function normalizeColumns<T>(columns: Array<ColumnProps<T>>) {
+export function normalizeColumns<T = any>(columns: Array<ColumnProps<T>>): Array<ColumnProps<T>> {
   const keys = new Set();
   for (const column of columns) {
     if (!column.key && column.title && typeof column.title === 'string') {

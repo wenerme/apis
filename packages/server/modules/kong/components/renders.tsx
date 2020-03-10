@@ -1,5 +1,5 @@
 import {format} from 'date-fns';
-import {Checkbox} from 'antd';
+import {Checkbox, Tag} from 'antd';
 import React from 'react';
 
 export function renderTimeStamp(v) {
@@ -18,4 +18,8 @@ export function renderArrayOfString(v) {
 
 export function renderBoolean(v) {
   return <Checkbox checked={Boolean(v)} />
+}
+
+export function renderTags(tags) {
+  return (tags || []).map((v, i) => <Tag key={i}>{v}</Tag>)
 }
