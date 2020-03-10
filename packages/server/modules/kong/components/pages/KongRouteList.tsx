@@ -1,7 +1,7 @@
 import React, {CSSProperties, useMemo, useState} from 'react'
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {KongRouteEntity} from 'modules/kong/apis/types';
-import {renderArrayOfString, renderBoolean} from 'modules/kong/components/renders';
+import {renderArrayOfString, renderBoolean, renderTags} from 'modules/kong/components/renders';
 import {Button, Divider, Form, Input, Select} from 'antd';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
@@ -296,7 +296,7 @@ export const KongRouteList: React.FC = () => {
   const columns = useMemo(() => normalizeColumns<KongRouteEntity>(createEntityColumns([
     {key: 'service.id', title: '服务ID', width: 300},
 
-    {dataIndex: 'methods', title: '方法', width: 100, render: renderArrayOfString},
+    {dataIndex: 'methods', title: '方法', width: 160, render: renderTags},
     {dataIndex: 'protocols', title: '协议', width: 160, render: renderArrayOfString},
     {dataIndex: 'hosts', title: '主机', width: 160, render: renderArrayOfString},
     {dataIndex: 'paths', title: '路径', width: 160, render: renderArrayOfString},

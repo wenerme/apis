@@ -20,13 +20,13 @@ export class KongClientService implements KongService {
   listService = params => resultOf(this.client.get('/services', {params}));
   addService = entity => resultOf(this.client.post('/services', entity));
   updateService = entity => resultOf(this.client.patch(`/services/${entity.id || entity.name}`, entity));
-  deleteService = idOrName => resultOf(this.client.delete(`/services/${idOrName}`));
+  deleteService = idOrName => resultOf(this.client.delete(`/services/${idOrName.id || idOrName}`));
   getServiceByIdOrName = idOrName => resultOf(this.client.get(`/services/${idOrName}`));
 
   listRoute = params => resultOf(this.client.get('/routes', {params}));
   addRoute = entity => resultOf(this.client.post('/routes', entity));
   updateRoute = entity => resultOf(this.client.patch(`/routes/${entity.id || entity.name}`, entity));
-  deleteRoute = idOrName => resultOf(this.client.delete(`/routes/${idOrName}`));
+  deleteRoute = idOrName => resultOf(this.client.delete(`/routes/${idOrName.id || idOrName}`));
   getRouteByIdOrName = idOrName => resultOf(this.client.get(`/routes/${idOrName}`));
 
   listTags(params?: KongListQuery): Promise<KongListResponse<KongTagEntity>> {

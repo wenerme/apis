@@ -24,7 +24,6 @@ export interface KongEntityTableService {
 
   showAdd(entity?)
 
-
   delete(entity)
 
   reload()
@@ -105,8 +104,9 @@ function createKongEntityTableService(props: KongEntityTableProps, setState): Ko
         s.creating = entity || true
       }))
     },
-    delete(entity) {
-      kongService[`delete${name}`](entity)
+    async delete(entity) {
+      await kongService[`delete${name}`](entity);
+      this.reload()
     },
     reload() {
       setState(produce(s => {
@@ -159,7 +159,8 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
           component={viewer}
           onClose={() => {
             setState(produce(s => {
-              s.editing = null
+              s.editing = null;
+              s.count++
             }))
           }} />
         <AddEntityDrawer
@@ -170,7 +171,8 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
           component={viewer}
           onClose={() => {
             setState(produce(s => {
-              s.creating = false
+              s.creating = null;
+              s.count++
             }))
           }} />
         {/*<AddServiceDrawer initialValues={addInitial} visible={showAdd} onClose={() => {*/}
@@ -228,7 +230,7 @@ const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose,
               setLoading(true);
               await kongService[`update${name}`](v);
             } catch (e) {
-              console.error(`update ${name} failed `, v, e)
+              console.error(`update ${name} failed `, v, e);
               message.error(`更新失败: ${e.message || e.toString()}`)
             } finally {
               setLoading(false)
@@ -261,7 +263,8 @@ const AddEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose, 
             try {
               setLoading(true);
               await kongService[`add${name}`](v);
-              setLoading(false)
+              setLoading(false);
+              onClose()
             } catch (e) {
               message.error(`更新失败: ${e}`)
             }

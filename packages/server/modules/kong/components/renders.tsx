@@ -21,5 +21,5 @@ export function renderBoolean(v) {
 }
 
 export function renderTags(tags) {
-  return (tags || []).map((v, i) => <Tag key={i}>{v}</Tag>)
+  return <div style={{whiteSpace: 'normal'}}>{(tags || []).map((v, i) => <Tag key={i}>{v}</Tag>)}</div>
 }
