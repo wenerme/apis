@@ -1,8 +1,8 @@
-import {normalizeOptions, OptionLike} from 'libs/antds/form/utils';
+import {normalizeOptions, OptionLike} from 'libs/antds/form/options';
 import {Form, Input, InputNumber, Select, Slider, Switch} from 'antd';
 import React, {useMemo} from 'react';
 import {Rule} from 'rc-field-form/lib/interface';
-
+import set from 'lodash/set'
 
 export type Widget =
   string
@@ -10,11 +10,18 @@ export type Widget =
   | React.ComponentClass
   | React.FunctionComponent
   | ((item: any) => React.ReactNode)
+  // 例如 switch - overrides 需要 valuePropName='checked'
+  | { component, overrides }
 
 export interface FormBuilderFieldProps {
   key: string
   name?: string | string[]
   label?: string | React.ReactNode
+
+  /// 默认值 - 需要实现支持
+  defaultValue?: any
+  autoFocus?: boolean
+  disabled?: boolean
 
   widget?: Widget
   widgetProps?: any
@@ -42,10 +49,11 @@ function prefixedObject(entries: any, prefix) {
   );
 }
 
-export function normalizeItem(item: FormBuilderFieldProps) {
+export function normalizeField(item: FormBuilderFieldProps) {
   if (item.key.includes('.') && !item.name) {
     item.name = item.name = item.key.split('.');
   }
+  // FIXME
   if (!item.valuePropName && item.widget === 'switch') {
     item.valuePropName = 'checked'
   }
@@ -55,57 +63,80 @@ export function normalizeItem(item: FormBuilderFieldProps) {
     prefixedObject(entries, 'widget:'),
     item.widgetProps
   );
+  // 常用组件属性
+  // defaultValue 无效 - 组件受控
+  const {autoFocus, disabled} = item;
+  Object
+    .entries({autoFocus, disabled})
+    .forEach(([k, v]) => {
+      if (v === null || v === undefined) {
+        return
+      }
+      item.widgetProps[k] = v;
+    });
+
   item.fieldProps = Object.assign(
     prefixedObject(entries, 'field:'),
     item.fieldProps
   );
+  // 常用字段属性
+  const {help, extra} = item;
+  Object
+    .entries({help, extra})
+    .forEach(([k, v]) => {
+      if (v === null || v === undefined) {
+        return
+      }
+      item.fieldProps[k] = v;
+    });
 
   return item;
 }
 
-export const DefaultWidgets: Record<string, Widget> = {
-    default: Input,
-    text: Input,
-    password: Input.Password,
-    textarea: Input.TextArea,
-    number: InputNumber,
-    slider: Slider,
-    switch: Switch,
-    select: Object.assign(({options, name}) => {
-      options = normalizeOptions(options);
-      if (!options.length) {
-        console.error(`no options`, name)
-      }
-      return (
-        <Select>
-          {options.map(({label, value}) => (
-            <Select.Option value={value} key={label}>{label}</Select.Option>
-          ))}
-        </Select>
+export const Widgets: Record<string, Widget> = {
+  default: Input,
+  text: Input,
+  password: Input.Password,
+  textarea: Input.TextArea,
+  number: InputNumber,
+  slider: Slider,
+  switch: Switch,
+  select: ({field: {options, name}, ...props}) => {
+    options = normalizeOptions(options);
+    if (!options.length) {
+      console.error(`no options`, name)
+    }
+    return (
+      <Select {...props}>
+        {options.map(({label, value}) => (
+          <Select.Option value={value} key={label}>{label}</Select.Option>
+        ))}
+      </Select>
       );
-    }, {factoryName: 'select'})
+  }
   }
 ;
 
-function buildWidget(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
-  const {widget: w, widgetProps} = item;
+function buildWidget(field: FormBuilderFieldProps, opts?: FormBuilderOptions) {
+  const {widget: w, widgetProps} = field;
   let widget: any = w ?? 'default';
   if (typeof widget === 'string') {
     const {widgets = []} = opts ?? {};
 
-    widget = widgets.find(v => v['displayName'] === widget || v['factoryName'] === widget) ?? DefaultWidgets[widget];
+    widget = widgets.find(v => v['displayName'] === widget || v['factoryName'] === widget) ?? Widgets[widget];
     if (!widget) {
-      console.error(`invalid widget`, item);
-      widget = DefaultWidgets['default']
+      console.error(`invalid widget`, field);
+      widget = Widgets['default']
     }
   }
-  if (widget['factoryName']) {
-    return widget(item)
-  }
   if (React.isValidElement(widget)) {
-    return widget
+    if (Object.keys(widgetProps).length === 0) {
+      return widget;
+    }
+    return React.cloneElement(widget, widgetProps)
   }
-  return React.createElement(widget, widgetProps ?? {})
+  // console.log(`createElement`, widget, widgetProps);
+  return React.createElement(widget, Object.assign({field}, widgetProps))
 }
 
 function buildRules(item: FormBuilderFieldProps) {
@@ -113,6 +144,7 @@ function buildRules(item: FormBuilderFieldProps) {
 
   const {required, label, key} = item;
 
+  // FIXME 应该有更好的方式 - 全局也能配置
   if (required) {
     rules.push({required, message: `请填写${typeof label === 'string' ? label : '该字段'}`})
   }
@@ -125,7 +157,7 @@ function buildFormItems(items, opt?) {
 }
 
 function buildFormItem(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
-  item = normalizeItem(item);
+  item = normalizeField(item);
   const {label, key, name, required, valuePropName, fieldProps, children} = item;
   return (
     <Form.Item
@@ -139,6 +171,17 @@ function buildFormItem(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
       {children ?? buildWidget(item, opts)}
     </Form.Item>
   )
+}
+
+export function buildInitialValues(fields: FormBuilderFieldProps[]) {
+  const o = {};
+  fields.forEach(({name, key, defaultValue}) => {
+    if (defaultValue === null || defaultValue === undefined || !(name || key)) {
+      return
+    }
+    set(o, name || key, defaultValue)
+  });
+  return o;
 }
 
 let objectHash;

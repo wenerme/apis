@@ -5,9 +5,28 @@ import {RouteFrameContent} from 'components/layout/RouteFrame/RouteFrameContent'
 import {LayoutFrame} from 'components/layout/LayoutFrame/LayoutFrame';
 import {RouteSpec} from 'components/layout/RouteFrame/types';
 import {LayoutFrameContent} from 'components/layout/LayoutFrame/LayoutFrameContent';
+import i18next from 'i18next'
+import {isDev} from 'utils/utils';
+
+i18next.init({
+  lng: 'zh',
+  debug: isDev(),
+  resources: {
+    en: {
+      translation: {
+        'key': 'hello world'
+      }
+    }
+  }
+}, (err, t) => {
+  // initiali=?zed and ready to go!
+  // document.getElementById('output').innerHTML = i18next.t('key');
+});
+const _ = i18next.t
 
 const menus: Array<MenuSpec & RouteSpec> = [
   {
+    // title: _('基础信息'),
     title: '基础信息',
     path: '/',
     exact: true,

@@ -1,0 +1,7 @@
+.ant-table.no-wrap th {
+  white-space: nowrap !important;
+}
+
+.ant-table.no-wrap .no-wrap {
+  white-space: nowrap !important;
+}
