@@ -6,12 +6,12 @@ import Head from 'next/head';
 import {createScelDataService, ScelIndexRecord} from 'libs/sougou/dict/ScelDataService';
 import {NextPage} from 'next';
 import {AutoSizer, List} from 'react-virtualized';
-import {getGlobalThis} from 'utils/utils';
 import moment from 'moment';
 import Link from 'next/link';
 import 'react-virtualized/styles.css';
 import {ScelFooter} from 'modules/scel/components/ScelFooter';
 import {BookOutlined} from '@ant-design/icons';
+import {getGlobalThis} from 'utils/getGlobalThis';
 
 const ScelIndexList: React.FC<{ index: ScelIndexRecord[] }> = ({index}) => {
   return (

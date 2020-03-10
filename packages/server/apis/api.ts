@@ -1,6 +1,7 @@
-import {isDev, urljoin} from 'utils/utils';
+import {isDev} from 'utils/utils';
 import {IncomingMessage} from 'http';
 import {parseRequestUrl} from 'libs/nexts/apis';
+import {urljoin} from 'utils/urljoin';
 
 export const API = {
   get origin(): string {

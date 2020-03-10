@@ -150,7 +150,7 @@ module.exports = (phase, {defaultConfig}) => {
 
   return flow([
     // withLess,
-    withSass,
+    // withSass,
     withCss,
     withMDX,
     // withTranspile,

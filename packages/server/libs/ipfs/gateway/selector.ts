@@ -1,5 +1,7 @@
 import {fetchGatewayChecker} from 'libs/ipfs/gateway/checker';
-import {getGlobalThis, isDev, urljoin} from 'utils/utils';
+import {isDev} from 'utils/utils';
+import {getGlobalThis} from 'utils/getGlobalThis';
+import {urljoin} from 'utils/urljoin';
 
 export function detectingDummyFastestGateway(gateways: string[]): Promise<string> {
   return firstSuccessResolve(gateways.map(gw => fetchGatewayChecker(gw))) as any

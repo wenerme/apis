@@ -3,18 +3,7 @@ import App from 'next/app'
 import Router from 'next/router'
 import {initGA, logPageView} from '../utils/analytics'
 
-export default class MyApp extends App {
-  // https://github.com/zeit/next.js/blob/master/errors/opt-out-auto-static-optimization.md
-  // static async getInitialProps({Component, router, ctx}) {
-  //   let pageProps = {};
-  //
-  //   if (Component.getInitialProps) {
-  //     pageProps = await Component.getInitialProps(ctx)
-  //   }
-  //
-  //   return {pageProps}
-  // }
-
+export default class WenerApisApp extends App {
   componentDidMount() {
     try {
       if (typeof window !== 'undefined' && window.location.origin.includes('localhost')) {
