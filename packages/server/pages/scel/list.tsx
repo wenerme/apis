@@ -150,6 +150,4 @@ export async function getStaticProps() {
   return {props: {raw: await service.getRawIndex()}}
 }
 
-export const unstable_getStaticProps = getStaticProps;
-
 export default Page
