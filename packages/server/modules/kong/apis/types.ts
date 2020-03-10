@@ -1,3 +1,5 @@
+export const ProtocolTypes = ['grpc', 'grpcs', 'http', 'https', 'tcp', 'tls']
+
 export interface KongInformation {
   plugins: {
     enabled_in_cluster: string[]
@@ -71,10 +73,103 @@ export interface KongRouteEntity extends KongEntity {
   service: { id: string }
 }
 
-export interface KongUpstreamEntity extends KongEntity {
-
+export interface KongConsumerEntity extends KongEntity {
+  username: string
+  custom_id: string
 }
 
+export interface KongPluginEntity extends KongEntity {
+  name: string
+  route?: KongEntityRef
+  service?: KongEntityRef
+  consumer?: KongEntityRef
+  config: any
+  protocols: string[]
+  enabled: boolean
+}
+
+/// https://github.com/Kong/kong/blob/master/kong/db/schema/init.lua
+/// https://github.com/Kong/kong/blob/master/kong/db/schema/typedefs.lua
+export interface KongPluginSchema {
+  default?
+  required?: boolean
+  type: 'set' | 'map' | 'string' | 'array' | 'integer' | 'function' | 'number' | 'boolean' | 'foreign' | 'record'
+  uuid?: boolean
+  legacy?: boolean
+  elements?: KongPluginSchema
+  reference?
+  one_of?: string[]
+  at_least_one_of?: string[]
+  unique?: boolean
+  between?: number[]
+  gt?: number
+  is_regex?: boolean
+  len_min?: number
+  keys?
+  values?: KongPluginSchema
+  fields?: Array<Record<string, KongPluginSchema>>
+
+  entity_checks?: Array<Record<string, KongPluginSchema>>
+  match?: string
+  err?: string
+}
+
+export interface KongUpstreamEntity extends KongEntity {
+  name: string
+  algorithm: 'consistent-hashing' | 'least-connections' | 'round-robin'
+  hash_on: 'none' | 'consumer' | 'ip' | 'header' | 'cookie'
+  hash_fallback: 'none' | 'consumer' | 'ip' | 'header' | 'cookie'
+
+  hash_on_header?: string
+  hash_fallback_header?: string
+
+  hash_on_cookie_path: string
+
+  /// 10-65536
+  slots: number
+  host_header: string
+
+  healthchecks: {
+    'active': {
+      'https_verify_certificate': true,
+      'unhealthy': {
+        'http_statuses': [429, 404, 500, 501, 502, 503, 504, 505],
+        'tcp_failures': 0,
+        'timeouts': 0,
+        'http_failures': 0,
+        'interval': 0
+      },
+      'http_path': '/',
+      'timeout': 1,
+      'healthy': {
+        'http_statuses': [200, 302],
+        'interval': 0,
+        'successes': 0
+      },
+      'https_sni': 'example.com',
+      'concurrency': 10,
+      'type': 'http'
+    },
+    'passive': {
+      'unhealthy': {
+        'http_failures': 0,
+        'http_statuses': [429, 500, 503],
+        'tcp_failures': 0,
+        'timeouts': 0
+      },
+      'type': 'http',
+      'healthy': {
+        'successes': 0,
+        'http_statuses': [200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 305, 306, 307, 308]
+      }
+    },
+    threshold: number
+  }
+}
+
+export interface KongEntityRef {
+  id: string
+}
 
 export interface KongEntity {
   id: string

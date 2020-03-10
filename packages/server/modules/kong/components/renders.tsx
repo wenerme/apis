@@ -3,6 +3,9 @@ import {Checkbox, Tag} from 'antd';
 import React from 'react';
 
 export function renderTimeStamp(v) {
+  if (!v) {
+    return ''
+  }
   return format(new Date(v * 1000), 'yyyy-MM-dd HH:mm')
 }
 

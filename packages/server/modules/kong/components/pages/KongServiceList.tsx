@@ -5,6 +5,7 @@ import URI from 'urijs'
 import {buildInitialValues, FormFieldBuilder, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
 import {omitBy} from 'lodash';
+import {ProtocolTypes} from 'modules/kong/apis/types';
 
 const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const fields = [
@@ -39,7 +40,7 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
       widget: 'select',
       required: true,
       defaultValue: 'http',
-      options: ['grpc', 'grpcs', 'http', 'https', 'tcp', 'tls'],
+      options: ProtocolTypes,
     },
     {
       key: 'host',

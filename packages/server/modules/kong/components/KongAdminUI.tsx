@@ -45,13 +45,7 @@ const menus: Array<MenuSpec & RouteSpec> = [
     component: React.lazy(() => import('./pages/KongRouteList').then(({KongRouteList}) => ({default: KongRouteList})))
   },
   {
-    title: '上游',
-    path: '/upstream',
-    exact: true,
-    component: React.lazy(() => import('./pages/KongUpstreamList').then(({KongUpstreamList}) => ({default: KongUpstreamList})))
-  },
-  {
-    title: '客户端',
+    title: '消费者',
     path: '/consumer',
     exact: true,
     component: React.lazy(() => import('./pages/KongConsumerList').then(({KongConsumerList}) => ({default: KongConsumerList})))
@@ -61,6 +55,12 @@ const menus: Array<MenuSpec & RouteSpec> = [
     path: '/plugin',
     exact: true,
     component: React.lazy(() => import('./pages/KongPluginList').then(({KongPluginList}) => ({default: KongPluginList})))
+  },
+  {
+    title: '上游',
+    path: '/upstream',
+    exact: true,
+    component: React.lazy(() => import('./pages/KongUpstreamList').then(({KongUpstreamList}) => ({default: KongUpstreamList})))
   },
   {
     title: '证书',

@@ -16,6 +16,7 @@ export class KongClientService implements KongService {
 
   getInformation = () => this.client.get('/').then(v => v.data);
   getNodeStatus = () => this.client.get('/status').then(v => v.data);
+  getPluginSchema = name => resultOf(this.client.get(`/plugins/schema/${name}`));
 
   listService = params => resultOf(this.client.get('/services', {params}));
   addService = entity => resultOf(this.client.post('/services', entity));
@@ -28,6 +29,24 @@ export class KongClientService implements KongService {
   updateRoute = entity => resultOf(this.client.patch(`/routes/${entity.id || entity.name}`, entity));
   deleteRoute = idOrName => resultOf(this.client.delete(`/routes/${idOrName.id || idOrName}`));
   getRouteByIdOrName = idOrName => resultOf(this.client.get(`/routes/${idOrName}`));
+
+  listPlugin = params => resultOf(this.client.get('/plugins', {params}));
+  addPlugin = entity => resultOf(this.client.post('/plugins', entity));
+  updatePlugin = entity => resultOf(this.client.patch(`/plugins/${entity.id || entity.name}`, entity));
+  deletePlugin = idOrName => resultOf(this.client.delete(`/plugins/${idOrName.id || idOrName}`));
+  getPluginByIdOrName = idOrName => resultOf(this.client.get(`/plugins/${idOrName}`));
+
+  listConsumer = params => resultOf(this.client.get('/consumers', {params}));
+  addConsumer = entity => resultOf(this.client.post('/consumers', entity));
+  updateConsumer = entity => resultOf(this.client.patch(`/consumers/${entity.id || entity.name}`, entity));
+  deleteConsumer = idOrName => resultOf(this.client.delete(`/consumers/${idOrName.id || idOrName}`));
+  getConsumerByIdOrName = idOrName => resultOf(this.client.get(`/consumers/${idOrName}`));
+
+  listUpstream = params => resultOf(this.client.get('/upstreams', {params}));
+  addUpstream = entity => resultOf(this.client.post('/upstreams', entity));
+  updateUpstream = entity => resultOf(this.client.patch(`/upstreams/${entity.id || entity.name}`, entity));
+  deleteUpstream = idOrName => resultOf(this.client.delete(`/upstreams/${idOrName.id || idOrName}`));
+  getUpstreamByIdOrName = idOrName => resultOf(this.client.get(`/upstreams/${idOrName}`));
 
   listTags(params?: KongListQuery): Promise<KongListResponse<KongTagEntity>> {
     return this.client.get('/tags', {params}).then(v => v.data);

@@ -65,8 +65,8 @@ export const OperationColumn: ColumnProps<any> = {
   title: '操作', fixed: 'right', width: 160, render: (v, r, i) => <KongEntityOperationColumn record={r} />
 };
 
-export function createEntityColumns<T = any>(columns: Array<ColumnProps<T>>): Array<ColumnProps<T>> {
-  return [
+export function createEntityColumns<T = any>(columns: Array<ColumnProps<T>>, {excludes = []} = {}): Array<ColumnProps<T>> {
+  const cols: Array<ColumnProps<T>> = [
     {dataIndex: 'name', title: '名字', fixed: 'left', width: 140, className: 'no-wrap'},
     {dataIndex: 'id', title: 'ID', width: 300},
 
@@ -78,7 +78,8 @@ export function createEntityColumns<T = any>(columns: Array<ColumnProps<T>>): Ar
     {dataIndex: 'updated_at', title: '更新时间', width: 160, render: renderTimeStamp},
 
     OperationColumn,
-  ]
+  ];
+  return cols.filter(v => !excludes.includes(v.key || v.dataIndex))
 }
 
 function createKongEntityTableService(props: KongEntityTableProps, setState): KongEntityTableService {
@@ -220,7 +221,7 @@ const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose,
       visible={visible}
       destroyOnClose
       closable
-      width="60vw"
+      width="75vw"
     >
       <Spin spinning={loading}>
         <Component
