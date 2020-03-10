@@ -13,7 +13,7 @@ export type Widget =
   // 例如 switch - overrides 需要 valuePropName='checked'
   | { component, overrides }
 
-export interface FormBuilderFieldProps {
+export interface FormFieldProps {
   key: string
   name?: string | string[]
   label?: string | React.ReactNode
@@ -34,6 +34,18 @@ export interface FormBuilderFieldProps {
 
   rules?: Rule[]
 
+  /// 跳过构建逻辑 - 直接渲染
+  render?: (props: { field: FormFieldProps }) => any
+
+  // 值处理
+  getValueFromEvent?: (...args: any[]) => any
+  normalize?: (value, prevValue, prevValues) => any
+
+  // 自定义控件
+  trigger?: string // onChange
+  valuePropName?: string // value
+  validateTrigger?: string | string[] // onChange
+
   [k: string]: any
 }
 
@@ -49,16 +61,20 @@ function prefixedObject(entries: any, prefix) {
   );
 }
 
-export function normalizeField(item: FormBuilderFieldProps) {
-  if (item.key.includes('.') && !item.name) {
-    item.name = item.name = item.key.split('.');
+export function normalizeField(item: FormFieldProps) {
+  if (item.key && !item.name && typeof item.key === 'string') {
+    item.name = item.key.split('.');
   }
-  // FIXME
+
+  // FIXME do this when register
   if (!item.valuePropName && item.widget === 'switch') {
     item.valuePropName = 'checked'
   }
+
+  // extract
   const entries = Object.entries(item);
 
+  // widget
   item.widgetProps = Object.assign(
     prefixedObject(entries, 'widget:'),
     item.widgetProps
@@ -75,14 +91,16 @@ export function normalizeField(item: FormBuilderFieldProps) {
       item.widgetProps[k] = v;
     });
 
+  // field
   item.fieldProps = Object.assign(
     prefixedObject(entries, 'field:'),
     item.fieldProps
   );
   // 常用字段属性
-  const {help, extra} = item;
+  // https://ant.design/components/form-cn/#Form.Item
+  const {help, extra, normalize} = item;
   Object
-    .entries({help, extra})
+    .entries({help, extra, normalize})
     .forEach(([k, v]) => {
       if (v === null || v === undefined) {
         return
@@ -94,30 +112,27 @@ export function normalizeField(item: FormBuilderFieldProps) {
 }
 
 export const Widgets: Record<string, Widget> = {
-  default: Input,
-  text: Input,
-  password: Input.Password,
-  textarea: Input.TextArea,
-  number: InputNumber,
-  slider: Slider,
-  switch: Switch,
-  select: ({field: {options, name}, ...props}) => {
-    options = normalizeOptions(options);
-    if (!options.length) {
-      console.error(`no options`, name)
-    }
-    return (
-      <Select {...props}>
-        {options.map(({label, value}) => (
-          <Select.Option value={value} key={label}>{label}</Select.Option>
-        ))}
-      </Select>
+    default: Input,
+    text: Input,
+    password: Input.Password,
+    textarea: Input.TextArea,
+    number: InputNumber,
+    slider: Slider,
+    switch: Switch,
+    select: ({field: {options, name}, ...props}) => {
+      options = normalizeOptions(options);
+      return (
+        <Select {...props}>
+          {options.map(({label, value}) => (
+            <Select.Option value={value} key={label}>{label}</Select.Option>
+          ))}
+        </Select>
       );
-  }
+    }
   }
 ;
 
-function buildWidget(field: FormBuilderFieldProps, opts?: FormBuilderOptions) {
+function buildWidget(field: FormFieldProps, opts?: FormBuilderOptions) {
   const {widget: w, widgetProps} = field;
   let widget: any = w ?? 'default';
   if (typeof widget === 'string') {
@@ -139,7 +154,7 @@ function buildWidget(field: FormBuilderFieldProps, opts?: FormBuilderOptions) {
   return React.createElement(widget, Object.assign({field}, widgetProps))
 }
 
-function buildRules(item: FormBuilderFieldProps) {
+function buildRules(item: FormFieldProps) {
   const rules = Array.from(item.rules ?? []);
 
   const {required, label, key} = item;
@@ -152,28 +167,33 @@ function buildRules(item: FormBuilderFieldProps) {
   return rules;
 }
 
-function buildFormItems(items, opt?) {
-  return items.map(v => buildFormItem(v, opt))
+function buildFormFields(fields, opt?) {
+  return fields.map(v => buildFormField(v, opt))
 }
 
-function buildFormItem(item: FormBuilderFieldProps, opts?: FormBuilderOptions) {
-  item = normalizeField(item);
-  const {label, key, name, required, valuePropName, fieldProps, children} = item;
+function buildFormField(field: FormFieldProps, options?: FormBuilderOptions) {
+  field = normalizeField(field);
+  const {render} = field
+  if (render) {
+    return render({field})
+  }
+
+  const {label, key, name, required, valuePropName, fieldProps, children,} = field;
   return (
     <Form.Item
       key={key}
       valuePropName={valuePropName}
       label={label}
       name={name || key}
-      rules={buildRules(item)}
+      rules={buildRules(field)}
       {...fieldProps}
     >
-      {children ?? buildWidget(item, opts)}
+      {children ?? buildWidget(field, options)}
     </Form.Item>
   )
 }
 
-export function buildInitialValues(fields: FormBuilderFieldProps[]) {
+export function buildInitialValues(fields: FormFieldProps[]) {
   const o = {};
   fields.forEach(({name, key, defaultValue}) => {
     if (defaultValue === null || defaultValue === undefined || !(name || key)) {
@@ -185,7 +205,14 @@ export function buildInitialValues(fields: FormBuilderFieldProps[]) {
 }
 
 let objectHash;
-export const FormFieldBuilder: React.FC<{ field: FormBuilderFieldProps, hash?: boolean, pure?: boolean } & FormBuilderOptions> = (props) => {
+
+export interface FormFieldBuilderProps extends FormBuilderOptions {
+  field: FormFieldProps
+  hash?: boolean
+  pure?: boolean
+}
+
+export const FormFieldBuilder: React.FC<FormFieldBuilderProps> = (props) => {
   const {field, children, hash, pure, ...opts} = props;
   let deps;
   if (pure) {
@@ -204,12 +231,12 @@ export const FormFieldBuilder: React.FC<{ field: FormBuilderFieldProps, hash?: b
     // console.log(`render ${field.key}`, field)
 
     if (children) {
-      return buildFormItem({...field, children}, opts)
+      return buildFormField({...field, children}, opts)
     }
-    return buildFormItem(field, opts)
+    return buildFormField(field, opts)
   }, deps)
 };
-export const FormFieldListBuilder: React.FC<{ fields: FormBuilderFieldProps[], pure?: boolean } & FormBuilderOptions> = (props) => {
+export const FormFieldsBuilder: React.FC<{ fields: FormFieldProps[], pure?: boolean } & FormBuilderOptions> = (props) => {
   const {fields, children, pure, ...opts} = props;
 
   let deps;
@@ -218,5 +245,5 @@ export const FormFieldListBuilder: React.FC<{ fields: FormBuilderFieldProps[], p
   }
   deps = deps || [fields];
 
-  return useMemo(() => buildFormItems(fields, opts), deps)
+  return useMemo(() => buildFormFields(fields, opts), deps)
 };

@@ -2,7 +2,7 @@ import React from 'react'
 import App from 'next/app'
 import Router from 'next/router'
 import {initGA, logPageView} from '../utils/analytics'
-import '../public/styles/ants.css'
+import '../public/styles/antds.css'
 
 export default class WenerApisApp extends App {
   componentDidMount() {

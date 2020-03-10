@@ -5,8 +5,9 @@ import {KongServiceEntity} from 'modules/kong/apis/types';
 import {kongService} from 'modules/kong/apis/client';
 import URI from 'urijs'
 import {CopyOutlined, DeleteOutlined, InfoCircleOutlined, PlusOutlined, ReloadOutlined} from '@ant-design/icons/lib';
-import {buildInitialValues, FormFieldListBuilder} from 'libs/antds/form/builder';
+import {buildInitialValues, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {cloneDeep} from 'lodash';
+import {renderTimeStamp} from 'modules/kong/components/renders';
 
 
 const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
@@ -103,9 +104,9 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
         }
       }}
     >
-      <FormFieldListBuilder pure fields={fields} />
+      <FormFieldsBuilder pure fields={fields} />
       <Divider>上游</Divider>
-      <FormFieldListBuilder pure fields={connectionFields} />
+      <FormFieldsBuilder pure fields={connectionFields} />
 
 
       <div style={{display: 'flex', justifyContent: 'space-around'}}>
@@ -191,6 +192,15 @@ export const KongServiceList: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [count, doCount] = useReducer(a => a + 1, 0);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    setLoading(true);
+    kongService
+      .listService()
+      .then(v => setRows(v.data))
+      .finally(() => setLoading(false))
+  }, [count]);
+
   const doAdd = (v?) => {
     if (v) {
       v = cloneDeep(v);
@@ -203,9 +213,10 @@ export const KongServiceList: React.FC = () => {
 
   const columns = useMemo(() => normalizeColumns<KongServiceEntity>([
     // {dataIndex: 'id', title: 'ID'},
-    {dataIndex: 'name', title: '名字', className: 'no-wrap'},
+    {dataIndex: 'name', title: '名字', fixed: 'left', width: 140, className: 'no-wrap'},
     {
       title: '目标',
+      width: 250,
       className: 'no-wrap',
       render(v, r, i): any {
         const {host, protocol, path, port} = r;
@@ -226,19 +237,23 @@ export const KongServiceList: React.FC = () => {
         return (v ?? []).join(',')
       }
     },
-    {dataIndex: 'connect_timeout', title: '链接超时'},
-    {dataIndex: 'write_timeout', title: '写超时'},
-    {dataIndex: 'read_timeout', title: '读超时'},
+    {dataIndex: 'connect_timeout', title: '链接超时', width: 100},
+    {dataIndex: 'write_timeout', title: '写超时', width: 100},
+    {dataIndex: 'read_timeout', title: '读超时', width: 100},
+    {dataIndex: 'created_at', title: '创建时间', width: 160, render: renderTimeStamp},
+    {dataIndex: 'updated_at', title: '更新时间', width: 160, render: renderTimeStamp},
     {
-      title: '操作', render(v, r, i): any {
+      title: '操作', fixed: 'right', width: 160, render(v, r, i): any {
         return (
           <div className="no-wrap">
             <Button
               type="link" onClick={() => setViewService(r)}
+              title="详情"
               icon={<InfoCircleOutlined />}
             />
             <Button
               type="link" onClick={() => doAdd(r)}
+              title="复制"
               icon={<CopyOutlined />}
             />
             <Popconfirm
@@ -258,7 +273,7 @@ export const KongServiceList: React.FC = () => {
               okText="确认"
               cancelText="取消"
             >
-              <Button type='link' danger icon={<DeleteOutlined />} />
+              <Button type='link' title="删除" danger icon={<DeleteOutlined />} />
             </Popconfirm>
 
           </div>
@@ -267,15 +282,6 @@ export const KongServiceList: React.FC = () => {
     },
   ]), []);
 
-  const [rows, setRows] = useState([]);
-
-  useEffect(() => {
-    setLoading(true);
-    kongService
-      .listServices()
-      .then(v => setRows(v.data))
-      .finally(() => setLoading(false))
-  }, [count]);
 
   return (
     <div>
@@ -290,6 +296,10 @@ export const KongServiceList: React.FC = () => {
         rowKey={'id'}
         columns={columns}
         dataSource={rows}
+        loading={loading}
+
+        scroll={{x: 1200}}
+
         title={() => {
           return (
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>

@@ -41,10 +41,7 @@ export interface KongTagEntity {
   tag: string
 }
 
-export interface KongServiceEntity {
-  id: string
-  created_at: number
-  updated_at: number
+export interface KongServiceEntity extends KongEntity {
   name: string
   retries: number
   protocol: string
@@ -54,8 +51,37 @@ export interface KongServiceEntity {
   connect_timeout: number
   write_timeout: number
   read_timeout: number
-  tags: string[]
   client_certificate: { id: string }
+}
+
+
+export interface KongRouteEntity extends KongEntity {
+  name: string
+  protocols: string[]
+  methods: string[]
+  hosts: string[]
+  paths: string[]
+  headers: Record<string, string[]>
+  https_redirect_status_code: number,
+  regex_priority: number,
+  strip_path: boolean,
+  path_handling: string,
+  preserve_host: boolean,
+
+  service: { id: string }
+}
+
+export interface KongUpstreamEntity extends KongEntity {
+
+}
+
+
+export interface KongEntity {
+  id: string
+  created_at: number
+  updated_at: number
+
+  tags: string[]
 }
 
 export interface KongListResponse<T> {

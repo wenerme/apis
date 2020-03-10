@@ -5,3 +5,7 @@
 .ant-table.no-wrap .no-wrap {
   white-space: nowrap !important;
 }
+
+.no-wrap {
+  white-space: nowrap !important;
+}

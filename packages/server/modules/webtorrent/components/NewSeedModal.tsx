@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Form, Input, message, Modal, Radio} from 'antd';
-import {FormFieldBuilder, FormFieldListBuilder} from 'libs/antds/form/builder';
+import {FormFieldBuilder, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {FileOutlined, FileTextOutlined} from '@ant-design/icons/lib';
 import {useRootSelector} from 'reducers/index';
 import {useDispatch} from 'react-redux';
@@ -52,7 +52,7 @@ export const NewSeedModal: React.FC = () => {
 
         {
           type === 'text' && (
-            <FormFieldListBuilder pure fields={[
+            <FormFieldsBuilder pure fields={[
               {key: 'text.filename', label: '文件名', required: true},
               {key: 'text.content', label: '文本内容', required: true, widget: Input.TextArea,},
             ]} />
@@ -61,7 +61,7 @@ export const NewSeedModal: React.FC = () => {
 
         {
           type === 'magnet' && (
-            <FormFieldListBuilder pure fields={[
+            <FormFieldsBuilder pure fields={[
               {key: 'magnet.uri', label: '链接', required: true, 'widget:placeholder': 'magnet:?xt=urn:btih:......'},
             ]} />
           )

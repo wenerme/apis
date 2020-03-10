@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Form, message, Modal, Radio} from 'antd';
-import {FormFieldBuilder, FormFieldListBuilder} from 'libs/antds/form/builder';
+import {FormFieldBuilder, FormFieldsBuilder} from 'libs/antds/form/builder';
 import MagnetOutlined from 'components/icons/MagnetOutlined';
 import TorrentFileFilled from 'components/icons/TorrentFileFilled';
 import {useRootSelector} from 'reducers/index';
@@ -51,7 +51,7 @@ export const NewDownloadModal: React.FC = () => {
         </FormFieldBuilder>
         {
           type === 'magnet' && (
-            <FormFieldListBuilder pure fields={[
+            <FormFieldsBuilder pure fields={[
               {key: 'magnet.uri', label: '链接', required: true, 'widget:placeholder': 'magnet:?xt=urn:btih:......'},
             ]} />
           )
@@ -59,7 +59,7 @@ export const NewDownloadModal: React.FC = () => {
 
         {
           type === 'torrent' && (
-            <FormFieldListBuilder pure fields={[
+            <FormFieldsBuilder pure fields={[
               {key: 'torrent.file', label: '文件', required: true},
             ]} />
           )

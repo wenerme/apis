@@ -6,7 +6,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import QRCode, {CanvasQRCodeProps, SvgQRCodeProps} from 'qrcode.react'
 import {QrcodeOutlined} from '@ant-design/icons';
 import produce from 'immer';
-import {FormBuilderFieldProps, FormFieldBuilder, FormFieldListBuilder} from 'libs/antds/form/builder';
+import {FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
 import {UrlObject} from 'url';
 import {API} from 'apis/api';
@@ -78,7 +78,7 @@ const QRCodeBuilderPageContent = () => {
     form.setFieldsValue({value});
   }, [valueObject]);
 
-  const fields: FormBuilderFieldProps[] = useMemo(() => [
+  const fields: FormFieldProps[] = useMemo(() => [
     {
       key: 'value', label: '二维码内容',
       required: true, 'widget:readOnly': true,
@@ -141,7 +141,7 @@ const QRCodeBuilderPageContent = () => {
             )}
             {valueObject.type === 'wifi' && (
               <>
-                <FormFieldListBuilder pure fields={[
+                <FormFieldsBuilder pure fields={[
                   {key: 'wifi.ssid', label: 'SSID/网络名', required: true},
                   {
                     key: 'wifi.encryption', label: '加密方式', widget: 'select',
@@ -178,7 +178,7 @@ const QRCodeBuilderPageContent = () => {
             wrapperCol={{span: 18}}
           >
 
-            <FormFieldListBuilder fields={fields} widgets={[SketchColorPicker]} />
+            <FormFieldsBuilder fields={fields} widgets={[SketchColorPicker]} />
           </Form>
         </div>
       </div>

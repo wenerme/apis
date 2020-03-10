@@ -5,7 +5,7 @@ import Head from 'next/head';
 import {Alert, Form, message, PageHeader} from 'antd';
 import {BarcodeOutlined} from '@ant-design/icons/lib';
 import JsBarcode, {Options as BarcodeOptions} from 'jsbarcode';
-import {FormBuilderFieldProps, FormFieldListBuilder} from 'libs/antds/form/builder';
+import {FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import produce from 'immer';
 import {SketchColorPicker} from 'libs/antds/form/SketchColorPicker';
 import {API} from 'apis/api';
@@ -114,7 +114,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
   }, []);
 
 
-  const fields: FormBuilderFieldProps[] = useMemo(() => [
+  const fields: FormFieldProps[] = useMemo(() => [
     {key: 'value', label: '数据', widget: 'textarea'},
     {key: 'format', label: '格式', widget: 'select', options: formats},
     {key: 'renderer', label: '渲染方式', widget: 'select', options: ['svg', 'canvas', 'img']},
@@ -144,7 +144,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
           labelCol={{span: 6}}
           wrapperCol={{span: 18}}
         >
-          <FormFieldListBuilder fields={fields} />
+          <FormFieldsBuilder fields={fields} />
         </Form>
       </div>
       <div>

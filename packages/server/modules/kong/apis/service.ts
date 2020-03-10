@@ -3,6 +3,7 @@ import {
   KongListQuery,
   KongListResponse,
   KongNodeStatus,
+  KongRouteEntity,
   KongServiceEntity,
   KongTagEntity
 } from 'modules/kong/apis/types';
@@ -14,7 +15,7 @@ export interface KongService {
 
   listTags(query?: KongListQuery): Promise<KongListResponse<KongTagEntity>>
 
-  listServices(query?: KongListQuery): Promise<KongListResponse<KongServiceEntity>>
+  listService(query?: KongListQuery): Promise<KongListResponse<KongServiceEntity>>
 
   deleteService(idOrName): Promise<void>
 
@@ -24,4 +25,15 @@ export interface KongService {
 
 
   getServiceByIdOrName(idOrName): Promise<KongServiceEntity>
+
+  listRoute(query?: KongListQuery): Promise<KongListResponse<KongRouteEntity>>
+
+  addRoute(entity: KongRouteEntity): Promise<KongRouteEntity>
+
+  updateRoute(entity: KongRouteEntity): Promise<KongRouteEntity>
+
+  deleteRoute(idOrName): Promise<void>
+
+  getRouteByIdOrName(idOrName): Promise<KongServiceEntity>
+
 }
