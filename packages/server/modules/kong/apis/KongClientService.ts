@@ -66,14 +66,31 @@ export class KongClientService implements KongService {
     Object.assign(this, buildRestMethod('CaCertificate', this.client));
     Object.assign(this, buildRestMethod('Plugin', this.client));
     Object.assign(this, buildRestMethod('Consumer', this.client));
-    Object.assign(this, buildRestMethod('Upstream', this.client))
+    Object.assign(this, buildRestMethod('Upstream', this.client));
     Object.assign(this, buildRestMethod('Snis', this.client))
   }
 
   getInformation = () => resultOf(this.client.get('/'));
   getNodeStatus = () => resultOf(this.client.get('/status'));
   getPluginSchema = name => resultOf(this.client.get(`/plugins/schema/${name}`));
-  listTags = params => resultOf(this.client.get('/tags', {params}))
+  listTags = params => resultOf(this.client.get('/tags', {params}));
+
+  listUpstreamTarget = ({upstream, ...params}) => resultOf(this.client.get(`/upstreams/${idOrName(upstream)}/targets`, {params}));
+  addUpstreamTarget = entity => resultOf(this.client.post(`/upstreams/${idOrName(entity.upstream)}/targets`, entity));
+  updateUpstreamTarget = entity => resultOf(this.client.post(`/upstreams/${idOrName(entity.upstream)}/targets/${idOrName(entity)}`, entity));
+  deleteUpstreamTarget = entity => resultOf(this.client.delete(`/upstreams/${idOrName(entity.upstream)}/targets/${idOrName(entity)}`));
+  getUpstreamTargetByIdOrName = entity => resultOf(this.client.get(`/upstreams/${idOrName(entity.upstream)}/targets/${idOrName(entity)}`))
+}
+
+function idOrName(v) {
+  if (!v) {
+    console.warn(`entity no identity`);
+    return ''
+  }
+  if (typeof v === 'string') {
+    return v
+  }
+  return v.id || v.name
 }
 
 function buildRestMethod(name: string, client, {path = ''} = {}) {
@@ -82,9 +99,9 @@ function buildRestMethod(name: string, client, {path = ''} = {}) {
   return {
     [`list${n}`]: params => resultOf(client.get(`/${p}`, {params})),
     [`add${n}`]: entity => resultOf(client.post(`/${p}`, entity)),
-    [`update${n}`]: entity => resultOf(client.patch(`/${p}/${entity.id || entity.name}`, entity)),
-    [`delete${n}`]: idOrName => resultOf(client.delete(`/${p}/${idOrName.id || idOrName}`)),
-    [`get${n}ByIdOrName`]: idOrName => resultOf(client.get(`/${p}/${idOrName}`)),
+    [`update${n}`]: entity => resultOf(client.patch(`/${p}/${idOrName(entity)}`, entity)),
+    [`delete${n}`]: entity => resultOf(client.delete(`/${p}/${idOrName(entity)}`)),
+    [`get${n}ByIdOrName`]: entity => resultOf(client.get(`/${p}/${idOrName(entity)}`)),
   };
 }
 

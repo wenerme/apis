@@ -6,6 +6,7 @@ import {buildInitialValues, FormFieldBuilder, FormFieldsBuilder} from 'libs/antd
 import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
 import {omitBy} from 'lodash';
 import {ProtocolTypes} from 'modules/kong/apis/types';
+import {EntitySelect} from 'modules/kong/components/EntitySelect';
 
 const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const fields = [
@@ -27,6 +28,14 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
       widget: 'select',
       defaultValue: [],
       widgetProps: {mode: 'tags'},
+    },
+    {
+      key: 'client_certificate.id',
+      label: '客户端证书',
+      widget: EntitySelect,
+      widgetProps: {
+        entityName: 'Certificate'
+      }
     },
   ];
   const connectionFields = [

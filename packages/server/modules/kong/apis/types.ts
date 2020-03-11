@@ -53,7 +53,7 @@ export interface KongServiceEntity extends KongEntity {
   connect_timeout: number
   write_timeout: number
   read_timeout: number
-  client_certificate: { id: string }
+  client_certificate: KongEntityRef
 }
 
 
@@ -70,7 +70,7 @@ export interface KongRouteEntity extends KongEntity {
   path_handling: string,
   preserve_host: boolean,
 
-  service: { id: string }
+  service: KongEntityRef
 }
 
 export interface KongConsumerEntity extends KongEntity {
@@ -179,6 +179,12 @@ export interface KongUpstreamEntity extends KongEntity {
     },
     threshold: number
   }
+}
+
+export interface KongUpstreamTargetEntity extends KongEntity {
+  upstream: KongEntityRef
+  target: string
+  weight: number
 }
 
 export interface KongEntityRef {

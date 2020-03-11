@@ -11,6 +11,7 @@ import {kongService} from 'modules/kong/apis/client';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import {doUpdateInformation} from 'modules/kong/reducers/actions';
 import {useDispatch} from 'react-redux';
+import {EntitySelect} from 'modules/kong/components/EntitySelect';
 
 
 function buildFields(schema: KongPluginSchema, name, fields = []): FormFieldProps[] {
@@ -111,8 +112,30 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
       defaultValue: [],
       widgetProps: {mode: 'tags'},
     },
-    // TODO 关联字段
-    // TODO config
+    {
+      key: 'service.id',
+      label: '服务',
+      widget: EntitySelect,
+      widgetProps: {
+        entityName: 'Service'
+      }
+    },
+    {
+      key: 'route.id',
+      label: '路由',
+      widget: EntitySelect,
+      widgetProps: {
+        entityName: 'Route'
+      }
+    },
+    {
+      key: 'consumer.id',
+      label: '消费者',
+      widget: EntitySelect,
+      widgetProps: {
+        entityName: 'Consumer'
+      }
+    },
   ];
   const [configFields, setConfigFields] = useState([]);
 

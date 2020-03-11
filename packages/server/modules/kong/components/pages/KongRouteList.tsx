@@ -7,6 +7,7 @@ import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder}
 import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
 import {flatMapDeep, keyBy, omitBy, uniq} from 'lodash';
 import {MinusCircleOutlined, PlusOutlined} from '@ant-design/icons/lib';
+import {EntitySelect} from 'modules/kong/components/EntitySelect';
 
 const HeaderInput: React.FC<{ value?, onChange?, style?: CSSProperties }> = ({value = [], style, onChange}) => {
   const [name = '', values = []] = value;
@@ -89,6 +90,14 @@ const otherFields = [
     widget: 'select',
     defaultValue: [],
     widgetProps: {mode: 'tags'},
+  },
+  {
+    key: 'service.id',
+    label: '服务',
+    widget: EntitySelect,
+    widgetProps: {
+      entityName: 'Service'
+    }
   },
 ];
 const protocolFields: FormFieldProps[] = [

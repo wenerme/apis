@@ -12,7 +12,8 @@ import {
   KongServiceEntity,
   KongSnisEntity,
   KongTagEntity,
-  KongUpstreamEntity
+  KongUpstreamEntity,
+  KongUpstreamTargetEntity
 } from 'modules/kong/apis/types';
 
 export interface KongService {
@@ -132,6 +133,20 @@ export interface KongService {
   deleteUpstream(idOrName): Promise<void>
 
   getUpstreamByIdOrName(idOrName): Promise<KongServiceEntity>
+
+  // endregion
+
+
+  // region Upstream Target
+  listUpstreamTarget(query?: KongListQuery & { upstream }): Promise<KongListResponse<KongUpstreamTargetEntity>>
+
+  addUpstreamTarget(entity: KongUpstreamTargetEntity): Promise<KongUpstreamTargetEntity>
+
+  updateUpstreamTarget(entity: KongUpstreamTargetEntity): Promise<KongUpstreamTargetEntity>
+
+  deleteUpstreamTarget(entity: Partial<KongUpstreamTargetEntity>): Promise<void>
+
+  getUpstreamTargetByIdOrName(entity: Partial<KongUpstreamTargetEntity>): Promise<KongUpstreamTargetEntity>
 
   // endregion
 }

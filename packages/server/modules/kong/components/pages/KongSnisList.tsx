@@ -6,16 +6,24 @@ import {KongEntityTable, OperationColumn} from 'modules/kong/components/KongEnti
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {omitBy} from 'lodash';
 import {Button, Form} from 'antd';
+import {EntitySelect} from 'modules/kong/components/EntitySelect';
 
 const fields: FormFieldProps[] = [
   {key: 'cert', label: '证书'},
-
   {
     key: 'tags',
     label: '标签',
     widget: 'select',
     defaultValue: [],
     widgetProps: {mode: 'tags'},
+  },
+  {
+    key: 'certificate.id',
+    label: '证书',
+    widget: EntitySelect,
+    widgetProps: {
+      entityName: 'Certificate'
+    }
   },
 ];
 
