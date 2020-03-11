@@ -1,4 +1,6 @@
 import {
+  KongCaCertificateEntity,
+  KongCertificateEntity,
   KongConsumerEntity,
   KongInformation,
   KongListQuery,
@@ -8,6 +10,7 @@ import {
   KongPluginSchema,
   KongRouteEntity,
   KongServiceEntity,
+  KongSnisEntity,
   KongTagEntity,
   KongUpstreamEntity
 } from 'modules/kong/apis/types';
@@ -47,6 +50,47 @@ export interface KongService {
   deleteRoute(idOrName): Promise<void>
 
   getRouteByIdOrName(idOrName): Promise<KongServiceEntity>
+
+  // endregion
+
+  // region Certificate
+
+  listCertificate(query?: KongListQuery): Promise<KongListResponse<KongCertificateEntity>>
+
+  addCertificate(entity: KongCertificateEntity): Promise<KongCertificateEntity>
+
+  updateCertificate(entity: KongCertificateEntity): Promise<KongCertificateEntity>
+
+  deleteCertificate(idOrName): Promise<void>
+
+  getCertificateByIdOrName(idOrName): Promise<KongServiceEntity>
+
+  // endregion
+
+  // region CaCertificate
+
+  listCaCertificate(query?: KongListQuery): Promise<KongListResponse<KongCaCertificateEntity>>
+
+  addCaCertificate(entity: KongCaCertificateEntity): Promise<KongCaCertificateEntity>
+
+  updateCaCertificate(entity: KongCaCertificateEntity): Promise<KongCaCertificateEntity>
+
+  deleteCaCertificate(idOrName): Promise<void>
+
+  getCaCertificateByIdOrName(idOrName): Promise<KongServiceEntity>
+
+  // endregion
+  // region Snis
+
+  listSnis(query?: KongListQuery): Promise<KongListResponse<KongSnisEntity>>
+
+  addSnis(entity: KongSnisEntity): Promise<KongSnisEntity>
+
+  updateSnis(entity: KongSnisEntity): Promise<KongSnisEntity>
+
+  deleteSnis(idOrName): Promise<void>
+
+  getSnisByIdOrName(idOrName): Promise<KongServiceEntity>
 
   // endregion
 

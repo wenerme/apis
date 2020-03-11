@@ -9,7 +9,6 @@ import {Button, Form} from 'antd';
 
 const fields: FormFieldProps[] = [
   {key: 'cert', label: '证书'},
-  {key: 'key', label: '密钥'},
 
   {
     key: 'tags',
@@ -20,7 +19,7 @@ const fields: FormFieldProps[] = [
   },
 ];
 
-const CertificateForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
+const CaCertificateForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const initial = useMemo(() => {
     return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields])
   }, [initialValues]);
@@ -46,7 +45,7 @@ const CertificateForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues
   )
 };
 
-export const KongCertificateList: React.FC = () => {
+export const KongCaCertificateList: React.FC = () => {
   const columns = useMemo(() => normalizeColumns<KongUpstreamEntity>([
     {dataIndex: 'id', title: 'ID', width: 300},
     {dataIndex: 'tags', title: '标签', width: 120, render: renderTags},
@@ -55,10 +54,10 @@ export const KongCertificateList: React.FC = () => {
   ]), []);
   return (
     <KongEntityTable
-      label='证书'
-      name='Certificate'
+      label='CA证书'
+      name='CaCertificate'
       columns={columns}
-      editor={CertificateForm}
+      editor={CaCertificateForm}
     />
   )
 };

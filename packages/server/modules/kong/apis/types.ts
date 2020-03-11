@@ -114,6 +114,20 @@ export interface KongPluginSchema {
   err?: string
 }
 
+export interface KongCertificateEntity extends KongEntity {
+  cert: string
+  key: string
+}
+
+export interface KongCaCertificateEntity extends KongEntity {
+  cert: string
+}
+
+export interface KongSnisEntity extends KongEntity {
+  name: string
+  certificate: KongEntityRef
+}
+
 export interface KongUpstreamEntity extends KongEntity {
   name: string
   algorithm: 'consistent-hashing' | 'least-connections' | 'round-robin'

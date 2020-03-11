@@ -1,6 +1,7 @@
 import {KongService} from 'modules/kong/apis/service';
-import {KongErrorResponse, KongListQuery, KongListResponse, KongTagEntity} from 'modules/kong/apis/types';
+import {KongErrorResponse} from 'modules/kong/apis/types';
 import {AxiosInstance, AxiosResponse} from 'axios';
+import inflection from 'inflection';
 
 export interface KongClientServiceInit {
   client: AxiosInstance;
@@ -8,49 +9,83 @@ export interface KongClientServiceInit {
 
 export class KongClientService implements KongService {
   client: AxiosInstance;
-
+  // type check
+  listService;
+  addService;
+  updateService;
+  deleteService;
+  getServiceByIdOrName;
+  //
+  listRoute;
+  addRoute;
+  updateRoute;
+  deleteRoute;
+  getRouteByIdOrName;
+  //
+  listCertificate;
+  addCertificate;
+  updateCertificate;
+  deleteCertificate;
+  getCertificateByIdOrName;
+  //
+  listCaCertificate;
+  addCaCertificate;
+  updateCaCertificate;
+  deleteCaCertificate;
+  getCaCertificateByIdOrName;
+  //
+  listSnis;
+  addSnis;
+  updateSnis;
+  deleteSnis;
+  getSnisByIdOrName;
+  //
+  listPlugin;
+  addPlugin;
+  updatePlugin;
+  deletePlugin;
+  getPluginByIdOrName;
+  //
+  listConsumer;
+  addConsumer;
+  updateConsumer;
+  deleteConsumer;
+  getConsumerByIdOrName;
+  //
+  listUpstream;
+  addUpstream;
+  updateUpstream;
+  deleteUpstream;
+  getUpstreamByIdOrName;
 
   constructor(init: KongClientServiceInit) {
-    this.client = init.client
+    this.client = init.client;
+    Object.assign(this, buildRestMethod('Service', this.client));
+    Object.assign(this, buildRestMethod('Route', this.client));
+    Object.assign(this, buildRestMethod('Certificate', this.client));
+    Object.assign(this, buildRestMethod('CaCertificate', this.client));
+    Object.assign(this, buildRestMethod('Plugin', this.client));
+    Object.assign(this, buildRestMethod('Consumer', this.client));
+    Object.assign(this, buildRestMethod('Upstream', this.client))
+    Object.assign(this, buildRestMethod('Snis', this.client))
   }
 
-  getInformation = () => this.client.get('/').then(v => v.data);
-  getNodeStatus = () => this.client.get('/status').then(v => v.data);
+  getInformation = () => resultOf(this.client.get('/'));
+  getNodeStatus = () => resultOf(this.client.get('/status'));
   getPluginSchema = name => resultOf(this.client.get(`/plugins/schema/${name}`));
+  listTags = params => resultOf(this.client.get('/tags', {params}))
+}
 
-  listService = params => resultOf(this.client.get('/services', {params}));
-  addService = entity => resultOf(this.client.post('/services', entity));
-  updateService = entity => resultOf(this.client.patch(`/services/${entity.id || entity.name}`, entity));
-  deleteService = idOrName => resultOf(this.client.delete(`/services/${idOrName.id || idOrName}`));
-  getServiceByIdOrName = idOrName => resultOf(this.client.get(`/services/${idOrName}`));
-
-  listRoute = params => resultOf(this.client.get('/routes', {params}));
-  addRoute = entity => resultOf(this.client.post('/routes', entity));
-  updateRoute = entity => resultOf(this.client.patch(`/routes/${entity.id || entity.name}`, entity));
-  deleteRoute = idOrName => resultOf(this.client.delete(`/routes/${idOrName.id || idOrName}`));
-  getRouteByIdOrName = idOrName => resultOf(this.client.get(`/routes/${idOrName}`));
-
-  listPlugin = params => resultOf(this.client.get('/plugins', {params}));
-  addPlugin = entity => resultOf(this.client.post('/plugins', entity));
-  updatePlugin = entity => resultOf(this.client.patch(`/plugins/${entity.id || entity.name}`, entity));
-  deletePlugin = idOrName => resultOf(this.client.delete(`/plugins/${idOrName.id || idOrName}`));
-  getPluginByIdOrName = idOrName => resultOf(this.client.get(`/plugins/${idOrName}`));
-
-  listConsumer = params => resultOf(this.client.get('/consumers', {params}));
-  addConsumer = entity => resultOf(this.client.post('/consumers', entity));
-  updateConsumer = entity => resultOf(this.client.patch(`/consumers/${entity.id || entity.name}`, entity));
-  deleteConsumer = idOrName => resultOf(this.client.delete(`/consumers/${idOrName.id || idOrName}`));
-  getConsumerByIdOrName = idOrName => resultOf(this.client.get(`/consumers/${idOrName}`));
-
-  listUpstream = params => resultOf(this.client.get('/upstreams', {params}));
-  addUpstream = entity => resultOf(this.client.post('/upstreams', entity));
-  updateUpstream = entity => resultOf(this.client.patch(`/upstreams/${entity.id || entity.name}`, entity));
-  deleteUpstream = idOrName => resultOf(this.client.delete(`/upstreams/${idOrName.id || idOrName}`));
-  getUpstreamByIdOrName = idOrName => resultOf(this.client.get(`/upstreams/${idOrName}`));
-
-  listTags(params?: KongListQuery): Promise<KongListResponse<KongTagEntity>> {
-    return this.client.get('/tags', {params}).then(v => v.data);
-  }
+function buildRestMethod(name: string, client, {path = ''} = {}) {
+  const n = name;
+  const p = path || inflection.underscore(inflection.pluralize(name)).toLowerCase();
+  return {
+    [`list${n}`]: params => resultOf(client.get(`/${p}`, {params})),
+    [`add${n}`]: entity => resultOf(client.post(`/${p}`, entity)),
+    [`update${n}`]: entity => resultOf(client.patch(`/${p}/${entity.id || entity.name}`, entity)),
+    [`delete${n}`]: idOrName => resultOf(client.delete(`/${p}/${idOrName.id || idOrName}`)),
+    [`get${n}ByIdOrName`]: idOrName => resultOf(client.get(`/${p}/${idOrName}`)),
+  };
 }
 
 async function resultOf<T = any>(r: Promise<AxiosResponse<T>>): Promise<T> {

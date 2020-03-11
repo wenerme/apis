@@ -14,8 +14,10 @@ import {
   FullscreenOutlined,
   FundOutlined,
   SafetyCertificateOutlined,
+  SecurityScanOutlined,
   TeamOutlined
 } from '@ant-design/icons/lib';
+import CaCertificateOutlined from 'components/icons/CaCertificateOutlined';
 
 i18next.init({
   lng: 'zh',
@@ -83,6 +85,20 @@ const menus: Array<MenuSpec & RouteSpec> = [
     iconComponent: <SafetyCertificateOutlined />,
     exact: true,
     component: React.lazy(() => import('./pages/KongCertificateList').then(({KongCertificateList}) => ({default: KongCertificateList})))
+  },
+  {
+    title: 'CA证书',
+    path: '/ca-certificate',
+    iconComponent: <CaCertificateOutlined />,
+    exact: true,
+    component: React.lazy(() => import('./pages/KongCaCertificateList').then(({KongCaCertificateList}) => ({default: KongCaCertificateList})))
+  },
+  {
+    title: 'SNIs',
+    path: '/snis',
+    iconComponent: <SecurityScanOutlined />,
+    exact: true,
+    component: React.lazy(() => import('./pages/KongSnisList').then(({KongSnisList}) => ({default: KongSnisList})))
   },
 ];
 

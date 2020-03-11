@@ -9,7 +9,6 @@ import {Button, Form} from 'antd';
 
 const fields: FormFieldProps[] = [
   {key: 'cert', label: '证书'},
-  {key: 'key', label: '密钥'},
 
   {
     key: 'tags',
@@ -20,7 +19,7 @@ const fields: FormFieldProps[] = [
   },
 ];
 
-const CertificateForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
+const SnisForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const initial = useMemo(() => {
     return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields])
   }, [initialValues]);
@@ -46,19 +45,21 @@ const CertificateForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues
   )
 };
 
-export const KongCertificateList: React.FC = () => {
+export const KongSnisList: React.FC = () => {
   const columns = useMemo(() => normalizeColumns<KongUpstreamEntity>([
+    {dataIndex: 'name', title: '名字', width: 120},
     {dataIndex: 'id', title: 'ID', width: 300},
+    {key: 'certificate.id', title: '证书ID', width: 300},
     {dataIndex: 'tags', title: '标签', width: 120, render: renderTags},
     {dataIndex: 'created_at', title: '创建时间', width: 160, render: renderTimeStamp},
     OperationColumn,
   ]), []);
   return (
     <KongEntityTable
-      label='证书'
-      name='Certificate'
+      label='SNIs'
+      name='Snis'
       columns={columns}
-      editor={CertificateForm}
+      editor={SnisForm}
     />
   )
 };
