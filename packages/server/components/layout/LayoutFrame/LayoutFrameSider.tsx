@@ -18,6 +18,10 @@ export const LayoutFrameSider: React.FC = () => {
       collapsible
       collapsed={collapse}
       onCollapse={v => setCollapse(v)}
+      style={{
+        height: '100vh',
+        overflowY: 'auto',
+      }}
     >
 
       <LayoutFrameMenu />

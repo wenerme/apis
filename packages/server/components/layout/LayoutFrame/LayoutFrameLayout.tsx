@@ -31,7 +31,7 @@ export const LayoutFrameLayout: React.FC = ({children}) => {
           <LayoutFrameSider />
 
           <Layout>
-            <Layout.Content style={{minHeight: '100vh'}}>
+            <Layout.Content style={{maxHeight: '100vh'}}>
 
               {children}
 

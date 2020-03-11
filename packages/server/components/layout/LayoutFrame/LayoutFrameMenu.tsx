@@ -14,6 +14,7 @@ export const LayoutFrameMenu: React.FC = () => {
     <Menu
       theme="light"
       mode="inline"
+      style={{minHeight: '100%'}}
       // openKeys={menuOpenKeys}
       // onOpenChange={v => dispatch(setMenuOpenKeys(v))}
       // selectedKeys={[selected]}
@@ -29,7 +30,7 @@ function renderMenus(menus: MenuSpec[], opts: RenderOptions) {
 
 function renderMenu(menu: MenuSpec, opts: RenderOptions) {
   const {path, title, iconComponent, children = []} = menu;
-  if (path || (children?.length === 0 ?? true)) {
+  if (path || children.length === 0) {
     return renderMenuItem(menu, opts)
   }
 
@@ -50,13 +51,13 @@ function renderMenu(menu: MenuSpec, opts: RenderOptions) {
 
 
 function renderMenuItem(menu: MenuSpec, {Link}: RenderOptions) {
-  const {path, title, iconType, iconComponent, children} = menu;
+  const {path, title, iconComponent} = menu;
   return (
     <Menu.Item key={path || title}>
       <Link href={path}>
         <div>
           {iconComponent}
-          <span>{title}</span>
+          <span style={{...(iconComponent ? {marginLeft: 10} : {})}}>{title}</span>
         </div>
       </Link>
     </Menu.Item>
