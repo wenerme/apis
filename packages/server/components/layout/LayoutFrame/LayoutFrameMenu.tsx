@@ -1,25 +1,25 @@
-import React from 'react'
+import React, {CSSProperties} from 'react'
 import {MenuSpec} from 'components/layout/LayoutFrame/types';
 import {Menu} from 'antd';
-import Link from 'next/link';
 import {useLayoutFrame} from 'components/layout/LayoutFrame/hooks';
 
 interface RenderOptions {
   Link: React.FunctionComponent<{ href }> | React.ComponentClass<{ href }> | string
 }
 
-export const LayoutFrameMenu: React.FC = () => {
-  const {menus, Link = 'a'} = useLayoutFrame();
+export const LayoutFrameMenu: React.FC<{ style?: CSSProperties }> = ({style}) => {
+  const {menus, link = 'a'} = useLayoutFrame();
   return (
     <Menu
       theme="light"
       mode="inline"
-      style={{minHeight: '100%'}}
+      style={style}
+      // style={{minHeight: '100%', paddingBottom: 48}}
       // openKeys={menuOpenKeys}
       // onOpenChange={v => dispatch(setMenuOpenKeys(v))}
       // selectedKeys={[selected]}
     >
-      {renderMenus(menus, {Link} as any)}
+      {renderMenus(menus, {Link: link} as any)}
     </Menu>
   )
 };

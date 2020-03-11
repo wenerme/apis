@@ -17,21 +17,28 @@ export interface LayoutFrameLayoutProps {
 
 
 export const LayoutFrameLayout: React.FC = ({children}) => {
-    const {showHeader, showFooter, header, footer} = useLayoutFrame();
+  let {showHeader, showFooter, header, footer} = useLayoutFrame();
+  header = header
+  footer = footer
+  if (typeof showHeader !== 'boolean') {
+    showHeader = Boolean(header)
+  }
+  if (typeof showFooter !== 'boolean') {
+    showFooter = Boolean(footer)
+  }
+  return (
+    <Layout style={{height: '100%'}}>
+      {header && showHeader && (
+        <Layout.Header>
+          {header}
+        </Layout.Header>
+      )}
+      <Layout hasSider>
 
-    return (
-      <Layout>
-        {header && showHeader && (
-          <Layout.Header>
-            {header}
-          </Layout.Header>
-        )}
-        <Layout hasSider>
-
-          <LayoutFrameSider />
+        <LayoutFrameSider />
 
           <Layout>
-            <Layout.Content style={{maxHeight: '100vh'}}>
+            <Layout.Content style={{maxHeight: '100%', overflowY: 'auto'}}>
 
               {children}
 

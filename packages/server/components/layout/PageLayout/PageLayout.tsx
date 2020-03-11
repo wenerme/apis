@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Layout} from 'antd';
+import {Button} from 'antd';
 import Link from 'next/link';
 
 import 'moment/locale/zh-cn'
@@ -10,7 +10,7 @@ import {menus} from 'components/layout/PageLayout/menus';
 
 const Footer: React.FC = () => {
   return (
-    <Layout.Footer style={{textAlign: 'center'}}>
+    <div style={{textAlign: 'center'}}>
       Wener's APIs © 2020 by
       <Button type="link" href="https://wener.me" target="_blank" style={{padding: '0 4px'}}>wener</Button>
       <span
@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
       >
         {process?.env?.APP_VERSION ? `v${process?.env?.APP_VERSION}` : ''}
       </span>
-    </Layout.Footer>
+    </div>
   )
 };
 
@@ -41,7 +41,7 @@ export const PageLayout: React.FC<{ showFooter? }> = ({children, showFooter}) =>
         menus={menus}
         showFooter={showFooter}
         footer={<Footer />}
-        Link={NextLink}
+        link={NextLink}
       >
         {children}
       </LayoutFrame>

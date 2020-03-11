@@ -11,7 +11,7 @@ export interface LayoutFrameProps {
   footer?: React.ReactNode
   header?: React.ReactNode
 
-  Link?: ({href}) => React.ReactNode
+  link?: ({href}) => React.ReactNode
 }
 
 

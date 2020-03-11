@@ -9,3 +9,8 @@
 .no-wrap {
   white-space: nowrap !important;
 }
+
+
+#__next {
+  height: 100%;
+}

@@ -12,11 +12,7 @@ const KongAdminUI = dynamic(
 );
 
 const KongAdminPageContent: React.FC = () => {
-  return (
-    <div>
-      <KongAdminUI />
-    </div>
-  )
+  return (<KongAdminUI />)
 };
 
 const Page = () => {
@@ -27,7 +23,6 @@ const Page = () => {
         <meta name="description" content="Kong GUI" />
         <meta name="keywords" content="online kong admin, kong web admin, kong react ui" />
       </Head>
-
 
       <KongAdminPageContent />
 

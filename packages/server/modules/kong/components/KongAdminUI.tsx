@@ -107,7 +107,7 @@ const ReactRouterLink: React.FC<{ href }> = ({href, ...props}) => <Link to={href
 export const KongAdminUI: React.FC = () => {
   return (
     <Router>
-      <LayoutFrame menus={menus} Link={ReactRouterLink}>
+      <LayoutFrame menus={menus} link={ReactRouterLink}>
         <LayoutFrameContent>
           <RouteFrameContent routes={menus as any} />
         </LayoutFrameContent>
