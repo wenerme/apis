@@ -19,7 +19,7 @@ const HeaderInput: React.FC<{ value?, onChange?, style?: CSSProperties }> = ({va
         required
         onChange={v => onChange([v.target.value, values])}
         style={{width: '40%'}}
-        placeholder="X-Token"
+        placeholder="Authorization"
       />
       <Select
         value={values}

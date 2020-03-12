@@ -34,7 +34,7 @@ const CaCertificateForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValu
       wrapperCol={{span: 20}}
       onFinish={onSubmit}
     >
-      {initial.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
+      {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
       <FormFieldsBuilder pure fields={fields} />
 
       <div style={{display: 'flex', justifyContent: 'space-around'}}>

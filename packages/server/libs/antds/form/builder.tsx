@@ -23,6 +23,7 @@ export interface FormFieldProps {
   autoFocus?: boolean
   disabled?: boolean
   readOnly?: boolean
+  placeholder?: any
 
   widget?: Widget
   widgetProps?: any
@@ -82,9 +83,9 @@ export function normalizeField(item: FormFieldProps) {
   );
   // 常用组件属性
   // defaultValue 无效 - 组件受控
-  const {autoFocus, disabled, readOnly} = item;
+  const {autoFocus, disabled, readOnly, placeholder} = item;
   Object
-    .entries({autoFocus, disabled, readOnly})
+    .entries({autoFocus, disabled, readOnly, placeholder})
     .forEach(([k, v]) => {
       if (v === null || v === undefined) {
         return

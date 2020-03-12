@@ -16,7 +16,7 @@ export interface LayoutFrameProps {
 
 
 export const LayoutFrame: React.FC<LayoutFrameProps> = (props) => {
-  const {children} = props;
+  const {children, showFooter, showHeader, footer, header} = props;
   // let {layout} = props;
   //
   // layout = useMemo(() => {
@@ -28,7 +28,7 @@ export const LayoutFrame: React.FC<LayoutFrameProps> = (props) => {
 
   return (
     <LayoutFrameContext.Provider value={props}>
-      <LayoutFrameLayout children={children} />
+      <LayoutFrameLayout {...{children, showFooter, showHeader, footer, header}} />
     </LayoutFrameContext.Provider>
   )
 };

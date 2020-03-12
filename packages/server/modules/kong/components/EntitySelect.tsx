@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Select, Spin} from 'antd';
-import {kongService} from 'modules/kong/apis/client';
+import {getKongService} from 'modules/kong/apis/client';
 import produce from 'immer';
 
 export const EntitySelect: React.FC<{ entityName, value?, onChange? }> = ({entityName, ...props}) => {
@@ -15,7 +15,7 @@ export const EntitySelect: React.FC<{ entityName, value?, onChange? }> = ({entit
     setState(produce(s => {
       s.loading = true
     }));
-    kongService[`list${entityName}`]()
+    getKongService()[`list${entityName}`]()
       .then(v => {
         setState(produce(s => {
           s.data = v.data

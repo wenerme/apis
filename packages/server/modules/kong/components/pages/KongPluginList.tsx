@@ -7,7 +7,7 @@ import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder}
 import {omitBy} from 'lodash';
 import {Button, Divider, Form, Spin} from 'antd';
 import {useKongSelector} from 'modules/kong/reducers/kong';
-import {kongService} from 'modules/kong/apis/client';
+import {getKongService} from 'modules/kong/apis/client';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import {doUpdateInformation} from 'modules/kong/reducers/actions';
 import {useDispatch} from 'react-redux';
@@ -153,7 +153,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
     if (name) {
       try {
         setPluginConfigLoading(true);
-        const schema = await kongService.getPluginSchema(name);
+        const schema = await getKongService().getPluginSchema(name);
         console.log(`Schema`, schema);
         setSchema(schema);
         form.setFieldsValue({config: null});
@@ -183,7 +183,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
         }
       }}
     >
-      {initial.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
+      {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
       <FormFieldsBuilder pure fields={fields} />
 
       <Divider>插件配置</Divider>

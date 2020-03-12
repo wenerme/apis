@@ -1,9 +1,6 @@
-import axios from 'axios';
-import {KongClientService} from 'modules/kong/apis/KongClientService';
 import {KongService} from 'modules/kong/apis/service';
 
-export const kongClient = axios.create({
-  baseURL: 'http://127.0.0.1:8001'
-});
+let kongService: KongService
+export const setKongService = v => kongService = v;
+export const getKongService = () => kongService
 
-export const kongService: KongService = new KongClientService({client: kongClient});

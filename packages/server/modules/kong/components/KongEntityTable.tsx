@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {ColumnProps} from 'antd/lib/table';
 import {Button, Drawer, message, Popconfirm, Spin, Table} from 'antd';
-import {kongService} from 'modules/kong/apis/client';
+import {getKongService} from 'modules/kong/apis/client';
 import produce from 'immer';
 import {CopyOutlined, DeleteOutlined, InfoCircleOutlined, PlusOutlined, ReloadOutlined} from '@ant-design/icons/lib';
 import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
@@ -106,7 +106,7 @@ function createKongEntityTableService(props: KongEntityTableProps, setState): Ko
       }))
     },
     async delete(entity) {
-      await kongService[`delete${name}`](entity);
+      await getKongService()[`delete${name}`](entity);
       this.reload()
     },
     reload() {
@@ -130,7 +130,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
     setState(produce(s => {
       s.loading = true
     }));
-    kongService
+    getKongService()
       ?.[`list${name}`]()
       .then(({data, offset}) => {
         setState(produce(s => {
@@ -229,7 +229,7 @@ const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose,
           onSubmit={async v => {
             try {
               setLoading(true);
-              await kongService[`update${name}`](v);
+              await getKongService()[`update${name}`](v);
             } catch (e) {
               console.error(`update ${name} failed `, v, e);
               message.error(`更新失败: ${e.message || e.toString()}`)
@@ -263,7 +263,7 @@ const AddEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose, 
           onSubmit={async v => {
             try {
               setLoading(true);
-              await kongService[`add${name}`](v);
+              await getKongService()[`add${name}`](v);
               setLoading(false);
               onClose()
             } catch (e) {

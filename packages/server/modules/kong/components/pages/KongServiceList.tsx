@@ -117,7 +117,7 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
         }
       }}
     >
-      {initial.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
+      {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
       <FormFieldsBuilder pure fields={fields} />
       <Divider>上游</Divider>
       <FormFieldsBuilder pure fields={connectionFields} />
