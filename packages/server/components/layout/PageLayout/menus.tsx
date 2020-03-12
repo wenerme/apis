@@ -12,6 +12,7 @@ import React from 'react';
 import {MenuSpec} from '../LayoutFrame/types';
 
 import {EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined} from '@ant-design/icons';
+import CertificateVerifiedBadgeOutlined from 'components/icons/CertificateVerifiedBadgeOutlined';
 
 export const menus: MenuSpec[] = [
   {
@@ -101,6 +102,16 @@ export const menus: MenuSpec[] = [
       {
         title: 'Bencode',
         path: '/webtorrent/bencode',
+      },
+    ]
+  },
+  {
+    title: 'PKI',
+    iconComponent: <CertificateVerifiedBadgeOutlined />,
+    children: [
+      {
+        title: '证书解析',
+        path: '/pki/pem/reader',
       },
     ]
   },

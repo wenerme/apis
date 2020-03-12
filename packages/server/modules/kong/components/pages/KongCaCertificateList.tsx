@@ -8,7 +8,7 @@ import {omitBy} from 'lodash';
 import {Button, Form} from 'antd';
 
 const fields: FormFieldProps[] = [
-  {key: 'cert', label: '证书'},
+  {key: 'cert', label: '证书', widget: 'textarea'},
 
   {
     key: 'tags',
