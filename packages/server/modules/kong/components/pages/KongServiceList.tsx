@@ -7,13 +7,14 @@ import {createEntityColumns, KongEntityTable} from 'modules/kong/components/Kong
 import {omitBy} from 'lodash';
 import {ProtocolTypes} from 'modules/kong/apis/types';
 import {EntitySelect} from 'modules/kong/components/EntitySelect';
+import {Trans} from 'react-i18next';
 
 const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const fields = [
     {key: 'name', label: '名字'},
     {
       key: 'retries',
-      label: '重试次数',
+      label: '重试',
       widget: 'number',
       defaultValue: 5,
       required: true,
@@ -119,13 +120,13 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
     >
       {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
       <FormFieldsBuilder pure fields={fields} />
-      <Divider>上游</Divider>
+      <Divider><Trans>上游</Trans></Divider>
       <FormFieldsBuilder pure fields={connectionFields} />
 
 
       <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <Button htmlType="submit" type="primary">提交</Button>
-        <Button htmlType="reset" onClick={() => form.resetFields()}>重置</Button>
+        <Button htmlType="submit" type="primary"><Trans>提交</Trans></Button>
+        <Button htmlType="reset" onClick={() => form.resetFields()}><Trans>重置</Trans></Button>
       </div>
     </Form>
   )

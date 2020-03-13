@@ -12,6 +12,7 @@ import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import {doUpdateInformation} from 'modules/kong/reducers/actions';
 import {useDispatch} from 'react-redux';
 import {EntitySelect} from 'modules/kong/components/EntitySelect';
+import {Trans} from 'react-i18next';
 
 
 function buildFields(schema: KongPluginSchema, name, fields = []): FormFieldProps[] {
@@ -97,7 +98,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
   }, []);
 
   const fields: FormFieldProps[] = [
-    {key: 'name', label: '插件名', required: true, widget: 'select', options: Object.keys(plugins ?? {})},
+    {key: 'name', label: '插件', required: true, widget: 'select', options: Object.keys(plugins ?? {})},
     {
       key: 'protocols', label: '协议',
       widget: 'select', widgetProps: {mode: 'multiple'},
@@ -186,7 +187,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
       {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
       <FormFieldsBuilder pure fields={fields} />
 
-      <Divider>插件配置</Divider>
+      <Divider><Trans>插件配置</Trans></Divider>
       <Spin spinning={pluginConfigLoading}>
         {configFields.length && <FormFieldsBuilder fields={configFields} />}
       </Spin>

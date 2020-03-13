@@ -3,6 +3,7 @@ import {Form, Input, InputNumber, Select, Slider, Switch} from 'antd';
 import React, {useMemo} from 'react';
 import {Rule} from 'rc-field-form/lib/interface';
 import set from 'lodash/set'
+import {Trans} from 'react-i18next';
 
 export type Widget =
   string
@@ -71,6 +72,10 @@ export function normalizeField(item: FormFieldProps) {
   // FIXME do this when register
   if (!item.valuePropName && item.widget === 'switch') {
     item.valuePropName = 'checked'
+  }
+  // FIXME Do not do this here
+  if (typeof item.label === 'string') {
+    item.label = <Trans>{item.label}</Trans>
   }
 
   // extract
@@ -175,12 +180,12 @@ function buildFormFields(fields, opt?) {
 
 function buildFormField(field: FormFieldProps, options?: FormBuilderOptions) {
   field = normalizeField(field);
-  const {render} = field
+  const {render} = field;
   if (render) {
     return render({field})
   }
 
-  const {label, key, name, required, valuePropName, fieldProps, children,} = field;
+  const {label, key, name, valuePropName, fieldProps, children,} = field;
   return (
     <Form.Item
       key={key}

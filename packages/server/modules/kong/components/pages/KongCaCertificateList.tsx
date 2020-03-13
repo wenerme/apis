@@ -20,7 +20,7 @@ const fields: FormFieldProps[] = [
 ];
 
 const CaCertificateForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
-  const initial = useMemo(() => {
+  const initial: any = useMemo(() => {
     return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields])
   }, [initialValues]);
 

@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import {doUpdateInformation, doUpdateStatus} from 'modules/kong/reducers/actions';
 import {KongInformation, KongNodeStatus} from 'modules/kong/apis/types';
 import {formatBytes, parseBytes} from 'utils/bytes';
+import {useTranslation} from 'react-i18next';
 
 const KongAdminSummary: React.FC = () => {
   const information = useKongSelector(s => s.information);
@@ -21,6 +22,7 @@ const KongAdminSummary: React.FC = () => {
       dispatch(doUpdateStatus())
     }
   }, []);
+  const {t} = useTranslation();
 
   const info: Array<DataDescriptionProps<KongInformation>> = [
     {label: '主机名', name: 'hostname'},
@@ -29,6 +31,10 @@ const KongAdminSummary: React.FC = () => {
     {label: 'LUA版本', name: 'lua_version'},
     {label: 'Tagline', name: 'tagline'},
   ];
+  info.map(v => {
+    v.label = t(v.label as string);
+    return v
+  });
   const statusItems: Array<DataDescriptionProps<KongNodeStatus>> = [
     {label: '数据库可访问', name: 'database.reachable', render: ({value}) => <Checkbox checked={Boolean(value)} />},
     {label: '请求数', name: 'server.total_requests'},
@@ -57,35 +63,39 @@ const KongAdminSummary: React.FC = () => {
       }
     },
   ];
+  statusItems.map(v => {
+    v.label = t(v.label as string);
+    return v
+  });
 
   return (
     <div>
       <div>
-        <Spin spinning={!information} tip="加载中">
-          <h2>基础信息</h2>
+        <Spin spinning={!information} tip={t('加载中')}>
+          <h2>{t('基础')}</h2>
           <Descriptions>
             {info.map((v, i) => (
               renderDataDescription(Object.assign({value: information, key: i}, v))
             ))}
           </Descriptions>
-          <h2>插件列表</h2>
+          <h2>{t('插件列表')}</h2>
           <div>
-            <h3>可用插件</h3>
+            <h3>{t('可用插件')}</h3>
             <div>
               {Object.keys(information?.plugins?.available_on_server ?? {}).join(', ') || '无'}
             </div>
-            <h3>集群启用插件</h3>
+            <h3>{t('集群启用插件')}</h3>
             <div>
               {Object.keys(information?.plugins?.enabled_in_cluster ?? {}).join(', ') || '无'}
             </div>
           </div>
-          <h2>节点状态</h2>
+          <h2>{t('节点状态')}</h2>
           <Descriptions column={4}>
             {statusItems.map((v, i) => (
               renderDataDescription(Object.assign({value: status, key: i}, v))
             ))}
           </Descriptions>
-          <h2>配置信息</h2>
+          <h2>{t('配置信息')}</h2>
           <pre>
 {JSON.stringify(information?.configuration, null, '  ')}
           </pre>

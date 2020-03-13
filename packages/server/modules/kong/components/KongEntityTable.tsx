@@ -5,6 +5,7 @@ import {getKongService} from 'modules/kong/apis/client';
 import produce from 'immer';
 import {CopyOutlined, DeleteOutlined, InfoCircleOutlined, PlusOutlined, ReloadOutlined} from '@ant-design/icons/lib';
 import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
+import {Trans, useTranslation} from 'react-i18next'
 
 export interface KongEntityTableProps {
   label
@@ -37,32 +38,37 @@ export function useKongEntityTableService(): KongEntityTableService {
 
 export const KongEntityOperationColumn: React.FC<{ record }> = ({record, children}) => {
   const service = useKongEntityTableService();
+  const {t} = useTranslation();
   return (
     <div className="no-wrap">
       <Button
         type="link" onClick={() => service.showView(record)}
-        title="详情"
+        title={t('详情')}
         icon={<InfoCircleOutlined />}
       />
       <Button
         type="link" onClick={() => service.showAdd(record)}
-        title="复制"
+        title={t('复制')}
         icon={<CopyOutlined />}
       />
       <Popconfirm
-        title={`确认删除 ${record['name']}？`}
+        title={`${t('确认删除')} ${record['name']}？`}
         onConfirm={() => service.delete(record)}
-        okText="确认"
-        cancelText="取消"
+        okText={t('确认')}
+        cancelText={t('取消')}
       >
-        <Button type='link' title="删除" danger icon={<DeleteOutlined />} />
+        <Button type='link' title={t('删除')} danger icon={<DeleteOutlined />} />
       </Popconfirm>
       {children}
     </div>
   )
 };
 export const OperationColumn: ColumnProps<any> = {
-  title: '操作', fixed: 'right', width: 160, render: (v, r, i) => <KongEntityOperationColumn record={r} />
+  title: <Trans>操作</Trans>,
+  key: 'operation',
+  fixed: 'right',
+  width: 160,
+  render: (v, r, i) => <KongEntityOperationColumn record={r} />
 };
 
 export function createEntityColumns<T = any>(columns: Array<ColumnProps<T>>, {excludes = []} = {}): Array<ColumnProps<T>> {
@@ -118,7 +124,19 @@ function createKongEntityTableService(props: KongEntityTableProps, setState): Ko
 }
 
 export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
-  const {label, name, columns, editor, viewer = editor} = props;
+  const {name, columns, editor, viewer = editor} = props;
+  const {t} = useTranslation();
+
+  let {label} = props;
+  label = t(label);
+  //
+  columns.map(v => {
+    if (typeof v.title === 'string') {
+      v.title = t(v.title)
+    }
+    return v
+  });
+
   const [state, setState] = useState({
     loading: false, rows: [], offset: null, count: 0,
     editing: null,
@@ -197,8 +215,8 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
                 <h2>{label}</h2>
                 <div>
                   <Button.Group>
-                    <Button type="primary" onClick={() => doAdd()} icon={<PlusOutlined />}>添加</Button>
-                    <Button onClick={() => doReload()} icon={<ReloadOutlined />}>刷新</Button>
+                    <Button type="primary" onClick={() => doAdd()} icon={<PlusOutlined />}>{t('添加')}</Button>
+                    <Button onClick={() => doReload()} icon={<ReloadOutlined />}>{t('刷新')}</Button>
                   </Button.Group>
                 </div>
               </div>
@@ -212,10 +230,10 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
 
 const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose, component }> = ({label, name, initialEntity, visible, onClose, component: Component}) => {
   const [loading, setLoading] = useState(false);
-
+  const {t} = useTranslation();
   return (
     <Drawer
-      title={`${label}详情`}
+      title={`${label} ${t('详情')}`}
       placement="right"
       onClose={onClose}
       visible={visible}
@@ -246,10 +264,10 @@ const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose,
 
 const AddEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose, component }> = ({label, name, initialEntity, visible, onClose, component: Component}) => {
   const [loading, setLoading] = useState(false);
-
+  const {t} = useTranslation();
   return (
     <Drawer
-      title={`添加${label}`}
+      title={`${t('新增')} ${label}`}
       placement="right"
       onClose={onClose}
       visible={visible}

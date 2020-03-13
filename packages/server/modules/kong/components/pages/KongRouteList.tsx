@@ -8,6 +8,7 @@ import {createEntityColumns, KongEntityTable} from 'modules/kong/components/Kong
 import {flatMapDeep, keyBy, omitBy, uniq} from 'lodash';
 import {MinusCircleOutlined, PlusOutlined} from '@ant-design/icons/lib';
 import {EntitySelect} from 'modules/kong/components/EntitySelect';
+import {Trans} from 'react-i18next';
 
 const HeaderInput: React.FC<{ value?, onChange?, style?: CSSProperties }> = ({value = [], style, onChange}) => {
   const [name = '', values = []] = value;
@@ -73,7 +74,7 @@ const otherFields = [
   },
   {
     key: 'path_handling',
-    label: '路径处理逻辑',
+    label: '路径处理',
     widget: 'select',
     defaultValue: 'v0',
     options: ['v1', 'v0'],
@@ -274,7 +275,7 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
     >
       <FormFieldsBuilder pure fields={fields} />
 
-      <Divider>协议配置</Divider>
+      <Divider><Trans>协议配置</Trans></Divider>
 
       <FormFieldBuilder pure field={{
         key: 'protocols',
@@ -288,13 +289,13 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
 
       <FormFieldsBuilder fields={currentProtocolFields} />
 
-      <Divider>公共配置</Divider>
+      <Divider><Trans>基础配置</Trans></Divider>
 
       <FormFieldsBuilder pure fields={otherFields} />
 
       <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <Button htmlType="submit" type="primary">提交</Button>
-        <Button htmlType="reset" onClick={() => form.resetFields()}>重置</Button>
+        <Button htmlType="submit" type="primary"><Trans>提交</Trans></Button>
+        <Button htmlType="reset" onClick={() => form.resetFields()}><Trans>重置</Trans></Button>
       </div>
     </Form>
   )
@@ -303,7 +304,7 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
 
 export const KongRouteList: React.FC = () => {
   const columns = useMemo(() => normalizeColumns<KongRouteEntity>(createEntityColumns([
-    {key: 'service.id', title: '服务ID', width: 300},
+    {key: 'service.id', title: '服务', width: 300},
 
     {dataIndex: 'methods', title: '方法', width: 160, render: renderTags},
     {dataIndex: 'protocols', title: '协议', width: 160, render: renderArrayOfString},

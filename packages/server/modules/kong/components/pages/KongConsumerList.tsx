@@ -9,7 +9,7 @@ import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
 
 const fields: FormFieldProps[] = [
   {key: 'username', label: '用户名'},
-  {key: 'custom_id', label: '自定义ID'},
+  {key: 'custom_id', label: '自定义'},
 
   {
     key: 'tags',
@@ -56,7 +56,7 @@ export const KongConsumerList: React.FC = () => {
     },
     {
       key: 'custom_id',
-      title: '自定义ID',
+      title: '自定义',
       width: 120
     },
     {dataIndex: 'tags', title: '标签', width: 120, render: renderTags},
