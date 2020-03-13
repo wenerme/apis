@@ -1,7 +1,7 @@
 import {createDownload, CreateDownloadOptions} from 'modules/webtorrent/libs/downloads';
 import {createSeed, CreateSeedOptions} from 'modules/webtorrent/libs/seeds';
 import {getCurrentWebTorrentClient} from 'modules/webtorrent/client';
-import {RootState} from 'reducers/index';
+import {RootState} from 'reducers/store';
 import {Torrent} from 'webtorrent';
 
 function getSelectionTorrents(selections: string[] = []): Torrent[] {

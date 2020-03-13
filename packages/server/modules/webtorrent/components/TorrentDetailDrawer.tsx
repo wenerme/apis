@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Drawer} from 'antd';
-import {useRootSelector} from 'reducers/index';
+import {useRootSelector} from 'reducers/store';
 import {useDispatch} from 'react-redux';
 import {hideTorrentDetail} from 'reducers/webtorrent';
 import {getCurrentWebTorrentClient} from 'modules/webtorrent/client';

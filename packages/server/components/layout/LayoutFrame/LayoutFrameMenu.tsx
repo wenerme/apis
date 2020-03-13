@@ -1,17 +1,18 @@
 import React, {CSSProperties} from 'react'
 import {MenuSpec} from 'components/layout/LayoutFrame/types';
 import {Menu} from 'antd';
-import {useLayoutFrame} from 'components/layout/LayoutFrame/hooks';
+import {useLayoutDarkLightTheme, useLayoutFrameOptions} from 'components/layout/LayoutFrame/layout';
 
 interface RenderOptions {
-  Link: React.FunctionComponent<{ href }> | React.ComponentClass<{ href }> | string
+  link: React.FunctionComponent<{ href }> | React.ComponentClass<{ href }> | string
 }
 
 export const LayoutFrameMenu: React.FC<{ style?: CSSProperties }> = ({style}) => {
-  const {menus, link = 'a'} = useLayoutFrame();
+  const {menus, link = 'a'} = useLayoutFrameOptions();
+  const theme = useLayoutDarkLightTheme();
   return (
     <Menu
-      theme="light"
+      theme={theme}
       mode="inline"
       style={style}
       // style={{minHeight: '100%', paddingBottom: 48}}
@@ -19,7 +20,7 @@ export const LayoutFrameMenu: React.FC<{ style?: CSSProperties }> = ({style}) =>
       // onOpenChange={v => dispatch(setMenuOpenKeys(v))}
       // selectedKeys={[selected]}
     >
-      {renderMenus(menus, {Link: link} as any)}
+      {renderMenus(menus, {link} as any)}
     </Menu>
   )
 };
@@ -50,7 +51,7 @@ function renderMenu(menu: MenuSpec, opts: RenderOptions) {
 }
 
 
-function renderMenuItem(menu: MenuSpec, {Link}: RenderOptions) {
+function renderMenuItem(menu: MenuSpec, {link: Link}: RenderOptions) {
   const {path, title, iconComponent} = menu;
   return (
     <Menu.Item key={path || title}>

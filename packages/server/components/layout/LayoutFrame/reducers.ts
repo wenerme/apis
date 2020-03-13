@@ -1,26 +1,10 @@
-import {MenuSpec} from 'components/layout/LayoutFrame/types';
 import {createSlice} from '@reduxjs/toolkit';
 
 export interface LayoutFrameState {
   theme: 'dark' | 'light'
 
-  // no component
-  menus: MenuSpec[]
-
-  showHeader: boolean
-  showFooter: boolean
-}
-
-
-function createLayoutFrameState(s?: Partial<LayoutFrameState>): LayoutFrameState {
-  return {
-    theme: 'light',
-    menus: [],
-    showFooter: true,
-    showHeader: true,
-
-    ...s
-  }
+  showHeader?: boolean
+  showFooter?: boolean
 }
 
 export function createLayoutFrameSlice({name = 'layout'} = {}) {
@@ -28,9 +12,6 @@ export function createLayoutFrameSlice({name = 'layout'} = {}) {
     name,
     initialState: {
       theme: 'light',
-      menus: [],
-      showHeader: true,
-      showFooter: true,
     } as LayoutFrameState,
     reducers: {},
   })

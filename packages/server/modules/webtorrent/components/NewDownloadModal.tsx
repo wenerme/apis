@@ -3,7 +3,7 @@ import {Form, message, Modal, Radio} from 'antd';
 import {FormFieldBuilder, FormFieldsBuilder} from 'libs/antds/form/builder';
 import MagnetOutlined from 'components/icons/MagnetOutlined';
 import TorrentFileFilled from 'components/icons/TorrentFileFilled';
-import {useRootSelector} from 'reducers/index';
+import {useRootSelector} from 'reducers/store';
 import {useDispatch} from 'react-redux';
 import {hideDialog} from 'reducers/webtorrent';
 import {doCreateDownload} from 'reducers/webtorrent/actions';

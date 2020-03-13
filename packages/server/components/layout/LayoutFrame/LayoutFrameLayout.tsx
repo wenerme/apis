@@ -1,11 +1,10 @@
 import React from 'react'
 
 import {Layout} from 'antd';
-import {MenuSpec} from 'components/layout/LayoutFrame/types';
 import {LayoutFrameSider} from 'components/layout/LayoutFrame/LayoutFrameSider';
 
 export interface LayoutFrameLayoutProps {
-  menus: MenuSpec[]
+  // menus: MenuSpec[]
 
   showHeader?: boolean
   showFooter?: boolean
@@ -14,8 +13,7 @@ export interface LayoutFrameLayoutProps {
   header?: React.ReactNode
 }
 
-
-export const LayoutFrameLayout: React.FC<{ showHeader, showFooter, header, footer }> = (props) => {
+export const LayoutFrameLayout: React.FC<LayoutFrameLayoutProps> = (props) => {
   const {header, footer, children} = props;
   let {showHeader, showFooter} = props;
   if (typeof showHeader !== 'boolean') {
@@ -43,11 +41,11 @@ export const LayoutFrameLayout: React.FC<{ showHeader, showFooter, header, foote
 
           </Layout.Content>
 
-            {footer && showFooter && (
-              <Layout.Footer>
-                {footer}
-              </Layout.Footer>
-            )}
+          {footer && showFooter && (
+            <Layout.Footer>
+              {footer}
+            </Layout.Footer>
+          )}
           </Layout>
         </Layout>
       </Layout>

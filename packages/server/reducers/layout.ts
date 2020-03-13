@@ -4,6 +4,7 @@ export interface LayoutState {
   menuOpenKeys: string[]
   isLight
   isDark
+  theme: string
 }
 
 const slice = createSlice({

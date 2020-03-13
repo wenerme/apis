@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form, Input, message, Modal, Radio} from 'antd';
 import {FormFieldBuilder, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {FileOutlined, FileTextOutlined} from '@ant-design/icons/lib';
-import {useRootSelector} from 'reducers/index';
+import {useRootSelector} from 'reducers/store';
 import {useDispatch} from 'react-redux';
 import {hideDialog} from 'reducers/webtorrent';
 import {doCreateSeed} from 'reducers/webtorrent/actions';

@@ -3,7 +3,7 @@ import {Instance} from 'webtorrent';
 import {WebTorrentPanel} from 'modules/webtorrent/components/WebTorrentPanel';
 import {AllMethods, WebConsole} from 'components/WebConsole';
 import {StatusBar} from 'modules/webtorrent/components/StatusBar';
-import {useRootSelector} from 'reducers/index';
+import {useRootSelector} from 'reducers/store';
 import {DialogModal} from 'modules/webtorrent/components/DialogModal';
 import {TorrentDetailDrawer} from 'modules/webtorrent/components/TorrentDetailDrawer';
 import {WebTorrentToolbar} from 'modules/webtorrent/components/WebTorrentToolbar';

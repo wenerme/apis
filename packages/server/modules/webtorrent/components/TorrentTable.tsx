@@ -9,7 +9,7 @@ import './TorrentTable.module.css'
 import {copy} from 'utils/clipboard';
 import {useDispatch} from 'react-redux';
 import {showTorrentDetail, updateSelection} from 'reducers/webtorrent';
-import {useRootSelector} from 'reducers/index';
+import {useRootSelector} from 'reducers/store';
 
 export const TorrentTable: React.FC<{ client: Instance }> = ({client}) => {
   const [count, setCount] = useState(0);

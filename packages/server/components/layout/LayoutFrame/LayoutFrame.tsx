@@ -1,7 +1,7 @@
 import React from 'react'
 import {MenuSpec} from 'components/layout/LayoutFrame/types';
 import {LayoutFrameLayout} from 'components/layout/LayoutFrame/LayoutFrameLayout';
-import {LayoutFrameContext} from 'components/layout/LayoutFrame/hooks';
+import {LayoutFrameInstance, LayoutFrameProvider, useLayoutFrame} from 'components/layout/LayoutFrame/layout';
 
 export interface LayoutFrameProps {
   menus: MenuSpec[]
@@ -12,24 +12,20 @@ export interface LayoutFrameProps {
   header?: React.ReactNode
 
   link?: ({href}) => React.ReactNode
+
+  layout?: LayoutFrameInstance
+  name?: string
 }
 
 
 export const LayoutFrame: React.FC<LayoutFrameProps> = (props) => {
-  const {children, showFooter, showHeader, footer, header} = props;
-  // let {layout} = props;
-  //
-  // layout = useMemo(() => {
-  //   if (!layout) {
-  //     return {} as any
-  //   }
-  //   return layout
-  // }, []);
+  const {children, showFooter, showHeader, footer, header, name, menus, link} = props;
+  const layout = useLayoutFrame(props.layout, {name});
 
   return (
-    <LayoutFrameContext.Provider value={props}>
+    <LayoutFrameProvider layout={layout} options={{name, menus, link}}>
       <LayoutFrameLayout {...{children, showFooter, showHeader, footer, header}} />
-    </LayoutFrameContext.Provider>
+    </LayoutFrameProvider>
   )
 };
 

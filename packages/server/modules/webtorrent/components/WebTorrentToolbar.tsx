@@ -10,7 +10,7 @@ import {
   PlaySquareOutlined,
   UploadOutlined
 } from '@ant-design/icons/lib';
-import {useRootSelector} from 'reducers/index';
+import {useRootSelector} from 'reducers/store';
 import {doDeleteSelections, doPauseSelections, doResumeSelections} from 'reducers/webtorrent/actions';
 
 export const WebTorrentToolbar: React.FC<{ client: Instance }> = ({client}) => {

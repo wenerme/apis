@@ -1,8 +1,18 @@
+import {combineReducers} from 'redux';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {webtorrentReducer} from 'reducers/webtorrent';
+import {kongReducer} from 'modules/kong/reducers/kong';
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import {rootReducer} from 'reducers/index';
 
 import logger from 'redux-logger'
 import {isDev} from 'utils/utils';
+
+
+export const rootReducer = combineReducers({
+  // layout: layoutReducer,
+  webtorrent: webtorrentReducer,
+  kong: kongReducer,
+});
 
 export function configRootStore() {
   return configureStore({
@@ -14,3 +24,10 @@ export function configRootStore() {
     ].filter(v => v)
   });
 }
+
+export const rootStore = configRootStore();
+
+export type RootState = ReturnType<typeof rootReducer>
+export type RootDispatch = typeof rootStore.dispatch
+export const useRootSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useRootDispatch: () => RootDispatch = useDispatch;

@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch} from 'react-redux';
-import {useRootSelector} from 'reducers/index';
+import {useRootSelector} from 'reducers/store';
 import {KongInformation, KongNodeStatus} from 'modules/kong/apis/types';
 
 export const useKongSelector: TypedUseSelectorHook<KongState> = (selector, e) => useRootSelector(s => selector(s.kong), e);
