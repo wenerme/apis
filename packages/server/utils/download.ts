@@ -1,4 +1,4 @@
-export function download(filename, data, {type = 'application/octet-stream'} = {}) {
+export function download(filename, data, {type = 'application/octet-stream', raw = false} = {}) {
   const a = document.createElement('a');
   let closer = () => null;
   try {
@@ -6,12 +6,18 @@ export function download(filename, data, {type = 'application/octet-stream'} = {
 
     // console.info(`downloading ${name}`, data);
 
+    // url or data url
+    if (typeof data === 'string' && /^(https?:|data:)/.test(data) && !raw) {
+      a.href = data;
+    } else if (typeof data === 'string') {
+      data = new TextEncoder().encode(data)
+    }
+
     if (data instanceof Uint8Array) {
       data = new Blob([data], {type})
     }
-    if (typeof data === 'string' && /^(https?:|datat:)/.test(data)) {
-      a.href = data;
-    } else if (data instanceof File || data instanceof Blob || data instanceof MediaSource) {
+
+    if (data instanceof File || data instanceof Blob || data instanceof MediaSource) {
       a.href = URL.createObjectURL(data);
       closer = () => URL.revokeObjectURL(a.href);
     } else {

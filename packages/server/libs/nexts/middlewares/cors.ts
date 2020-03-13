@@ -1,4 +1,4 @@
-import {parseRequestUrl} from 'libs/nexts/apis';
+import {parseRequestUrl} from 'libs/nexts/utils/requests';
 
 const DEFAULT_ALLOW_METHODS = [
   'POST',

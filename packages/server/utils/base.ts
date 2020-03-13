@@ -17,6 +17,8 @@ export interface StringifyOptions {
   pad?: boolean
 }
 
+export type StringifyType = ArrayLike<number> | ArrayBufferLike | string
+
 export function parse(
   string: string,
   encoding: Encoding,
@@ -82,12 +84,15 @@ export function parse(
 }
 
 export function stringify(
-  data: ArrayLike<number> | ArrayBufferLike | string,
+  data: StringifyType,
   encoding: Encoding,
   opts: StringifyOptions = {}
 ): string {
   if (typeof data === 'string') {
     data = new TextEncoder().encode(data);
+  }
+  if (data instanceof ArrayBuffer && !(data instanceof Uint8Array)) {
+    data = new Uint8Array(data);
   }
   const {pad = true} = opts;
   const mask = (1 << encoding.bits) - 1;
@@ -154,7 +159,7 @@ export const Base16 = {
     return parse(string.toUpperCase(), base16Encoding, opts)
   },
 
-  stringify(data: ArrayLike<number>, opts?: StringifyOptions): string {
+  stringify(data: StringifyType, opts?: StringifyOptions): string {
     return stringify(data, base16Encoding, opts)
   }
 };
@@ -194,7 +199,7 @@ export const Base64 = {
     return parse(string, base64Encoding, opts)
   },
 
-  stringify(data: ArrayLike<number>, opts?: StringifyOptions): string {
+  stringify(data: StringifyType, opts?: StringifyOptions): string {
     return stringify(data, base64Encoding, opts)
   }
 };
@@ -204,7 +209,7 @@ export const Base64Url = {
     return parse(string, base64UrlEncoding, opts)
   },
 
-  stringify(data: ArrayLike<number> | ArrayBufferLike | string, opts?: StringifyOptions): string {
+  stringify(data: StringifyType, opts?: StringifyOptions): string {
     return stringify(data, base64UrlEncoding, opts)
   }
 };

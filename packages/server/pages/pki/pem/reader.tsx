@@ -2,9 +2,16 @@ import React, {useState} from 'react';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Button, Input, PageHeader} from 'antd';
+import {Button, Input, message, PageHeader} from 'antd';
 import CertificateVerifiedFilled from 'components/icons/CertificateVerifiedFilled';
 import Certificate from 'pkijs/src/Certificate'
+import {API} from 'apis/api';
+import {DownloadOutlined} from '@ant-design/icons';
+import {download} from 'utils/download';
+import {resultOf} from 'utils/axioses';
+import {getFile} from 'utils/transfers';
+import {readFileAsText} from 'utils/io';
+import {CertificateViewer} from 'modules/pki/components/CertificateViewer';
 
 async function decodeCert(pem) {
   if (typeof pem !== 'string') {
@@ -30,28 +37,73 @@ async function decodeCert(pem) {
 
 const PemReaderPageContent: React.FC = () => {
   const [value, setValue] = useState('');
-  const [cert, setCert] = useState<Certificate>(null)
+  const [url, setUrl] = useState('https://wener.me');
+  const [cert, setCert] = useState<Certificate>(null);
+  const [loading, setLoading] = useState(false);
+
+  const doFetch = async () => {
+    try {
+      setLoading(true);
+      const {default: axios} = await import('axios');
+      const data = await resultOf(axios.post(API.apiOf('/api/pki/cert/url'), {url}));
+      setValue(data?.certificate ?? '')
+    } catch (e) {
+      message.error(`获取证书失败: ${e.message || e.toString()}`)
+    } finally {
+      setLoading(false)
+    }
+  };
+
   return (
     <div className="container">
       <div>
-        <Button
-          type="primary"
-          onClick={async () => {
-            const cert = await decodeCert(value);
-            window['cert'] = cert;
-            console.log(cert)
-            setCert(cert)
-          }}>解析</Button>
+        <div style={{display: 'flex'}}>
+          <Button
+            type="primary"
+            onClick={async () => {
+              const cert = await decodeCert(value);
+              window['cert'] = cert;
+              console.log(cert);
+              setCert(cert)
+            }}>解析</Button>
+
+          <Input
+            value={url}
+            onChange={e => setUrl(e.target.value)}
+            addonAfter={<Button loading={loading} type="link" size="small" onClick={doFetch}>获取证书</Button>}
+          />
+
+          <Button icon={<DownloadOutlined />} disabled={!value} onClick={() => download('cert.pem', value)}>
+            下载
+          </Button>
+        </div>
         <Input.TextArea
           style={{fontFamily: 'monospace'}}
           rows={20}
-          placeholder="-----BEGIN CERTIFICATE-----"
+          placeholder="Drop file here or input -----BEGIN CERTIFICATE-----"
           value={value}
           onChange={v => setValue(v.target.value)}
+          onDrop={async e => {
+            e.preventDefault();
+            const {file} = getFile(e.dataTransfer) || {};
+            if (file) {
+              setLoading(true);
+              try {
+                const value = await readFileAsText(file);
+                setValue(value);
+              } catch (e) {
+                message.error(`读取证书失败: ${e.message || e.toString()}`)
+              } finally {
+                setLoading(false)
+              }
+            }
+          }}
         />
 
       </div>
-      <div style={{overflow: 'auto', fontFamily: 'monospace'}}>
+      <div style={{overflow: 'auto'}}>
+        {cert && <CertificateViewer cert={cert} />}
+        <h3>Dump</h3>
         <pre>{cert && JSON.stringify(cert.toJSON(), null, '  ')}</pre>
       </div>
       <style jsx>{`

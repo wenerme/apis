@@ -1,7 +1,7 @@
 import {KongService} from 'modules/kong/apis/service';
-import {KongErrorResponse} from 'modules/kong/apis/types';
-import {AxiosInstance, AxiosResponse} from 'axios';
+import {AxiosInstance} from 'axios';
 import inflection from 'inflection';
+import {resultOf} from 'utils/axioses';
 
 export interface KongClientServiceInit {
   client: AxiosInstance;
@@ -103,15 +103,4 @@ function buildRestMethod(name: string, client, {path = ''} = {}) {
     [`delete${n}`]: entity => resultOf(client.delete(`/${p}/${idOrName(entity)}`)),
     [`get${n}ByIdOrName`]: entity => resultOf(client.get(`/${p}/${idOrName(entity)}`)),
   };
-}
-
-async function resultOf<T = any>(r: Promise<AxiosResponse<T>>): Promise<T> {
-  try {
-    const res = await r;
-    return res.data
-  } catch (e) {
-    const res: KongErrorResponse = e.response?.data;
-    console.error(`Request Error`, res);
-    throw res;
-  }
 }
