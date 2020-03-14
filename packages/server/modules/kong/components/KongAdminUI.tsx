@@ -39,6 +39,9 @@ import {initReactI18next, useTranslation} from 'react-i18next';
 import {KongAdminConfigShareModal} from 'modules/kong/components/KongAdminConfigShareModal';
 import {decrypt} from 'modules/kong/libs/encryption';
 import {I18nLanguageSelector} from 'modules/kong/components/I18nLanguageSelector';
+import {HeaderInput} from 'modules/kong/components/HeaderInput';
+import {FormListField} from 'modules/kong/components/FormListField';
+import {headersFromArray} from 'modules/kong/libs/headers';
 
 i18next
   .use(Backend)
@@ -108,6 +111,12 @@ const KongAdminSetupForm: React.FC<{ initialValues?, onSubmit?, form?: FormInsta
       placeholder: 'http://127.0.0.1:8001',
       defaultValue: 'http://127.0.0.1:8001'
     },
+    {
+      key: 'headers',
+      label: t('请求头'),
+      widget: HeaderInput,
+      render: FormListField,
+    },
   ];
 
   const encryptFields: FormFieldProps[] = [
@@ -141,8 +150,12 @@ const KongAdminSetupForm: React.FC<{ initialValues?, onSubmit?, form?: FormInsta
   ];
 
   const initial = useMemo(() => {
-    const o = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields]);
-    console.log('initialValues', initialValues);
+    let o = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields]);
+    if (o['headers']) {
+      if (!Array.isArray(o['headers'])) {
+        o = {...o, headers: Object.entries(o['headers'])}
+      }
+    }
     return o
   }, [initialValues]);
   if (typeof showActions !== 'boolean') {
@@ -167,7 +180,10 @@ const KongAdminSetupForm: React.FC<{ initialValues?, onSubmit?, form?: FormInsta
       initialValues={initial}
       labelCol={{span: 4}}
       wrapperCol={{span: 20}}
-      onFinish={onSubmit}
+      onFinish={(values) => {
+        values['headers'] = headersFromArray(values['headers'])
+        onSubmit(values)
+      }}
     >
       <FormFieldsBuilder fields={fields} />
 

@@ -1,53 +1,15 @@
-import React, {CSSProperties, useMemo, useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {KongRouteEntity} from 'modules/kong/apis/types';
 import {renderArrayOfString, renderBoolean, renderTags} from 'modules/kong/components/renders';
-import {Button, Divider, Form, Input, Select} from 'antd';
+import {Button, Divider, Form} from 'antd';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
 import {flatMapDeep, keyBy, omitBy, uniq} from 'lodash';
-import {MinusCircleOutlined, PlusOutlined} from '@ant-design/icons/lib';
 import {EntitySelect} from 'modules/kong/components/EntitySelect';
 import {Trans} from 'react-i18next';
-
-const HeaderInput: React.FC<{ value?, onChange?, style?: CSSProperties }> = ({value = [], style, onChange}) => {
-  const [name = '', values = []] = value;
-  return (
-    <div style={style}>
-      <Input
-        type="text"
-        value={name}
-        required
-        onChange={v => onChange([v.target.value, values])}
-        style={{width: '40%'}}
-        placeholder="Authorization"
-      />
-      <Select
-        value={values}
-        onChange={v => onChange([name, v])}
-        mode="tags"
-        style={{width: '60%'}}
-      />
-    </div>
-  )
-};
-
-const formItemLayout = {
-  labelCol: {
-    xs: {span: 24},
-    sm: {span: 4},
-  },
-  wrapperCol: {
-    xs: {span: 24},
-    sm: {span: 20},
-  },
-};
-const formItemLayoutWithOutLabel = {
-  wrapperCol: {
-    xs: {span: 24, offset: 0},
-    sm: {span: 20, offset: 4},
-  },
-};
+import {HeaderInput} from 'modules/kong/components/HeaderInput';
+import {FormListField} from 'modules/kong/components/FormListField';
 
 const fields = [
   {key: 'name', label: '名字'},
@@ -124,60 +86,8 @@ const protocolFields: FormFieldProps[] = [
   {
     key: 'headers',
     label: '请求头',
-    render({field}) {
-      const {name, label, key} = field;
-      return (
-        <Form.List name={name} key={key}>
-          {(fields, {add, remove}) => (
-            <div>
-              {fields.map((field, i) => (
-                <Form.Item
-                  {...(i === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                  label={i === 0 ? label : ''}
-                  key={field.key}
-                >
-                  <Form.Item
-                    {...field}
-                    noStyle
-                  >
-                    <HeaderInput style={{minWidth: '60%', maxWidth: 'calc(100% - 32px)', marginRight: 8}} />
-                  </Form.Item>
-
-                  {fields.length > 1 ? (
-                    <MinusCircleOutlined
-                      style={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                      }}
-                      onClick={() => {
-                        remove(field.name);
-                      }}
-                    />
-                  ) : null}
-
-                </Form.Item>
-              ))}
-
-              <Form.Item
-                {...(fields.length === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                label={fields.length === 0 ? label : ''}
-              >
-                <Button
-                  type="dashed"
-                  onClick={() => {
-                    add();
-                  }}
-                  style={{minWidth: '60%', maxWidth: 'calc(100% - 32px)'}}
-                >
-                  <PlusOutlined /> 添加
-                </Button>
-              </Form.Item>
-            </div>
-          )}
-        </Form.List>
-      )
-    },
+    widget: HeaderInput,
+    render: FormListField,
     normalize: Object.entries,
     getValueFromEvent: Object.fromEntries,
   },
@@ -264,7 +174,7 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
         if (values['headers'] && Array.isArray(values['headers'])) {
           values['headers'] = Object.fromEntries(values['headers'])
         }
-        onSubmit(values)
+        onSubmit(values);
         console.log('values', values)
       }}
       onValuesChange={(v, r) => {
