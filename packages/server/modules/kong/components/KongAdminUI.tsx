@@ -42,8 +42,10 @@ import {I18nLanguageSelector} from 'modules/kong/components/I18nLanguageSelector
 import {HeaderInput} from 'modules/kong/components/HeaderInput';
 import {FormListField} from 'modules/kong/components/FormListField';
 import {headersFromArray} from 'modules/kong/libs/headers';
+import {i18nextInflection} from 'libs/i18nexts/plugins/inflection-postprocessor';
 
 i18next
+  .use(i18nextInflection)
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -259,7 +261,8 @@ const KongConfigPanel: React.FC = () => {
   const {t} = useTranslation();
 
   let initial = null;
-  const conf = new URL(location.href).searchParams.get('config') || '';
+  const params = new URL(location.href.replace('#', '')).searchParams;
+  const conf = params.get('config') ?? '';
   if (conf.includes('.')) {
     // encrypted
     initial = {encrypted: conf}
@@ -302,56 +305,56 @@ export const KongAdmin: React.FC = () => {
 
   const menus: Array<MenuSpec & RouteSpec> = [
     {
-      title: t('基础'),
+      title: t('信息'),
       path: '/',
       iconComponent: <FundOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongAdminSummary'))
     },
     {
-      title: t('服务'),
+      title: t('服务', {count: 0, postProcess: 'inflection'}),
       path: '/service',
       iconComponent: <ApiOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongServiceList').then(({KongServiceList}) => ({default: KongServiceList})))
     },
     {
-      title: t('路由'),
+      title: t('路由', {count: 0, postProcess: 'inflection'}),
       path: '/route',
       iconComponent: <FullscreenOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongRouteList').then(({KongRouteList}) => ({default: KongRouteList})))
     },
     {
-      title: t('消费者'),
+      title: t('消费者', {count: 0, postProcess: 'inflection'}),
       path: '/consumer',
       iconComponent: <TeamOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongConsumerList').then(({KongConsumerList}) => ({default: KongConsumerList})))
     },
     {
-      title: t('插件'),
+      title: t('插件', {count: 0, postProcess: 'inflection'}),
       path: '/plugin',
       iconComponent: <AppstoreAddOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongPluginList').then(({KongPluginList}) => ({default: KongPluginList})))
     },
     {
-      title: t('上游'),
+      title: t('上游', {count: 0, postProcess: 'inflection'}),
       path: '/upstream',
       exact: true,
       iconComponent: <ClusterOutlined />,
       component: React.lazy(() => import('./pages/KongUpstreamList').then(({KongUpstreamList}) => ({default: KongUpstreamList})))
     },
     {
-      title: t('证书'),
+      title: t('证书', {count: 0, postProcess: 'inflection'}),
       path: '/certificate',
       iconComponent: <SafetyCertificateOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongCertificateList').then(({KongCertificateList}) => ({default: KongCertificateList})))
     },
     {
-      title: t('CA证书'),
+      title: t('CA证书', {count: 0, postProcess: 'inflection'}),
       path: '/ca-certificate',
       iconComponent: <CaCertificateOutlined />,
       exact: true,

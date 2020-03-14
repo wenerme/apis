@@ -23,7 +23,7 @@ const KongAdminConfigShare: React.FC = () => {
     const conf = JSON.stringify(config);
     if (!encryption) {
       setState(produce(s => {
-        s.url = `${window.location.origin}/kong/admin?config=${btoa(conf).replace(/=*$/, '')}`;
+        s.url = `${window.location.origin}/kong/admin#/?config=${btoa(conf).replace(/=*$/, '')}`;
         s.secret = ''
       }));
       return
@@ -33,7 +33,7 @@ const KongAdminConfigShare: React.FC = () => {
     // decrypt(encrypted, secret).then(v => console.log('DEC', v));
 
     setState(produce(s => {
-      s.url = `${window.location.origin}/kong/admin?config=${encrypted}`;
+      s.url = `${window.location.origin}/kong/admin#/?config=${encrypted}`;
       s.secret = secret
     }));
   }, [encryption, count]);

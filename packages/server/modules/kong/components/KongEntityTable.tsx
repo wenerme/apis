@@ -128,7 +128,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
   const {t} = useTranslation();
 
   let {label} = props;
-  label = t(label);
+  label = t(label, {count: 0, postProcess: 'inflection'});
   //
   columns.map(v => {
     if (typeof v.title === 'string') {
