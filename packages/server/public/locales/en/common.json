@@ -13,6 +13,8 @@
   "添加": "Add",
   "基础": "Basic",
   "密码": "Password",
+  "失败": "Failed",
+  "错误": "Error",
   "上游": "Upstream",
   "服务": "Service",
   "路由": "Route",
