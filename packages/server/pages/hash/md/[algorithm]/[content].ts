@@ -1,10 +1,14 @@
 import {HashPage} from 'modules/hash/components/HashPage';
 import {NextPage} from 'next';
 import {fetchHashing} from 'modules/hash/apis/fetchs';
+import {firstOf} from 'utils/arrays';
 
 const Page: NextPage<{ algorithm, content?, initialData? }> = HashPage;
 Page.getInitialProps = async ({query: {algorithm, content}}) => {
-  algorithm = (algorithm + '').replace(/[.]html$/, '');
+  algorithm = firstOf(algorithm)?.replace(/[.]html$/, '') || 'md5';
+  if (algorithm === 'index') {
+    algorithm = 'md5';
+  }
   if (!content) {
     return {algorithm}
   }

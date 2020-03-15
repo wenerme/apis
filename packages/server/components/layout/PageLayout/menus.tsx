@@ -158,6 +158,10 @@ export const menus: MenuSpec[] = [
     iconComponent: <BorderlessTableOutlined />,
     iconType: 'lock',
     children: [
+      {
+        title: '摘要哈希',
+        path: `/hash/digest`,
+      },
       ...(HashingAlgorithms.map(v => ({
         title: v.toUpperCase(),
         route: '/hash/md/[algorithm]',
