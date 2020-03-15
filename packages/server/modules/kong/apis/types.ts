@@ -78,6 +78,39 @@ export interface KongConsumerEntity extends KongEntity {
   custom_id: string
 }
 
+export interface KongConsumerBasicAuthEntity extends KongEntity {
+  username: string
+  password: string
+}
+
+export interface KongConsumerHmacAuthEntity extends KongEntity {
+  username: string
+  secret: string
+}
+
+export interface KongConsumerOAuth2Entity extends KongEntity {
+  name: string
+  client_id: string
+  client_secret: string
+  redirect_uris: string[]
+}
+
+export interface KongConsumerKeyAuthEntity extends KongEntity {
+  key: string
+  ttl: number
+}
+
+export interface KongConsumerAclEntity extends KongEntity {
+  group: string
+}
+
+export interface KongConsumerJwtEntity extends KongEntity {
+  key: string
+  secret: string
+  algorithm: string
+  rsa_public_key: string
+}
+
 export interface KongPluginEntity extends KongEntity {
   name: string
   route?: KongEntityRef

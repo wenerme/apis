@@ -6,6 +6,9 @@ import produce from 'immer';
 import {CopyOutlined, DeleteOutlined, InfoCircleOutlined, PlusOutlined, ReloadOutlined} from '@ant-design/icons/lib';
 import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
 import {Trans, useTranslation} from 'react-i18next'
+import {buildEntityService} from 'modules/kong/apis/utils';
+import {KongEntityService} from 'modules/kong/apis/service';
+import {FormFieldProps} from 'libs/antds/form/builder';
 
 export interface KongEntityTableProps {
   label
@@ -15,11 +18,14 @@ export interface KongEntityTableProps {
 
   editor?
   viewer?
+
+  entityService?: KongEntityService
 }
 
 export interface KongEntityTableService {
   readonly label
   readonly name
+  readonly entityService: KongEntityService
 
   showView(entity)
 
@@ -63,6 +69,15 @@ export const KongEntityOperationColumn: React.FC<{ record }> = ({record, childre
     </div>
   )
 };
+
+export const TagsField: FormFieldProps = {
+  key: 'tags',
+  label: '标签',
+  widget: 'select',
+  defaultValue: [],
+  widgetProps: {mode: 'tags'},
+};
+
 export const OperationColumn: ColumnProps<any> = {
   title: <Trans>操作</Trans>,
   key: 'operation',
@@ -88,7 +103,7 @@ export function createEntityColumns<T = any>(columns: Array<ColumnProps<T>>, {ex
   return cols.filter(v => !excludes.includes(v.key || v.dataIndex))
 }
 
-function createKongEntityTableService(props: KongEntityTableProps, setState): KongEntityTableService {
+function createKongEntityTableService(props: KongEntityTableProps, setState, entityService): KongEntityTableService {
   const {name, label} = props;
   return {
     get name() {
@@ -96,6 +111,9 @@ function createKongEntityTableService(props: KongEntityTableProps, setState): Ko
     },
     get label() {
       return label
+    },
+    get entityService() {
+      return entityService;
     },
     showView(entity) {
       setState(produce(s => {
@@ -112,7 +130,7 @@ function createKongEntityTableService(props: KongEntityTableProps, setState): Ko
       }))
     },
     async delete(entity) {
-      await getKongService()[`delete${name}`](entity);
+      await entityService.delete(entity);
       this.reload()
     },
     reload() {
@@ -143,13 +161,17 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
     creating: null,
   });
   const {loading, rows, offset, count, editing, creating} = state;
-  const service = useMemo(() => createKongEntityTableService(props, setState), []);
+
+  let {entityService} = props;
+  entityService = useMemo(() => entityService ?? buildEntityService(getKongService, name), [name]);
+
+  const service = useMemo(() => createKongEntityTableService(props, setState, entityService), []);
   useEffect(() => {
     setState(produce(s => {
       s.loading = true
     }));
-    getKongService()
-      ?.[`list${name}`]()
+    entityService
+      .list()
       .then(({data, offset}) => {
         setState(produce(s => {
           s.loading = false;
@@ -194,11 +216,6 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
               s.count++
             }))
           }} />
-        {/*<AddServiceDrawer initialValues={addInitial} visible={showAdd} onClose={() => {*/}
-        {/*  setShowAdd(false);*/}
-        {/*  doCount()*/}
-        {/*}} />*/}
-        {/*<ViewServiceDrawer service={viewService} visible={Boolean(viewService)} onClose={() => setViewService(null)} />*/}
 
         <Table
           className="no-wrap"
@@ -231,6 +248,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
 const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose, component }> = ({label, name, initialEntity, visible, onClose, component: Component}) => {
   const [loading, setLoading] = useState(false);
   const {t} = useTranslation();
+  const {entityService} = useKongEntityTableService()
   return (
     <Drawer
       title={`${label} ${t('详情')}`}
@@ -247,7 +265,7 @@ const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose,
           onSubmit={async v => {
             try {
               setLoading(true);
-              await getKongService()[`update${name}`](v);
+              await entityService.update(v);
             } catch (e) {
               console.error(`update ${name} failed `, v, e);
               message.error(`更新失败: ${e.message || e.toString()}`)
@@ -265,6 +283,7 @@ const ViewEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose,
 const AddEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose, component }> = ({label, name, initialEntity, visible, onClose, component: Component}) => {
   const [loading, setLoading] = useState(false);
   const {t} = useTranslation();
+  const {entityService} = useKongEntityTableService()
   return (
     <Drawer
       title={`${t('新增')} ${label}`}
@@ -281,7 +300,7 @@ const AddEntityDrawer: React.FC<{ label, name, initialEntity, visible, onClose, 
           onSubmit={async v => {
             try {
               setLoading(true);
-              await getKongService()[`add${name}`](v);
+              await entityService.add(v);
               setLoading(false);
               onClose()
             } catch (e) {

@@ -52,11 +52,23 @@ export class KongClientService implements KongService {
   deleteConsumer;
   getConsumerByIdOrName;
   //
+  listConsumerBasicAuth;
+  addConsumerBasicAuth;
+  updateConsumerBasicAuth;
+  deleteConsumerBasicAuth;
+  getConsumerBasicAuthByIdOrName;
+  //
   listUpstream;
   addUpstream;
   updateUpstream;
   deleteUpstream;
   getUpstreamByIdOrName;
+  //
+  listUpstreamTarget;
+  addUpstreamTarget;
+  updateUpstreamTarget;
+  deleteUpstreamTarget;
+  getUpstreamTargetByIdOrName;
 
   constructor(init: KongClientServiceInit) {
     this.client = init.client;
@@ -67,19 +79,43 @@ export class KongClientService implements KongService {
     Object.assign(this, buildRestMethod('Plugin', this.client));
     Object.assign(this, buildRestMethod('Consumer', this.client));
     Object.assign(this, buildRestMethod('Upstream', this.client));
-    Object.assign(this, buildRestMethod('Snis', this.client))
+    Object.assign(this, buildRestMethod('Snis', this.client));
+
+    Object.assign(this, buildExplicitNestRestMethod('UpstreamTarget', this.client, {
+      path: 'targets',
+      parentPath: 'upstreams'
+    }));
+    Object.assign(this, buildExplicitNestRestMethod('ConsumerBasicAuth', this.client, {
+      path: 'basic-auth',
+      parentPath: 'consumers'
+    }));
+    // TODO add interface
+    Object.assign(this, buildExplicitNestRestMethod('ConsumerKeyAuth', this.client, {
+      path: 'key-auth',
+      parentPath: 'consumers'
+    }));
+    Object.assign(this, buildExplicitNestRestMethod('ConsumerHmacAuth', this.client, {
+      path: 'hmac-auth',
+      parentPath: 'consumers'
+    }));
+    Object.assign(this, buildExplicitNestRestMethod('ConsumerAcl', this.client, {
+      path: 'acls',
+      parentPath: 'consumers'
+    }));
+    Object.assign(this, buildExplicitNestRestMethod('ConsumerOAuth2', this.client, {
+      path: 'oauth2',
+      parentPath: 'consumers'
+    }))
+    Object.assign(this, buildExplicitNestRestMethod('ConsumerJwt', this.client, {
+      path: 'jwt',
+      parentPath: 'consumers'
+    }))
   }
 
   getInformation = () => resultOf(this.client.get('/'));
   getNodeStatus = () => resultOf(this.client.get('/status'));
   getPluginSchema = name => resultOf(this.client.get(`/plugins/schema/${name}`));
   listTags = params => resultOf(this.client.get('/tags', {params}));
-
-  listUpstreamTarget = ({upstream, ...params}) => resultOf(this.client.get(`/upstreams/${idOrName(upstream)}/targets`, {params}));
-  addUpstreamTarget = entity => resultOf(this.client.post(`/upstreams/${idOrName(entity.upstream)}/targets`, entity));
-  updateUpstreamTarget = entity => resultOf(this.client.post(`/upstreams/${idOrName(entity.upstream)}/targets/${idOrName(entity)}`, entity));
-  deleteUpstreamTarget = entity => resultOf(this.client.delete(`/upstreams/${idOrName(entity.upstream)}/targets/${idOrName(entity)}`));
-  getUpstreamTargetByIdOrName = entity => resultOf(this.client.get(`/upstreams/${idOrName(entity.upstream)}/targets/${idOrName(entity)}`))
 }
 
 function idOrName(v) {
@@ -104,3 +140,18 @@ function buildRestMethod(name: string, client, {path = ''} = {}) {
     [`get${n}ByIdOrName`]: entity => resultOf(client.get(`/${p}/${idOrName(entity)}`)),
   };
 }
+
+
+function buildExplicitNestRestMethod(name: string, client, {path = '', parentPath}) {
+  const n = name;
+  const p = path || inflection.underscore(inflection.pluralize(name)).toLowerCase();
+  const pp = parentPath;
+  return {
+    [`list${n}`]: (parent, params) => resultOf(client.get(`/${pp}/${idOrName(parent)}/${p}`, {params})),
+    [`add${n}`]: (parent, entity) => resultOf(client.post(`/${pp}/${idOrName(parent)}/${p}`, entity)),
+    [`update${n}`]: (parent, entity) => resultOf(client.patch(`/${pp}/${idOrName(parent)}/${p}/${idOrName(entity)}`, entity)),
+    [`delete${n}`]: (parent, entity) => resultOf(client.delete(`/${pp}/${idOrName(parent)}/${p}/${idOrName(entity)}`)),
+    [`get${n}ByIdOrName`]: (parent, entity) => resultOf(client.get(`/${pp}/${idOrName(parent)}/${p}/${idOrName(entity)}`)),
+  };
+}
+

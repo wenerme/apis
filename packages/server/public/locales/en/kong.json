@@ -33,5 +33,6 @@
   "客户端证书": "Client Certificate",
   "路径处理": "Path Handling",
   "信息": "Info",
+  "基础授权": "Basic Auth",
   "插件列表": "Plugins"
 }

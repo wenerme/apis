@@ -1,7 +1,9 @@
 import {
   KongCaCertificateEntity,
   KongCertificateEntity,
+  KongConsumerBasicAuthEntity,
   KongConsumerEntity,
+  KongEntity,
   KongInformation,
   KongListQuery,
   KongListResponse,
@@ -122,6 +124,19 @@ export interface KongService {
   getConsumerByIdOrName(idOrName): Promise<KongServiceEntity>
 
   // endregion
+  // region ConsumerBasicAuth
+
+  listConsumerBasicAuth(consumer, query?: KongListQuery): Promise<KongListResponse<KongConsumerBasicAuthEntity>>
+
+  addConsumerBasicAuth(consumer, entity: KongConsumerBasicAuthEntity): Promise<KongConsumerBasicAuthEntity>
+
+  updateConsumerBasicAuth(consumer, entity: KongConsumerBasicAuthEntity): Promise<KongConsumerBasicAuthEntity>
+
+  deleteConsumerBasicAuth(consumer, idOrName): Promise<void>
+
+  getConsumerBasicAuthByIdOrName(consumer, idOrName): Promise<KongServiceEntity>
+
+  // endregion
 
   // region Upstream
   listUpstream(query?: KongListQuery): Promise<KongListResponse<KongUpstreamEntity>>
@@ -138,15 +153,27 @@ export interface KongService {
 
 
   // region Upstream Target
-  listUpstreamTarget(query?: KongListQuery & { upstream }): Promise<KongListResponse<KongUpstreamTargetEntity>>
+  listUpstreamTarget(upstream, query?: KongListQuery): Promise<KongListResponse<KongUpstreamTargetEntity>>
 
-  addUpstreamTarget(entity: KongUpstreamTargetEntity): Promise<KongUpstreamTargetEntity>
+  addUpstreamTarget(upstream, entity: KongUpstreamTargetEntity): Promise<KongUpstreamTargetEntity>
 
-  updateUpstreamTarget(entity: KongUpstreamTargetEntity): Promise<KongUpstreamTargetEntity>
+  updateUpstreamTarget(upstream, entity: KongUpstreamTargetEntity): Promise<KongUpstreamTargetEntity>
 
-  deleteUpstreamTarget(entity: Partial<KongUpstreamTargetEntity>): Promise<void>
+  deleteUpstreamTarget(upstream, entity: Partial<KongUpstreamTargetEntity>): Promise<void>
 
-  getUpstreamTargetByIdOrName(entity: Partial<KongUpstreamTargetEntity>): Promise<KongUpstreamTargetEntity>
+  getUpstreamTargetByIdOrName(upstream, entity: Partial<KongUpstreamTargetEntity>): Promise<KongUpstreamTargetEntity>
 
   // endregion
+}
+
+export interface KongEntityService<T extends KongEntity = any> {
+  list(query?: KongListQuery): Promise<KongListResponse<T>>
+
+  add(entity: T): Promise<T>
+
+  update(entity: T): Promise<T>
+
+  delete(idOrName): Promise<void>
+
+  getByIdOrName(idOrName): Promise<T>
 }
