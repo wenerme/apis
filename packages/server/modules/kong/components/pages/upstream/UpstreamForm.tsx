@@ -1,12 +1,10 @@
-import React, {useMemo} from 'react'
-import {normalizeColumns} from 'libs/antds/table/normal';
-import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
-import {KongUpstreamEntity} from 'modules/kong/apis/types';
-import {Button, Form} from 'antd';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
+import React, {useMemo} from 'react';
 import {omitBy} from 'lodash';
+import {Button, Form} from 'antd';
 
 const HashTypes = ['none', 'consumer', 'ip', 'header', 'cookie'];
+
 const fields: FormFieldProps[] = [
   {key: 'name', label: '主机名', required: true},
   {key: 'host_header', label: 'Host Header'},
@@ -44,11 +42,9 @@ const fields: FormFieldProps[] = [
     widgetProps: {mode: 'tags'},
   },
 ];
-
-const UpstreamForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
+export const UpstreamForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const initial = useMemo(() => {
-    const o = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields]);
-    return o
+    return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields])
   }, [initialValues]);
 
   const [form] = Form.useForm();
@@ -72,20 +68,3 @@ const UpstreamForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, o
     </Form>
   )
 };
-export const KongUpstreamList: React.FC = () => {
-  const columns = useMemo(() => normalizeColumns<KongUpstreamEntity>(createEntityColumns([
-    {key: 'algorithm', title: '算法', width: 120},
-    {key: 'hash_on', title: 'Hash', width: 120},
-    {key: 'hash_fallback', title: 'Hash Fallback', width: 120},
-    {key: 'hash_on_cookie_path', title: 'Hash Cookie 路径', width: 180},
-  ])), []);
-  return (
-    <KongEntityTable
-      label='上游'
-      name='Upstream'
-      columns={columns}
-      editor={UpstreamForm}
-    />
-  )
-};
-

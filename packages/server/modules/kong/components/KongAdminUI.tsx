@@ -309,28 +309,28 @@ export const KongAdmin: React.FC = () => {
       path: '/',
       iconComponent: <FundOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/KongAdminSummary'))
+      component: React.lazy(() => import('./pages/dashboard/KongAdminSummary'))
     },
     {
       title: t('服务', {count: 0, postProcess: 'inflection'}),
       path: '/service',
       iconComponent: <ApiOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/KongServiceList').then(({KongServiceList}) => ({default: KongServiceList})))
+      component: React.lazy(() => import('./pages/service/KongServiceList').then(({KongServiceList}) => ({default: KongServiceList})))
     },
     {
       title: t('路由', {count: 0, postProcess: 'inflection'}),
       path: '/route',
       iconComponent: <FullscreenOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/KongRouteList').then(({KongRouteList}) => ({default: KongRouteList})))
+      component: React.lazy(() => import('./pages/route/KongRouteList').then(({KongRouteList}) => ({default: KongRouteList})))
     },
     {
       title: t('消费者', {count: 0, postProcess: 'inflection'}),
       path: '/consumer',
       iconComponent: <TeamOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/KongConsumerList').then(({KongConsumerList}) => ({default: KongConsumerList})))
+      component: React.lazy(() => import('./pages/consumer/KongConsumerList').then(({KongConsumerList}) => ({default: KongConsumerList})))
     },
     {
       title: t('插件', {count: 0, postProcess: 'inflection'}),
@@ -344,7 +344,7 @@ export const KongAdmin: React.FC = () => {
       path: '/upstream',
       exact: true,
       iconComponent: <ClusterOutlined />,
-      component: React.lazy(() => import('./pages/KongUpstreamList').then(({KongUpstreamList}) => ({default: KongUpstreamList})))
+      component: React.lazy(() => import('./pages/upstream/KongUpstreamList').then(({KongUpstreamList}) => ({default: KongUpstreamList})))
     },
     {
       title: t('证书', {count: 0, postProcess: 'inflection'}),

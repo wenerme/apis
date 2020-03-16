@@ -33,6 +33,12 @@
   "客户端证书": "Client Certificate",
   "路径处理": "Path Handling",
   "信息": "Info",
+  "LUA 共享字典内存": "Lua Share Dict",
+  "LUA Worker 内存": "Lua Worker Memory",
   "基础授权": "Basic Auth",
+  "权重": "Weight",
+  "总请求数": "Total Requests",
+  "连接": "Connection",
+  "确认删除": "Confirm delete",
   "插件列表": "Plugins"
 }

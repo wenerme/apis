@@ -4,9 +4,13 @@ import {KongRouteEntity} from 'modules/kong/apis/types';
 import {renderArrayOfString, renderBoolean, renderTags} from 'modules/kong/components/renders';
 import {Button, Divider, Form} from 'antd';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
-import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
+import {
+  createEntityColumns,
+  KongEntityTable,
+  KongEntityTableProps
+} from 'modules/kong/components/entity/KongEntityTable';
 import {flatMapDeep, keyBy, omitBy, uniq} from 'lodash';
-import {EntitySelect} from 'modules/kong/components/EntitySelect';
+import {EntitySelect} from 'modules/kong/components/entity/EntitySelect';
 import {Trans} from 'react-i18next';
 import {HeaderInput} from 'modules/kong/components/HeaderInput';
 import {FormListField} from 'modules/kong/components/FormListField';
@@ -20,6 +24,7 @@ const otherFields = [
     label: '重定向码',
     widget: 'select',
     required: true,
+    defaultValue: 426,
     options: [426, 301, 302, 307, 308],
   },
   {
@@ -55,7 +60,7 @@ const otherFields = [
     widgetProps: {mode: 'tags'},
   },
   {
-    key: 'service.id',
+    key: 'service',
     label: '服务',
     widget: EntitySelect,
     widgetProps: {
@@ -143,12 +148,22 @@ const protocolFieldSet = {
     ['snis']
   ],
 };
+const protocolField = {
+  key: 'protocols',
+  label: '协议',
+  widget: 'select',
+  widgetProps: {mode: 'multiple'},
+  required: true,
+  defaultValue: ['http', 'https'],
+  options: ['grpc', 'grpcs', 'http', 'https', 'tcp', 'tls'],
+};
 
 const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const initial = useMemo(() => {
     // pre process
     // null 不能被赋初始值
-    const initial = omitBy(initialValues, v => v === null) ?? buildInitialValues([...fields]);
+    const initial = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields, ...otherFields, protocolField]);
+    console.log(`Initial`, initialValues, initial);
     if (initial['headers'] && !Array.isArray(initial['headers'])) {
       initial['headers'] = Object.entries(initial['headers'])
     }
@@ -162,6 +177,7 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
     const keys = uniq(flatMapDeep(protocols, v => protocolFieldSet[v]));
     return keys.map(v => protocolFieldByKey[v])
   }, [protocols]);
+
 
   return (
     <Form
@@ -187,15 +203,7 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
 
       <Divider><Trans>协议配置</Trans></Divider>
 
-      <FormFieldBuilder pure field={{
-        key: 'protocols',
-        label: '协议',
-        widget: 'select',
-        widgetProps: {mode: 'multiple'},
-        required: true,
-        defaultValue: 'http',
-        options: ['grpc', 'grpcs', 'http', 'https', 'tcp', 'tls'],
-      }} />
+      <FormFieldBuilder pure field={protocolField} />
 
       <FormFieldsBuilder fields={currentProtocolFields} />
 
@@ -212,7 +220,7 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
 };
 
 
-export const KongRouteList: React.FC = () => {
+export const KongRouteList: React.FC<Partial<KongEntityTableProps>> = (props) => {
   const columns = useMemo(() => normalizeColumns<KongRouteEntity>(createEntityColumns([
     {key: 'service.id', title: '服务', width: 300},
 
@@ -235,6 +243,7 @@ export const KongRouteList: React.FC = () => {
     name="Route"
     columns={columns}
     editor={RouteForm}
+    {...props}
   />
 };
 

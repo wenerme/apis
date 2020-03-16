@@ -1,15 +1,13 @@
-import React, {useMemo} from 'react'
-import {Button, Divider, Form, message} from 'antd';
-import {normalizeColumns} from 'libs/antds/table/normal';
-import URI from 'urijs'
-import {buildInitialValues, FormFieldBuilder, FormFieldsBuilder} from 'libs/antds/form/builder';
-import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
-import {omitBy} from 'lodash';
+import React, {useMemo} from 'react';
+import {EntitySelect} from 'modules/kong/components/entity/EntitySelect';
 import {ProtocolTypes} from 'modules/kong/apis/types';
-import {EntitySelect} from 'modules/kong/components/EntitySelect';
+import {omitBy} from 'lodash';
+import {buildInitialValues, FormFieldBuilder, FormFieldsBuilder} from 'libs/antds/form/builder';
+import URI from 'urijs';
+import {Button, Divider, Form, message} from 'antd';
 import {Trans} from 'react-i18next';
 
-const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
+export const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const fields = [
     {key: 'name', label: '名字'},
     {
@@ -31,7 +29,7 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
       widgetProps: {mode: 'tags'},
     },
     {
-      key: 'client_certificate.id',
+      key: 'client_certificate',
       label: '客户端证书',
       widget: EntitySelect,
       widgetProps: {
@@ -92,20 +90,26 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
       initialValues={initial}
       labelCol={{span: 4}}
       wrapperCol={{span: 20}}
-      onFinish={onSubmit}
+      onFinish={(values) => {
+        // if (!values.client_certificate?.id) {
+        //   values.client_certificate = null
+        // }
+        onSubmit(values)
+      }}
       onValuesChange={(v, r) => {
-        const f = ['host', 'protocol', 'port', 'path'];
+        const f = ['hostname', 'protocol', 'port', 'path'];
         if (v['url']) {
           try {
             const uri = new URI(v['url']);
-            const o = {};
+            const o: any = {};
             f.forEach(v => {
               const neo = uri[v]();
               if (r[v] !== neo) {
                 o[v] = neo;
               }
             });
-            form.setFieldsValue(o);
+            const {hostname, ...values} = o;
+            form.setFieldsValue({...values, host: hostname});
           } catch (e) {
             message.error(`无效的URL: ${e}`)
           }
@@ -131,39 +135,3 @@ const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, on
     </Form>
   )
 };
-
-export const KongServiceList: React.FC = () => {
-  const columns = useMemo(() => normalizeColumns(createEntityColumns([
-    {
-      title: '目标',
-      width: 250,
-      className: 'no-wrap',
-      render(v, r, i): any {
-        const {host, protocol, path, port} = r;
-        const uri = new URI('');
-        Object.entries({host, protocol, path, port})
-          .forEach(([k, v]) => {
-            if (v) {
-              uri[k](v)
-            }
-          });
-        return uri.toString()
-      }
-    },
-    {dataIndex: 'retries', title: '重试', width: 80,},
-    {dataIndex: 'connect_timeout', title: '链接超时', width: 100},
-    {dataIndex: 'write_timeout', title: '写超时', width: 100},
-    {dataIndex: 'read_timeout', title: '读超时', width: 100},
-  ])), []);
-
-
-  return (
-    <KongEntityTable
-      label={'服务'}
-      name={'Service'}
-      columns={columns}
-      editor={ServiceForm}
-    />
-  )
-};
-

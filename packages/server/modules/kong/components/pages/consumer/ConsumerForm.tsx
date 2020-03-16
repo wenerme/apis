@@ -1,7 +1,7 @@
 import React from 'react';
-import {TagsField} from 'modules/kong/components/KongEntityTable';
+import {TagsField} from 'modules/kong/components/entity/KongEntityTable';
 import {withProps} from 'libs/reacts/libs/withProps';
-import {EntityForm} from 'modules/kong/components/EntityForm';
+import {EntityForm} from 'modules/kong/components/entity/EntityForm';
 
 export const ConsumerForm = withProps(EntityForm, {
   fields: [

@@ -105,10 +105,15 @@ export class KongClientService implements KongService {
     Object.assign(this, buildExplicitNestRestMethod('ConsumerOAuth2', this.client, {
       path: 'oauth2',
       parentPath: 'consumers'
-    }))
+    }));
     Object.assign(this, buildExplicitNestRestMethod('ConsumerJwt', this.client, {
       path: 'jwt',
       parentPath: 'consumers'
+    }));
+
+    Object.assign(this, buildExplicitNestRestMethod('ServiceRoute', this.client, {
+      path: 'routes',
+      parentPath: 'services'
     }))
   }
 

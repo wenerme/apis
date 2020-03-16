@@ -1,4 +1,4 @@
-import {OperationColumn, TagsField} from 'modules/kong/components/KongEntityTable';
+import {OperationColumn, TagsField} from 'modules/kong/components/entity/KongEntityTable';
 import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {mapValues} from 'lodash';
@@ -46,9 +46,17 @@ export const KongEntities: Record<string, { attributes, fields?, columns? } & an
       {key: 'key', label: 'Key'},
       {key: 'secret', label: 'Secret'},
       {key: 'algorithm', label: 'Algorithm'},
-      {key: 'rsa_public_key', label: 'rsa_public_key', widget: 'textarea'},
+      {key: 'rsa_public_key', label: 'RSA Public Key', widget: 'textarea'},
     ],
   },
+
+  UpstreamTarget: {
+    label: 'Upstream Target',
+    attributes: [
+      {key: 'target', label: 'Target', width: 300},
+      {key: 'weight', label: '权重', widget: 'number', widgetProps: {defaultValue: 2}},
+    ],
+  }
 };
 
 

@@ -2,11 +2,11 @@ import React, {useMemo} from 'react'
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {KongUpstreamEntity} from 'modules/kong/apis/types';
 import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
-import {KongEntityTable, OperationColumn} from 'modules/kong/components/KongEntityTable';
+import {KongEntityTable, OperationColumn} from 'modules/kong/components/entity/KongEntityTable';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {omitBy} from 'lodash';
 import {Button, Form} from 'antd';
-import {EntitySelect} from 'modules/kong/components/EntitySelect';
+import {EntitySelect} from 'modules/kong/components/entity/EntitySelect';
 
 const fields: FormFieldProps[] = [
   {key: 'cert', label: '证书'},
@@ -18,7 +18,7 @@ const fields: FormFieldProps[] = [
     widgetProps: {mode: 'tags'},
   },
   {
-    key: 'certificate.id',
+    key: 'certificate',
     label: '证书',
     widget: EntitySelect,
     widgetProps: {

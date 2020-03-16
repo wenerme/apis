@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react'
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {KongPluginSchema, KongUpstreamEntity, ProtocolTypes} from 'modules/kong/apis/types';
 import {renderBoolean, renderTags} from 'modules/kong/components/renders';
-import {createEntityColumns, KongEntityTable} from 'modules/kong/components/KongEntityTable';
+import {createEntityColumns, KongEntityTable} from 'modules/kong/components/entity/KongEntityTable';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {omitBy} from 'lodash';
 import {Button, Divider, Form, Spin} from 'antd';
@@ -11,7 +11,7 @@ import {getKongService} from 'modules/kong/apis/client';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
 import {doUpdateInformation} from 'modules/kong/reducers/actions';
 import {useDispatch} from 'react-redux';
-import {EntitySelect} from 'modules/kong/components/EntitySelect';
+import {EntitySelect} from 'modules/kong/components/entity/EntitySelect';
 import {Trans} from 'react-i18next';
 
 
@@ -98,7 +98,14 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
   }, []);
 
   const fields: FormFieldProps[] = [
-    {key: 'name', label: '插件', required: true, widget: 'select', options: Object.keys(plugins ?? {})},
+    {
+      key: 'name',
+      label: '插件',
+      required: true,
+      widget: 'select',
+      widgetProps: {showSearch: true},
+      options: Object.keys(plugins ?? {})
+    },
     {
       key: 'protocols', label: '协议',
       widget: 'select', widgetProps: {mode: 'multiple'},
@@ -114,7 +121,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
       widgetProps: {mode: 'tags'},
     },
     {
-      key: 'service.id',
+      key: 'service',
       label: '服务',
       widget: EntitySelect,
       widgetProps: {
@@ -122,7 +129,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
       }
     },
     {
-      key: 'route.id',
+      key: 'route',
       label: '路由',
       widget: EntitySelect,
       widgetProps: {
@@ -130,7 +137,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
       }
     },
     {
-      key: 'consumer.id',
+      key: 'consumer',
       label: '消费者',
       widget: EntitySelect,
       widgetProps: {

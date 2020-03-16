@@ -1,32 +1,8 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {ConsumerForm} from 'modules/kong/components/pages/consumer/ConsumerForm';
-import {KongEntityTable} from 'modules/kong/components/KongEntityTable';
-import {buildEntityService} from 'modules/kong/apis/utils';
-import {getKongService} from 'modules/kong/apis/client';
-import {withProps} from 'libs/reacts/libs/withProps';
-import {EntityForm} from 'modules/kong/components/EntityForm';
-import {KongEntities} from 'modules/kong/KongEntities';
+import {KongEntities} from 'modules/kong/components/entity/KongEntities';
+import {EntityTable} from 'modules/kong/components/entity/EntityTable';
 
-
-const EntityTable: React.FC<{ entity, parentId? }> = ({parentId, entity}) => {
-  const {name, label, columns, fields, editor, viewer} = entity;
-  const entityService = useMemo(() => {
-    if (!parentId) {
-      return buildEntityService(getKongService, name)
-    } else {
-      return buildEntityService(getKongService, name, (...args) => next => next(parentId, ...args))
-    }
-  }, [parentId]);
-
-  return (<KongEntityTable
-    label={label}
-    name={name}
-    columns={columns}
-    editor={editor ?? withProps(EntityForm, {fields})}
-    viewer={viewer}
-    entityService={entityService}
-  />)
-};
 
 export const ConsumerViewer: React.FC<{ initialValues, onSubmit }> = ({initialValues, onSubmit}) => {
   const {id: consumerId} = initialValues ?? {};

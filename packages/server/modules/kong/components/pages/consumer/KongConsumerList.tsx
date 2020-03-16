@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {KongUpstreamEntity} from 'modules/kong/apis/types';
-import {KongEntityTable, OperationColumn} from 'modules/kong/components/KongEntityTable';
+import {KongEntityTable, OperationColumn} from 'modules/kong/components/entity/KongEntityTable';
 import {renderTags, renderTimeStamp} from 'modules/kong/components/renders';
 import {ConsumerForm} from 'modules/kong/components/pages/consumer/ConsumerForm';
 import {ConsumerViewer} from 'modules/kong/components/pages/consumer/ConsumerViewer';
