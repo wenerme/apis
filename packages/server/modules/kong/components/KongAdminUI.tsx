@@ -17,6 +17,7 @@ import {
   SecurityScanOutlined,
   SettingOutlined,
   ShareAltOutlined,
+  TagsOutlined,
   TeamOutlined,
   UnlockOutlined
 } from '@ant-design/icons/lib';
@@ -312,50 +313,57 @@ export const KongAdmin: React.FC = () => {
       component: React.lazy(() => import('./pages/dashboard/KongAdminSummary'))
     },
     {
+      title: t('标签', {count: 0, postProcess: 'inflection'}),
+      path: '/tags',
+      iconComponent: <TagsOutlined />,
+      exact: true,
+      component: React.lazy(() => import('./pages/tag/KongTagList').then(({KongTagList}) => ({default: KongTagList})))
+    },
+    {
       title: t('服务', {count: 0, postProcess: 'inflection'}),
-      path: '/service',
+      path: '/services',
       iconComponent: <ApiOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/service/KongServiceList').then(({KongServiceList}) => ({default: KongServiceList})))
     },
     {
       title: t('路由', {count: 0, postProcess: 'inflection'}),
-      path: '/route',
+      path: '/routes',
       iconComponent: <FullscreenOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/route/KongRouteList').then(({KongRouteList}) => ({default: KongRouteList})))
     },
     {
       title: t('消费者', {count: 0, postProcess: 'inflection'}),
-      path: '/consumer',
+      path: '/consumers',
       iconComponent: <TeamOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/consumer/KongConsumerList').then(({KongConsumerList}) => ({default: KongConsumerList})))
     },
     {
       title: t('插件', {count: 0, postProcess: 'inflection'}),
-      path: '/plugin',
+      path: '/plugins',
       iconComponent: <AppstoreAddOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongPluginList').then(({KongPluginList}) => ({default: KongPluginList})))
     },
     {
       title: t('上游', {count: 0, postProcess: 'inflection'}),
-      path: '/upstream',
+      path: '/upstreams',
       exact: true,
       iconComponent: <ClusterOutlined />,
       component: React.lazy(() => import('./pages/upstream/KongUpstreamList').then(({KongUpstreamList}) => ({default: KongUpstreamList})))
     },
     {
       title: t('证书', {count: 0, postProcess: 'inflection'}),
-      path: '/certificate',
+      path: '/certificates',
       iconComponent: <SafetyCertificateOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongCertificateList').then(({KongCertificateList}) => ({default: KongCertificateList})))
     },
     {
       title: t('CA证书', {count: 0, postProcess: 'inflection'}),
-      path: '/ca-certificate',
+      path: '/ca-certificates',
       iconComponent: <CaCertificateOutlined />,
       exact: true,
       component: React.lazy(() => import('./pages/KongCaCertificateList').then(({KongCaCertificateList}) => ({default: KongCaCertificateList})))

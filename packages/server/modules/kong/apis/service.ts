@@ -25,7 +25,9 @@ export interface KongService {
 
   getPluginSchema(name): Promise<KongPluginSchema>
 
-  listTags(query?: KongListQuery): Promise<KongListResponse<KongTagEntity>>
+  listAllTags(query?: KongListQuery): Promise<KongListResponse<KongTagEntity>>
+
+  listTags(query?: KongListQuery & { tag }): Promise<KongListResponse<KongTagEntity>>
 
   // region Service
 

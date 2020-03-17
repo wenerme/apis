@@ -120,7 +120,8 @@ export class KongClientService implements KongService {
   getInformation = () => resultOf(this.client.get('/'));
   getNodeStatus = () => resultOf(this.client.get('/status'));
   getPluginSchema = name => resultOf(this.client.get(`/plugins/schema/${name}`));
-  listTags = params => resultOf(this.client.get('/tags', {params}));
+  listTags = ({tag, ...params}) => resultOf(this.client.get(`/tags/${tag}`, {params}));
+  listAllTags = params => resultOf(this.client.get('/tags', {params}));
 }
 
 function idOrName(v) {

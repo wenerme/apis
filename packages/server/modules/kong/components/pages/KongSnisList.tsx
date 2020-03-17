@@ -9,7 +9,7 @@ import {Button, Form} from 'antd';
 import {EntitySelect} from 'modules/kong/components/entity/EntitySelect';
 
 const fields: FormFieldProps[] = [
-  {key: 'cert', label: '证书'},
+  {key: 'name', label: '名字'},
   {
     key: 'tags',
     label: '标签',
