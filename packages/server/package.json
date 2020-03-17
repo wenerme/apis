@@ -21,7 +21,8 @@
     "setup-db": "node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
-    "posttest": "yarn run check"
+    "posttest": "yarn run check",
+    "script:kong-lego": "ncc build ./scripts/kong-lego.ts -o dist/kong-lego && mv dist/kong-lego/index.js dist/kong-lego.js && git add dist/kong-lego.js"
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.2",
@@ -159,6 +160,7 @@
     "@types/webtorrent": "^0.107.1",
     "@types/xmldom": "^0.1.29",
     "@types/zxcvbn": "^4.4.0",
+    "@zeit/ncc": "^0.21.1",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-inline-react-svg": "^1.1.1",
