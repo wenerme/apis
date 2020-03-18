@@ -36,7 +36,7 @@ import {FormInstance} from 'antd/lib/form';
 import {doSetupConfig} from 'modules/kong/reducers/actions';
 import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import {initReactI18next, useTranslation} from 'react-i18next';
+import {initReactI18next, Trans, useTranslation} from 'react-i18next';
 import {KongAdminConfigShareModal} from 'modules/kong/components/KongAdminConfigShareModal';
 import {decrypt} from 'modules/kong/libs/encryption';
 import {I18nLanguageSelector} from 'modules/kong/components/I18nLanguageSelector';
@@ -199,8 +199,8 @@ const KongAdminSetupForm: React.FC<{ initialValues?, onSubmit?, form?: FormInsta
 
       {showActions && (
         <div style={{display: 'flex', justifyContent: 'space-around'}}>
-          <Button htmlType="submit" loading={loading} type="primary">{t('提交')}</Button>
-          <Button htmlType="reset" onClick={() => form.resetFields()}>{t('重置')}</Button>
+          <Button htmlType="submit" type="primary"><Trans>提交</Trans></Button>
+          <Button htmlType="reset" onClick={() => form.resetFields()}><Trans>重置</Trans></Button>
         </div>
       )}
     </Form>
@@ -345,7 +345,7 @@ export const KongAdmin: React.FC = () => {
       path: '/plugins',
       iconComponent: <AppstoreAddOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/KongPluginList').then(({KongPluginList}) => ({default: KongPluginList})))
+      component: React.lazy(() => import('./pages/plugin/KongPluginList').then(({KongPluginList}) => ({default: KongPluginList})))
     },
     {
       title: t('上游', {count: 0, postProcess: 'inflection'}),
@@ -359,7 +359,7 @@ export const KongAdmin: React.FC = () => {
       path: '/certificates',
       iconComponent: <SafetyCertificateOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/KongCertificateList').then(({KongCertificateList}) => ({default: KongCertificateList})))
+      component: React.lazy(() => import('./pages/certificate/KongCertificateList').then(({KongCertificateList}) => ({default: KongCertificateList})))
     },
     {
       title: t('CA证书', {count: 0, postProcess: 'inflection'}),
@@ -373,7 +373,7 @@ export const KongAdmin: React.FC = () => {
       path: '/snis',
       iconComponent: <SecurityScanOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/KongSnisList').then(({KongSnisList}) => ({default: KongSnisList})))
+      component: React.lazy(() => import('./pages/sni/KongSnisList').then(({KongSnisList}) => ({default: KongSnisList})))
     },
   ];
 

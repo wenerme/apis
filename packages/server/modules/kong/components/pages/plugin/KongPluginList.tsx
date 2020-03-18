@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react'
 import {normalizeColumns} from 'libs/antds/table/normal';
 import {KongPluginSchema, KongUpstreamEntity, ProtocolTypes} from 'modules/kong/apis/types';
 import {renderBoolean, renderTags} from 'modules/kong/components/renders';
-import {createEntityColumns, KongEntityTable} from 'modules/kong/components/entity/KongEntityTable';
+import {createEntityColumns, KongEntityTable, TagsField} from 'modules/kong/components/entity/KongEntityTable';
 import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
 import {omitBy} from 'lodash';
 import {Button, Divider, Form, Spin} from 'antd';
@@ -104,7 +104,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
       required: true,
       widget: 'select',
       widgetProps: {showSearch: true},
-      options: Object.keys(plugins ?? {})
+      options: Object.keys(plugins ?? [])
     },
     {
       key: 'protocols', label: '协议',
@@ -113,13 +113,7 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
       options: ProtocolTypes,
     },
     {key: 'enabled', label: '启用', widget: 'switch', defaultValue: true},
-    {
-      key: 'tags',
-      label: '标签',
-      widget: 'select',
-      defaultValue: [],
-      widgetProps: {mode: 'tags'},
-    },
+    TagsField,
     {
       key: 'service',
       label: '服务',
@@ -201,8 +195,8 @@ const PluginForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onS
 
 
       <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <Button htmlType="submit" type="primary">提交</Button>
-        <Button htmlType="reset" onClick={() => form.resetFields()}>重置</Button>
+        <Button htmlType="submit" type="primary"><Trans>提交</Trans></Button>
+        <Button htmlType="reset" onClick={() => form.resetFields()}><Trans>重置</Trans></Button>
       </div>
     </Form>
   )

@@ -9,13 +9,14 @@ import {EntityForm} from 'modules/kong/components/entity/EntityForm';
 
 const fields: FormFieldProps[] = [
   {key: 'cert', label: '证书', widget: 'textarea'},
+  {key: 'key', label: '密钥', widget: 'textarea'},
 
   TagsField,
 ];
 
-const CaCertificateForm = withProps(EntityForm, {fields});
+const CertificateForm = withProps(EntityForm, {fields});
 
-export const KongCaCertificateList: React.FC = () => {
+export const KongCertificateList: React.FC = () => {
   const columns = useMemo(() => normalizeColumns<KongUpstreamEntity>([
     {dataIndex: 'id', title: 'ID', width: 300},
     {dataIndex: 'tags', title: '标签', width: 120, render: renderTags},
@@ -24,10 +25,10 @@ export const KongCaCertificateList: React.FC = () => {
   ]), []);
   return (
     <KongEntityTable
-      label='CA证书'
-      name='CaCertificate'
+      label='证书'
+      name='Certificate'
       columns={columns}
-      editor={CaCertificateForm}
+      editor={CertificateForm}
     />
   )
 };

@@ -1,7 +1,8 @@
-import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
-import React, {useMemo} from 'react';
-import {omitBy} from 'lodash';
-import {Button, Form} from 'antd';
+import {FormFieldProps} from 'libs/antds/form/builder';
+import React from 'react';
+import {TagsField} from 'modules/kong/components/entity/KongEntityTable';
+import {withProps} from 'libs/reacts/libs/withProps';
+import {EntityForm} from 'modules/kong/components/entity/EntityForm';
 
 const HashTypes = ['none', 'consumer', 'ip', 'header', 'cookie'];
 
@@ -34,37 +35,6 @@ const fields: FormFieldProps[] = [
 
   // TODO Health checks
 
-  {
-    key: 'tags',
-    label: '标签',
-    widget: 'select',
-    defaultValue: [],
-    widgetProps: {mode: 'tags'},
-  },
+  TagsField,
 ];
-export const UpstreamForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
-  const initial = useMemo(() => {
-    return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields])
-  }, [initialValues]);
-
-  const [form] = Form.useForm();
-
-  return (
-    <Form
-      form={form}
-      initialValues={initial}
-      labelCol={{span: 4}}
-      wrapperCol={{span: 20}}
-      onFinish={onSubmit}
-    >
-      {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
-
-      <FormFieldsBuilder pure fields={fields} />
-
-      <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <Button htmlType="submit" type="primary">提交</Button>
-        <Button htmlType="reset" onClick={() => form.resetFields()}>重置</Button>
-      </div>
-    </Form>
-  )
-};
+export const UpstreamForm = withProps(EntityForm, {fields});

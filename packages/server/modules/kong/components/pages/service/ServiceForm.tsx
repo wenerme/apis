@@ -6,6 +6,7 @@ import {buildInitialValues, FormFieldBuilder, FormFieldsBuilder} from 'libs/antd
 import URI from 'urijs';
 import {Button, Divider, Form, message} from 'antd';
 import {Trans} from 'react-i18next';
+import {TagsField} from 'modules/kong/components/entity/KongEntityTable';
 
 export const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
   const fields = [
@@ -21,13 +22,7 @@ export const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialVal
     {key: 'connect_timeout', label: '链接超时', widget: 'number', required: true, defaultValue: 60000},
     {key: 'write_timeout', label: '写超时', widget: 'number', required: true, defaultValue: 60000},
     {key: 'read_timeout', label: '读超时', widget: 'number', required: true, defaultValue: 60000},
-    {
-      key: 'tags',
-      label: '标签',
-      widget: 'select',
-      defaultValue: [],
-      widgetProps: {mode: 'tags'},
-    },
+    TagsField,
     {
       key: 'client_certificate',
       label: '客户端证书',

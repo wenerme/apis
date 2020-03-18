@@ -91,6 +91,7 @@
     "pngjs": "^3.4.0",
     "puppeteer-core": "^2.1.1",
     "qrcode.react": "^1.0.0",
+    "rc-tween-one": "^2.6.8",
     "react": "^16.13.0",
     "react-color": "^2.18.0",
     "react-contenteditable": "^3.3.3",

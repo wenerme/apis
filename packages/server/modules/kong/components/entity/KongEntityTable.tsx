@@ -10,6 +10,7 @@ import {buildEntityService} from 'modules/kong/apis/utils';
 import {KongEntityService} from 'modules/kong/apis/service';
 import {FormFieldProps} from 'libs/antds/form/builder';
 import {useAsyncEffect} from 'hooks/useAsyncEffect';
+import {TagsInput} from 'modules/kong/components/TagsInput';
 
 export interface KongEntityTableProps {
   label
@@ -74,9 +75,8 @@ export const KongEntityOperationColumn: React.FC<{ record }> = ({record, childre
 export const TagsField: FormFieldProps = {
   key: 'tags',
   label: '标签',
-  widget: 'select',
+  widget: TagsInput,
   defaultValue: [],
-  widgetProps: {mode: 'tags'},
 };
 
 export const OperationColumn: ColumnProps<any> = {
