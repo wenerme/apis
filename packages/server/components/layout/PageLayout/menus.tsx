@@ -1,4 +1,4 @@
-import {BarcodeOutlined, BorderlessTableOutlined, PartitionOutlined} from '@ant-design/icons/lib';
+import {BarcodeOutlined, BorderlessTableOutlined, EditOutlined, PartitionOutlined} from '@ant-design/icons/lib';
 import QrcodePrintOutlined from 'components/icons/QrcodePrintOutlined';
 import QrcodeReadOutlined from 'components/icons/QrcodeReadOutlined';
 import BarcodePrintOutlined from 'components/icons/BarcodePrintOutlined';
@@ -122,6 +122,16 @@ export const menus: MenuSpec[] = [
       {
         title: '浏览器检测',
         path: '/webrtc/checker',
+      },
+    ]
+  },
+  {
+    title: '编辑器',
+    iconComponent: <EditOutlined />,
+    children: [
+      {
+        title: 'ProseMirror',
+        path: '/editor/prosemirror',
       },
     ]
   },

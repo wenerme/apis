@@ -66,7 +66,7 @@ export const ServiceForm: React.FC<{ initialValues?, onSubmit? }> = ({initialVal
   ];
 
   const initial = useMemo(() => {
-    const o = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields, ...connectionFields]);
+    const o: any = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields, ...connectionFields]);
     const {protocol, host, port, path} = o;
     try {
       if (!o['url']) {

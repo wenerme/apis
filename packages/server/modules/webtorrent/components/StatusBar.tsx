@@ -31,17 +31,17 @@ export const StatusBar: React.FC<{ client: Instance }> = ({client}) => {
         </Dropdown>
         <div>
           <Tooltip title="下载速度">
-            <ArrowDownOutlined /> 0 K/s
+            <span><ArrowDownOutlined /> 0 K/s</span>
           </Tooltip>
         </div>
         <div>
           <Tooltip title="上传速度">
-            <ArrowUpOutlined /> 0 K/s
+            <span><ArrowUpOutlined /> 0 K/s</span>
           </Tooltip>
         </div>
         <div>
           <Tooltip title="做种率">
-            <ExpandAltOutlined /> 0%
+            <span><ExpandAltOutlined /> 0%</span>
           </Tooltip>
         </div>
       </div>
