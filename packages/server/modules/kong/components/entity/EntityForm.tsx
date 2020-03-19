@@ -5,7 +5,7 @@ import {Button, Form} from 'antd';
 import {Trans} from 'react-i18next';
 
 export const EntityForm: React.FC<{ fields?: FormFieldProps[], initialValues?, onSubmit? }> = ({fields, children, initialValues, onSubmit}) => {
-  const initial = useMemo(() => {
+  const initial: any = useMemo(() => {
     return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields])
   }, [initialValues]);
 

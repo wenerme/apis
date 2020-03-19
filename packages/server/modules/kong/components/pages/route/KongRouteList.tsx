@@ -73,7 +73,7 @@ const protocolFields: FormFieldProps[] = [
     key: 'methods',
     label: '方法',
     widget: 'select',
-    widgetProps: {mode: 'multiple'},
+    widgetProps: {mode: 'tags', allowClear: true, autoClearSearchValue: true,},
     options: ['GET', 'POST', 'DELETE', 'PATCH', 'HEAD', 'PUT', 'OPTIONS'],
   },
   {
@@ -163,7 +163,6 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
     // pre process
     // null 不能被赋初始值
     const initial = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields, ...otherFields, protocolField]);
-    console.log(`Initial`, initialValues, initial);
     if (initial['headers'] && !Array.isArray(initial['headers'])) {
       initial['headers'] = Object.entries(initial['headers'])
     }
@@ -199,6 +198,8 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
         }
       }}
     >
+      {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
+
       <FormFieldsBuilder pure fields={fields} />
 
       <Divider><Trans>协议配置</Trans></Divider>

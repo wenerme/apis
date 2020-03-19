@@ -210,7 +210,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
           name={name}
           initialEntity={creating === true ? null : creating}
           visible={Boolean(creating)}
-          component={viewer}
+          component={editor}
           onClose={() => {
             setState(produce(s => {
               s.creating = null;

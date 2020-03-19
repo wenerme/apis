@@ -20,4 +20,4 @@ export const ServiceViewer: React.FC<{ initialValues?, onSubmit? }> = ({initialV
       />
     </div>
   )
-}
+};
