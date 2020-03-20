@@ -133,6 +133,14 @@ export const menus: MenuSpec[] = [
         title: 'ProseMirror',
         path: '/editor/prosemirror',
       },
+      {
+        title: 'Slate',
+        path: '/editor/slate',
+      },
+      {
+        title: 'Simple Code Editor',
+        path: '/editor/simple-code',
+      },
     ]
   },
   {

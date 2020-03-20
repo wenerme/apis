@@ -200,7 +200,7 @@ function buildFormField(field: FormFieldProps, options?: FormBuilderOptions) {
   )
 }
 
-export function buildInitialValues(fields: FormFieldProps[]) {
+export function buildInitialValues(fields: FormFieldProps[]): any {
   const o = {};
   fields.forEach(({name, key, defaultValue}) => {
     if (defaultValue === null || defaultValue === undefined || !(name || key)) {
