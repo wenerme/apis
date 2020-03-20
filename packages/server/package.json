@@ -136,6 +136,7 @@
     "typeorm-naming-strategies": "^1.1.0",
     "urijs": "^1.19.2",
     "url-loader": "^3.0.0",
+    "use-immer": "^0.3.5",
     "webtorrent": "^0.107.17",
     "winston": "^3.2.1",
     "wrtc": "^0.4.3",

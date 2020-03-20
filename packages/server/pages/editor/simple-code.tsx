@@ -6,7 +6,7 @@ import {PageHeader, Select} from 'antd';
 import {EditOutlined} from '@ant-design/icons/lib';
 import dynamic from 'next/dynamic';
 import components from 'prismjs/components'
-import {usePrismTheme} from 'hooks/usePrismTheme';
+import {usePrismTheme} from 'hooks/prism';
 
 const SimpleCodeEditor = dynamic(() => import('components/editor/SimpleCodeEditor').then(({SimpleCodeEditor}) => SimpleCodeEditor), {
   loading: () => <div>Loading...</div>

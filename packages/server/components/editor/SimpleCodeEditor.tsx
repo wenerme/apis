@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Editor from 'react-simple-code-editor';
-import {usePrismLanguage} from 'hooks/usePrismLanguage';
+import {usePrismLanguage} from 'hooks/prism';
 
 export const SimpleCodeEditor: React.FC<{ value, onChange, language, theme? }> = ({value, onChange, language, theme = 'prism'}) => {
   const [highlight, setHighlight] = useState(null);
