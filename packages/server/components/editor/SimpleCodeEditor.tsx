@@ -1,21 +1,22 @@
-import React from 'react'
-
-import {highlight, languages} from 'prismjs/components/prism-core'
+import React, {useEffect, useState} from 'react'
 import Editor from 'react-simple-code-editor';
+import {usePrismLanguage} from 'hooks/usePrismLanguage';
 
-import 'prismjs/components/prism-markup'
-import 'prismjs/components/prism-clike'
-import 'prismjs/components/prism-javascript'
-import 'prismjs/components/prism-typescript'
-import 'prismjs/components/prism-jsx'
-import 'prismjs/components/prism-tsx'
-
-export const SimpleCodeEditor: React.FC<{ value, onChange }> = ({value, onChange}) => {
+export const SimpleCodeEditor: React.FC<{ value, onChange, language, theme? }> = ({value, onChange, language, theme = 'prism'}) => {
+  const [highlight, setHighlight] = useState(null);
+  const {grammar, Prism} = usePrismLanguage(language);
+  useEffect(() => {
+    if (grammar) {
+      setHighlight(() => {
+        return v => Prism.highlight(v, grammar);
+      })
+    }
+  }, [grammar]);
   return (
     <Editor
       value={value}
       onValueChange={onChange}
-      highlight={code => highlight(code, languages.tsx)}
+      highlight={highlight ?? (code => code)}
       padding={10}
       style={{
         fontFamily: '"Fira code", "Fira Mono", monospace',

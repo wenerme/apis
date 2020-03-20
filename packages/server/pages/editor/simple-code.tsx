@@ -2,16 +2,18 @@ import React, {useState} from 'react';
 import {PageLayout} from 'components/layout/PageLayout/PageLayout';
 import {PageContent} from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {PageHeader} from 'antd';
+import {PageHeader, Select} from 'antd';
 import {EditOutlined} from '@ant-design/icons/lib';
 import dynamic from 'next/dynamic';
-// css in component will get invalid style
-import 'prismjs/themes/prism.css'
+import components from 'prismjs/components'
+import {usePrismTheme} from 'hooks/usePrismTheme';
 
 const SimpleCodeEditor = dynamic(() => import('components/editor/SimpleCodeEditor').then(({SimpleCodeEditor}) => SimpleCodeEditor), {
   loading: () => <div>Loading...</div>
 });
 const DemoPageContent: React.FC = () => {
+  const [lang, setLang] = useState('tsx');
+  const [theme, setTheme] = useState('prism');
   const [code, setCode] = useState(`// Demo code
 const DemoSimpleCodeEditor: React.FC = () => {
   const [code,setCode] = useState('');
@@ -29,13 +31,42 @@ const DemoSimpleCodeEditor: React.FC = () => {
   );
 };
 `);
-  return (
-    <SimpleCodeEditor
-      value={code}
-      onChange={setCode}
-    >
 
-    </SimpleCodeEditor>
+  usePrismTheme(theme);
+
+  return (
+    <div>
+      <div>
+        <Select
+          style={{width: 200}}
+          showSearch
+          value={theme}
+          onChange={v => setTheme(v)}
+        >
+          {Object.entries(components.themes).filter(([id]) => id !== 'meta').map(([id, v]: [string, any]) => (
+            <Select.Option key={id} value={id}>{typeof v === 'string' ? v : v.title}</Select.Option>
+          ))}
+        </Select>
+
+        <Select
+          style={{width: 200}}
+          showSearch
+          value={lang}
+          onChange={v => setLang(v)}
+        >
+          {Object.entries(components.languages).filter(([id]) => id !== 'meta').map(([id, v]: [string, any]) => (
+            <Select.Option key={id} value={id}>{v.title}</Select.Option>
+          ))}
+        </Select>
+      </div>
+      <SimpleCodeEditor
+        value={code}
+        onChange={setCode}
+        language={lang}
+      >
+
+      </SimpleCodeEditor>
+    </div>
   );
 };
 

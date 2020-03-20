@@ -1,17 +1,13 @@
-import {DependencyList, useEffect, useMemo} from 'react';
+import {DependencyList, useEffect, useRef} from 'react';
 
 export function useAsyncEffect(effect: ({setCloser}) => Promise<void | (() => void | undefined)>, deps?: DependencyList) {
-  const cleaner = useMemo(() => {
-    const a: any = () => this?.real();
-    a.real = null;
-    return a.bind(a);
-  }, []);
+  const ref = useRef<() => void>();
   useEffect(() => {
-    effect({setCloser: (v) => cleaner.real = v})
-      .then(v => cleaner.real = cleaner.real ?? v)
+    effect({setCloser: (v) => ref.current = v})
+      .then(v => typeof v === 'function' ? ref.current = v : null)
       .catch(e => {
         console.trace(`useAsyncEffect error`, deps, e)
       });
-    return cleaner;
+    return () => ref.current?.();
   }, deps)
 }
