@@ -31,7 +31,7 @@ export const SlateMarkdownEditor: React.FC = () => {
     };
 
     const tokens = Prism.tokenize(node.text, Prism.languages.markdown);
-    console.log(`tokens`, tokens);
+    // console.log(`tokens`, tokens);
     let start = 0;
 
     for (const token of tokens) {
