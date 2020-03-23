@@ -1,43 +1,59 @@
-import React, {useEffect, useState} from 'react';
-import {Select, Spin} from 'antd';
-import {getKongService} from 'modules/kong/apis/client';
+import React, { useEffect, useState } from 'react';
+import { Select, Spin } from 'antd';
+import { getKongService } from 'modules/kong/apis/client';
 import produce from 'immer';
 
-export const EntitySelect: React.FC<{ entityName, value?, onChange? }> = ({entityName, value, onChange, ...props}) => {
+export const EntitySelect: React.FC<{ entityName; value?; onChange? }> = ({
+  entityName,
+  value,
+  onChange,
+  ...props
+}) => {
   const [state, setState] = useState({
     data: [],
     total: [],
     value: [],
     loading: false,
   });
-  const {loading, data} = state;
+  const { loading, data } = state;
 
   useEffect(() => {
-    setState(produce(s => {
-      s.loading = true
-    }));
-    getKongService()[`list${entityName}`]()
-      .then(v => {
-        setState(produce(s => {
-          s.data = s.total = v.data;
-          s.loading = false
-        }))
+    setState(
+      produce((s) => {
+        s.loading = true;
+      })
+    );
+    getKongService()
+      [`list${entityName}`]()
+      .then((v) => {
+        setState(
+          produce((s) => {
+            s.data = s.total = v.data;
+            s.loading = false;
+          })
+        );
       })
       .finally(() => {
-        setState(produce(s => {
-          s.loading = false
-        }));
-      })
+        setState(
+          produce((s) => {
+            s.loading = false;
+          })
+        );
+      });
   }, []);
-  const onSearch = v => {
+  const onSearch = (v) => {
     if (!v) {
-      setState(produce(s => {
-        s.data = s.total
-      }));
+      setState(
+        produce((s) => {
+          s.data = s.total;
+        })
+      );
     } else {
-      setState(produce(s => {
-        s.data = s.total.filter(vv => vv.id.includes(v) || vv.name?.includes(v))
-      }));
+      setState(
+        produce((s) => {
+          s.data = s.total.filter((vv) => vv.id.includes(v) || vv.name?.includes(v));
+        })
+      );
     }
   };
 
@@ -49,15 +65,17 @@ export const EntitySelect: React.FC<{ entityName, value?, onChange? }> = ({entit
       showSearch
       notFoundContent={loading ? <Spin size="small" /> : null}
       value={value?.id ?? null}
-      onChange={v => {
-        onChange(v ? {id: v} : null)
+      onChange={(v) => {
+        onChange(v ? { id: v } : null);
       }}
       onSearch={onSearch}
       {...props}
     >
-      {data.map(v => (
-        <Select.Option value={v.id} key={v.id}>{v.name ? `${v.name} - ${v.id}` : `${v.id}`}</Select.Option>
+      {data.map((v) => (
+        <Select.Option value={v.id} key={v.id}>
+          {v.name ? `${v.name} - ${v.id}` : `${v.id}`}
+        </Select.Option>
       ))}
     </Select>
-  )
+  );
 };

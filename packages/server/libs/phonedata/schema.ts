@@ -1,8 +1,8 @@
-import {Column, Entity, Index, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('phonedata_record')
 export class PhoneDataRecordEntity {
-  @PrimaryGeneratedColumn({type: 'int'})
+  @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
 
   @Column('text')
@@ -14,14 +14,14 @@ export class PhoneDataRecordEntity {
   @Column('text')
   code: string;
 
-  @Index('phonedata_record_offset_uidx', {unique: true})
+  @Index('phonedata_record_offset_uidx', { unique: true })
   @Column('int')
-  offset: number
+  offset: number;
 }
 
 @Entity('phonedata_index')
 export class PhoneDataIndexEntity {
-  @PrimaryGeneratedColumn({type: 'int'})
+  @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
 
   @Index('phonedata_index_prefix_idx')

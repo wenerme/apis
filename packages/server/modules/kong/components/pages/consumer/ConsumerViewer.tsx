@@ -1,11 +1,10 @@
 import React from 'react';
-import {ConsumerForm} from 'modules/kong/components/pages/consumer/ConsumerForm';
-import {KongEntities} from 'modules/kong/components/entity/KongEntities';
-import {EntityTable} from 'modules/kong/components/entity/EntityTable';
+import { ConsumerForm } from 'modules/kong/components/pages/consumer/ConsumerForm';
+import { KongEntities } from 'modules/kong/components/entity/KongEntities';
+import { EntityTable } from 'modules/kong/components/entity/EntityTable';
 
-
-export const ConsumerViewer: React.FC<{ initialValues, onSubmit }> = ({initialValues, onSubmit}) => {
-  const {id: consumerId} = initialValues ?? {};
+export const ConsumerViewer: React.FC<{ initialValues; onSubmit }> = ({ initialValues, onSubmit }) => {
+  const { id: consumerId } = initialValues ?? {};
   return (
     <div>
       <ConsumerForm initialValues={initialValues} onSubmit={onSubmit} />
@@ -17,5 +16,5 @@ export const ConsumerViewer: React.FC<{ initialValues, onSubmit }> = ({initialVa
       <EntityTable entity={KongEntities.ConsumerJwt} parentId={consumerId} />
       <EntityTable entity={KongEntities.ConsumerAcl} parentId={consumerId} />
     </div>
-  )
+  );
 };

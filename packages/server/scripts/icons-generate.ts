@@ -1,23 +1,23 @@
-import glob from 'glob'
+import glob from 'glob';
 import * as fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 
-_.mixin({'pascalCase': _.flow(_.camelCase, _.upperFirst)});
+_.mixin({ pascalCase: _.flow(_.camelCase, _.upperFirst) });
 
 /*
 ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts
  */
 async function generate(svgPath, compPath) {
-  const files: string[] = await new Promise(((resolve, reject) =>
-      glob('*.svg', {cwd: svgPath}, (e, v) => {
-        if (e) {
-          reject(e)
-        } else {
-          resolve(v)
-        }
-      })
-  ));
+  const files: string[] = await new Promise((resolve, reject) =>
+    glob('*.svg', { cwd: svgPath }, (e, v) => {
+      if (e) {
+        reject(e);
+      } else {
+        resolve(v);
+      }
+    })
+  );
   console.log(files);
   // files.ea
   for (const f of files) {
@@ -29,17 +29,18 @@ async function generate(svgPath, compPath) {
       name,
       comp: path.join(compPath, `${name}.tsx`),
       // force: true,
-    })
+    });
   }
 }
 
-
-async function gen({svg, comp, name, svgImport, force = false}) {
+async function gen({ svg, comp, name, svgImport, force = false }) {
   if (fs.existsSync(comp) && !force) {
-    return
+    return;
   }
   console.log(`Generate ${name}`);
-  fs.writeFileSync(comp, `
+  fs.writeFileSync(
+    comp,
+    `
 import React, {ForwardRefRenderFunction} from 'react';
 import ${name}Svg from '${svgImport}'
 import Icon, {IconComponentProps} from '@ant-design/icons/lib/components/Icon';
@@ -53,12 +54,12 @@ const ${name}: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) 
 
 ${name}.displayName = '${name}';
 export default React.forwardRef(${name});
-`.trimLeft())
+`.trimLeft()
+  );
 }
 
-
 async function main() {
-  await generate('./public/icons/svg', './components/icons')
+  await generate('./public/icons/svg', './components/icons');
 }
 
 (async function run() {

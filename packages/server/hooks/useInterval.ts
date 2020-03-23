@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function useInterval(handler: TimerHandler, interval) {
   const ref = useRef<any>();
@@ -7,6 +7,6 @@ export function useInterval(handler: TimerHandler, interval) {
   useEffect(() => {
     // ref.current = setInterval(() => setCount(v => v + 1), interval);
     ref.current = setInterval(handler, interval);
-    return () => clearInterval(ref.current)
-  }, [interval])
+    return () => clearInterval(ref.current);
+  }, [interval]);
 }

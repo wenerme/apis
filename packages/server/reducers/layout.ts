@@ -1,10 +1,10 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface LayoutState {
-  menuOpenKeys: string[]
-  isLight
-  isDark
-  theme: string
+  menuOpenKeys: string[];
+  isLight;
+  isDark;
+  theme: string;
 }
 
 const slice = createSlice({
@@ -15,11 +15,11 @@ const slice = createSlice({
     isLight: true,
   } as LayoutState,
   reducers: {
-    setMenuOpenKeys(state, {payload}) {
+    setMenuOpenKeys(state, { payload }) {
       state.menuOpenKeys = payload ?? [];
-    }
-  }
+    },
+  },
 });
 
-export const {setMenuOpenKeys} = slice.actions;
+export const { setMenuOpenKeys } = slice.actions;
 export const layoutReducer = slice.reducer;

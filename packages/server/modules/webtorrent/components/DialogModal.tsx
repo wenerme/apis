@@ -1,6 +1,6 @@
 import React from 'react';
-import {NewDownloadModal} from 'modules/webtorrent/components/NewDownloadModal';
-import {NewSeedModal} from 'modules/webtorrent/components/NewSeedModal';
+import { NewDownloadModal } from 'modules/webtorrent/components/NewDownloadModal';
+import { NewSeedModal } from 'modules/webtorrent/components/NewSeedModal';
 
 export const DialogModal: React.FC = () => {
   return (
@@ -8,5 +8,5 @@ export const DialogModal: React.FC = () => {
       <NewDownloadModal />
       <NewSeedModal />
     </React.Fragment>
-  )
+  );
 };

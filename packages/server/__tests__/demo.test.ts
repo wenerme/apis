@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import createDebug from 'debug'
+import createDebug from 'debug';
 
 const debug = createDebug('test:demo');
 test('test demo', async () => {

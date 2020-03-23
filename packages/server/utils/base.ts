@@ -3,38 +3,34 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 export interface Encoding {
-  bits: number
-  chars: string
-  codes?: { [char: string]: number }
+  bits: number;
+  chars: string;
+  codes?: { [char: string]: number };
 }
 
 export interface ParseOptions {
-  loose?: boolean
-  out?: new (size: number) => { [index: number]: number }
+  loose?: boolean;
+  out?: new (size: number) => { [index: number]: number };
 }
 
 export interface StringifyOptions {
-  pad?: boolean
+  pad?: boolean;
 }
 
-export type StringifyType = ArrayLike<number> | ArrayBufferLike | string
+export type StringifyType = ArrayLike<number> | ArrayBufferLike | string;
 
-export function parse(
-  string: string,
-  encoding: Encoding,
-  opts: ParseOptions = {}
-): Uint8Array {
+export function parse(string: string, encoding: Encoding, opts: ParseOptions = {}): Uint8Array {
   // Build the character lookup table:
   if (!encoding.codes) {
     encoding.codes = {};
     for (let i = 0; i < encoding.chars.length; ++i) {
-      encoding.codes[encoding.chars[i]] = i
+      encoding.codes[encoding.chars[i]] = i;
     }
   }
 
   // The string must have a whole number of bytes:
   if (!opts.loose && (string.length * encoding.bits) & 7) {
-    throw new SyntaxError('Invalid padding')
+    throw new SyntaxError('Invalid padding');
   }
 
   // Count the padding bytes:
@@ -44,14 +40,12 @@ export function parse(
 
     // If we get a whole number of bytes, there is too much padding:
     if (!opts.loose && !(((string.length - end) * encoding.bits) & 7)) {
-      throw new SyntaxError('Invalid padding')
+      throw new SyntaxError('Invalid padding');
     }
   }
 
   // Allocate the output:
-  const out = new (opts.out || Uint8Array)(
-    ((end * encoding.bits) / 8) | 0
-  ) as Uint8Array;
+  const out = new (opts.out || Uint8Array)(((end * encoding.bits) / 8) | 0) as Uint8Array;
 
   // Parse the data:
   let bits = 0; // Number of bits currently in the buffer
@@ -61,7 +55,7 @@ export function parse(
     // Read one character from the string:
     const value = encoding.codes[string[i]];
     if (value === undefined) {
-      throw new SyntaxError('Invalid character ' + string[i])
+      throw new SyntaxError('Invalid character ' + string[i]);
     }
 
     // Append the bits to the buffer:
@@ -71,30 +65,26 @@ export function parse(
     // Write out some bits if the buffer has a byte's worth:
     if (bits >= 8) {
       bits -= 8;
-      out[written++] = 0xff & (buffer >> bits)
+      out[written++] = 0xff & (buffer >> bits);
     }
   }
 
   // Verify that we have received just enough bits:
   if (bits >= encoding.bits || 0xff & (buffer << (8 - bits))) {
-    throw new SyntaxError('Unexpected end of data')
+    throw new SyntaxError('Unexpected end of data');
   }
 
-  return out
+  return out;
 }
 
-export function stringify(
-  data: StringifyType,
-  encoding: Encoding,
-  opts: StringifyOptions = {}
-): string {
+export function stringify(data: StringifyType, encoding: Encoding, opts: StringifyOptions = {}): string {
   if (typeof data === 'string') {
     data = new TextEncoder().encode(data);
   }
   if (data instanceof ArrayBuffer && !(data instanceof Uint8Array)) {
     data = new Uint8Array(data);
   }
-  const {pad = true} = opts;
+  const { pad = true } = opts;
   const mask = (1 << encoding.bits) - 1;
   let out = '';
 
@@ -109,112 +99,105 @@ export function stringify(
     // Write out as much as we can:
     while (bits > encoding.bits) {
       bits -= encoding.bits;
-      out += encoding.chars[mask & (buffer >> bits)]
+      out += encoding.chars[mask & (buffer >> bits)];
     }
   }
 
   // Partial character:
   if (bits) {
-    out += encoding.chars[mask & (buffer << (encoding.bits - bits))]
+    out += encoding.chars[mask & (buffer << (encoding.bits - bits))];
   }
 
   // Add padding characters until we hit a byte boundary:
   if (pad) {
     while ((out.length * encoding.bits) & 7) {
-      out += '='
+      out += '=';
     }
   }
 
-  return out
+  return out;
 }
-
 
 const base16Encoding: Encoding = {
   chars: '0123456789ABCDEF',
-  bits: 4
+  bits: 4,
 };
 
 const base32Encoding: Encoding = {
   chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567',
-  bits: 5
+  bits: 5,
 };
 
 const base32HexEncoding: Encoding = {
   chars: '0123456789ABCDEFGHIJKLMNOPQRSTUV',
-  bits: 5
+  bits: 5,
 };
 
 const base64Encoding: Encoding = {
   chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
-  bits: 6
+  bits: 6,
 };
 
 const base64UrlEncoding: Encoding = {
   chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_',
-  bits: 6
+  bits: 6,
 };
 
 export const Base16 = {
   parse(string: string, opts?: ParseOptions): Uint8Array {
-    return parse(string.toUpperCase(), base16Encoding, opts)
+    return parse(string.toUpperCase(), base16Encoding, opts);
   },
 
   stringify(data: StringifyType, opts?: StringifyOptions): string {
-    return stringify(data, base16Encoding, opts)
-  }
+    return stringify(data, base16Encoding, opts);
+  },
 };
 
 export const Base32 = {
   parse(string: string, opts: ParseOptions = {}): Uint8Array {
     return parse(
-      opts.loose
-        ? string
-          .toUpperCase()
-          .replace(/0/g, 'O')
-          .replace(/1/g, 'L')
-          .replace(/8/g, 'B')
-        : string,
+      opts.loose ? string.toUpperCase().replace(/0/g, 'O').replace(/1/g, 'L').replace(/8/g, 'B') : string,
       base32Encoding,
       opts
-    )
+    );
   },
 
   stringify(data: ArrayLike<number>, opts?: StringifyOptions): string {
-    return stringify(data, base32Encoding, opts)
-  }
+    return stringify(data, base32Encoding, opts);
+  },
 };
 
 export const Base32Hex = {
   parse(string: string, opts?: ParseOptions): Uint8Array {
-    return parse(string, base32HexEncoding, opts)
+    return parse(string, base32HexEncoding, opts);
   },
 
   stringify(data: ArrayLike<number>, opts?: StringifyOptions): string {
-    return stringify(data, base32HexEncoding, opts)
-  }
+    return stringify(data, base32HexEncoding, opts);
+  },
 };
 
 export const Base64 = {
   parse(string: string, opts?: ParseOptions): Uint8Array {
-    return parse(string, base64Encoding, opts)
+    return parse(string, base64Encoding, opts);
   },
 
   stringify(data: StringifyType, opts?: StringifyOptions): string {
-    return stringify(data, base64Encoding, opts)
-  }
+    return stringify(data, base64Encoding, opts);
+  },
 };
 
 export const Base64Url = {
   parse(string: string, opts?: ParseOptions): Uint8Array {
-    return parse(string, base64UrlEncoding, opts)
+    return parse(string, base64UrlEncoding, opts);
   },
 
   stringify(data: StringifyType, opts?: StringifyOptions): string {
-    return stringify(data, base64UrlEncoding, opts)
-  }
+    return stringify(data, base64UrlEncoding, opts);
+  },
 };
 
-export const Base = {parse, stringify};
+export const Base = { parse, stringify };
 
 // export function createBaseCodec(): BaseCodec {
 //   const a = {

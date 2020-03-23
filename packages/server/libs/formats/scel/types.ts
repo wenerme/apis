@@ -6,18 +6,18 @@ export interface ScelHeader {
 }
 
 export interface ScelContent {
-  pinyins: ScelPinyin[]
-  words: ScelWord[]
+  pinyins: ScelPinyin[];
+  words: ScelWord[];
 }
 
 export interface ScelPinyin {
-  index: number
-  pinyin: string
+  index: number;
+  pinyin: string;
 }
 
 export interface ScelWord {
-  word: string
-  pinyin?: string[]
+  word: string;
+  pinyin?: string[];
   /// index of pinyin
-  pinyinIndex: number[]
+  pinyinIndex: number[];
 }

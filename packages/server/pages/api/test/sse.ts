@@ -1,6 +1,6 @@
-import {NextApiRequest, NextApiResponse} from 'next'
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // curl -Nv localhost:3000/test/see
 // https://zeit.co/pricing#limits Zeit free only allowed 10s/req

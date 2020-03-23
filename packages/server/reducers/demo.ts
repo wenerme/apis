@@ -1,7 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-export interface DemoState {
-}
+export interface DemoState {}
 
 const slice = createSlice({
   name: 'demo',

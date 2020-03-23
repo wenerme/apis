@@ -1,7 +1,6 @@
-import fs from 'fs'
-import tar, {ReadEntry} from 'tar'
-import {Duplex} from 'stream';
-
+import fs from 'fs';
+import tar, { ReadEntry } from 'tar';
+import { Duplex } from 'stream';
 
 function bufferToStream(buffer): Duplex {
   const stream = new Duplex();
@@ -14,43 +13,50 @@ async function main() {
   const file = process.argv[2];
   console.log(`split ${file}`);
   const buf = fs.readFileSync(file);
-  const idx = buf.indexOf(new Uint8Array([
-    // magic
-    0x1f, 0x8b,
-    // compress - deflate
-    8,
-    // flags
-    0,
-    // mtime
-    // 0, 0, 0, 0
-  ]), 1);
+  const idx = buf.indexOf(
+    new Uint8Array([
+      // magic
+      0x1f,
+      0x8b,
+      // compress - deflate
+      8,
+      // flags
+      0,
+      // mtime
+      // 0, 0, 0, 0
+    ]),
+    1
+  );
   // cat signature.tar.gz APKINDEX.unsigned.tar.gz > APKINDEX.tar.gz
   if (idx < 0) {
-    throw new Error('No found second gzip header')
+    throw new Error('No found second gzip header');
   }
   fs.writeFileSync('control.tar.gz', buf.slice(0, idx));
   const dataBuf = buf.slice(idx);
   fs.writeFileSync('data.tar.gz', dataBuf);
 
-
   const pipe = bufferToStream(dataBuf)
-    .pipe(tar.t({
-      // onentry:(entry: FileStat) =>{
-      //   const e: ReadEntry = entry as any;
-      //   console.log(`path ${e.path} type ${e.type} ${e.uname}:${e.gname} ${e.size}\n\textended: ${JSON.stringify(e.extended)}`)
-      // }
-    }))
+    .pipe(
+      tar.t({
+        // onentry:(entry: FileStat) =>{
+        //   const e: ReadEntry = entry as any;
+        //   console.log(`path ${e.path} type ${e.type} ${e.uname}:${e.gname} ${e.size}\n\textended: ${JSON.stringify(e.extended)}`)
+        // }
+      })
+    )
     .on('entry', (e: ReadEntry) => {
       // FileStat
       // const e: ReadEntry = entry as any;
-      console.log(`path ${e.path} type ${e.type} ${e.uname}:${e.gname} ${e.size}\n\textended: ${JSON.stringify(e.extended)}`)
+      console.log(
+        `path ${e.path} type ${e.type} ${e.uname}:${e.gname} ${e.size}\n\textended: ${JSON.stringify(e.extended)}`
+      );
     });
 
   await new Promise((resolve, reject) => {
     pipe.on('close', resolve);
     pipe.on('finish', resolve);
     pipe.on('error', reject);
-  })
+  });
   /*
 ReadEntry {
   extended: Pax {
@@ -149,4 +155,3 @@ tar.t({
 (async function run() {
   await main();
 })();
-

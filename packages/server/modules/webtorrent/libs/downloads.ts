@@ -1,12 +1,12 @@
-import {Instance, TorrentOptions} from 'webtorrent';
+import { Instance, TorrentOptions } from 'webtorrent';
 
 export interface CreateDownloadOptions {
-  type: 'magnet'
-  magnet: CreateMagnetDownloadOptions
+  type: 'magnet';
+  magnet: CreateMagnetDownloadOptions;
 }
 
 export interface CreateMagnetDownloadOptions extends TorrentOptions {
-  uri
+  uri;
 }
 
 export async function createDownload(client: Instance, options: CreateDownloadOptions) {
@@ -14,11 +14,11 @@ export async function createDownload(client: Instance, options: CreateDownloadOp
     case 'magnet':
       return createMagnetDownload(client, options.magnet);
     default:
-      throw new Error(`无效的下载请求`)
+      throw new Error(`无效的下载请求`);
   }
 }
 
 function createMagnetDownload(client: Instance, options: CreateMagnetDownloadOptions) {
-  const {uri, ...opts} = options;
-  return client.add(uri, opts)
+  const { uri, ...opts } = options;
+  return client.add(uri, opts);
 }

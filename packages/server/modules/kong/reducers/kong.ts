@@ -1,24 +1,25 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {TypedUseSelectorHook, useDispatch} from 'react-redux';
-import {useRootSelector} from 'reducers/store';
-import {KongInformation, KongNodeStatus} from 'modules/kong/apis/types';
+import { createSlice } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch } from 'react-redux';
+import { useRootSelector } from 'reducers/store';
+import { KongInformation, KongNodeStatus } from 'modules/kong/apis/types';
 
-export const useKongSelector: TypedUseSelectorHook<KongState> = (selector, e) => useRootSelector(s => selector(s.kong), e);
+export const useKongSelector: TypedUseSelectorHook<KongState> = (selector, e) =>
+  useRootSelector((s) => selector(s.kong), e);
 export const useKongDispatch = useDispatch;
 
 export interface KongConfig {
-  baseURL
-  headers?
+  baseURL;
+  headers?;
 }
 
 export interface KongState {
-  config?: KongConfig
+  config?: KongConfig;
 
-  information?: KongInformation
-  status?: KongNodeStatus
+  information?: KongInformation;
+  status?: KongNodeStatus;
 
-  showSetup: boolean
-  showShare: boolean
+  showSetup: boolean;
+  showShare: boolean;
 }
 
 // https://github.com/troposhq/kong-admin-api-client
@@ -33,28 +34,35 @@ const slice = createSlice({
     showShare: false,
   } as KongState,
   reducers: {
-    updateInformation(state, {payload}) {
-      state.information = payload
+    updateInformation(state, { payload }) {
+      state.information = payload;
     },
 
-    updateStatus(state, {payload}) {
-      state.status = payload
+    updateStatus(state, { payload }) {
+      state.status = payload;
     },
 
     toggleShowSetup(state) {
-      state.showSetup = !state.showSetup
+      state.showSetup = !state.showSetup;
     },
     toggleShowShare(state) {
-      state.showShare = !state.showShare
+      state.showShare = !state.showShare;
     },
-    updateConfig(state, {payload}) {
-      state.config = payload
+    updateConfig(state, { payload }) {
+      state.config = payload;
     },
     clearConfig(state) {
       state.config = null;
-    }
+    },
   },
 });
 
-export const {updateInformation, updateStatus, updateConfig, toggleShowSetup, toggleShowShare, clearConfig} = slice.actions;
+export const {
+  updateInformation,
+  updateStatus,
+  updateConfig,
+  toggleShowSetup,
+  toggleShowShare,
+  clearConfig,
+} = slice.actions;
 export const kongReducer = slice.reducer;

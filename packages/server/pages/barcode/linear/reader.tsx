@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {PageContent} from 'components/layout/PageLayout/PageContent';
+import React, { useEffect, useState } from 'react';
+import { PageLayout } from 'components/layout/PageLayout/PageLayout';
+import { PageContent } from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Descriptions, notification, PageHeader, Spin} from 'antd';
-import {BarcodeOutlined} from '@ant-design/icons/lib';
-import {ImageReceiver} from 'components/ImageReceiver';
-import {Result} from '@zxing/library';
-import {getZxingFormat} from 'libs/barcodes/formats';
-
+import { Descriptions, notification, PageHeader, Spin } from 'antd';
+import { BarcodeOutlined } from '@ant-design/icons/lib';
+import { ImageReceiver } from 'components/ImageReceiver';
+import { Result } from '@zxing/library';
+import { getZxingFormat } from 'libs/barcodes/formats';
 
 const LinearBarCodeReaderPageContent: React.FC = () => {
   const [image, setImage] = useState<HTMLImageElement>();
@@ -18,26 +17,29 @@ const LinearBarCodeReaderPageContent: React.FC = () => {
 
   useEffect(() => {
     if (!image) {
-      return
+      return;
     }
 
     setLoading(true);
 
     import('@zxing/library')
-      .then(async ({BrowserBarcodeReader}) => {
+      .then(async ({ BrowserBarcodeReader }) => {
         const reader = new BrowserBarcodeReader();
         const result = await reader.decodeFromImageElement(image);
         setResult(result);
-        console.log(`decode result`, result)
+        console.log(`decode result`, result);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(`parse barcode failed`, e);
-        notification.error({message: '解析失败', description: e.message, duration: 8})
+        notification.error({
+          message: '解析失败',
+          description: e.message,
+          duration: 8,
+        });
       })
       .finally(() => {
-        setLoading(false)
-      })
-
+        setLoading(false);
+      });
   }, [image]);
 
   return (
@@ -46,34 +48,35 @@ const LinearBarCodeReaderPageContent: React.FC = () => {
         <h2>条形码内容</h2>
         <Spin spinning={loading}>
           <Descriptions>
-            <Descriptions.Item key={1} span={3} label="文本">{result?.getText()}</Descriptions.Item>
-            <Descriptions.Item key={2} label="格式">{format}</Descriptions.Item>
+            <Descriptions.Item key={1} span={3} label="文本">
+              {result?.getText()}
+            </Descriptions.Item>
+            <Descriptions.Item key={2} label="格式">
+              {format}
+            </Descriptions.Item>
           </Descriptions>
         </Spin>
       </div>
       <div>
         <div>
-          <ImageReceiver
-            decoderType="canvas"
-            onImageLoad={setImage}
-          />
+          <ImageReceiver decoderType="canvas" onImageLoad={setImage} />
         </div>
       </div>
       <style jsx>{`
-.container {
-  display: flex;
-}
-.container > div{
-  flex: 1;
-}
-@media (max-width: 767.98px) { 
-  .container {
-    flex-flow: column;
-  }
-}
-`}</style>
+        .container {
+          display: flex;
+        }
+        .container > div {
+          flex: 1;
+        }
+        @media (max-width: 767.98px) {
+          .container {
+            flex-flow: column;
+          }
+        }
+      `}</style>
     </div>
-  )
+  );
 };
 
 const Page = () => {
@@ -88,7 +91,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <BarcodeOutlined style={{marginRight: 8}} />
+              <BarcodeOutlined style={{ marginRight: 8 }} />
               条形码扫描
             </div>
           }
@@ -96,9 +99,8 @@ const Page = () => {
         />
 
         <LinearBarCodeReaderPageContent />
-
       </PageContent>
     </PageLayout>
-  )
+  );
 };
-export default Page
+export default Page;

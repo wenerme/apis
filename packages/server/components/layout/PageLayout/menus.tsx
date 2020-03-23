@@ -1,4 +1,4 @@
-import {BarcodeOutlined, BorderlessTableOutlined, EditOutlined, PartitionOutlined} from '@ant-design/icons/lib';
+import { BarcodeOutlined, BorderlessTableOutlined, EditOutlined, PartitionOutlined } from '@ant-design/icons/lib';
 import QrcodePrintOutlined from 'components/icons/QrcodePrintOutlined';
 import QrcodeReadOutlined from 'components/icons/QrcodeReadOutlined';
 import BarcodePrintOutlined from 'components/icons/BarcodePrintOutlined';
@@ -7,11 +7,11 @@ import WebTorrentFilled from 'components/icons/WebTorrentFilled';
 import RtcOutlined from 'components/icons/RtcOutlined';
 import DictOutlined from 'components/icons/DictOutlined';
 import IpfsOutlined from 'components/icons/IpfsOutlined';
-import {HashingAlgorithms} from 'modules/hash/types';
+import { HashingAlgorithms } from 'modules/hash/types';
 import React from 'react';
-import {MenuSpec} from '../LayoutFrame/types';
+import { MenuSpec } from '../LayoutFrame/types';
 
-import {EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined} from '@ant-design/icons';
+import { EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';
 import CertificateVerifiedBadgeOutlined from 'components/icons/CertificateVerifiedBadgeOutlined';
 
 export const menus: MenuSpec[] = [
@@ -32,7 +32,7 @@ export const menus: MenuSpec[] = [
     iconComponent: <PhoneOutlined />,
     iconType: 'phone',
     path: '/phone/attribution',
-    routes: ['/phone/attribution/[num]']
+    routes: ['/phone/attribution/[num]'],
   },
   {
     title: 'URI',
@@ -41,8 +41,8 @@ export const menus: MenuSpec[] = [
       {
         title: 'URL',
         path: '/uri/url',
-      }
-    ]
+      },
+    ],
   },
   {
     title: '密码强度检测',
@@ -58,7 +58,7 @@ export const menus: MenuSpec[] = [
       {
         title: '二维码生成',
         path: '/barcode/qrcode/builder',
-        iconComponent: <QrcodePrintOutlined />
+        iconComponent: <QrcodePrintOutlined />,
       },
       {
         title: '二维码解析',
@@ -75,7 +75,7 @@ export const menus: MenuSpec[] = [
         path: '/barcode/linear/reader',
         iconComponent: <BarcodeReadOutlined />,
       },
-    ]
+    ],
   },
   {
     title: 'Kong网关',
@@ -85,7 +85,7 @@ export const menus: MenuSpec[] = [
         title: '管理',
         path: '/kong/admin',
       },
-    ]
+    ],
   },
   {
     title: 'WebTorrent',
@@ -103,7 +103,7 @@ export const menus: MenuSpec[] = [
         title: 'Bencode',
         path: '/webtorrent/bencode',
       },
-    ]
+    ],
   },
   {
     title: 'PKI',
@@ -113,7 +113,7 @@ export const menus: MenuSpec[] = [
         title: '证书解析',
         path: '/pki/pem/reader',
       },
-    ]
+    ],
   },
   {
     title: 'WebRTC',
@@ -123,7 +123,7 @@ export const menus: MenuSpec[] = [
         title: '浏览器检测',
         path: '/webrtc/checker',
       },
-    ]
+    ],
   },
   {
     title: '编辑器',
@@ -141,7 +141,7 @@ export const menus: MenuSpec[] = [
         title: 'Simple Code Editor',
         path: '/editor/simple-code',
       },
-    ]
+    ],
   },
   {
     title: '搜狗词库',
@@ -157,7 +157,7 @@ export const menus: MenuSpec[] = [
         title: '词库解析',
         path: '/scel/read',
       },
-    ]
+    ],
   },
   {
     title: 'IPFS',
@@ -168,7 +168,7 @@ export const menus: MenuSpec[] = [
         title: '网关检测',
         path: '/ipfs/gateway/checker',
       },
-    ]
+    ],
   },
   {
     title: '摘要哈希计算',
@@ -180,11 +180,11 @@ export const menus: MenuSpec[] = [
         title: '摘要哈希',
         path: `/hash/digest`,
       },
-      ...(HashingAlgorithms.map(v => ({
+      ...HashingAlgorithms.map((v) => ({
         title: v.toUpperCase(),
         route: '/hash/md/[algorithm]',
-        path: `/hash/md/${v}`
-      })))
+        path: `/hash/md/${v}`,
+      })),
     ],
   },
 ];

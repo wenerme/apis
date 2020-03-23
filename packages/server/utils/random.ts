@@ -1,4 +1,4 @@
-export function createRandom({seed = 0}) {
+export function createRandom({ seed = 0 }) {
   if (!seed) {
     seed = 0;
   }
@@ -6,7 +6,7 @@ export function createRandom({seed = 0}) {
     const s: string = seed;
     let sum = 0;
     for (let i = 0; i < s.length; i++) {
-      sum += s.charCodeAt(i)
+      sum += s.charCodeAt(i);
     }
     seed = sum;
   }

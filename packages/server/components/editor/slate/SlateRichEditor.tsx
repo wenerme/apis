@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {Button} from 'antd';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Button } from 'antd';
 import {
   BoldOutlined,
   CodeOutlined,
@@ -10,21 +10,20 @@ import {
   OrderedListOutlined,
   StrikethroughOutlined,
   UnderlineOutlined,
-  UnorderedListOutlined
+  UnorderedListOutlined,
 } from '@ant-design/icons/lib';
-import {Editable, ReactEditor, Slate, useEditor, useReadOnly, useSlate, withReact} from 'slate-react';
-import {createEditor, Editor, Node, Point, Range, Transforms} from 'slate';
-import {withHistory} from 'slate-history'
+import { Editable, ReactEditor, Slate, useEditor, useReadOnly, useSlate, withReact } from 'slate-react';
+import { createEditor, Editor, Node, Point, Range, Transforms } from 'slate';
+import { withHistory } from 'slate-history';
 import isHotkey from 'is-hotkey';
 import ReactDOM from 'react-dom';
-import {flow} from 'lodash';
-import {withMarkdownShortcuts} from 'components/editor/slate/withMarkdownShortcuts';
-import {withRender} from 'components/editor/slate/withRender';
-import {useMentionState, withMentions} from 'components/editor/slate/withMentions';
-import {RichEditor, RichEditorPluginFactory} from 'components/editor/slate/types';
-import {isBlockActive, isMarkActive, toggleBlock, toggleMark} from 'components/editor/slate/utils';
-import {css} from 'emotion';
-
+import { flow } from 'lodash';
+import { withMarkdownShortcuts } from 'components/editor/slate/withMarkdownShortcuts';
+import { withRender } from 'components/editor/slate/withRender';
+import { useMentionState, withMentions } from 'components/editor/slate/withMentions';
+import { RichEditor, RichEditorPluginFactory } from 'components/editor/slate/types';
+import { isBlockActive, isMarkActive, toggleBlock, toggleMark } from 'components/editor/slate/utils';
+import { css } from 'emotion';
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -33,7 +32,7 @@ const HOTKEYS = {
   'mod+`': 'code',
 };
 
-export const Portal = ({children}) => {
+export const Portal = ({ children }) => {
   let container;
   if (typeof window !== 'undefined') {
     const rootContainer = document.createElement('div');
@@ -46,38 +45,34 @@ export const Portal = ({children}) => {
   return container ? ReactDOM.createPortal(children, container) : null;
 };
 
-const BlockButton = ({format, icon}) => {
+const BlockButton = ({ format, icon }) => {
   const editor = useSlate();
   return (
     <Button
       type={isBlockActive(editor, format) ? 'primary' : null}
       icon={icon}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         event.preventDefault();
-        toggleBlock(editor, format)
+        toggleBlock(editor, format);
       }}
-    >
-    </Button>
-  )
+    ></Button>
+  );
 };
-const MarkButton = ({format, icon, ...props}) => {
+const MarkButton = ({ format, icon, ...props }) => {
   const editor = useSlate();
   return (
     <Button
       type={isMarkActive(editor, format) ? 'primary' : null}
       icon={icon}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         event.preventDefault();
-        toggleMark(editor, format)
+        toggleMark(editor, format);
       }}
-    >
-    </Button>
-  )
+    ></Button>
+  );
 };
 
-
-export const Toolbar = React.forwardRef<any, any>(({className, ...props}, ref) => (
-
+export const Toolbar = React.forwardRef<any, any>(({ className, ...props }, ref) => (
   <div
     {...props}
     ref={ref}
@@ -95,20 +90,20 @@ export const Toolbar = React.forwardRef<any, any>(({className, ...props}, ref) =
 ));
 
 const insertMention = (editor, character) => {
-  const mention = {type: 'mention', character, children: [{text: ''}]};
+  const mention = { type: 'mention', character, children: [{ text: '' }] };
   Transforms.insertNodes(editor, mention);
-  Transforms.move(editor)
+  Transforms.move(editor);
 };
 
-const withChecklists: RichEditorPluginFactory = () => editor => {
-  const {deleteBackward} = editor;
+const withChecklists: RichEditorPluginFactory = () => (editor) => {
+  const { deleteBackward } = editor;
 
   editor.deleteBackward = (...args) => {
-    const {selection} = editor;
+    const { selection } = editor;
 
     if (selection && Range.isCollapsed(selection)) {
       const [match] = Editor.nodes(editor, {
-        match: n => n.type === 'check-list-item',
+        match: (n) => n.type === 'check-list-item',
       });
 
       if (match) {
@@ -116,28 +111,24 @@ const withChecklists: RichEditorPluginFactory = () => editor => {
         const start = Editor.start(editor, path);
 
         if (Point.equals(selection.anchor, start)) {
-          Transforms.setNodes(
-            editor,
-            {type: 'paragraph'},
-            {match: n => n.type === 'check-list-item'}
-          );
-          return
+          Transforms.setNodes(editor, { type: 'paragraph' }, { match: (n) => n.type === 'check-list-item' });
+          return;
         }
       }
     }
 
-    deleteBackward(...args)
+    deleteBackward(...args);
   };
 
-  const {renderElement} = editor.editableProps;
+  const { renderElement } = editor.editableProps;
   editor.editableProps.renderElement = (props) => {
     if (props.element.type === 'check-list-item') {
-      return <CheckListItemElement {...props} />
+      return <CheckListItemElement {...props} />;
     }
     return renderElement(props);
   };
 
-  return editor
+  return editor;
 };
 
 const HoveringToolbar = () => {
@@ -146,10 +137,10 @@ const HoveringToolbar = () => {
 
   useEffect(() => {
     const el = ref.current;
-    const {selection} = editor;
+    const { selection } = editor;
 
     if (!el) {
-      return
+      return;
     }
 
     if (
@@ -159,7 +150,7 @@ const HoveringToolbar = () => {
       Editor.string(editor, selection) === ''
     ) {
       el.removeAttribute('style');
-      return
+      return;
     }
 
     const domSelection = window.getSelection();
@@ -167,18 +158,15 @@ const HoveringToolbar = () => {
     const rect = domRange.getBoundingClientRect();
     el.style.opacity = String(1);
     el.style.top = `${rect.top + window.pageYOffset - el.offsetHeight}px`;
-    el.style.left = `${rect.left +
-    window.pageXOffset -
-    el.offsetWidth / 2 +
-    rect.width / 2}px`
+    el.style.left = `${rect.left + window.pageXOffset - el.offsetWidth / 2 + rect.width / 2}px`;
   });
 
   const marks = [
-    {format: 'bold', icon: <BoldOutlined />},
-    {format: 'italic', icon: <ItalicOutlined />},
-    {format: 'underline', icon: <UnderlineOutlined />},
-    {format: 'strike-through', icon: <StrikethroughOutlined />},
-    {format: 'code', icon: <CodeOutlined />},
+    { format: 'bold', icon: <BoldOutlined /> },
+    { format: 'italic', icon: <ItalicOutlined /> },
+    { format: 'underline', icon: <UnderlineOutlined /> },
+    { format: 'strike-through', icon: <StrikethroughOutlined /> },
+    { format: 'code', icon: <CodeOutlined /> },
   ];
 
   return (
@@ -198,46 +186,48 @@ const HoveringToolbar = () => {
           transition: opacity 0.75s;
         `}
       >
-        {marks.map(({format, icon}) => <MarkButton key={format} format={format} icon={icon} />)}
+        {marks.map(({ format, icon }) => (
+          <MarkButton key={format} format={format} icon={icon} />
+        ))}
       </div>
     </Portal>
-  )
+  );
 };
 
-const withLayout = () => editor => {
-  const {normalizeNode} = editor;
+const withLayout = () => (editor) => {
+  const { normalizeNode } = editor;
 
   editor.normalizeNode = ([node, path]) => {
     if (path.length === 0) {
       if (editor.children.length < 1) {
-        const title = {type: 'heading-one', children: [{text: 'Untitled'}]};
-        Transforms.insertNodes(editor, title, {at: path.concat(0)})
+        const title = { type: 'heading-one', children: [{ text: 'Untitled' }] };
+        Transforms.insertNodes(editor, title, { at: path.concat(0) });
       }
 
       if (editor.children.length < 2) {
-        const paragraph = {type: 'paragraph', children: [{text: ''}]};
-        Transforms.insertNodes(editor, paragraph, {at: path.concat(1)})
+        const paragraph = { type: 'paragraph', children: [{ text: '' }] };
+        Transforms.insertNodes(editor, paragraph, { at: path.concat(1) });
       }
 
       for (const [child, childPath] of Node.children(editor, path)) {
         const type = childPath[0] === 0 ? 'title' : 'paragraph';
 
         if (child.type !== type) {
-          Transforms.setNodes(editor, {type}, {at: childPath})
+          Transforms.setNodes(editor, { type }, { at: childPath });
         }
       }
     }
 
-    return normalizeNode([node, path])
+    return normalizeNode([node, path]);
   };
 
-  return editor
+  return editor;
 };
 
-const CheckListItemElement = ({attributes, children, element}) => {
+const CheckListItemElement = ({ attributes, children, element }) => {
   const editor = useEditor();
   const readOnly = useReadOnly();
-  const {checked} = element;
+  const { checked } = element;
   return (
     <div
       {...attributes}
@@ -259,13 +249,9 @@ const CheckListItemElement = ({attributes, children, element}) => {
         <input
           type="checkbox"
           checked={checked}
-          onChange={event => {
+          onChange={(event) => {
             const path = ReactEditor.findPath(editor, element);
-            Transforms.setNodes(
-              editor,
-              {checked: event.target.checked},
-              {at: path}
-            )
+            Transforms.setNodes(editor, { checked: event.target.checked }, { at: path });
           }}
         />
       </span>
@@ -284,73 +270,76 @@ const CheckListItemElement = ({attributes, children, element}) => {
         {children}
       </span>
     </div>
-  )
+  );
 };
-
 
 export const SlateRichEditor: React.FC = () => {
   const ref = useRef<HTMLDivElement>();
 
-
-  const editor: RichEditor = useMemo(() => flow([withReact, withHistory, withRender(), withChecklists(), withMentions(), withMarkdownShortcuts()])(createEditor()), []);
-  useMentionState({editor});
+  const editor: RichEditor = useMemo(
+    () =>
+      flow([withReact, withHistory, withRender(), withChecklists(), withMentions(), withMarkdownShortcuts()])(
+        createEditor()
+      ),
+    []
+  );
+  useMentionState({ editor });
   useEffect(() => {
-    window['editor'] = editor
+    window['editor'] = editor;
   }, []);
 
-  const {editableProps, fragments} = editor;
+  const { editableProps, fragments } = editor;
   const [value, setValue] = useState<any[]>([
     {
       type: 'paragraph',
-      children: [{text: 'A line of text in a paragraph.'}],
+      children: [{ text: 'A line of text in a paragraph.' }],
     },
 
     {
       type: 'check-list-item',
       checked: true,
-      children: [{text: 'Slide to the left.'}],
+      children: [{ text: 'Slide to the left.' }],
     },
     {
       type: 'check-list-item',
       checked: true,
-      children: [{text: 'Slide to the right.'}],
+      children: [{ text: 'Slide to the right.' }],
     },
     {
       type: 'check-list-item',
       checked: false,
-      children: [{text: 'Criss-cross.'}],
+      children: [{ text: 'Criss-cross.' }],
     },
     {
       type: 'check-list-item',
       checked: true,
-      children: [{text: 'Criss-cross!'}],
+      children: [{ text: 'Criss-cross!' }],
     },
     {
       type: 'check-list-item',
       checked: false,
-      children: [{text: 'Cha cha real smooth…'}],
+      children: [{ text: 'Cha cha real smooth…' }],
     },
     {
       type: 'check-list-item',
       checked: false,
-      children: [{text: 'Let\'s go to work!'}],
+      children: [{ text: "Let's go to work!" }],
     },
     {
-      children: [{text: 'Try it out for yourself!'}],
+      children: [{ text: 'Try it out for yourself!' }],
     },
   ]);
-
 
   const [target, setTarget] = useState<Range>();
   const [index, setIndex] = useState(0);
   const [search, setSearch] = useState('');
 
-  const chars = ['wener', 'wahaha', 'wasai', 'cyw', 'ceco', 'xxx', 'xyz'].filter(c =>
-    c.toLowerCase().startsWith(search.toLowerCase())
-  ).slice(0, 10);
+  const chars = ['wener', 'wahaha', 'wasai', 'cyw', 'ceco', 'xxx', 'xyz']
+    .filter((c) => c.toLowerCase().startsWith(search.toLowerCase()))
+    .slice(0, 10);
 
   const onKeyDown = useCallback(
-    event => {
+    (event) => {
       if (target) {
         switch (event.key) {
           case 'ArrowDown':
@@ -375,7 +364,7 @@ export const SlateRichEditor: React.FC = () => {
             setTarget(null);
             break;
           default:
-            return false
+            return false;
         }
       }
     },
@@ -387,37 +376,37 @@ export const SlateRichEditor: React.FC = () => {
       const domRange = ReactEditor.toDOMRange(editor, target);
       const rect = domRange.getBoundingClientRect();
       el.style.top = `${rect.top + window.pageYOffset + 24}px`;
-      el.style.left = `${rect.left + window.pageXOffset}px`
+      el.style.left = `${rect.left + window.pageXOffset}px`;
     }
   }, [chars.length, editor, index, search, target]);
 
   // fixme fix icon
   const blocks = [
-    {format: 'heading-one', icon: <FieldBinaryOutlined />},
-    {format: 'heading-two', icon: <FieldNumberOutlined />},
-    {format: 'block-quote', icon: <MenuUnfoldOutlined />},
-    {format: 'numbered-list', icon: <OrderedListOutlined />},
-    {format: 'bulleted-list', icon: <UnorderedListOutlined />},
+    { format: 'heading-one', icon: <FieldBinaryOutlined /> },
+    { format: 'heading-two', icon: <FieldNumberOutlined /> },
+    { format: 'block-quote', icon: <MenuUnfoldOutlined /> },
+    { format: 'numbered-list', icon: <OrderedListOutlined /> },
+    { format: 'bulleted-list', icon: <UnorderedListOutlined /> },
   ];
   const marks = [
-    {format: 'bold', icon: <BoldOutlined />},
-    {format: 'italic', icon: <ItalicOutlined />},
-    {format: 'underline', icon: <UnderlineOutlined />},
-    {format: 'strike-through', icon: <StrikethroughOutlined />},
-    {format: 'code', icon: <CodeOutlined />},
+    { format: 'bold', icon: <BoldOutlined /> },
+    { format: 'italic', icon: <ItalicOutlined /> },
+    { format: 'underline', icon: <UnderlineOutlined /> },
+    { format: 'strike-through', icon: <StrikethroughOutlined /> },
+    { format: 'code', icon: <CodeOutlined /> },
   ];
   return (
     <Slate
       editor={editor}
       value={value}
       // onChange={value => setValue(value)}
-      onChange={value => {
+      onChange={(value) => {
         setValue(value);
-        const {selection} = editor;
+        const { selection } = editor;
 
         if (selection && Range.isCollapsed(selection)) {
           const [start] = Range.edges(selection);
-          const wordBefore = Editor.before(editor, start, {unit: 'word'});
+          const wordBefore = Editor.before(editor, start, { unit: 'word' });
           const before = wordBefore && Editor.before(editor, wordBefore);
           const beforeRange = before && Editor.range(editor, before, start);
           const beforeText = beforeRange && Editor.string(editor, beforeRange);
@@ -431,24 +420,28 @@ export const SlateRichEditor: React.FC = () => {
             setTarget(beforeRange);
             setSearch(beforeMatch[1]);
             setIndex(0);
-            return
+            return;
           }
         }
 
-        setTarget(null)
+        setTarget(null);
       }}
     >
       <Toolbar>
         <Button.Group>
-          {marks.map(({format, icon}) => <MarkButton key={format} format={format} icon={icon} />)}
-          {blocks.map(({format, icon}) => <BlockButton key={format} format={format} icon={icon} />)}
+          {marks.map(({ format, icon }) => (
+            <MarkButton key={format} format={format} icon={icon} />
+          ))}
+          {blocks.map(({ format, icon }) => (
+            <BlockButton key={format} format={format} icon={icon} />
+          ))}
         </Button.Group>
       </Toolbar>
       <HoveringToolbar />
       <Editable
         autoFocus
         {...editableProps}
-        onKeyDown={event => {
+        onKeyDown={(event) => {
           if (onKeyDown(event) !== false) {
             return;
           }
@@ -457,7 +450,7 @@ export const SlateRichEditor: React.FC = () => {
               event.preventDefault();
               const mark = HOTKEYS[hotkey];
               toggleMark(editor, mark);
-              return
+              return;
             }
           }
 
@@ -465,14 +458,14 @@ export const SlateRichEditor: React.FC = () => {
             event.preventDefault();
             // Determine whether any of the currently selected blocks are code blocks.
             const [match] = Editor.nodes(editor, {
-              match: n => n.type === 'code',
+              match: (n) => n.type === 'code',
             });
             // Toggle the block type depending on whether there's already a match.
             Transforms.setNodes(
               editor,
-              {type: match ? 'paragraph' : 'code'},
-              {match: n => Editor.isBlock(editor, n)}
-            )
+              { type: match ? 'paragraph' : 'code' },
+              { match: (n) => Editor.isBlock(editor, n) }
+            );
           }
         }}
       />
@@ -508,5 +501,5 @@ export const SlateRichEditor: React.FC = () => {
         </Portal>
       )}
     </Slate>
-  )
+  );
 };

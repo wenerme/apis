@@ -1,17 +1,17 @@
-import {keymap} from 'prosemirror-keymap'
-import {history} from 'prosemirror-history'
-import {baseKeymap} from 'prosemirror-commands'
-import {Plugin} from 'prosemirror-state'
-import {dropCursor} from 'prosemirror-dropcursor'
-import {gapCursor} from 'prosemirror-gapcursor'
-import {menuBar} from 'prosemirror-menu'
+import { keymap } from 'prosemirror-keymap';
+import { history } from 'prosemirror-history';
+import { baseKeymap } from 'prosemirror-commands';
+import { Plugin } from 'prosemirror-state';
+import { dropCursor } from 'prosemirror-dropcursor';
+import { gapCursor } from 'prosemirror-gapcursor';
+import { menuBar } from 'prosemirror-menu';
 
-import {buildMenuItems} from './menu'
-import {buildKeymap} from './keymap'
-import {buildInputRules} from './inputrules'
-import {Schema} from 'prosemirror-model';
+import { buildMenuItems } from './menu';
+import { buildKeymap } from './keymap';
+import { buildInputRules } from './inputrules';
+import { Schema } from 'prosemirror-model';
 
-export {buildMenuItems, buildKeymap, buildInputRules}
+export { buildMenuItems, buildKeymap, buildInputRules };
 
 // !! This module exports helper functions for deriving a set of basic
 // menu items, input rules, or key bindings from a schema. These
@@ -32,18 +32,18 @@ export {buildMenuItems, buildKeymap, buildInputRules}
 
 export interface ProseMirrorSetupOptions {
   /// The schema to generate key bindings and menu items for.
-  schema: Schema
+  schema: Schema;
   /// Can be used to [adjust](#example-setup.buildKeymap) the key bindings created.
-  mapKeys?: object
+  mapKeys?: object;
   /// Set to false to disable the menu bar.
-  menuBar?: boolean
+  menuBar?: boolean;
   /// Set to false to disable the history plugin.
-  history?: boolean
+  history?: boolean;
   /// Set to false to make the menu bar non-floating.
-  floatingMenu?: boolean
+  floatingMenu?: boolean;
   /// menuContent:: [[MenuItem]]
   /// Can be used to override the menu content.
-  menuContent?: any[][]
+  menuContent?: any[][];
 }
 
 export function proseMirrorSetup(options: ProseMirrorSetupOptions): Plugin[] {
@@ -52,23 +52,26 @@ export function proseMirrorSetup(options: ProseMirrorSetupOptions): Plugin[] {
     keymap(buildKeymap(options.schema, options.mapKeys)),
     keymap(baseKeymap),
     dropCursor(),
-    gapCursor()
+    gapCursor(),
   ];
   if (options.menuBar !== false) {
-    plugins.push(menuBar({
-      floating: options.floatingMenu !== false,
-      content: options.menuContent || buildMenuItems(options.schema).fullMenu
-    }))
+    plugins.push(
+      menuBar({
+        floating: options.floatingMenu !== false,
+        content: options.menuContent || buildMenuItems(options.schema).fullMenu,
+      })
+    );
   }
   if (options.history !== false) {
-    plugins.push(history())
+    plugins.push(history());
   }
 
-  plugins.push(new Plugin({
-    props: {
-      attributes: {class: 'ProseMirror-setup-style'}
-    }
-  }));
-  return plugins
+  plugins.push(
+    new Plugin({
+      props: {
+        attributes: { class: 'ProseMirror-setup-style' },
+      },
+    })
+  );
+  return plugins;
 }
-

@@ -1,13 +1,16 @@
-import {DependencyList, useEffect, useRef} from 'react';
+import { DependencyList, useEffect, useRef } from 'react';
 
-export function useAsyncEffect(effect: ({setCloser}) => Promise<void | (() => void | undefined)>, deps?: DependencyList) {
+export function useAsyncEffect(
+  effect: ({ setCloser }) => Promise<void | (() => void | undefined)>,
+  deps?: DependencyList
+) {
   const ref = useRef<() => void>();
   useEffect(() => {
-    effect({setCloser: (v) => ref.current = v})
-      .then(v => typeof v === 'function' ? ref.current = v : null)
-      .catch(e => {
-        console.trace(`useAsyncEffect error`, deps, e)
+    effect({ setCloser: (v) => (ref.current = v) })
+      .then((v) => (typeof v === 'function' ? (ref.current = v) : null))
+      .catch((e) => {
+        console.trace(`useAsyncEffect error`, deps, e);
       });
     return () => ref.current?.();
-  }, deps)
+  }, deps);
 }

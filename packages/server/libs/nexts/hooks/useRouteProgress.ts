@@ -1,10 +1,10 @@
-import {useRouter} from 'next/router';
-import {useEffect} from 'react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 import NProgress from 'nprogress';
-import 'nprogress/nprogress.css'
+import 'nprogress/nprogress.css';
 
-NProgress.configure({showSpinner: true});
+NProgress.configure({ showSpinner: true });
 
 export function useRouteProgress() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export function useRouteProgress() {
     return () => {
       router.events.off('routeChangeStart', handleStart);
       router.events.off('routeChangeComplete', handleComplete);
-      router.events.off('routeChangeError', handleError)
-    }
+      router.events.off('routeChangeError', handleError);
+    };
   }, []);
 }

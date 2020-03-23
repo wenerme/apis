@@ -1,45 +1,45 @@
-import {Buffer} from 'buffer/'
-import {ScelContent, ScelPinyin, ScelWord} from './types';
+import { Buffer } from 'buffer/';
+import { ScelContent, ScelPinyin, ScelWord } from './types';
 
 const ENCODING = 'utf-16le';
 
 const MAGIC = Buffer.from([0x40, 0x15, 0x00, 0x00, 0x44, 0x43, 0x53, 0x01, 0x01, 0x00, 0x00, 0x00]);
-const PY_MAGIC = Buffer.from([0x9D, 0x01, 0x00, 0x00]);
+const PY_MAGIC = Buffer.from([0x9d, 0x01, 0x00, 0x00]);
 const OFFSET_PINGYIN = 0x1540;
 const OFFSET_CHINESE = 0x2628;
 
 export function parseScelHeader(buf: Buffer) {
   if (buf.compare(MAGIC, 0, MAGIC.length, 0, MAGIC.length) !== 0) {
-    throw new Error('Invalid file: magic not match')
+    throw new Error('Invalid file: magic not match');
   }
 
   return {
     name: toString(buf.slice(0x130, 0x338)),
     type: toString(buf.slice(0x338, 0x540)),
-    description: toString(buf.slice(0x540, 0xD40)),
-    example: toString(buf.slice(0xD40, OFFSET_PINGYIN)),
-  }
+    description: toString(buf.slice(0x540, 0xd40)),
+    example: toString(buf.slice(0xd40, OFFSET_PINGYIN)),
+  };
 }
 
 export function parseScelContent(buf: Buffer): ScelContent {
   const pinyins = readPinyins(buf);
   const words = readWords(buf);
-  return {words, pinyins}
+  return { words, pinyins };
 }
 
-export function enrichContent({pinyins, words}: ScelContent) {
-  const indexed = pinyins.reduce((p, {index, pinyin}) => {
-    p[index] = pinyin
+export function enrichContent({ pinyins, words }: ScelContent) {
+  const indexed = pinyins.reduce((p, { index, pinyin }) => {
+    p[index] = pinyin;
     return p;
   }, {});
-  words.forEach(v => {
-    v.pinyin = v.pinyinIndex.map(i => indexed[i])
-  })
+  words.forEach((v) => {
+    v.pinyin = v.pinyinIndex.map((i) => indexed[i]);
+  });
 }
 
 function toString(slice: Buffer) {
   let end = slice.indexOf(Buffer.from([0, 0]));
-  end = end - end % 2;
+  end = end - (end % 2);
   return slice.toString(ENCODING, 0, end);
 }
 
@@ -59,7 +59,7 @@ function readPinyins(buf: Buffer) {
 
     const pinyin = buf.toString(ENCODING, pos, pos + len);
     pos += len;
-    pinyins.push({index, pinyin});
+    pinyins.push({ index, pinyin });
   }
 
   return pinyins;
@@ -75,13 +75,13 @@ function readWords(buf: Buffer): ScelWord[] {
     // 同音字
     const same = buf.readUInt16LE(pos);
     pos += 2;
-    const pyLen = buf.readUInt16LE(pos) / 2;// 2 byte / uint16
+    const pyLen = buf.readUInt16LE(pos) / 2; // 2 byte / uint16
     pos += 2;
 
     const pinyins = [];
     for (let i = 0; i < pyLen; i++) {
       pinyins.push(buf.readUInt16LE(pos));
-      pos += 2
+      pos += 2;
     }
 
     for (let i = 0; i < same; i++) {
@@ -95,7 +95,7 @@ function readWords(buf: Buffer): ScelWord[] {
       // ua.slice(dvr.position, dvr.position + extLen);
       pos += extLen;
 
-      words.push({pinyinIndex: pinyins, word})
+      words.push({ pinyinIndex: pinyins, word });
     }
   }
 

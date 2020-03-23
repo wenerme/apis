@@ -9,79 +9,78 @@ export const CheckTextContent = 'Hello from IPFS Gateway Checker';
 export const CheckScriptHash = 'bafybeietzsezxbgeeyrmwicylb5tpvf7yutrm3bxrfaoulaituhbi7q6yi';
 
 export interface GatewayCheckNodeState {
-  id
-  index?
+  id;
+  index?;
 
-  startTime
-  endTime?
+  startTime;
+  endTime?;
 
-  gateway
-  hostname
+  gateway;
+  hostname;
 
-  status: CheckerState,
-  cors: CheckerState,
-  origin: CheckerState,
+  status: CheckerState;
+  cors: CheckerState;
+  origin: CheckerState;
 
-  error?
+  error?;
 
-  signal?: AbortSignal,
+  signal?: AbortSignal;
 }
 
 export type CheckStatus = 'new' | 'running' | 'error' | 'success';
 
 export interface CheckerState {
-  startTime?
-  endTime?
+  startTime?;
+  endTime?;
 
-  status: 'new' | 'running' | 'error' | 'success'
+  status: 'new' | 'running' | 'error' | 'success';
 
-  error?
-  result?
+  error?;
+  result?;
 }
 
 export const GlobalResolver: Record<string, (...any) => void> = {};
 
-export function fetchGatewayChecker(gateway, {hash = null, content = null, signal = null} = {}) {
+export function fetchGatewayChecker(gateway, { hash = null, content = null, signal = null } = {}) {
   if (!hash) {
     hash = CheckTextHash;
-    content = CheckTextContent
+    content = CheckTextContent;
   }
 
   const gatewayAndHash = gateway.replace(':hash', hash);
   const now = Date.now();
   const testUrl = `${gatewayAndHash}?now=${now}#x-ipfs-companion-no-redirect`;
 
-  return fetch(testUrl, {signal})
-    .then(res => {
+  return fetch(testUrl, { signal })
+    .then((res) => {
       if (res.status >= 400) {
-        throw new Error(`gateway ${gateway} request failed ${res.status}`)
+        throw new Error(`gateway ${gateway} request failed ${res.status}`);
       }
       return res;
     })
     .then((res) => res.text())
     .then((text) => {
       if (content) {
-        const matched = (content === text.trim());
+        const matched = content === text.trim();
         if (!matched) {
-          throw new Error(`gateway ${gateway} content not match: ${text.trim()}`)
+          throw new Error(`gateway ${gateway} content not match: ${text.trim()}`);
         }
       }
-      return gateway
-
+      return gateway;
     });
 }
 
-function checkCors({getState}) {
-  const {gateway, signal} = getState()
-  return fetchGatewayChecker(gateway, {signal})
+function checkCors({ getState }) {
+  const { gateway, signal } = getState();
+  return fetchGatewayChecker(gateway, { signal });
 }
 
-async function checkOrigin({getState}) {
+async function checkOrigin({ getState }) {
   const cidInSubdomain = getState().gateway.startsWith('https://:hash.ipfs.');
   if (cidInSubdomain) {
-    return true
+    return true;
   } else {
-    throw new Error('cid not in sub-domain - expect start with "https://:hash.ipfs."')
+    throw new Error('cid not in sub-domain - expect start with "https://:hash.ipfs."');
   }
 }
 
@@ -91,7 +90,7 @@ export function OnScriptloaded(src) {
     const index = url.searchParams.get('i');
     const resolver = GlobalResolver[index];
     if (resolver) {
-      resolver()
+      resolver();
     } else {
       console.error(`no resolver found for ${index}`);
     }
@@ -101,8 +100,8 @@ export function OnScriptloaded(src) {
   }
 }
 
-async function checkStatus({getState}: { getState(): GatewayCheckNodeState }) {
-  const {id, signal, gateway} = getState();
+async function checkStatus({ getState }: { getState(): GatewayCheckNodeState }) {
+  const { id, signal, gateway } = getState();
   const gatewayAndScriptHash = gateway.replace(':hash', CheckScriptHash);
 
   // we set a unused number as a url parameter, to try to prevent content caching
@@ -118,10 +117,10 @@ async function checkStatus({getState}: { getState(): GatewayCheckNodeState }) {
 
   // 不支持 abort - 除非 先 fetch
   if (signal) {
-    await fetch(src, {signal}).then(v => v.text());
+    await fetch(src, { signal }).then((v) => v.text());
   }
 
-  return new Promise(((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     try {
       const script = document.createElement('script');
       script.src = src;
@@ -129,27 +128,32 @@ async function checkStatus({getState}: { getState(): GatewayCheckNodeState }) {
       script.onerror = (e) => {
         // we check this because the gateway could be already checked by CORS before onerror executes
         // and, even though it is failing here, we know it is UP
-        reject(e?.['error'] ?? e)
+        reject(e?.['error'] ?? e);
       };
-      script.onload = e => {
-        setTimeout(() => reject('load script is invalid'), 500)
+      script.onload = (e) => {
+        setTimeout(() => reject('load script is invalid'), 500);
       };
 
       GlobalResolver[id] = (v) => {
         delete GlobalResolver[id];
-        resolve(v)
+        resolve(v);
       };
     } catch (e) {
       reject(e);
     }
-  }))
+  });
 }
 
-async function check(opts: { checker, name, getState: () => GatewayCheckNodeState, onStateChange: (update: (s: GatewayCheckNodeState) => void) => void }) {
-  const {onStateChange, getState} = opts;
-  const {checker, name, ...passBy} = opts;
+async function check(opts: {
+  checker;
+  name;
+  getState: () => GatewayCheckNodeState;
+  onStateChange: (update: (s: GatewayCheckNodeState) => void) => void;
+}) {
+  const { onStateChange, getState } = opts;
+  const { checker, name, ...passBy } = opts;
 
-  onStateChange(s => {
+  onStateChange((s) => {
     const check = s[name];
 
     check.startTime = Date.now();
@@ -160,25 +164,25 @@ async function check(opts: { checker, name, getState: () => GatewayCheckNodeStat
     let result;
     result = await checker(passBy);
 
-    onStateChange(s => {
+    onStateChange((s) => {
       const check = s[name];
       if (check.status === 'running') {
-        check.status = 'success'
+        check.status = 'success';
       }
       check.result = result;
-      check.endTime = Date.now()
-    })
+      check.endTime = Date.now();
+    });
   } catch (e) {
     // const {gateway} = getState();
     // console.error(`check failed ${gateway} - ${name}`, e);
-    onStateChange(s => {
+    onStateChange((s) => {
       const check = s[name];
       if (check.status === 'running') {
-        check.status = 'error'
+        check.status = 'error';
       }
       check.error = e;
-      check.endTime = Date.now()
-    })
+      check.endTime = Date.now();
+    });
   }
 }
 
@@ -187,26 +191,30 @@ let _uid = 0;
 export function compareCheckState(a: GatewayCheckNodeState, b: GatewayCheckNodeState) {
   if (a.status?.status === b.status?.status) {
     if (a.status?.status === 'success') {
-      return (a.status.endTime - a.status.startTime) - (b.status.endTime - b.status.startTime)
+      return a.status.endTime - a.status.startTime - (b.status.endTime - b.status.startTime);
     }
 
     return 0;
   }
   if (a.status?.status === 'success') {
-    return -1
+    return -1;
   }
   if (b.status?.status === 'success') {
-    return 1
+    return 1;
   }
-  return 0
+  return 0;
 }
 
-export async function checkGateways(gateways: string[], onStateChange: (s: GatewayCheckNodeState[]) => void, {signal = null} = {}) {
+export async function checkGateways(
+  gateways: string[],
+  onStateChange: (s: GatewayCheckNodeState[]) => void,
+  { signal = null } = {}
+) {
   let state = new Array(gateways.length);
 
   await Promise.all(
     gateways.map((v, i) =>
-      checkGateway(v, s => {
+      checkGateway(v, (s) => {
         state = produce(state, (base) => {
           base[i] = s;
         });
@@ -217,7 +225,7 @@ export async function checkGateways(gateways: string[], onStateChange: (s: Gatew
   return state;
 }
 
-export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeState) => void, {signal = null} = {}) {
+export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeState) => void, { signal = null } = {}) {
   let state: GatewayCheckNodeState = {
     id: _uid++,
 
@@ -226,9 +234,9 @@ export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeS
 
     startTime: Date.now(),
 
-    status: {status: 'new'},
-    cors: {status: 'new'},
-    origin: {status: 'new'},
+    status: { status: 'new' },
+    cors: { status: 'new' },
+    origin: { status: 'new' },
 
     signal,
   };
@@ -241,28 +249,29 @@ export async function checkGateway(gateway, onStateChange: (s: GatewayCheckNodeS
     onStateChange(update) {
       const neo = produce(state, update);
       if (neo === state) {
-        return
+        return;
       }
       state = neo;
       onStateChange(state);
-    }
+    },
   };
 
   await Promise.all([
-    check({...opts, name: 'status', checker: checkStatus}),
-    check({...opts, name: 'cors', checker: checkCors}),
-    check({...opts, name: 'origin', checker: checkOrigin}),
+    check({ ...opts, name: 'status', checker: checkStatus }),
+    check({ ...opts, name: 'cors', checker: checkCors }),
+    check({ ...opts, name: 'origin', checker: checkOrigin }),
   ]);
 
-  opts.onStateChange(s => {
-    s.endTime = Date.now()
+  opts.onStateChange((s) => {
+    s.endTime = Date.now();
   });
 
-  return state
+  return state;
 }
 
 function gatewayHostname(url) {
   if (url && url.hostname) url = url.hostname.toString();
-  return url.replace(`${CheckTextHash}.ipfs.`, '') // skip .ipfs. in subdomain gateways
-    .replace(`${CheckTextHash}.`, '') // path-based
+  return url
+    .replace(`${CheckTextHash}.ipfs.`, '') // skip .ipfs. in subdomain gateways
+    .replace(`${CheckTextHash}.`, ''); // path-based
 }

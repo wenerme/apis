@@ -1,29 +1,29 @@
-import {useFocused, useSelected} from 'slate-react';
-import React, {useCallback, useState} from 'react';
-import {EditableProps} from 'slate-react/dist/components/editable';
-import {Range, Transforms} from 'slate';
+import { useFocused, useSelected } from 'slate-react';
+import React, { useCallback, useState } from 'react';
+import { EditableProps } from 'slate-react/dist/components/editable';
+import { Range, Transforms } from 'slate';
 
-export const withMentions = () => editor => {
-  const {isInline, isVoid} = editor;
-  editor.isInline = element => {
-    return element.type === 'mention' ? true : isInline(element)
+export const withMentions = () => (editor) => {
+  const { isInline, isVoid } = editor;
+  editor.isInline = (element) => {
+    return element.type === 'mention' ? true : isInline(element);
   };
-  editor.isVoid = element => {
-    return element.type === 'mention' ? true : isVoid(element)
+  editor.isVoid = (element) => {
+    return element.type === 'mention' ? true : isVoid(element);
   };
 
   const editableProps: EditableProps = editor.editableProps ?? {};
-  const {renderElement} = editableProps;
-  editableProps.renderElement = props => {
+  const { renderElement } = editableProps;
+  editableProps.renderElement = (props) => {
     if (props.element.type === 'mention') {
       return <MentionElement {...props} />;
     }
-    return renderElement(props)
+    return renderElement(props);
   };
-  return editor
+  return editor;
 };
 
-const MentionElement = ({attributes, children, element}) => {
+const MentionElement = ({ attributes, children, element }) => {
   const selected = useSelected();
   const focused = useFocused();
   return (
@@ -44,26 +44,26 @@ const MentionElement = ({attributes, children, element}) => {
       @{element.character}
       {children}
     </span>
-  )
+  );
 };
 
 export const insertMention = (editor, character) => {
-  const mention = {type: 'mention', character, children: [{text: ''}]};
+  const mention = { type: 'mention', character, children: [{ text: '' }] };
   Transforms.insertNodes(editor, mention);
-  Transforms.move(editor)
+  Transforms.move(editor);
 };
 
-export function useMentionState({editor}) {
+export function useMentionState({ editor }) {
   const [target, setTarget] = useState<Range>();
   const [index, setIndex] = useState(0);
   const [search, setSearch] = useState('');
 
-  const chars = ['wener', 'wahaha', 'wasai', 'cyw', 'ceco', 'xxx', 'xyz', '你好'].filter(c =>
-    c.toLowerCase().startsWith(search.toLowerCase())
-  ).slice(0, 10);
+  const chars = ['wener', 'wahaha', 'wasai', 'cyw', 'ceco', 'xxx', 'xyz', '你好']
+    .filter((c) => c.toLowerCase().startsWith(search.toLowerCase()))
+    .slice(0, 10);
 
   const onKeyDown = useCallback(
-    event => {
+    (event) => {
       if (target) {
         switch (event.key) {
           case 'ArrowDown':
@@ -88,7 +88,7 @@ export function useMentionState({editor}) {
             setTarget(null);
             break;
           default:
-            return false
+            return false;
         }
       }
     },

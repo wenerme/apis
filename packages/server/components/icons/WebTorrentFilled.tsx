@@ -1,12 +1,15 @@
-import React, {ForwardRefRenderFunction} from 'react';
-import WebTorrentFilledSvg from '../../public/icons/svg/WebTorrent-filled.svg'
-import Icon, {IconComponentProps} from '@ant-design/icons/lib/components/Icon';
+import React, { ForwardRefRenderFunction } from 'react';
+import WebTorrentFilledSvg from '../../public/icons/svg/WebTorrent-filled.svg';
+import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const WebTorrentFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(Icon, Object.assign({}, props, {
-    ref,
-    component: WebTorrentFilledSvg
-  }));
+  return React.createElement(
+    Icon,
+    Object.assign({}, props, {
+      ref,
+      component: WebTorrentFilledSvg,
+    })
+  );
 };
 
 WebTorrentFilled.displayName = 'WebTorrentFilled';

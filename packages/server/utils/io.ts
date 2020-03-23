@@ -5,10 +5,10 @@ export function readFileAsArrayBuffer(file: File | Blob): Promise<ArrayBuffer> {
     reader.onload = async (e) => {
       resolve(e.target.result as ArrayBuffer);
     };
-    reader.onerror = error => {
-      reject(error)
+    reader.onerror = (error) => {
+      reject(error);
     };
-  })
+  });
 }
 
 export function readFileAsText(file: File | Blob): Promise<string> {
@@ -18,13 +18,13 @@ export function readFileAsText(file: File | Blob): Promise<string> {
     reader.onload = async (e) => {
       resolve(e.target.result as string);
     };
-    reader.onerror = error => {
-      reject(error)
+    reader.onerror = (error) => {
+      reject(error);
     };
-  })
+  });
 }
 
 export async function readFileAsBuffer(file: File | Blob): Promise<Buffer> {
-  const {Buffer} = await import('buffer/');
-  return Buffer.from(await readFileAsArrayBuffer(file)) as any
+  const { Buffer } = await import('buffer/');
+  return Buffer.from(await readFileAsArrayBuffer(file)) as any;
 }

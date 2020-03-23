@@ -1,10 +1,10 @@
 import React from 'react';
-import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {PageContent} from 'components/layout/PageLayout/PageContent';
+import { PageLayout } from 'components/layout/PageLayout/PageLayout';
+import { PageContent } from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {PageHeader} from 'antd';
-import {EditOutlined} from '@ant-design/icons/lib';
-import {SlateRichEditor} from 'components/editor/slate/SlateRichEditor';
+import { PageHeader } from 'antd';
+import { EditOutlined } from '@ant-design/icons/lib';
+import { SlateRichEditor } from 'components/editor/slate/SlateRichEditor';
 
 const Page = () => {
   return (
@@ -18,7 +18,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <EditOutlined style={{marginRight: 8}} />
+              <EditOutlined style={{ marginRight: 8 }} />
               Slate
             </div>
           }
@@ -26,9 +26,8 @@ const Page = () => {
         />
 
         <SlateRichEditor />
-
       </PageContent>
     </PageLayout>
-  )
+  );
 };
-export default Page
+export default Page;

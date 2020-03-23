@@ -1,23 +1,21 @@
-import React, {useMemo, useState} from 'react'
-import {normalizeColumns} from 'libs/antds/table/normal';
-import {KongRouteEntity} from 'modules/kong/apis/types';
-import {renderArrayOfString, renderBoolean, renderTags} from 'modules/kong/components/renders';
-import {Button, Divider, Form} from 'antd';
-import {buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder} from 'libs/antds/form/builder';
+import React, { useMemo, useState } from 'react';
+import { normalizeColumns } from 'libs/antds/table/normal';
+import { KongRouteEntity } from 'modules/kong/apis/types';
+import { renderArrayOfString, renderBoolean, renderTags } from 'modules/kong/components/renders';
+import { Button, Divider, Form } from 'antd';
+import { buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder } from 'libs/antds/form/builder';
 import {
   createEntityColumns,
   KongEntityTable,
-  KongEntityTableProps
+  KongEntityTableProps,
 } from 'modules/kong/components/entity/KongEntityTable';
-import {flatMapDeep, keyBy, omitBy, uniq} from 'lodash';
-import {EntitySelect} from 'modules/kong/components/entity/EntitySelect';
-import {Trans} from 'react-i18next';
-import {HeaderInput} from 'modules/kong/components/HeaderInput';
-import {FormListField} from 'modules/kong/components/FormListField';
+import { flatMapDeep, keyBy, omitBy, uniq } from 'lodash';
+import { EntitySelect } from 'modules/kong/components/entity/EntitySelect';
+import { Trans } from 'react-i18next';
+import { HeaderInput } from 'modules/kong/components/HeaderInput';
+import { FormListField } from 'modules/kong/components/FormListField';
 
-const fields = [
-  {key: 'name', label: '名字'},
-];
+const fields = [{ key: 'name', label: '名字' }];
 const otherFields = [
   {
     key: 'https_redirect_status_code',
@@ -57,15 +55,15 @@ const otherFields = [
     label: '标签',
     widget: 'select',
     defaultValue: [],
-    widgetProps: {mode: 'tags'},
+    widgetProps: { mode: 'tags' },
   },
   {
     key: 'service',
     label: '服务',
     widget: EntitySelect,
     widgetProps: {
-      entityName: 'Service'
-    }
+      entityName: 'Service',
+    },
   },
 ];
 const protocolFields: FormFieldProps[] = [
@@ -73,20 +71,20 @@ const protocolFields: FormFieldProps[] = [
     key: 'methods',
     label: '方法',
     widget: 'select',
-    widgetProps: {mode: 'tags', allowClear: true, autoClearSearchValue: true,},
+    widgetProps: { mode: 'tags', allowClear: true, autoClearSearchValue: true },
     options: ['GET', 'POST', 'DELETE', 'PATCH', 'HEAD', 'PUT', 'OPTIONS'],
   },
   {
     key: 'hosts',
     label: '主机',
     widget: 'select',
-    widgetProps: {mode: 'tags'},
+    widgetProps: { mode: 'tags' },
   },
   {
     key: 'paths',
     label: '路径',
     widget: 'select',
-    widgetProps: {mode: 'tags'},
+    widgetProps: { mode: 'tags' },
   },
   {
     key: 'headers',
@@ -101,70 +99,54 @@ const protocolFields: FormFieldProps[] = [
     label: 'SNIs',
     widget: 'select',
     defaultValue: [],
-    widgetProps: {mode: 'tags'},
+    widgetProps: { mode: 'tags' },
   },
   {
     key: 'sources',
     label: '来源',
     widget: 'select',
     defaultValue: [],
-    widgetProps: {mode: 'tags'},
+    widgetProps: { mode: 'tags' },
   },
   {
     key: 'destinations',
     label: '目标',
     widget: 'select',
     defaultValue: [],
-    widgetProps: {mode: 'tags'},
+    widgetProps: { mode: 'tags' },
   },
 ];
-protocolFields.forEach(v => Object.assign(v, {labelCol: {span: 4}, wrapperCol: {span: 20}}));
+protocolFields.forEach((v) => Object.assign(v, { labelCol: { span: 4 }, wrapperCol: { span: 20 } }));
 
 const protocolFieldByKey = keyBy(protocolFields, 'key');
 
 const protocolFieldSet = {
-  http: [
-    ['methods', 'hosts', 'headers'],
-    ['paths']
-  ],
-  https: [
-    ['methods', 'hosts', 'headers', 'paths'],
-    ['snis']
-  ],
-  tcp: [
-    ['sources'],
-    ['destinations']
-  ],
-  tls: [
-    ['sources', 'destinations'],
-    ['snis']
-  ],
-  grpc: [
-    ['hosts', 'headers'],
-    ['paths']
-  ],
-  grpcs: [
-    ['hosts', 'headers', 'paths'],
-    ['snis']
-  ],
+  http: [['methods', 'hosts', 'headers'], ['paths']],
+  https: [['methods', 'hosts', 'headers', 'paths'], ['snis']],
+  tcp: [['sources'], ['destinations']],
+  tls: [['sources', 'destinations'], ['snis']],
+  grpc: [['hosts', 'headers'], ['paths']],
+  grpcs: [['hosts', 'headers', 'paths'], ['snis']],
 };
 const protocolField = {
   key: 'protocols',
   label: '协议',
   widget: 'select',
-  widgetProps: {mode: 'multiple'},
+  widgetProps: { mode: 'multiple' },
   required: true,
   defaultValue: ['http', 'https'],
   options: ['grpc', 'grpcs', 'http', 'https', 'tcp', 'tls'],
 };
 
-const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSubmit}) => {
+const RouteForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, onSubmit }) => {
   const initial = useMemo(() => {
     // pre process
     // null 不能被赋初始值
-    const initial = initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...fields, ...otherFields, protocolField]);
+    const initial = initialValues
+      ? omitBy(initialValues, (v) => v === null)
+      : buildInitialValues([...fields, ...otherFields, protocolField]);
     if (initial['headers'] && !Array.isArray(initial['headers'])) {
-      initial['headers'] = Object.entries(initial['headers'])
+      initial['headers'] = Object.entries(initial['headers']);
     }
     return initial;
   }, [initialValues]);
@@ -173,78 +155,121 @@ const RouteForm: React.FC<{ initialValues?, onSubmit? }> = ({initialValues, onSu
 
   const [protocols, setProtocols] = useState<string[]>(initialValues?.['protocols'] || []);
   const currentProtocolFields = useMemo(() => {
-    const keys = uniq(flatMapDeep(protocols, v => protocolFieldSet[v]));
-    return keys.map(v => protocolFieldByKey[v])
+    const keys = uniq(flatMapDeep(protocols, (v) => protocolFieldSet[v]));
+    return keys.map((v) => protocolFieldByKey[v]);
   }, [protocols]);
-
 
   return (
     <Form
       form={form}
       initialValues={initial}
-      labelCol={{span: 4}}
-      wrapperCol={{span: 20}}
+      labelCol={{ span: 4 }}
+      wrapperCol={{ span: 20 }}
       onFinish={(values) => {
         // post process
         if (values['headers'] && Array.isArray(values['headers'])) {
-          values['headers'] = Object.fromEntries(values['headers'])
+          values['headers'] = Object.fromEntries(values['headers']);
         }
         onSubmit(values);
-        console.log('values', values)
+        console.log('values', values);
       }}
       onValuesChange={(v, r) => {
         if (v?.['protocols']) {
-          setProtocols(v['protocols'])
+          setProtocols(v['protocols']);
         }
       }}
     >
-      {initial?.id && <FormFieldBuilder pure field={{key: 'id', label: 'ID', readOnly: true}} />}
+      {initial?.id && <FormFieldBuilder pure field={{ key: 'id', label: 'ID', readOnly: true }} />}
 
       <FormFieldsBuilder pure fields={fields} />
 
-      <Divider><Trans>协议配置</Trans></Divider>
+      <Divider>
+        <Trans>协议配置</Trans>
+      </Divider>
 
       <FormFieldBuilder pure field={protocolField} />
 
       <FormFieldsBuilder fields={currentProtocolFields} />
 
-      <Divider><Trans>基础配置</Trans></Divider>
+      <Divider>
+        <Trans>基础配置</Trans>
+      </Divider>
 
       <FormFieldsBuilder pure fields={otherFields} />
 
-      <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <Button htmlType="submit" type="primary"><Trans>提交</Trans></Button>
-        <Button htmlType="reset" onClick={() => form.resetFields()}><Trans>重置</Trans></Button>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Button htmlType="submit" type="primary">
+          <Trans>提交</Trans>
+        </Button>
+        <Button htmlType="reset" onClick={() => form.resetFields()}>
+          <Trans>重置</Trans>
+        </Button>
       </div>
     </Form>
-  )
+  );
 };
-
 
 export const KongRouteList: React.FC<Partial<KongEntityTableProps>> = (props) => {
-  const columns = useMemo(() => normalizeColumns<KongRouteEntity>(createEntityColumns([
-    {key: 'service.id', title: '服务', width: 300},
+  const columns = useMemo(
+    () =>
+      normalizeColumns<KongRouteEntity>(
+        createEntityColumns([
+          { key: 'service.id', title: '服务', width: 300 },
 
-    {dataIndex: 'methods', title: '方法', width: 160, render: renderTags},
-    {dataIndex: 'protocols', title: '协议', width: 160, render: renderArrayOfString},
-    {dataIndex: 'hosts', title: '主机', width: 160, render: renderArrayOfString},
-    {dataIndex: 'paths', title: '路径', width: 160, render: renderArrayOfString},
+          {
+            dataIndex: 'methods',
+            title: '方法',
+            width: 160,
+            render: renderTags,
+          },
+          {
+            dataIndex: 'protocols',
+            title: '协议',
+            width: 160,
+            render: renderArrayOfString,
+          },
+          {
+            dataIndex: 'hosts',
+            title: '主机',
+            width: 160,
+            render: renderArrayOfString,
+          },
+          {
+            dataIndex: 'paths',
+            title: '路径',
+            width: 160,
+            render: renderArrayOfString,
+          },
 
-    {dataIndex: 'https_redirect_status_code', title: '重定向码', width: 80, render: renderArrayOfString},
-    {dataIndex: 'regex_priority', title: '正则优先', width: 80, render: renderArrayOfString,},
-    {dataIndex: 'strip_path', title: 'Strip Path', width: 80, render: renderBoolean},
-    {dataIndex: 'path_handling', title: 'Path Handling', width: 120},
-    {dataIndex: 'preserve_host', title: '保留主机', width: 80, render: renderBoolean},
+          {
+            dataIndex: 'https_redirect_status_code',
+            title: '重定向码',
+            width: 80,
+            render: renderArrayOfString,
+          },
+          {
+            dataIndex: 'regex_priority',
+            title: '正则优先',
+            width: 80,
+            render: renderArrayOfString,
+          },
+          {
+            dataIndex: 'strip_path',
+            title: 'Strip Path',
+            width: 80,
+            render: renderBoolean,
+          },
+          { dataIndex: 'path_handling', title: 'Path Handling', width: 120 },
+          {
+            dataIndex: 'preserve_host',
+            title: '保留主机',
+            width: 80,
+            render: renderBoolean,
+          },
+        ])
+      ),
+    []
+  );
 
-  ])), []);
-
-
-  return <KongEntityTable
-    label="路由"
-    name="Route"
-    columns={columns}
-    editor={RouteForm}
-    {...props}
-  />
+  return <KongEntityTable label="路由" name="Route" columns={columns} editor={RouteForm} {...props} />;
 };
-

@@ -1,21 +1,21 @@
-import {ServiceInvocationHandler} from './types';
+import { ServiceInvocationHandler } from './types';
 
 interface ProxyContext {
-  invokers: Record<string, Function>
+  invokers: Record<string, Function>;
 }
 
 export interface ConsumeOptions {
-  consumer?: ServiceInvocationHandler,
-  service: string,
-  includes?: string[],
-  excludes?: string[],
+  consumer?: ServiceInvocationHandler;
+  service: string;
+  includes?: string[];
+  excludes?: string[];
 }
 
 export function consumeService<T extends object>(options: ConsumeOptions): T {
-  const {consumer, service, includes = [], excludes = []} = options;
+  const { consumer, service, includes = [], excludes = [] } = options;
 
   const t: ProxyContext = {
-    invokers: {}
+    invokers: {},
   };
 
   return new Proxy<T>(t as any, {
@@ -25,40 +25,44 @@ export function consumeService<T extends object>(options: ConsumeOptions): T {
       }
       if (includes.length) {
         if (includes.includes(p)) {
-          return
+          return;
         }
       }
       if (excludes.length) {
         if (!excludes.includes(p)) {
-          return
+          return;
         }
       }
       // cache invoker
-      return t.invokers[p] = t.invokers[p] ?? createInvoker({
-        consumer,
-        service,
-        method: p,
-      })
-    }
-  })
+      return (t.invokers[p] =
+        t.invokers[p] ??
+        createInvoker({
+          consumer,
+          service,
+          method: p,
+        }));
+    },
+  });
 }
 
-function createInvoker(context: { consumer: ServiceInvocationHandler, service, method }) {
-  const {consumer, service, method} = context;
+function createInvoker(context: { consumer: ServiceInvocationHandler; service; method }) {
+  const { consumer, service, method } = context;
   return (...args) => {
     const res = consumer({
       service,
       method,
       arguments: args,
     });
-    return res.then(v => v?.result);
-  }
+    return res.then((v) => v?.result);
+  };
 }
 
-export function createServiceConsumer(opts: Partial<ConsumeOptions> & { consumer }): (options: ConsumeOptions & { service }) => any {
+export function createServiceConsumer(
+  opts: Partial<ConsumeOptions> & { consumer }
+): (options: ConsumeOptions & { service }) => any {
   const services = {};
-  return options => {
-    const {service} = options;
-    return services[service] = services[service] ?? consumeService(Object.assign({}, opts, options))
-  }
+  return (options) => {
+    const { service } = options;
+    return (services[service] = services[service] ?? consumeService(Object.assign({}, opts, options)));
+  };
 }

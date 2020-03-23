@@ -1,23 +1,23 @@
 export interface PhoneData {
-  version: string
-  records: PhoneDataRecord[]
-  indexes: PhoneDataIndex[]
+  version: string;
+  records: PhoneDataRecord[];
+  indexes: PhoneDataIndex[];
 }
 
 export interface PhoneDataIndex {
-  prefix: number
-  offset?: number
-  recordOffset: number
-  vendor: string
-  vendorType: number
+  prefix: number;
+  offset?: number;
+  recordOffset: number;
+  vendor: string;
+  vendorType: number;
 }
 
 export interface PhoneDataRecord {
-  province: string
-  city: string
-  zip: string
-  code: string
-  offset?: number
+  province: string;
+  city: string;
+  zip: string;
+  code: string;
+  offset?: number;
 }
 
 export const vendors = [
@@ -27,5 +27,5 @@ export const vendors = [
   '电信', // 3
   '电信虚拟运营商', // 4
   '联通虚拟运营商', // 5
-  '移动虚拟运营商' // 6
+  '移动虚拟运营商', // 6
 ];

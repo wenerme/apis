@@ -1,12 +1,15 @@
-import React, {ForwardRefRenderFunction} from 'react';
-import DictOutlinedSvg from '../../public/icons/svg/dict-outlined.svg'
-import Icon, {IconComponentProps} from '@ant-design/icons/lib/components/Icon';
+import React, { ForwardRefRenderFunction } from 'react';
+import DictOutlinedSvg from '../../public/icons/svg/dict-outlined.svg';
+import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const DictOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(Icon, Object.assign({}, props, {
-    ref,
-    component: DictOutlinedSvg
-  }));
+  return React.createElement(
+    Icon,
+    Object.assign({}, props, {
+      ref,
+      component: DictOutlinedSvg,
+    })
+  );
 };
 
 DictOutlined.displayName = 'DictOutlined';

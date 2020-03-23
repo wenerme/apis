@@ -2,10 +2,10 @@ export interface PeerConnectionState {
   connectionState: RTCPeerConnectionState;
   iceConnectionState: RTCIceConnectionState;
   iceGatheringState: RTCIceGatheringState;
-  signalingState: RTCSignalingState
+  signalingState: RTCSignalingState;
 
-  sctpState?: RTCSctpTransportState
-  sctpTransportState?: RTCDtlsTransportState
+  sctpState?: RTCSctpTransportState;
+  sctpTransportState?: RTCDtlsTransportState;
 
-  idpErrorInfo?
+  idpErrorInfo?;
 }

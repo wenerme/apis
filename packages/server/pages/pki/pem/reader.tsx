@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
-import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {PageContent} from 'components/layout/PageLayout/PageContent';
+import React, { useState } from 'react';
+import { PageLayout } from 'components/layout/PageLayout/PageLayout';
+import { PageContent } from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Button, Input, message, PageHeader} from 'antd';
+import { Button, Input, message, PageHeader } from 'antd';
 import CertificateVerifiedFilled from 'components/icons/CertificateVerifiedFilled';
-import Certificate from 'pkijs/src/Certificate'
-import {API} from 'apis/api';
-import {DownloadOutlined} from '@ant-design/icons';
-import {download} from 'utils/download';
-import {resultOf} from 'utils/axioses';
-import {getFile} from 'utils/transfers';
-import {readFileAsText} from 'utils/io';
-import {CertificateViewer} from 'modules/pki/components/CertificateViewer';
+import Certificate from 'pkijs/src/Certificate';
+import { API } from 'apis/api';
+import { DownloadOutlined } from '@ant-design/icons';
+import { download } from 'utils/download';
+import { resultOf } from 'utils/axioses';
+import { getFile } from 'utils/transfers';
+import { readFileAsText } from 'utils/io';
+import { CertificateViewer } from 'modules/pki/components/CertificateViewer';
 
 async function decodeCert(pem) {
   if (typeof pem !== 'string') {
-    throw new Error('Expected PEM as string')
+    throw new Error('Expected PEM as string');
   }
 
   // Load certificate in PEM encoding (base64 encoded DER)
@@ -30,9 +30,9 @@ async function decodeCert(pem) {
   const Asn1js = await import('asn1js');
   // And now Asn1js can decode things \o/
   const asn1 = Asn1js.fromBER(ber);
-  const {default: Certificate} = await import('pkijs/src/Certificate');
+  const { default: Certificate } = await import('pkijs/src/Certificate');
 
-  return new Certificate({schema: asn1.result})
+  return new Certificate({ schema: asn1.result });
 }
 
 const PemReaderPageContent: React.FC = () => {
@@ -44,33 +44,40 @@ const PemReaderPageContent: React.FC = () => {
   const doFetch = async () => {
     try {
       setLoading(true);
-      const {default: axios} = await import('axios');
-      const data = await resultOf(axios.post(API.apiOf('/api/pki/cert/url'), {url}));
-      setValue(data?.certificate ?? '')
+      const { default: axios } = await import('axios');
+      const data = await resultOf(axios.post(API.apiOf('/api/pki/cert/url'), { url }));
+      setValue(data?.certificate ?? '');
     } catch (e) {
-      message.error(`获取证书失败: ${e.message || e.toString()}`)
+      message.error(`获取证书失败: ${e.message || e.toString()}`);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   return (
     <div className="container">
       <div>
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
           <Button
             type="primary"
             onClick={async () => {
               const cert = await decodeCert(value);
               window['cert'] = cert;
               console.log(cert);
-              setCert(cert)
-            }}>解析</Button>
+              setCert(cert);
+            }}
+          >
+            解析
+          </Button>
 
           <Input
             value={url}
-            onChange={e => setUrl(e.target.value)}
-            addonAfter={<Button loading={loading} type="link" size="small" onClick={doFetch}>获取证书</Button>}
+            onChange={(e) => setUrl(e.target.value)}
+            addonAfter={
+              <Button loading={loading} type="link" size="small" onClick={doFetch}>
+                获取证书
+              </Button>
+            }
           />
 
           <Button icon={<DownloadOutlined />} disabled={!value} onClick={() => download('cert.pem', value)}>
@@ -78,50 +85,49 @@ const PemReaderPageContent: React.FC = () => {
           </Button>
         </div>
         <Input.TextArea
-          style={{fontFamily: 'monospace'}}
+          style={{ fontFamily: 'monospace' }}
           rows={20}
           placeholder="Drop file here or input -----BEGIN CERTIFICATE-----"
           value={value}
-          onChange={v => setValue(v.target.value)}
-          onDrop={async e => {
+          onChange={(v) => setValue(v.target.value)}
+          onDrop={async (e) => {
             e.preventDefault();
-            const {file} = getFile(e.dataTransfer) || {};
+            const { file } = getFile(e.dataTransfer) || {};
             if (file) {
               setLoading(true);
               try {
                 const value = await readFileAsText(file);
                 setValue(value);
               } catch (e) {
-                message.error(`读取证书失败: ${e.message || e.toString()}`)
+                message.error(`读取证书失败: ${e.message || e.toString()}`);
               } finally {
-                setLoading(false)
+                setLoading(false);
               }
             }
           }}
         />
-
       </div>
-      <div style={{overflow: 'auto'}}>
+      <div style={{ overflow: 'auto' }}>
         {cert && <CertificateViewer cert={cert} />}
         <h3>Dump</h3>
         <pre>{cert && JSON.stringify(cert.toJSON(), null, '  ')}</pre>
       </div>
       <style jsx>{`
-.container {
-  display: flex;
-}
-.container > div{
-  flex:1;
-  margin: 8px;
-}
-@media (max-width: 767.98px) { 
-  .container {
-    flex-flow: column;
-  }
-}
-`}</style>
+        .container {
+          display: flex;
+        }
+        .container > div {
+          flex: 1;
+          margin: 8px;
+        }
+        @media (max-width: 767.98px) {
+          .container {
+            flex-flow: column;
+          }
+        }
+      `}</style>
     </div>
-  )
+  );
 };
 
 const Page = () => {
@@ -136,7 +142,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <CertificateVerifiedFilled style={{marginRight: 8}} />
+              <CertificateVerifiedFilled style={{ marginRight: 8 }} />
               PEM Reader
             </div>
           }
@@ -144,9 +150,8 @@ const Page = () => {
         />
 
         <PemReaderPageContent />
-
       </PageContent>
     </PageLayout>
-  )
+  );
 };
-export default Page
+export default Page;

@@ -1,12 +1,12 @@
-export function getFile(dataTransfer: DataTransfer): { file: File, filename: string } | null {
-  const items: DataTransferItemList = dataTransfer?.items ?? [] as any;
+export function getFile(dataTransfer: DataTransfer): { file: File; filename: string } | null {
+  const items: DataTransferItemList = dataTransfer?.items ?? ([] as any);
 
   if (items.length >= 2 && items[0].kind === 'string' && items[1].kind === 'file') {
     const text = dataTransfer.getData('text');
     const file = items[1].getAsFile() ?? dataTransfer.files?.item(0);
     if (!file) {
       console.error(`no file ${text}`, items[1]);
-      return
+      return;
     }
 
     // let type = file.type;
@@ -18,11 +18,14 @@ export function getFile(dataTransfer: DataTransfer): { file: File, filename: str
     //   file = new File([blob], text, {type});
     // }
 
-    return {file, filename: text}
+    return { file, filename: text };
   } else if (items[0].kind === 'file') {
     const file = items[0].getAsFile();
-    return {file, filename: file.name}
+    return { file, filename: file.name };
   } else {
-    console.debug(`file item not match`, [...items].map(v => ({type: v.type, kind: v.kind})));
+    console.debug(
+      `file item not match`,
+      [...items].map((v) => ({ type: v.type, kind: v.kind }))
+    );
   }
 }

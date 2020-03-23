@@ -9,16 +9,16 @@ export function blobFromDataUrl(url: string) {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
-  return new Blob([u8arr], {type: mime});
+  return new Blob([u8arr], { type: mime });
 }
 
 export async function blobToDataUrl(blob: Blob): Promise<string | ArrayBuffer | null> {
   const a = new FileReader();
-  return new Promise(((resolve, reject) => {
-    a.onload = e => {
+  return new Promise((resolve, reject) => {
+    a.onload = (e) => {
       resolve(e.target.result);
     };
     a.onerror = reject;
     a.readAsDataURL(blob);
-  }))
+  });
 }

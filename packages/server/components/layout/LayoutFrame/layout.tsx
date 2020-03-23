@@ -1,30 +1,33 @@
-import {createSelectorHook, Provider, ReactReduxContextValue, TypedUseSelectorHook} from 'react-redux';
-import {LayoutState} from 'reducers/layout';
-import {Dispatch, Store} from 'redux';
-import React, {useContext, useReducer} from 'react';
-import {createLayoutFrameSlice, LayoutFrameState} from 'components/layout/LayoutFrame/reducers';
-import {configureStore} from '@reduxjs/toolkit';
-import {MenuSpec} from 'components/layout/LayoutFrame/types';
+import { createSelectorHook, Provider, ReactReduxContextValue, TypedUseSelectorHook } from 'react-redux';
+import { LayoutState } from 'reducers/layout';
+import { Dispatch, Store } from 'redux';
+import React, { useContext, useReducer } from 'react';
+import { createLayoutFrameSlice, LayoutFrameState } from 'components/layout/LayoutFrame/reducers';
+import { configureStore } from '@reduxjs/toolkit';
+import { MenuSpec } from 'components/layout/LayoutFrame/types';
 
 export interface LayoutFrameInstance {
   readonly name;
   readonly dispatch: Dispatch<any>;
   readonly selector: (s) => LayoutState;
 
-  readonly useSelector
+  readonly useSelector;
 }
 
 export interface LayoutFrameOptions {
-  name?: string
-  menus: MenuSpec[]
-  link?: ({href}) => React.ReactNode
+  name?: string;
+  menus: MenuSpec[];
+  link?: ({ href }) => React.ReactNode;
 }
 
-const LayoutFrameInstanceContext = React.createContext<{ layout: LayoutFrameInstance, options: LayoutFrameOptions }>(null);
+const LayoutFrameInstanceContext = React.createContext<{
+  layout: LayoutFrameInstance;
+  options: LayoutFrameOptions;
+}>(null);
 
 export const useLayoutFrameSelector: TypedUseSelectorHook<LayoutState> = (s, eq?) => {
-  const {useSelector, selector} = useContext(LayoutFrameInstanceContext).layout;
-  return useSelector(state => s(selector(state)), eq)
+  const { useSelector, selector } = useContext(LayoutFrameInstanceContext).layout;
+  return useSelector((state) => s(selector(state)), eq);
 };
 
 export function useLayoutFrameOptions(): LayoutFrameOptions {
@@ -39,7 +42,7 @@ class LayoutFrameStore implements LayoutFrameInstance {
   dispatch;
   forceRootUpdate: () => void;
 
-  constructor({forceRootUpdate, name = 'default'}) {
+  constructor({ forceRootUpdate, name = 'default' }) {
     this.forceRootUpdate = forceRootUpdate;
     this.name = name;
 
@@ -49,7 +52,7 @@ class LayoutFrameStore implements LayoutFrameInstance {
     this.useSelector = createSelectorHook(this.context);
   }
 
-  selector = s => s;
+  selector = (s) => s;
 
   getLayout(): LayoutFrameInstance {
     // const {name, store, context} = this;
@@ -59,36 +62,39 @@ class LayoutFrameStore implements LayoutFrameInstance {
     //   selector: s => s,
     //   useSelector: createSelectorHook(context),
     // }
-    return this
+    return this;
   }
 }
 
 const LayoutStoreContext = React.createContext<ReactReduxContextValue>(null);
 
-export const LayoutFrameProvider: React.FC<{ layout: LayoutFrameInstance, options: LayoutFrameOptions }> = ({layout, options, children}) => {
-  const store = layout as LayoutFrameStore
+export const LayoutFrameProvider: React.FC<{
+  layout: LayoutFrameInstance;
+  options: LayoutFrameOptions;
+}> = ({ layout, options, children }) => {
+  const store = layout as LayoutFrameStore;
   return (
-    <LayoutFrameInstanceContext.Provider value={{layout, options}}>
+    <LayoutFrameInstanceContext.Provider value={{ layout, options }}>
       <Provider store={store.store} context={store.context}>
         {children}
       </Provider>
     </LayoutFrameInstanceContext.Provider>
-  )
+  );
 };
 
-export function useLayoutFrame(layout?: LayoutFrameInstance, {name = null} = {}): LayoutFrameInstance {
+export function useLayoutFrame(layout?: LayoutFrameInstance, { name = null } = {}): LayoutFrameInstance {
   const instanceRef = React.useRef<LayoutFrameInstance>();
-  const [, forceRootUpdate] = useReducer(a => a + 1, 0);
+  const [, forceRootUpdate] = useReducer((a) => a + 1, 0);
 
   if (!instanceRef.current) {
     if (layout) {
       instanceRef.current = layout;
     } else {
-      const layoutStore = new LayoutFrameStore({forceRootUpdate, name});
+      const layoutStore = new LayoutFrameStore({ forceRootUpdate, name });
       instanceRef.current = layoutStore.getLayout();
     }
   }
-  return instanceRef.current
+  return instanceRef.current;
 }
 
-export const useLayoutDarkLightTheme: () => 'dark' | 'light' = () => useLayoutFrameSelector(s => s.theme as any);
+export const useLayoutDarkLightTheme: () => 'dark' | 'light' = () => useLayoutFrameSelector((s) => s.theme as any);

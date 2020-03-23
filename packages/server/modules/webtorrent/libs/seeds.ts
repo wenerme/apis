@@ -1,13 +1,13 @@
-import {Instance, TorrentOptions} from 'webtorrent';
+import { Instance, TorrentOptions } from 'webtorrent';
 
 export interface CreateSeedOptions {
-  type: 'text' | 'file'
-  text?: CreateTextSeedOptions
+  type: 'text' | 'file';
+  text?: CreateTextSeedOptions;
 }
 
 export interface CreateTextSeedOptions extends Omit<TorrentOptions, 'name'> {
-  filename: string
-  content: string
+  filename: string;
+  content: string;
 }
 
 export async function createSeed(client: Instance, options: CreateSeedOptions) {
@@ -17,12 +17,12 @@ export async function createSeed(client: Instance, options: CreateSeedOptions) {
     case 'file':
       break;
     default:
-      throw new Error('invalid seed options')
+      throw new Error('invalid seed options');
   }
 }
 
 function createTextSeed(client: Instance, options: CreateTextSeedOptions) {
-  const {filename, content, ...opts} = options;
+  const { filename, content, ...opts } = options;
 
-  return client.seed(new Buffer(content), {name: filename, ...opts})
+  return client.seed(new Buffer(content), { name: filename, ...opts });
 }

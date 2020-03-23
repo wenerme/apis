@@ -1,6 +1,6 @@
 export interface ApkIndexRecord {
-  architecture
-  pullChecksum
+  architecture;
+  pullChecksum;
 }
 
 export const ApkIndexRecordFields = [

@@ -1,3 +1,3 @@
-import handler from './[sessionId]'
+import handler from './[sessionId]';
 
 export default handler;

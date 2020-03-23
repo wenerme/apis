@@ -1,10 +1,7 @@
-import {createApisConnectionFactory} from 'db/apis';
-import {PhoneDataIndexEntity, PhoneDataRecordEntity} from 'libs/phonedata/schema';
+import { createApisConnectionFactory } from 'db/apis';
+import { PhoneDataIndexEntity, PhoneDataRecordEntity } from 'libs/phonedata/schema';
 
 export const createPhoneDataConnection = createApisConnectionFactory({
   name: 'phonedata',
-  entities: [
-    PhoneDataIndexEntity,
-    PhoneDataRecordEntity,
-  ]
+  entities: [PhoneDataIndexEntity, PhoneDataRecordEntity],
 });

@@ -1,6 +1,6 @@
-import {CookieSerializeOptions, serialize} from 'cookie'
-import {ApiHandler} from '../types';
-import {NextApiRequest, NextApiResponse} from 'next';
+import { CookieSerializeOptions, serialize } from 'cookie';
+import { ApiHandler } from '../types';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 /**
  * This sets `cookie` on `res` object
@@ -16,16 +16,18 @@ const cookie = (res, name, value, options: CookieSerializeOptions = {}) => {
     options.maxAge = (Date.now() - +options.expires) / 1000;
   }
 
-  res.setHeader('Set-Cookie', serialize(name, String(stringValue), options))
+  res.setHeader('Set-Cookie', serialize(name, String(stringValue), options));
 };
 
 /**
  * Adds `cookie` function on `res.cookie` to set cookies for response
  */
-export function cookies<Req = NextApiRequest, Res = NextApiResponse>(handler: ApiHandler<Req, Res & { cookie: (name, value, options?: CookieSerializeOptions) => void }>) {
+export function cookies<Req = NextApiRequest, Res = NextApiResponse>(
+  handler: ApiHandler<Req, Res & { cookie: (name, value, options?: CookieSerializeOptions) => void }>
+) {
   return (req, res) => {
     res.cookie = (name, value, options) => cookie(res, name, value, options);
 
-    return handler(req, res)
-  }
+    return handler(req, res);
+  };
 }

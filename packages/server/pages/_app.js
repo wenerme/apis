@@ -1,8 +1,8 @@
-import React from 'react'
-import App from 'next/app'
-import Router from 'next/router'
-import {initGA, logPageView} from '../utils/analytics'
-import '../public/styles/global.css'
+import React from 'react';
+import App from 'next/app';
+import Router from 'next/router';
+import { initGA, logPageView } from '../utils/analytics';
+import '../public/styles/global.css';
 
 export default class WenerApisApp extends App {
   componentDidMount() {
@@ -18,11 +18,11 @@ export default class WenerApisApp extends App {
     }
     initGA();
     logPageView();
-    Router.events.on('routeChangeComplete', logPageView)
+    Router.events.on('routeChangeComplete', logPageView);
   }
 
   render() {
-    const {Component, pageProps} = this.props;
-    return <Component {...pageProps} />
+    const { Component, pageProps } = this.props;
+    return <Component {...pageProps} />;
   }
 }

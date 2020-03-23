@@ -1,19 +1,21 @@
-import React, {useState} from 'react';
-import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {PageContent} from 'components/layout/PageLayout/PageContent';
+import React, { useState } from 'react';
+import { PageLayout } from 'components/layout/PageLayout/PageLayout';
+import { PageContent } from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {Button, PageHeader} from 'antd';
-import {useMounted} from 'hooks/useMounted';
-import {getCurrentWebTorrentClient, getWebTorrentClient} from 'modules/webtorrent/client';
-import {Instance} from 'webtorrent';
+import { Button, PageHeader } from 'antd';
+import { useMounted } from 'hooks/useMounted';
+import { getCurrentWebTorrentClient, getWebTorrentClient } from 'modules/webtorrent/client';
+import { Instance } from 'webtorrent';
 import dynamic from 'next/dynamic';
 import WebTorrentFilled from 'components/icons/WebTorrentFilled';
 
 const WebTorrentClient = dynamic(
-  () => import('modules/webtorrent/components/WebTorrentClient').then(({WebTorrentClient}) => WebTorrentClient), {
+  () => import('modules/webtorrent/components/WebTorrentClient').then(({ WebTorrentClient }) => WebTorrentClient),
+  {
     loading: () => <div>Loading WebTorrentClient ...</div>,
     ssr: false,
-  });
+  }
+);
 
 const WebTorrentPageContent: React.FC = () => {
   const [client, setClient] = useState<Instance>(getCurrentWebTorrentClient());
@@ -21,7 +23,7 @@ const WebTorrentPageContent: React.FC = () => {
 
   const doInit = async () => {
     if (client) {
-      return
+      return;
     }
     setLoading(true);
 
@@ -31,23 +33,34 @@ const WebTorrentPageContent: React.FC = () => {
       setClient(current);
       console.info(`client nodeId=${current?.['nodeId']} peerId=${current?.['peerId']}`);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   return (
     <React.Fragment>
-      {!client && <Button disabled={loading} onClick={doInit}>初始化</Button>}
+      {!client && (
+        <Button disabled={loading} onClick={doInit}>
+          初始化
+        </Button>
+      )}
       {client && <WebTorrentClient client={client} />}
     </React.Fragment>
-  )
+  );
 };
 
 const Page = () => {
   const mounted = useMounted();
   return (
     <PageLayout showFooter={false}>
-      <PageContent style={{display: 'flex', flexFlow: 'column', margin: '0 8px', paddingBottom: 4}}>
+      <PageContent
+        style={{
+          display: 'flex',
+          flexFlow: 'column',
+          margin: '0 8px',
+          paddingBottom: 4,
+        }}
+      >
         <Head>
           <title>WebTorrent 网页客户端</title>
           <meta name="description" content="WebTorrent client" />
@@ -56,7 +69,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <WebTorrentFilled style={{marginRight: 8}} />
+              <WebTorrentFilled style={{ marginRight: 8 }} />
               WebTorrent 网页客户端
             </div>
           }
@@ -64,9 +77,8 @@ const Page = () => {
         />
 
         {mounted && <WebTorrentPageContent />}
-
       </PageContent>
     </PageLayout>
-  )
+  );
 };
-export default Page
+export default Page;

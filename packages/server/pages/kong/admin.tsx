@@ -1,18 +1,18 @@
 import React from 'react';
-import {PageLayout} from 'components/layout/PageLayout/PageLayout';
+import { PageLayout } from 'components/layout/PageLayout/PageLayout';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
 const KongAdminUI = dynamic(
-  () => import('modules/kong/components/KongAdminUI').then(({KongAdminUI}) => KongAdminUI),
+  () => import('modules/kong/components/KongAdminUI').then(({ KongAdminUI }) => KongAdminUI),
   {
     loading: () => <div>Loading KongAdminUI</div>,
-    ssr: false
+    ssr: false,
   }
 );
 
 const KongAdminPageContent: React.FC = () => {
-  return (<KongAdminUI />)
+  return <KongAdminUI />;
 };
 
 const Page = () => {
@@ -25,8 +25,7 @@ const Page = () => {
       </Head>
 
       <KongAdminPageContent />
-
     </PageLayout>
-  )
+  );
 };
-export default Page
+export default Page;

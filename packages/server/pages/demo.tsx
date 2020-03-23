@@ -1,14 +1,12 @@
 import React from 'react';
-import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {PageContent} from 'components/layout/PageLayout/PageContent';
+import { PageLayout } from 'components/layout/PageLayout/PageLayout';
+import { PageContent } from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {PageHeader} from 'antd';
-import {QrcodeOutlined} from '@ant-design/icons/lib';
+import { PageHeader } from 'antd';
+import { QrcodeOutlined } from '@ant-design/icons/lib';
 
 const DemoPageContent: React.FC = () => {
-  return (
-    <div></div>
-  )
+  return <div></div>;
 };
 
 const Page = () => {
@@ -23,7 +21,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <QrcodeOutlined style={{marginRight: 8}} />
+              <QrcodeOutlined style={{ marginRight: 8 }} />
               Demo Page
             </div>
           }
@@ -31,9 +29,8 @@ const Page = () => {
         />
 
         <DemoPageContent />
-
       </PageContent>
     </PageLayout>
-  )
+  );
 };
-export default Page
+export default Page;

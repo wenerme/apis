@@ -1,7 +1,7 @@
-import {isDev} from 'utils/utils';
-import {IncomingMessage} from 'http';
-import {parseRequestUrl} from 'libs/nexts/utils/requests';
-import {urljoin} from 'utils/urljoin';
+import { isDev } from 'utils/utils';
+import { IncomingMessage } from 'http';
+import { parseRequestUrl } from 'libs/nexts/utils/requests';
+import { urljoin } from 'utils/urljoin';
 
 export const API = {
   get origin(): string {
@@ -28,6 +28,6 @@ export const API = {
       }
     }
 
-    return urljoin(origin, apiPath)
-  }
+    return urljoin(origin, apiPath);
+  },
 };

@@ -1,11 +1,11 @@
 export interface BuildGeneratorOption {
-  length
-  letter
-  upper
-  lower
-  number
-  symbol
-  random
+  length;
+  letter;
+  upper;
+  lower;
+  number;
+  symbol;
+  random;
 }
 
 export function generatePassword(opts?: Partial<BuildGeneratorOption>) {
@@ -20,14 +20,18 @@ export function createPasswordGenerator(opts?: Partial<BuildGeneratorOption>) {
     lower = true,
     number = true,
     symbol = true,
-    random = Math.random.bind(Math)
+    random = Math.random.bind(Math),
   } = opts || {};
 
   const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const lowercase = 'abcdefghijklmnopqrstuvwxyz';
   const numbers = '0123456789';
   const symbols = '!"#$%&\'()*+,-./:;<=>?@^[\\]^_`{|}~';
-  const all = (letter && upper ? uppercase : '') + (letter && lower ? lowercase : '') + (number ? numbers : '') + (symbol ? symbols : '');
+  const all =
+    (letter && upper ? uppercase : '') +
+    (letter && lower ? lowercase : '') +
+    (number ? numbers : '') +
+    (symbol ? symbols : '');
 
   return () => {
     let password = '';
@@ -36,5 +40,5 @@ export function createPasswordGenerator(opts?: Partial<BuildGeneratorOption>) {
       password += all.substring(character, character + 1);
     }
     return password;
-  }
+  };
 }

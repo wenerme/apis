@@ -1,17 +1,17 @@
 // https://github.com/xluohome/phonedata/raw/master/phone.dat
-import {PhoneData, PhoneDataIndex, PhoneDataRecord, vendors} from 'libs/phonedata/types';
-import {sortedIndexBy} from 'lodash';
+import { PhoneData, PhoneDataIndex, PhoneDataRecord, vendors } from 'libs/phonedata/types';
+import { sortedIndexBy } from 'lodash';
 import winston from 'winston';
 
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
-  defaultMeta: {lib: 'phonedata', mod: 'parser'},
+  defaultMeta: { lib: 'phonedata', mod: 'parser' },
   transports: [
     new winston.transports.Console({
-      format: winston.format.simple()
-    })
-  ]
+      format: winston.format.simple(),
+    }),
+  ],
 });
 
 function readString(buf: Buffer, offset: number, len: number) {
@@ -22,10 +22,10 @@ function readString(buf: Buffer, offset: number, len: number) {
   return s;
 }
 
-function readStringUntil(buf: Buffer, offset: number, pivot: number): { data: string, size: number } {
+function readStringUntil(buf: Buffer, offset: number, pivot: number): { data: string; size: number } {
   const idx = buf.indexOf(pivot, offset, 'utf8');
   const s = buf.toString('utf8', offset, idx);
-  return {data: s, size: idx - offset};
+  return { data: s, size: idx - offset };
 }
 
 function readIndexes(buf: Buffer, offset: number): PhoneDataIndex[] {
@@ -45,7 +45,13 @@ function readIndex(buf: Buffer, offset: number): PhoneDataIndex {
   const prefix = buf.readInt32LE(offset);
   const recordOffset = buf.readInt32LE(offset + 4);
   const vendorType = buf.readUInt8(offset + 8);
-  return {prefix, offset, vendorType, vendor: vendors[vendorType], recordOffset}
+  return {
+    prefix,
+    offset,
+    vendorType,
+    vendor: vendors[vendorType],
+    recordOffset,
+  };
 }
 
 /*
@@ -62,10 +68,19 @@ function readIndex(buf: Buffer, offset: number): PhoneDataIndex {
 记录区 中每条记录的格式为"<省份>|<城市>|<邮编>|<长途区号>\0"。 每条记录以'\0'结束；
  */
 
-function readRecord(buf: Buffer, offset: number): { record: PhoneDataRecord, size: number } {
-  const {data: s, size} = readStringUntil(buf, offset, 0);
-  const split = s.split('|').map(v => v.trim());
-  return {record: {province: split[0], city: split[1], zip: split[2], code: split[3], offset}, size};
+function readRecord(buf: Buffer, offset: number): { record: PhoneDataRecord; size: number } {
+  const { data: s, size } = readStringUntil(buf, offset, 0);
+  const split = s.split('|').map((v) => v.trim());
+  return {
+    record: {
+      province: split[0],
+      city: split[1],
+      zip: split[2],
+      code: split[3],
+      offset,
+    },
+    size,
+  };
 }
 
 function readRecords(buf: Buffer, offset: number, maxOffset: number): PhoneDataRecord[] {
@@ -73,17 +88,16 @@ function readRecords(buf: Buffer, offset: number, maxOffset: number): PhoneDataR
   let i = offset;
 
   do {
-    const {record, size} = readRecord(buf, i);
+    const { record, size } = readRecord(buf, i);
     all.push(record);
     i += size + 1;
-
   } while (i < maxOffset);
 
   return all;
 }
 
 export function parsePhoneData(buffer: Buffer) {
-  const data: PhoneData = {version: '', records: [], indexes: []};
+  const data: PhoneData = { version: '', records: [], indexes: [] };
   data.version = readString(buffer, 0, 4);
 
   const indexOffset = buffer.readInt16LE(4);
@@ -96,22 +110,29 @@ export function parsePhoneData(buffer: Buffer) {
   return data;
 }
 
-export function searchByPhoneNumber(data: PhoneData, num: number | string): { index?: PhoneDataIndex, record?: PhoneDataRecord } {
+export function searchByPhoneNumber(
+  data: PhoneData,
+  num: number | string
+): { index?: PhoneDataIndex; record?: PhoneDataRecord } {
   const prefix = normalizePrefix(num);
-  const idx = sortedIndexBy<Partial<PhoneDataIndex>>(data.indexes, {prefix}, o => o.prefix);
+  const idx = sortedIndexBy<Partial<PhoneDataIndex>>(data.indexes, { prefix }, (o) => o.prefix);
   const phoneDataIndex = data.indexes[idx];
   if (!phoneDataIndex) {
-    return
+    return;
   }
-  const recordIndex = sortedIndexBy<Partial<PhoneDataRecord>>(data.records, {offset: phoneDataIndex.recordOffset}, o => o.offset);
+  const recordIndex = sortedIndexBy<Partial<PhoneDataRecord>>(
+    data.records,
+    { offset: phoneDataIndex.recordOffset },
+    (o) => o.offset
+  );
   const phoneDataRecord = data.records[recordIndex];
   if (!phoneDataRecord) {
     return;
   }
-  return {index: phoneDataIndex, record: phoneDataRecord};
+  return { index: phoneDataIndex, record: phoneDataRecord };
 }
 
 export function normalizePrefix(num: string | number) {
   // tslint:disable-next-line:ban
-  return parseInt((num + '').substr(0, 7).padEnd(7, '0'), 10)
+  return parseInt((num + '').substr(0, 7).padEnd(7, '0'), 10);
 }

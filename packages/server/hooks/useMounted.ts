@@ -1,5 +1,4 @@
-import {useEffect, useState} from 'react';
-
+import { useEffect, useState } from 'react';
 
 /**
  * 配合 nextjs 可以实现只有客户端才渲染的组件
@@ -8,5 +7,5 @@ import {useEffect, useState} from 'react';
 export function useMounted() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  return mounted
+  return mounted;
 }

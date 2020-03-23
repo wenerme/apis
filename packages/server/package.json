@@ -22,6 +22,7 @@
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
     "posttest": "yarn run check",
+    "run:prettier": "yarn prettier --write __tests__ apis components db hooks libs modules pages reducers scripts server stories utils package.json",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "script:kong-lego": "ncc build ./scripts/kong-lego.ts -o dist/kong-lego && mv dist/kong-lego/index.js dist/kong-lego.js && git add dist/kong-lego.js"

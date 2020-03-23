@@ -1,19 +1,18 @@
 import fs from 'fs';
 
-export function lineInFile({line, regex, file}) {
+export function lineInFile({ line, regex, file }) {
   let content = '';
   if (fs.existsSync(file)) {
-    content = fs.readFileSync(file).toString().trimEnd()
+    content = fs.readFileSync(file).toString().trimEnd();
   }
   let done = false;
-  const lines = content.split('\n')
-    .map(v => {
-      if (regex.test(v)) {
-        done = true;
-        return line
-      }
-      return v
-    });
+  const lines = content.split('\n').map((v) => {
+    if (regex.test(v)) {
+      done = true;
+      return line;
+    }
+    return v;
+  });
 
   if (!done) {
     lines.push(line);
@@ -23,6 +22,6 @@ export function lineInFile({line, regex, file}) {
 
   const neo = lines.join('\n');
   if (neo !== content) {
-    fs.writeFileSync(file, neo)
+    fs.writeFileSync(file, neo);
   }
 }

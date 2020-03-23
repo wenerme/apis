@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 export function useOnlineEffect(): null | boolean {
   const [online, setOnline] = useState(window?.navigator?.onLine);
@@ -10,7 +10,7 @@ export function useOnlineEffect(): null | boolean {
     return () => {
       window.removeEventListener('online', handler);
       window.removeEventListener('offline', handler);
-    }
+    };
   }, []);
 
   return online;

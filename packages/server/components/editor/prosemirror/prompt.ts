@@ -4,17 +4,19 @@ export function openPrompt(options) {
   const wrapper = document.body.appendChild(document.createElement('div'));
   wrapper.className = prefix;
 
-  const mouseOutside = e => {
-    if (!wrapper.contains(e.target)) close()
+  const mouseOutside = (e) => {
+    if (!wrapper.contains(e.target)) close();
   };
   setTimeout(() => window.addEventListener('mousedown', mouseOutside), 50);
   const close = () => {
     window.removeEventListener('mousedown', mouseOutside);
-    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper)
+    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
   };
 
   const domFields = [];
-  for (const name in options.fields) domFields.push(options.fields[name].render());
+  for (const name in options.fields) {
+    domFields.push(options.fields[name].render());
+  }
 
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
@@ -27,9 +29,11 @@ export function openPrompt(options) {
   cancelButton.addEventListener('click', close);
 
   const form = wrapper.appendChild(document.createElement('form'));
-  if (options.title) form.appendChild(document.createElement('h5')).textContent = options.title;
-  domFields.forEach(field => {
-    form.appendChild(document.createElement('div')).appendChild(field)
+  if (options.title) {
+    form.appendChild(document.createElement('h5')).textContent = options.title;
+  }
+  domFields.forEach((field) => {
+    form.appendChild(document.createElement('div')).appendChild(field);
   });
   const buttons = form.appendChild(document.createElement('div'));
   buttons.className = prefix + '-buttons';
@@ -38,38 +42,38 @@ export function openPrompt(options) {
   buttons.appendChild(cancelButton);
 
   const box = wrapper.getBoundingClientRect();
-  wrapper.style.top = ((window.innerHeight - box.height) / 2) + 'px';
-  wrapper.style.left = ((window.innerWidth - box.width) / 2) + 'px';
+  wrapper.style.top = (window.innerHeight - box.height) / 2 + 'px';
+  wrapper.style.left = (window.innerWidth - box.width) / 2 + 'px';
 
   const submit = () => {
     const params = getValues(options.fields, domFields);
     if (params) {
       close();
-      options.callback(params)
+      options.callback(params);
     }
   };
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    submit()
+    submit();
   });
 
-  form.addEventListener('keydown', e => {
+  form.addEventListener('keydown', (e) => {
     if (e.keyCode === 27) {
       e.preventDefault();
-      close()
+      close();
     } else if (e.keyCode === 13 && !(e.ctrlKey || e.metaKey || e.shiftKey)) {
       e.preventDefault();
-      submit()
+      submit();
     } else if (e.keyCode === 9) {
       window.setTimeout(() => {
-        if (!wrapper.contains(document.activeElement)) close()
-      }, 500)
+        if (!wrapper.contains(document.activeElement)) close();
+      }, 500);
     }
   });
 
   const input = form.elements[0] as HTMLInputElement;
-  if (input) input.focus()
+  if (input) input.focus();
 }
 
 function getValues(fields, domFields) {
@@ -77,31 +81,33 @@ function getValues(fields, domFields) {
   let i = 0;
   // tslint:disable-next-line:forin
   for (const name in fields) {
-    const field = fields[name], dom = domFields[i++];
-    const value = field.read(dom), bad = field.validate(value);
+    const field = fields[name],
+      dom = domFields[i++];
+    const value = field.read(dom),
+      bad = field.validate(value);
     if (bad) {
       reportInvalid(dom, bad);
-      return null
+      return null;
     }
-    result[name] = field.clean(value)
+    result[name] = field.clean(value);
   }
-  return result
+  return result;
 }
 
 function reportInvalid(dom, message) {
   // FIXME this is awful and needs a lot more work
   const parent = dom.parentNode;
   const msg = parent.appendChild(document.createElement('div'));
-  msg.style.left = (dom.offsetLeft + dom.offsetWidth + 2) + 'px';
-  msg.style.top = (dom.offsetTop - 5) + 'px';
+  msg.style.left = dom.offsetLeft + dom.offsetWidth + 2 + 'px';
+  msg.style.top = dom.offsetTop - 5 + 'px';
   msg.className = 'ProseMirror-invalid';
   msg.textContent = message;
-  setTimeout(() => parent.removeChild(msg), 1500)
+  setTimeout(() => parent.removeChild(msg), 1500);
 }
 
 // ::- The type of field that `FieldPrompt` expects to be passed to it.
 export class Field {
-  options
+  options;
   // :: (Object)
   // Create a field with the given options. Options support by all
   // field types are:
@@ -119,7 +125,7 @@ export class Field {
   //   : A function to validate the given value. Should return an
   //     error message if it is not valid.
   constructor(options) {
-    this.options = options
+    this.options = options;
   }
 
   // render:: (state: EditorState, props: Object) → dom.Node
@@ -128,24 +134,24 @@ export class Field {
   // :: (dom.Node) → any
   // Read the field's value from its DOM node.
   read(dom) {
-    return dom.value
+    return dom.value;
   }
 
   // :: (any) → ?string
   // A field-type-specific validation function.
   validateType(_value) {
-    return false
+    return false;
   }
 
   validate(value) {
     if (!value && this.options.required) {
-      return 'Required field'
+      return 'Required field';
     }
-    return this.validateType(value) || (this.options.validate && this.options.validate(value))
+    return this.validateType(value) || (this.options.validate && this.options.validate(value));
   }
 
   clean(value) {
-    return this.options.clean ? this.options.clean(value) : value
+    return this.options.clean ? this.options.clean(value) : value;
   }
 }
 
@@ -157,10 +163,9 @@ export class TextField extends Field {
     input.placeholder = this.options.label;
     input.value = this.options.value || '';
     input.autocomplete = 'off';
-    return input
+    return input;
   }
 }
-
 
 // ::- A field class for dropdown fields based on a plain `<select>`
 // tag. Expects an option `options`, which should be an array of
@@ -169,12 +174,12 @@ export class TextField extends Field {
 export class SelectField extends Field {
   render() {
     const select = document.createElement('select');
-    this.options.options.forEach(o => {
+    this.options.options.forEach((o) => {
       const opt = select.appendChild(document.createElement('option'));
       opt.value = o.value;
       opt.selected = o.value === this.options.value;
-      opt.label = o.label
+      opt.label = o.label;
     });
-    return select
+    return select;
   }
 }

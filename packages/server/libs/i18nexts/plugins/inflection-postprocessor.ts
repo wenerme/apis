@@ -1,5 +1,5 @@
 import inflection from 'inflection';
-import {Module} from 'i18next';
+import { Module } from 'i18next';
 
 export const i18nextInflection: Module & any = {
   name: 'inflection',
@@ -7,14 +7,14 @@ export const i18nextInflection: Module & any = {
   process(value, key, options, translator) {
     // only support en
     if (!translator.language.startsWith('en')) {
-      return value
+      return value;
     }
-    const opts = {...options};
+    const opts = { ...options };
     if (typeof opts.count === 'number') {
       if (opts.count === 1) {
-        opts.singularize = true
+        opts.singularize = true;
       } else {
-        opts.pluralize = true
+        opts.pluralize = true;
       }
     }
 
@@ -33,5 +33,5 @@ export const i18nextInflection: Module & any = {
     if (opts.ordinalize) value = inflection.ordinalize(value);
 
     return value;
-  }
+  },
 };

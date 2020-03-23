@@ -1,17 +1,17 @@
-import {ServiceDefinition, ServiceInvocation, ServiceResponse} from './types';
+import { ServiceDefinition, ServiceInvocation, ServiceResponse } from './types';
 
 export class ServiceRegistry {
   services: Record<string, ServiceDefinition> = {};
 
   async invoke(req: ServiceInvocation): Promise<ServiceResponse> {
-    const {service: serviceName, method: methodName, arguments: args, requestId} = req;
+    const { service: serviceName, method: methodName, arguments: args, requestId } = req;
     const service = this.services[serviceName];
     if (!service) {
-      throw Object.assign(new Error(`service not found: ${serviceName}/${methodName}`), {status: 404})
+      throw Object.assign(new Error(`service not found: ${serviceName}/${methodName}`), { status: 404 });
     }
     const method = service?.methods[methodName];
     if (!method) {
-      throw Object.assign(new Error(`method not found: ${serviceName}/${methodName}`), {status: 404})
+      throw Object.assign(new Error(`method not found: ${serviceName}/${methodName}`), { status: 404 });
     }
 
     let result: any;
@@ -23,47 +23,52 @@ export class ServiceRegistry {
     }
     return {
       requestId,
-      result
+      result,
     };
   }
 
   provide(def: ServiceDefinition) {
-    this.services[def.name] = def
+    this.services[def.name] = def;
   }
 }
 
-export function createServiceDefinition({name, target = null, provider = null, prototype = null, includes = [], excludes = []}): ServiceDefinition {
+export function createServiceDefinition({
+  name,
+  target = null,
+  provider = null,
+  prototype = null,
+  includes = [],
+  excludes = [],
+}): ServiceDefinition {
   if (!target) {
     if (!provider) {
-      throw new Error(`${name}: no target or provider for service`)
+      throw new Error(`${name}: no target or provider for service`);
     }
     if (!includes.length && !prototype) {
-      throw new Error(`${name}: use provider for service need includes or prototype`)
+      throw new Error(`${name}: use provider for service need includes or prototype`);
     }
   }
 
   prototype = prototype ?? (target ? Object.getPrototypeOf(target) : null);
   if (includes.length === 0) {
-    includes = Object.getOwnPropertyNames(prototype).filter(v => !['constructor'].includes(v))
+    includes = Object.getOwnPropertyNames(prototype).filter((v) => !['constructor'].includes(v));
   }
   if (excludes.length) {
-    includes = includes.filter(v => !excludes.includes(v))
+    includes = includes.filter((v) => !excludes.includes(v));
   }
 
-  let methods = {}
+  let methods = {};
   // build methods
   if (target) {
     let entries: Array<[string, Function]>;
-    entries = includes.filter(v => target[v]).map(v => ([v, target[v]]));
+    entries = includes.filter((v) => target[v]).map((v) => [v, target[v]]);
     methods = Object.fromEntries(entries);
   } else {
-
   }
 
   return {
     name,
     target,
     methods,
-  }
+  };
 }
-

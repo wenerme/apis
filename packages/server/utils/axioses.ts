@@ -1,10 +1,10 @@
-import {AxiosResponse} from 'axios';
-import {isDev} from 'utils/utils';
+import { AxiosResponse } from 'axios';
+import { isDev } from 'utils/utils';
 
 export async function resultOf<T = any>(r: Promise<AxiosResponse<T>>): Promise<T> {
   try {
     const res = await r;
-    return res.data
+    return res.data;
   } catch (e) {
     const res = e.response?.data;
     if (isDev()) {

@@ -1,8 +1,7 @@
-import {parsePhoneData} from 'libs/phonedata/parser';
-import {fetchPhoneData} from 'libs/phonedata/source';
-import {savePhoneData} from 'libs/phonedata/persist';
-import {createPhoneDataConnection} from 'libs/phonedata/connection';
-
+import { parsePhoneData } from 'libs/phonedata/parser';
+import { fetchPhoneData } from 'libs/phonedata/source';
+import { savePhoneData } from 'libs/phonedata/persist';
+import { createPhoneDataConnection } from 'libs/phonedata/connection';
 
 async function main() {
   const buffer = await fetchPhoneData();

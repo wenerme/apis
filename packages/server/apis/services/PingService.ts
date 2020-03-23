@@ -2,14 +2,14 @@ export class PingService {
   static instance = new PingService();
 
   async ping() {
-    return 'PONG'
+    return 'PONG';
   }
 
   async hello(name = 'wener') {
-    return `Hello ${name} !`
+    return `Hello ${name} !`;
   }
 
   async echo(body) {
-    return body
+    return body;
   }
 }

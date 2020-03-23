@@ -1,20 +1,18 @@
-import {Instance, Torrent} from 'webtorrent';
+import { Instance, Torrent } from 'webtorrent';
 
 export interface InstanceStatus {
-  nodeId
-  peerId
+  nodeId;
+  peerId;
 
-  downloadSpeed
-  uploadSpeed
-  progress
-  ratio
+  downloadSpeed;
+  uploadSpeed;
+  progress;
+  ratio;
 
   // torrents: Record<string, TorrentStatus>
 }
 
-export interface TorrentStatus extends TorrentField {
-
-}
+export interface TorrentStatus extends TorrentField {}
 
 export function setInstanceStatus(s: InstanceStatus, c: Instance) {
   s.nodeId = c['nodeId'];
@@ -32,7 +30,6 @@ export function setInstanceStatus(s: InstanceStatus, c: Instance) {
 
   return s;
 }
-
 
 class TorrentField {
   readonly infoHash: string;
@@ -65,9 +62,9 @@ class TorrentField {
   readonly maxWebConns: number;
 }
 
-const fields = Object.keys(TorrentField.prototype).filter(v => !['constructor'].includes(v));
+const fields = Object.keys(TorrentField.prototype).filter((v) => !['constructor'].includes(v));
 
 export function setTorrentStatus(s: TorrentStatus, c: Torrent) {
-  fields.forEach(v => s[v] = c[v]);
+  fields.forEach((v) => (s[v] = c[v]));
   return s;
 }

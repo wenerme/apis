@@ -1,27 +1,27 @@
-import {BehaviorSubject} from 'rxjs';
-import {PeerSessionData} from 'libs/webrtc/peer/PeerService';
-import {getCandidates, getPeerConnectionState} from 'libs/webrtc/rtcs';
-import {clearAsyncInterval, createLazyPromise, setAsyncInterval} from 'utils/promises';
+import { BehaviorSubject } from 'rxjs';
+import { PeerSessionData } from 'libs/webrtc/peer/PeerService';
+import { getCandidates, getPeerConnectionState } from 'libs/webrtc/rtcs';
+import { clearAsyncInterval, createLazyPromise, setAsyncInterval } from 'utils/promises';
 import produce from 'immer';
-import {isFunction} from 'lodash';
-import {promiseOfSubject} from 'utils/rxjsx';
-import {PeerManager} from 'libs/webrtc/peer/PeerManager';
-import {RTCPeerConnection} from 'isomorphic-webrtc'
+import { isFunction } from 'lodash';
+import { promiseOfSubject } from 'utils/rxjsx';
+import { PeerManager } from 'libs/webrtc/peer/PeerManager';
+import { RTCPeerConnection } from 'isomorphic-webrtc';
 import moment from 'moment';
-import {PeerConnectionState} from 'libs/webrtc/types';
+import { PeerConnectionState } from 'libs/webrtc/types';
 
 export interface PeerSessionInitialState {
-  state: string
+  state: string;
 
-  caller: PeerInitialState
-  callee: PeerInitialState
+  caller: PeerInitialState;
+  callee: PeerInitialState;
 
-  error?
+  error?;
 }
 
 export interface PeerInitialState {
-  descriptor?: RTCSessionDescriptionInit
-  candidates?: RTCIceCandidateInit[]
+  descriptor?: RTCSessionDescriptionInit;
+  candidates?: RTCIceCandidateInit[];
 }
 
 export interface PeerSessionStateProvider {
@@ -29,8 +29,8 @@ export interface PeerSessionStateProvider {
 }
 
 export interface PeerSessionConnectionState extends PeerConnectionState {
-  metaChannelState?: RTCDataChannelState
-  metaChannelPing?: number
+  metaChannelState?: RTCDataChannelState;
+  metaChannelPing?: number;
 }
 
 export class PeerSession {
@@ -42,7 +42,10 @@ export class PeerSession {
   connection: RTCPeerConnection;
   meta: RTCDataChannel;
 
-  offerOptions: RTCOfferOptions = {offerToReceiveVideo: false, offerToReceiveAudio: false};
+  offerOptions: RTCOfferOptions = {
+    offerToReceiveVideo: false,
+    offerToReceiveAudio: false,
+  };
 
   data = new BehaviorSubject<PeerSessionData>(null);
   connectionState = new BehaviorSubject<PeerSessionConnectionState>(null);
@@ -65,57 +68,69 @@ export class PeerSession {
     const neo = produce(this.currentState, updater);
     if (this.currentState === neo) {
       this.log('log', 'ignore update state');
-      return
+      return;
     }
     this.log(`[${+this.currentData?.updatedAt}] update state`, this.currentState, neo);
-    await this.manager.service.updateSession({id: this.id, data: neo, state: neo.state});
+    await this.manager.service.updateSession({
+      id: this.id,
+      data: neo,
+      state: neo.state,
+    });
   }
 
   updatePeerConnectionState = (updater?) => {
-    const neo = produce<PeerSessionConnectionState>(this.connectionState.value ?? getPeerConnectionState(this.connection), s => {
-      Object.assign(s, getPeerConnectionState(this.connection));
+    const neo = produce<PeerSessionConnectionState>(
+      this.connectionState.value ?? getPeerConnectionState(this.connection),
+      (s) => {
+        Object.assign(s, getPeerConnectionState(this.connection));
 
-      s.metaChannelState = this.meta?.readyState;
-      if (isFunction(updater)) {
-        updater(s);
+        s.metaChannelState = this.meta?.readyState;
+        if (isFunction(updater)) {
+          updater(s);
+        }
       }
-    }) as PeerSessionConnectionState;
+    ) as PeerSessionConnectionState;
 
     if (this.connectionState.value === neo) {
-      return
+      return;
     }
-    this.connectionState.next(neo)
+    this.connectionState.next(neo);
   };
-
 
   async init(data: PeerSessionData) {
     this.id = data.id;
     this.data.next(data);
 
-    const {log} = this;
+    const { log } = this;
 
     log('init', data);
 
-    const {id} = data;
-    const {manager: {service}} = this;
-    this.pollSessionUpdateId = setAsyncInterval(async () => {
-      if (this.meta?.readyState === 'open') {
-        // ignore
-        return
-      }
-      const session = await service.pullSession({
-        id,
-        updateAt: this.currentData.updatedAt,
-      });
-      log('debug', `[${+moment(this.currentData.updatedAt)}] polling session update`, session);
-      if (session?.data) {
-        this.data.next(session);
-      }
-    }, 5000, 1000);
+    const { id } = data;
+    const {
+      manager: { service },
+    } = this;
+    this.pollSessionUpdateId = setAsyncInterval(
+      async () => {
+        if (this.meta?.readyState === 'open') {
+          // ignore
+          return;
+        }
+        const session = await service.pullSession({
+          id,
+          updateAt: this.currentData.updatedAt,
+        });
+        log('debug', `[${+moment(this.currentData.updatedAt)}] polling session update`, session);
+        if (session?.data) {
+          this.data.next(session);
+        }
+      },
+      5000,
+      1000
+    );
 
-    this.connectionState.subscribe(v => {
-      log('debug', 'state change', v)
-    })
+    this.connectionState.subscribe((v) => {
+      log('debug', 'state change', v);
+    });
   }
 
   async createConnection() {
@@ -135,16 +150,16 @@ export class PeerSession {
 
     log('info', `inviting ${this.currentData.calleeId}`);
     // const {connection: conn} = this;
-    const conn = this.connection = await this.createConnection();
+    const conn = (this.connection = await this.createConnection());
 
-    this.handleMetaChannel(conn.createDataChannel(`meta/${this.id}`, {ordered: true}));
+    this.handleMetaChannel(conn.createDataChannel(`meta/${this.id}`, { ordered: true }));
 
     const offer = await conn.createOffer(this.offerOptions);
     const candidatesPromise = getCandidates(conn);
     {
-      conn.addEventListener('icecandidateerror', e => {
+      conn.addEventListener('icecandidateerror', (e) => {
         log('warn', `candidate error ${e.errorCode}:${e.errorText}`);
-      })
+      });
     }
     await conn.setLocalDescription(offer);
     log('info', 'offer');
@@ -154,15 +169,15 @@ export class PeerSession {
     const candidates = await candidatesPromise;
     log('info', 'offer complete candidates');
 
-    this.updateState(s => {
+    this.updateState((s) => {
       s.state = 'offer';
       s.caller = s.caller ?? {};
       s.caller.descriptor = offer;
-      s.caller.candidates = candidates
+      s.caller.candidates = candidates;
     });
 
     log('info', 'waiting answer');
-    await this.promiseOf(v => v.state === 'answer');
+    await this.promiseOf((v) => v.state === 'answer');
     log('info', 'got answer');
     log('debug', 'got answer detail', this.currentState.callee);
 
@@ -171,15 +186,15 @@ export class PeerSession {
       await conn.addIceCandidate(candidate);
     }
     log('info', 'waiting meta channel open', this.meta.readyState);
-    await this.promiseOfConnection(s => s.metaChannelState === 'open');
+    await this.promiseOfConnection((s) => s.metaChannelState === 'open');
     log('info', 'meta channel opened');
-    this.meta.send(JSON.stringify({type: 'ping', message: `hello from ${this.localId}`}));
+    this.meta.send(JSON.stringify({ type: 'ping', message: `hello from ${this.localId}` }));
     log('info', 'waiting meta pong');
-    await this.promiseOfConnection(s => s.metaChannelPing > 0);
+    await this.promiseOfConnection((s) => s.metaChannelPing > 0);
     log('info', 'connected');
-    this.updateState(s => {
-      s.state = 'connected'
-    })
+    this.updateState((s) => {
+      s.state = 'connected';
+    });
   }
 
   handleMetaChannel = (channel: RTCDataChannel) => {
@@ -197,14 +212,13 @@ export class PeerSession {
     this.log('debug', 'meta message', e);
     const body = JSON.parse(e.data);
 
-
     if (body.type === 'ping') {
-      this.meta.send(JSON.stringify({type: 'pong', message: `hello from ${this.localId}`}))
+      this.meta.send(JSON.stringify({ type: 'pong', message: `hello from ${this.localId}` }));
     }
     if (['ping', 'pong'].includes(body.type)) {
-      this.updatePeerConnectionState(s => {
-        s.metaChannelPing = Date.now()
-      })
+      this.updatePeerConnectionState((s) => {
+        s.metaChannelPing = Date.now();
+      });
     }
   };
 
@@ -212,16 +226,16 @@ export class PeerSession {
     const log = this.log;
     log('info', 'accept session');
 
-    const conn = this.connection = await this.createConnection();
-    conn.addEventListener('datachannel', e => {
+    const conn = (this.connection = await this.createConnection());
+    conn.addEventListener('datachannel', (e) => {
       log('info', 'got datachannel', e.channel.label);
       if (e.channel.label === 'meta/' + this.id) {
-        this.handleMetaChannel(e.channel)
+        this.handleMetaChannel(e.channel);
       }
     });
 
     log('info', 'waiting offer');
-    await this.promiseOf(s => s.state === 'offer');
+    await this.promiseOf((s) => s.state === 'offer');
     log('info', 'got offer');
     log('debug', 'got offer detail', this.currentState.caller);
 
@@ -234,7 +248,7 @@ export class PeerSession {
     conn.setLocalDescription(answer);
     const candidates = await getCandidates(conn);
     log('info', 'answer');
-    this.updateState(s => {
+    this.updateState((s) => {
       s.state = 'answer';
       s.callee = s.callee ?? {};
       s.callee.descriptor = answer;
@@ -242,11 +256,11 @@ export class PeerSession {
     });
 
     log('info', 'waiting meta channel');
-    await this.promiseOfConnection(s => s.metaChannelState === 'open');
+    await this.promiseOfConnection((s) => s.metaChannelState === 'open');
     log('info', 'meta channel opened');
 
     log('info', 'waiting meta ping');
-    await this.promiseOfConnection(s => s.metaChannelPing > 0);
+    await this.promiseOfConnection((s) => s.metaChannelPing > 0);
     log('info', 'connected');
   }
 
@@ -256,22 +270,21 @@ export class PeerSession {
 
   async promiseOf(s: (state: PeerSessionInitialState) => boolean): Promise<PeerSessionInitialState> {
     const promise = createLazyPromise();
-    const subscription = this.data.subscribe(v => {
+    const subscription = this.data.subscribe((v) => {
       let r: boolean;
       try {
         r = s(v?.data ?? {});
       } catch (e) {
         promise.reject(e);
-        return
+        return;
       }
       if (r) {
-        promise.resolve(v.data)
+        promise.resolve(v.data);
       }
     });
-    return promise
-      .finally(() => {
-        subscription.unsubscribe();
-      })
+    return promise.finally(() => {
+      subscription.unsubscribe();
+    });
   }
 
   log = (level, ...args) => {
@@ -279,7 +292,7 @@ export class PeerSession {
     if (['warn', 'info', 'log', 'error', 'trace', 'debug'].includes(level)) {
       console[level](prefix, ...args);
     } else {
-      console.log(prefix, level, ...args)
+      console.log(prefix, level, ...args);
     }
-  }
+  };
 }

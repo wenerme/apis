@@ -1,5 +1,2 @@
-module.exports = {
-  singleQuote: true,
-  trailingComma: 'es5',
-  tabWidth: 2,
-};
+// https://prettier.io/docs/en/options.html
+module.exports = require('../../prettier.config.js');

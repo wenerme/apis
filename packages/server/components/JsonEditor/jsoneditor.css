@@ -1,11 +1,11 @@
 .jsoneditor input,
 .jsoneditor input:not([type]),
-.jsoneditor input[type="text"],
-.jsoneditor input[type="search"],
+.jsoneditor input[type='text'],
+.jsoneditor input[type='search'],
 .jsoneditor-modal input,
 .jsoneditor-modal input:not([type]),
-.jsoneditor-modal input[type="text"],
-.jsoneditor-modal input[type="search"] {
+.jsoneditor-modal input[type='text'],
+.jsoneditor-modal input[type='search'] {
   height: auto;
   border: inherit;
   box-shadow: none;
@@ -19,12 +19,12 @@
 
 .jsoneditor input:focus,
 .jsoneditor input:not([type]):focus,
-.jsoneditor input[type="text"]:focus,
-.jsoneditor input[type="search"]:focus,
+.jsoneditor input[type='text']:focus,
+.jsoneditor input[type='search']:focus,
 .jsoneditor-modal input:focus,
 .jsoneditor-modal input:not([type]):focus,
-.jsoneditor-modal input[type="text"]:focus,
-.jsoneditor-modal input[type="search"]:focus {
+.jsoneditor-modal input[type='text']:focus,
+.jsoneditor-modal input[type='search']:focus {
   border: inherit;
   box-shadow: inherit;
 }
@@ -76,7 +76,8 @@
   padding: 5px;
   text-align: left;
   outline: 0;
-  font-family: "dejavu sans mono", "droid sans mono", consolas, monaco, "lucida console", "courier new", courier, monospace, sans-serif;
+  font-family: 'dejavu sans mono', 'droid sans mono', consolas, monaco, 'lucida console', 'courier new', courier,
+    monospace, sans-serif;
   font-size: 10pt;
 }
 
@@ -187,7 +188,7 @@
   height: 24px;
   padding: 0;
   margin: 0 4px 0 0;
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg") 0 -72px;
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg') 0 -72px;
 }
 
 .jsoneditor-contextmenu .jsoneditor-icon {
@@ -199,7 +200,7 @@
   border: none;
   padding: 0;
   margin: 0;
-  background-image: url("../../public/assets/jsoneditor/jsoneditor-icons.svg");
+  background-image: url('../../public/assets/jsoneditor/jsoneditor-icons.svg');
 }
 
 .jsoneditor-contextmenu .jsoneditor-text {
@@ -370,7 +371,7 @@
   padding: 4px;
 }
 
-.jsoneditor-modal input[type="text"] {
+.jsoneditor-modal input[type='text'] {
   cursor: inherit;
 }
 
@@ -385,7 +386,7 @@
 }
 
 .jsoneditor-modal .jsoneditor-select-wrapper:after {
-  content: "";
+  content: '';
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
@@ -405,7 +406,7 @@
   -moz-appearance: none;
   appearance: none;
   text-indent: 0;
-  text-overflow: "";
+  text-overflow: '';
   font-size: 10pt;
   line-height: 1.5em;
 }
@@ -530,8 +531,8 @@
 .jsoneditor-modal select,
 .jsoneditor-modal textarea,
 .jsoneditor-modal input,
-.jsoneditor-modal input[type="text"],
-.jsoneditor-modal input[type="text"]:focus,
+.jsoneditor-modal input[type='text'],
+.jsoneditor-modal input[type='text']:focus,
 .jsoneditor-modal #query {
   background: #ffffff;
   border: 1px solid #d3d3d3;
@@ -547,7 +548,7 @@
 .jsoneditor-modal option,
 .jsoneditor-modal textarea,
 .jsoneditor-modal input,
-.jsoneditor-modal input[type="text"],
+.jsoneditor-modal input[type='text'],
 .jsoneditor-modal #query {
   font-size: 10.5pt;
   font-family: arial, sans-serif;
@@ -555,14 +556,15 @@
 
 .jsoneditor-modal #query,
 .jsoneditor-modal .jsoneditor-transform-preview {
-  font-family: "dejavu sans mono", "droid sans mono", consolas, monaco, "lucida console", "courier new", courier, monospace, sans-serif;
+  font-family: 'dejavu sans mono', 'droid sans mono', consolas, monaco, 'lucida console', 'courier new', courier,
+    monospace, sans-serif;
   font-size: 10pt;
   width: 100%;
   box-sizing: border-box;
 }
 
-.jsoneditor-modal input[type="button"],
-.jsoneditor-modal input[type="submit"] {
+.jsoneditor-modal input[type='button'],
+.jsoneditor-modal input[type='submit'] {
   background: #f5f5f5;
   padding: 4px 20px;
 }
@@ -615,7 +617,7 @@ div.jsoneditor-value {
 }
 
 div.jsoneditor-value.jsoneditor-empty::after {
-  content: "value";
+  content: 'value';
 }
 
 div.jsoneditor-value.jsoneditor-string {
@@ -650,7 +652,7 @@ div.jsoneditor-empty {
 }
 
 div.jsoneditor-field.jsoneditor-empty::after {
-  content: "field";
+  content: 'field';
 }
 
 div.jsoneditor td {
@@ -710,7 +712,7 @@ div.jsoneditor-tree button.jsoneditor-button {
   margin: 0;
   border: none;
   cursor: pointer;
-  background: transparent url("../../public/assets/jsoneditor/jsoneditor-icons.svg");
+  background: transparent url('../../public/assets/jsoneditor/jsoneditor-icons.svg');
 }
 
 div.jsoneditor-tree button.jsoneditor-button:focus {
@@ -736,7 +738,7 @@ div.jsoneditor-tree button.jsoneditor-invisible {
 }
 
 div.jsoneditor-tree button.jsoneditor-dragarea {
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg") -72px -72px;
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg') -72px -72px;
   cursor: move;
 }
 
@@ -790,7 +792,7 @@ div.jsoneditor-tree .jsoneditor-button.jsoneditor-schema-error {
   height: 24px;
   padding: 0;
   margin: 0 4px 0 0;
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg") -168px -48px;
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg') -168px -48px;
 }
 
 div.jsoneditor-outer {
@@ -866,10 +868,10 @@ a.jsoneditor-value.jsoneditor-url:focus {
   color: #ee422e;
 }
 
-div.jsoneditor-field[contenteditable="true"]:focus,
-div.jsoneditor-field[contenteditable="true"]:hover,
-div.jsoneditor-value[contenteditable="true"]:focus,
-div.jsoneditor-value[contenteditable="true"]:hover,
+div.jsoneditor-field[contenteditable='true']:focus,
+div.jsoneditor-field[contenteditable='true']:hover,
+div.jsoneditor-value[contenteditable='true']:focus,
+div.jsoneditor-value[contenteditable='true']:hover,
 div.jsoneditor-field.jsoneditor-highlight,
 div.jsoneditor-value.jsoneditor-highlight {
   background-color: #ffffab;
@@ -912,7 +914,8 @@ textarea.jsoneditor-text,
 
 textarea.jsoneditor-text *,
 .ace-jsoneditor * {
-  font-family: "dejavu sans mono", "droid sans mono", consolas, monaco, "lucida console", "courier new", courier, monospace, sans-serif;
+  font-family: 'dejavu sans mono', 'droid sans mono', consolas, monaco, 'lucida console', 'courier new', courier,
+    monospace, sans-serif;
 }
 
 textarea.jsoneditor-text {
@@ -964,7 +967,8 @@ div.jsoneditor textarea,
 pre.jsoneditor-preview,
 .jsoneditor-schema-error,
 .jsoneditor-popover {
-  font-family: "dejavu sans mono", "droid sans mono", consolas, monaco, "lucida console", "courier new", courier, monospace, sans-serif;
+  font-family: 'dejavu sans mono', 'droid sans mono', consolas, monaco, 'lucida console', 'courier new', courier,
+    monospace, sans-serif;
   font-size: 10pt;
   color: #1a1a1a;
 }
@@ -1019,7 +1023,7 @@ pre.jsoneditor-preview,
   border-left: 7px solid #4c4c4c;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
-  content: "";
+  content: '';
   top: 19px;
   right: -14px;
   left: inherit;
@@ -1037,7 +1041,7 @@ pre.jsoneditor-preview,
   border-right: 7px solid #4c4c4c;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
-  content: "";
+  content: '';
   top: 19px;
   left: -14px;
   margin-left: inherit;
@@ -1048,7 +1052,7 @@ pre.jsoneditor-preview,
 .jsoneditor-popover:before {
   border-right: 7px solid transparent;
   border-left: 7px solid transparent;
-  content: "";
+  content: '';
   display: block;
   left: 50%;
   margin-left: -7px;
@@ -1145,11 +1149,11 @@ pre.jsoneditor-preview,
 }
 
 .jsoneditor-text-errors tr .jsoneditor-schema-error {
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg") -168px -48px;
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg') -168px -48px;
 }
 
 .jsoneditor-text-errors tr.parse-error .jsoneditor-schema-error {
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg") -25px 0px;
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg') -25px 0px;
 }
 
 .jsoneditor-anchor {
@@ -1178,7 +1182,7 @@ pre.jsoneditor-preview,
   }
 }
 
-.jsoneditor-modal input[type="search"].selectr-input {
+.jsoneditor-modal input[type='search'].selectr-input {
   border: 1px solid #d3d3d3;
   width: calc(100% - 4px);
   margin: 2px;
@@ -1211,7 +1215,7 @@ pre.jsoneditor-preview,
   padding: 0;
   border-radius: 2px;
   border: 1px solid transparent;
-  background: transparent url("../../public/assets/jsoneditor/jsoneditor-icons.svg");
+  background: transparent url('../../public/assets/jsoneditor/jsoneditor-icons.svg');
   color: #ffffff;
   opacity: 0.8;
   font-family: arial, sans-serif;
@@ -1370,7 +1374,7 @@ pre.jsoneditor-preview,
   padding: 0;
   margin: 0;
   border: none;
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg");
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg');
   vertical-align: top;
 }
 
@@ -1442,7 +1446,7 @@ pre.jsoneditor-preview,
   height: 24px;
   padding: 0;
   margin-top: 1px;
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg") -168px -48px;
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg') -168px -48px;
   cursor: pointer;
 }
 
@@ -1458,7 +1462,7 @@ pre.jsoneditor-preview,
   height: 24px;
   padding: 0;
   margin: 1px;
-  background: url("../../public/assets/jsoneditor/jsoneditor-icons.svg") -25px 0px;
+  background: url('../../public/assets/jsoneditor/jsoneditor-icons.svg') -25px 0px;
 }
 
 .jsoneditor-statusbar .jsoneditor-array-info a {
@@ -1860,7 +1864,7 @@ div.jsoneditor-statusbar > .jsoneditor-size-info {
 }
 
 .selectr-disabled {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .selectr-empty,
@@ -1880,7 +1884,7 @@ div.jsoneditor-statusbar > .jsoneditor-size-info {
 
 .taggable .selectr-selected::after {
   display: table;
-  content: " ";
+  content: ' ';
   clear: both;
 }
 

@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import JSONEditor from 'jsoneditor/dist/jsoneditor-minimalist';
 // import 'jsoneditor/dist/jsoneditor.css';
 // import './fixAce.css';
 // import '!!css-loader?module!./jsoneditor.css'
-
 
 const modes = {
   tree: 'tree',
   view: 'view',
   form: 'form',
   code: 'code',
-  text: 'text'
+  text: 'text',
 };
 
 export type Mode = 'tree' | 'view' | 'form' | 'code' | 'text';
@@ -31,11 +30,11 @@ export class JsonEditor extends Component<JsonEditorProps, any> {
   /**
    * @type TJsonEditorModes
    */
-  static modes = modes
+  static modes = modes;
   htmlElementRef;
   jsonEditor;
   err;
-  lastValue
+  lastValue;
 
   constructor(props) {
     super(props);
@@ -51,45 +50,36 @@ export class JsonEditor extends Component<JsonEditorProps, any> {
   }
 
   componentDidMount() {
-    const {
-      allowedModes,
-      innerRef,
-      htmlElementProps,
-      tag,
-      onChange,
-      ...rest
-    } = this.props;
+    const { allowedModes, innerRef, htmlElementProps, tag, onChange, ...rest } = this.props;
 
     this.createEditor({
       ...rest,
-      modes: allowedModes
+      modes: allowedModes,
     });
   }
 
   // eslint-disable-next-line react/sort-comp
   componentDidUpdate({
-                       allowedModes,
-                       schema,
-                       name,
-                       theme,
-                       schemaRefs,
-                       innerRef,
-                       htmlElementProps,
-                       tag,
-                       onChange,
-                       ...rest
-                     }) {
+    allowedModes,
+    schema,
+    name,
+    theme,
+    schemaRefs,
+    innerRef,
+    htmlElementProps,
+    tag,
+    onChange,
+    ...rest
+  }) {
     if (this.jsonEditor) {
       if (theme !== this.props.theme) {
         this.createEditor({
           ...rest,
           theme,
-          modes: allowedModes
+          modes: allowedModes,
         });
       } else {
-        if (schema !== this.props.schema
-          || schemaRefs !== this.props.schemaRefs
-        ) {
+        if (schema !== this.props.schema || schemaRefs !== this.props.schemaRefs) {
           this.jsonEditor.setSchema(schema, schemaRefs);
         }
 
@@ -100,7 +90,7 @@ export class JsonEditor extends Component<JsonEditorProps, any> {
     }
   }
 
-  shouldComponentUpdate({htmlElementProps, value}) {
+  shouldComponentUpdate({ htmlElementProps, value }) {
     if (this.lastValue !== value) {
       this.jsonEditor?.set(value);
     }
@@ -121,17 +111,17 @@ export class JsonEditor extends Component<JsonEditorProps, any> {
     }
   }
 
-  createEditor({value, ...rest}: any) {
+  createEditor({ value, ...rest }: any) {
     if (this.jsonEditor) {
       this.jsonEditor.destroy();
     }
 
     this.jsonEditor = new JSONEditor(this.htmlElementRef, {
       onChange: this.handleChange,
-      ...rest
+      ...rest,
     });
 
-    this.lastValue = value
+    this.lastValue = value;
     this.jsonEditor.set(value);
   }
 
@@ -173,32 +163,25 @@ export class JsonEditor extends Component<JsonEditorProps, any> {
   }
 
   render() {
-    const {
-      htmlElementProps,
-      tag
-    } = this.props;
+    const { htmlElementProps, tag } = this.props;
 
-    return React.createElement(
-      tag,
-      {
-        ...htmlElementProps,
-        ref: this.setRef
-      }
-    );
+    return React.createElement(tag, {
+      ...htmlElementProps,
+      ref: this.setRef,
+    });
   }
 }
 
-
 export interface JsonEditorProps {
-  value?: object | any[],
+  value?: object | any[];
   /// Set the editor mode.
-  mode?: Mode
+  mode?: Mode;
   /// Initial field name for the root node
-  name?: string
+  name?: string;
   /// Validate the JSON object against a JSON schema.
-  schema?: object
+  schema?: object;
   /// Schemas that are referenced using the $ref property
-  schemaRefs?: object
+  schemaRefs?: object;
 
   /**
    * Set a callback function
@@ -206,7 +189,7 @@ export interface JsonEditorProps {
    * Called without parameters. Will only be triggered on changes made by the user.
    * Return new json.
    */
-  onChange?: Function
+  onChange?: Function;
   /**
    * Set a callback function triggered when an error occurs.
    * Invoked with the error as first argument.
@@ -214,63 +197,63 @@ export interface JsonEditorProps {
    * like switching from code mode to tree mode or clicking
    * the Format button whilst the editor doesn't contain valid JSON.
    */
-  onError?: Function
+  onError?: Function;
   /**
    * Set a callback function
    * triggered right after the mode is changed by the user.
    */
-  onModeChange?: Function
+  onModeChange?: Function;
 
   /**
    * Provide a version of the Ace editor.
    * Only applicable when mode is code
    */
-  ace?: object
+  ace?: object;
   /**
    * Provide a instance of ajv,
    * the library used for JSON schema validation.
    */
-  ajv?: object
+  ajv?: object;
   /**
    * Set the Ace editor theme,
    * uses included 'ace/theme/jsoneditor' by default.
    */
-  theme?: string
+  theme?: string;
 
   /**
    * Enables history,
    * adds a button Undo and Redo to the menu of the JSONEditor. Only applicable when
    * mode is 'tree' or 'form'
    */
-  history?: boolean
+  history?: boolean;
   /**
    * Adds navigation bar to the menu
    * the navigation bar visualize the current position on the
    * tree structure as well as allows breadcrumbs navigation.
    */
-  navigationBar?: boolean
+  navigationBar?: boolean;
   /**
    * Adds status bar to the buttom of the editor
    * the status bar shows the cursor position and a count of the selected characters.
    * Only applicable when mode is 'code' or 'text'.
    */
-  statusBar?: boolean
+  statusBar?: boolean;
   /**
    * Enables a search box in
    * the upper right corner of the JSONEditor.
    */
-  search?: boolean
+  search?: boolean;
 
   /**
    * Create a box in the editor menu where
    * the user can switch between the specified modes.
    */
-  allowedModes?: Mode[]
+  allowedModes?: Mode[];
 
   /// Html element, or react element to render
-  tag?: string | React.ElementType
+  tag?: string | React.ElementType;
   ///  html element custom props
-  htmlElementProps?: object
+  htmlElementProps?: object;
   /// callback to get html element reference
-  innerRef?: Function
+  innerRef?: Function;
 }

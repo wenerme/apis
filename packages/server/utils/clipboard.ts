@@ -32,7 +32,7 @@ function initCopy() {
     document.body.removeChild(textArea);
   }
 
-  copy = text => {
+  copy = (text) => {
     createTextArea(text);
     selectText();
     copyToClipboard();
@@ -45,10 +45,10 @@ let _copy;
 export function copy(text) {
   if (window.navigator?.clipboard?.writeText) {
     window.navigator?.clipboard?.writeText(text);
-    return
+    return;
   }
   if (!_copy) {
     initCopy();
   }
-  _copy(text)
+  _copy(text);
 }

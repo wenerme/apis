@@ -20,7 +20,7 @@ function createSpeedometer(seconds) {
   let pointer = 1;
   let last = (tick - 1) & maxTick;
 
-  return delta => {
+  return (delta) => {
     let dist = (tick - last) & maxTick;
     if (dist > size) dist = size;
     last = tick;
@@ -36,9 +36,7 @@ function createSpeedometer(seconds) {
     const top = buffer[pointer - 1];
     const btm = buffer.length < size ? 0 : buffer[pointer === size ? 0 : pointer];
 
-    return buffer.length < resolution
-      ? top
-      : (top - btm) * resolution / buffer.length;
+    return buffer.length < resolution ? top : ((top - btm) * resolution) / buffer.length;
   };
 }
 
@@ -68,24 +66,19 @@ class Progress {
   }
 
   getEta() {
-    return this.length >= this.transferred
-      ? this.getRemainingBytes() / this.speed * 1000000000
-      : 0;
+    return this.length >= this.transferred ? (this.getRemainingBytes() / this.speed) * 1000000000 : 0;
   }
 
   flow(chunk, onProgress) {
     const chunkLength = chunk.length;
     this.transferred += chunkLength;
     this.speed = this.streamSpeed(chunkLength);
-    this.percentage = Math.round(this.transferred / this.length * 100);
+    this.percentage = Math.round((this.transferred / this.length) * 100);
     if (!this.initial) {
       this.eventStart = Date.now();
       this.initial = true;
     }
-    if (
-      this.length >= this.transferred ||
-      Date.now() - this.eventStart > this.emitDelay
-    ) {
+    if (this.length >= this.transferred || Date.now() - this.eventStart > this.emitDelay) {
       this.eventStart = Date.now();
 
       const progress = {
@@ -106,30 +99,28 @@ class Progress {
 }
 
 export interface ProgressEvent {
-  total: number
-  transferred: number
-  speed: number
-  eta: number
-  remaining: number
-  percentage: number
+  total: number;
+  transferred: number;
+  speed: number;
+  eta: number;
+  remaining: number;
+  percentage: number;
 }
 
 export function isFetchProgressSupported() {
-  return (
-    typeof Response !== 'undefined' && typeof ReadableStream !== 'undefined'
-  );
+  return typeof Response !== 'undefined' && typeof ReadableStream !== 'undefined';
 }
 
 /// https://github.com/samundrak/fetch-progress
 export function fetchProgress({
-                                defaultSize = 0,
-                                emitDelay = 10,
-                                onProgress = (e: ProgressEvent) => null,
-                                onComplete = (v) => null,
-                                onError = (err) => null,
-                              }) {
+  defaultSize = 0,
+  emitDelay = 10,
+  onProgress = (e: ProgressEvent) => null,
+  onComplete = (v) => null,
+  onError = (err) => null,
+}) {
   return (res: Response) => {
-    const {body, headers, status} = res;
+    const { body, headers, status } = res;
 
     if (!isFetchProgressSupported() || status >= 300) {
       return res;
@@ -143,17 +134,14 @@ export function fetchProgress({
         function push() {
           reader
             .read()
-            .then(({done, value}) => {
+            .then(({ done, value }) => {
               if (done) {
                 onComplete({});
                 controller.close();
                 return;
               }
               if (value) {
-                progress.flow(
-                  value,
-                  onProgress
-                );
+                progress.flow(value, onProgress);
               }
               controller.enqueue(value);
               push();
@@ -166,6 +154,6 @@ export function fetchProgress({
         push();
       },
     });
-    return new Response(stream, {headers});
+    return new Response(stream, { headers });
   };
 }

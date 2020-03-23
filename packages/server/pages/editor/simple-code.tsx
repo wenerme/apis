@@ -1,16 +1,19 @@
-import React, {useState} from 'react';
-import {PageLayout} from 'components/layout/PageLayout/PageLayout';
-import {PageContent} from 'components/layout/PageLayout/PageContent';
+import React, { useState } from 'react';
+import { PageLayout } from 'components/layout/PageLayout/PageLayout';
+import { PageContent } from 'components/layout/PageLayout/PageContent';
 import Head from 'next/head';
-import {PageHeader, Select} from 'antd';
-import {EditOutlined} from '@ant-design/icons/lib';
+import { PageHeader, Select } from 'antd';
+import { EditOutlined } from '@ant-design/icons/lib';
 import dynamic from 'next/dynamic';
-import components from 'prismjs/components'
-import {usePrismTheme} from 'hooks/prism';
+import components from 'prismjs/components';
+import { usePrismTheme } from 'hooks/prism';
 
-const SimpleCodeEditor = dynamic(() => import('components/editor/SimpleCodeEditor').then(({SimpleCodeEditor}) => SimpleCodeEditor), {
-  loading: () => <div>Loading...</div>
-});
+const SimpleCodeEditor = dynamic(
+  () => import('components/editor/SimpleCodeEditor').then(({ SimpleCodeEditor }) => SimpleCodeEditor),
+  {
+    loading: () => <div>Loading...</div>,
+  }
+);
 const DemoPageContent: React.FC = () => {
   const [lang, setLang] = useState('tsx');
   const [theme, setTheme] = useState('prism');
@@ -37,35 +40,27 @@ const DemoSimpleCodeEditor: React.FC = () => {
   return (
     <div>
       <div>
-        <Select
-          style={{width: 200}}
-          showSearch
-          value={theme}
-          onChange={v => setTheme(v)}
-        >
-          {Object.entries(components.themes).filter(([id]) => id !== 'meta').map(([id, v]: [string, any]) => (
-            <Select.Option key={id} value={id}>{typeof v === 'string' ? v : v.title}</Select.Option>
-          ))}
+        <Select style={{ width: 200 }} showSearch value={theme} onChange={(v) => setTheme(v)}>
+          {Object.entries(components.themes)
+            .filter(([id]) => id !== 'meta')
+            .map(([id, v]: [string, any]) => (
+              <Select.Option key={id} value={id}>
+                {typeof v === 'string' ? v : v.title}
+              </Select.Option>
+            ))}
         </Select>
 
-        <Select
-          style={{width: 200}}
-          showSearch
-          value={lang}
-          onChange={v => setLang(v)}
-        >
-          {Object.entries(components.languages).filter(([id]) => id !== 'meta').map(([id, v]: [string, any]) => (
-            <Select.Option key={id} value={id}>{v.title}</Select.Option>
-          ))}
+        <Select style={{ width: 200 }} showSearch value={lang} onChange={(v) => setLang(v)}>
+          {Object.entries(components.languages)
+            .filter(([id]) => id !== 'meta')
+            .map(([id, v]: [string, any]) => (
+              <Select.Option key={id} value={id}>
+                {v.title}
+              </Select.Option>
+            ))}
         </Select>
       </div>
-      <SimpleCodeEditor
-        value={code}
-        onChange={setCode}
-        language={lang}
-      >
-
-      </SimpleCodeEditor>
+      <SimpleCodeEditor value={code} onChange={setCode} language={lang}></SimpleCodeEditor>
     </div>
   );
 };
@@ -82,7 +77,7 @@ const Page = () => {
         <PageHeader
           title={
             <div>
-              <EditOutlined style={{marginRight: 8}} />
+              <EditOutlined style={{ marginRight: 8 }} />
               React Simple Code Editor
             </div>
           }
@@ -90,9 +85,8 @@ const Page = () => {
         />
 
         <DemoPageContent />
-
       </PageContent>
     </PageLayout>
-  )
+  );
 };
-export default Page
+export default Page;

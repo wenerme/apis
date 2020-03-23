@@ -1,4 +1,4 @@
-import {Flag, GzipHeader} from './types';
+import { Flag, GzipHeader } from './types';
 
 export function parseGzipHeader(buf: Buffer): GzipHeader {
   if (buf.readUInt16BE(0) !== 0x1f8b) {
@@ -14,14 +14,14 @@ export function parseGzipHeader(buf: Buffer): GzipHeader {
     osType: buf.readUInt8(9),
 
     crc32: buf.readUInt32LE(buf.length - 8),
-    inputSize: buf.readUInt32LE(buf.length - 4)
+    inputSize: buf.readUInt32LE(buf.length - 4),
   };
 
   let offset = 10;
   if (flags & Flag.EXTRA) {
     const xlen = buf.readUInt16LE(offset);
     header.extraField = buf.slice(offset, offset + xlen);
-    offset += xlen
+    offset += xlen;
   }
   if (flags & Flag.NAME) {
     const idx = buf.indexOf(0, offset);
@@ -38,5 +38,5 @@ export function parseGzipHeader(buf: Buffer): GzipHeader {
     offset += 2;
   }
 
-  return header
+  return header;
 }

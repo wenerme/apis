@@ -1,8 +1,8 @@
 import React from 'react';
-import {Editor} from 'slate';
+import { Editor } from 'slate';
 
 export const Element = (props) => {
-  const {attributes, children, element} = props;
+  const { attributes, children, element } = props;
   switch (element.type) {
     case 'block-quote':
       return <blockquote {...attributes}>{children}</blockquote>;
@@ -33,38 +33,38 @@ export const Element = (props) => {
         </a>
       );
     default:
-      return <p {...attributes}>{children}</p>
+      return <p {...attributes}>{children}</p>;
   }
 };
-export const Leaf = ({attributes, children, leaf}) => {
+export const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
-    children = <strong>{children}</strong>
+    children = <strong>{children}</strong>;
   }
 
   if (leaf.code) {
-    children = <code>{children}</code>
+    children = <code>{children}</code>;
   }
 
   if (leaf.italic) {
-    children = <em>{children}</em>
+    children = <em>{children}</em>;
   }
 
   if (leaf.underline) {
-    children = <u>{children}</u>
+    children = <u>{children}</u>;
   }
   if (leaf['strike-through']) {
-    children = <s>{children}</s>
+    children = <s>{children}</s>;
   }
-  return <span {...attributes}>{children}</span>
+  return <span {...attributes}>{children}</span>;
 };
 
 export function withRender() {
   return (editor: Editor) => {
     editor.editableProps = {
       ...editor.editableProps,
-      renderElement: props => <Element {...props} />,
-      renderLeaf: props => <Leaf {...props} />,
+      renderElement: (props) => <Element {...props} />,
+      renderLeaf: (props) => <Leaf {...props} />,
     };
-    return editor
-  }
+    return editor;
+  };
 }

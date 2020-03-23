@@ -1,16 +1,23 @@
-import {createScelDataService, ScelMetadata} from 'libs/sougou/dict/ScelDataService';
-import {NextPage} from 'next';
-import {ScelDictPage} from 'modules/scel/components/ScelDictPage';
+import { createScelDataService, ScelMetadata } from 'libs/sougou/dict/ScelDataService';
+import { NextPage } from 'next';
+import { ScelDictPage } from 'modules/scel/components/ScelDictPage';
 
-const Page: NextPage<{ dictId, dictVersion?, metadata: ScelMetadata }> = ScelDictPage;
+const Page: NextPage<{
+  dictId;
+  dictVersion?;
+  metadata: ScelMetadata;
+}> = ScelDictPage;
 
-Page.getInitialProps = async ({query: {dictId, dictVersion}}) => {
+Page.getInitialProps = async ({ query: { dictId, dictVersion } }) => {
   if (dictVersion) {
     dictVersion = (dictVersion + '').replace('.html', '');
   }
   const service = createScelDataService();
-  const metadata = await service.getMetadata({id: dictId, version: dictVersion});
-  return {dictId, dictVersion, metadata}
+  const metadata = await service.getMetadata({
+    id: dictId,
+    version: dictVersion,
+  });
+  return { dictId, dictVersion, metadata };
 };
 
 // async function getMetadata({id, version}): Promise<ScelMetadata> {
@@ -48,4 +55,4 @@ Page.getInitialProps = async ({query: {dictId, dictVersion}}) => {
 // export const unstable_getStaticProps = getStaticProps;
 // export const unstable_getStaticPaths = getStaticPaths;
 
-export default Page
+export default Page;

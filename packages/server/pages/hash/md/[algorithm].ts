@@ -1,1 +1,1 @@
-export {default} from './[algorithm]/[content]'
+export { default } from './[algorithm]/[content]';

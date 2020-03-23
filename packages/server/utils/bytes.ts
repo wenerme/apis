@@ -1,6 +1,5 @@
 // https://github.com/visionmedia/bytes.js/blob/master/index.js
 
-
 const formatThousandsRegExp = /\B(?=(\d{3})+(?!\d))/g;
 const formatDecimalsRegExp = /(?:\.0*|(\.[^0]+)0+)$/;
 const map = {
@@ -67,7 +66,7 @@ export function formatBytes(value, options?) {
   const mag = Math.abs(value);
   const thousandsSeparator = (options && options.thousandsSeparator) || '';
   const unitSeparator = (options && options.unitSeparator) || '';
-  const decimalPlaces = (options && options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
+  const decimalPlaces = options && options.decimalPlaces !== undefined ? options.decimalPlaces : 2;
   const fixedDecimals = Boolean(options && options.fixedDecimals);
   let unit = (options && options.unit) || '';
 
@@ -128,7 +127,7 @@ export function parseBytes(val) {
   if (!results) {
     // Nothing could be extracted from the given string
     floatValue = Number(val);
-    unit = 'b'
+    unit = 'b';
   } else {
     // Retrieve the value and the unit
     floatValue = Number(results[1]);

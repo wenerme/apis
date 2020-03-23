@@ -46,7 +46,6 @@ export function urljoin(...strArray: string[]) {
     }
 
     resultArray.push(component);
-
   }
 
   let str = resultArray.join('/');

@@ -1,12 +1,12 @@
-import {Column, Entity, PrimaryColumn} from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('sougou_dict_metas')
 export class SougouDictMetaEntity {
-  @PrimaryColumn({type: 'int'})
+  @PrimaryColumn({ type: 'int' })
   id: number;
-  @Column('text', {nullable: false})
+  @Column('text', { nullable: false })
   name: string;
-  @Column('text', {nullable: true})
+  @Column('text', { nullable: true })
   createdBy: string;
   @Column('timestamp', {
     // comment: 'Unix Timestamp',
@@ -32,6 +32,6 @@ export class SougouDictMetaEntity {
   count: number;
   @Column('int')
   downloadCount: number;
-  @Column('int', {default: 0})
-  version: number
+  @Column('int', { default: 0 })
+  version: number;
 }
