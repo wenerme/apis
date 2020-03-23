@@ -154,7 +154,7 @@ const PasswordStrengthPageContent: React.FC<{ initialValue? }> = ({initialValue 
 
 export const PasswordStrengthPage: React.FC<{ initialValue? }> = ({initialValue}) => {
   return (
-    <>
+    <React.Fragment>
       <Head>
         <title>Zxcvbn 密码强度检测</title>
       </Head>
@@ -189,7 +189,7 @@ export const PasswordStrengthPage: React.FC<{ initialValue? }> = ({initialValue}
 
         </PageContent>
       </PageLayout>
-    </>
+    </React.Fragment>
   )
 };
 

@@ -101,7 +101,7 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {
   const {number} = initialData;
 
   return (
-    <>
+    <React.Fragment>
       <Head>
         <title>手机号{number ?? ''}归属地查询</title>
       </Head>
@@ -133,6 +133,6 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({initialData = {
 
         </PageContent>
       </PageLayout>
-    </>
+    </React.Fragment>
   )
 };

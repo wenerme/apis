@@ -4,9 +4,9 @@ import {NewSeedModal} from 'modules/webtorrent/components/NewSeedModal';
 
 export const DialogModal: React.FC = () => {
   return (
-    <>
+    <React.Fragment>
       <NewDownloadModal />
       <NewSeedModal />
-    </>
+    </React.Fragment>
   )
 };

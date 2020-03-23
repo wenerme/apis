@@ -117,7 +117,7 @@ const HashPageContent: React.FC<{ algorithm, content, initialData }> = ({algorit
 };
 export const HashPage: React.FC<{ algorithm, content, initialData }> = ({algorithm, content, initialData}) => {
   return (
-    <>
+    <React.Fragment>
       <Head>
         <title>{algorithm}哈希计算</title>
       </Head>
@@ -136,6 +136,6 @@ export const HashPage: React.FC<{ algorithm, content, initialData }> = ({algorit
           <HashPageContent content={content} algorithm={algorithm} initialData={initialData} />
         </PageContent>
       </PageLayout>
-    </>
+    </React.Fragment>
   )
 };
