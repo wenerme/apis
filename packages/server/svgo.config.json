@@ -2,9 +2,7 @@
   "plugins": [
     {
       "removeAttrs": {
-        "attrs": [
-          "data-.*"
-        ]
+        "attrs": ["data-.*"]
       }
     },
     {

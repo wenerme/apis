@@ -2,11 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "target": "es2015",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -21,47 +17,19 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "components/*": [
-        "components/*"
-      ],
-      "types/*": [
-        "types/*"
-      ],
-      "libs/*": [
-        "libs/*"
-      ],
-      "hooks/*": [
-        "hooks/*"
-      ],
-      "modules/*": [
-        "modules/*"
-      ],
-      "utils/*": [
-        "utils/*"
-      ],
-      "apis/*": [
-        "apis/*"
-      ],
-      "db/*": [
-        "db/*"
-      ],
-      "server/*": [
-        "server/*"
-      ],
-      "public/*": [
-        "public/*"
-      ],
-      "reducers/*": [
-        "reducers/*"
-      ]
+      "components/*": ["components/*"],
+      "types/*": ["types/*"],
+      "libs/*": ["libs/*"],
+      "hooks/*": ["hooks/*"],
+      "modules/*": ["modules/*"],
+      "utils/*": ["utils/*"],
+      "apis/*": ["apis/*"],
+      "db/*": ["db/*"],
+      "server/*": ["server/*"],
+      "public/*": ["public/*"],
+      "reducers/*": ["reducers/*"]
     }
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

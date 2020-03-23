@@ -1,15 +1,12 @@
 const moment = require('moment');
-const {flow} = require('lodash');
+const { flow } = require('lodash');
 
-const {
-  PHASE_DEVELOPMENT_SERVER,
-  PHASE_PRODUCTION_BUILD,
-} = require('next/constants');
+const { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } = require('next/constants');
 
-const withPWA = require('next-pwa')
+const withPWA = require('next-pwa');
 const withCss = require('@zeit/next-css');
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/
+  extension: /\.mdx?$/,
 });
 const withSass = require('@zeit/next-sass');
 const withTranspile = require('next-transpile-modules');
@@ -46,15 +43,15 @@ Object.assign(env, require('dotenv').config().parsed);
 
 const config = {
   // distDir: 'dist',
-  webpack: (config, {isServer}) => {
+  webpack: (config, { isServer }) => {
     // https://github.com/zeit/next.js/issues/7779
     const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
     config.resolve.plugins = [...(config.resolve.plugins || []), new TsconfigPathsPlugin()];
 
     if (!isServer) {
       config.node = {
-        fs: 'empty'
-      }
+        fs: 'empty',
+      };
     }
 
     // https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/next.config.js
@@ -66,9 +63,9 @@ const config = {
         (context, request, callback) => {
           if (request.match(antStyles)) return callback();
           if (typeof origExternals[0] === 'function') {
-            origExternals[0](context, request, callback)
+            origExternals[0](context, request, callback);
           } else {
-            callback()
+            callback();
           }
         },
         ...(typeof origExternals[0] === 'function' ? [] : origExternals),
@@ -77,7 +74,7 @@ const config = {
       config.module.rules.unshift({
         test: antStyles,
         use: 'null-loader',
-      })
+      });
     }
 
     // antd 模块 less 处理
@@ -108,9 +105,9 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 100000,
-          name: '[name].[ext]'
-        }
-      }
+          name: '[name].[ext]',
+        },
+      },
     });
 
     return config;
@@ -134,7 +131,7 @@ const config = {
   // },
 };
 
-module.exports = (phase, {defaultConfig}) => {
+module.exports = (phase, { defaultConfig }) => {
   const isDev = phase === PHASE_DEVELOPMENT_SERVER;
   const isProd = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING !== '1';
   const isStaging = PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
@@ -142,9 +139,9 @@ module.exports = (phase, {defaultConfig}) => {
   // 按环境合并配置
   let envType = 'dev';
   if (isStaging) {
-    envType = 'staging'
+    envType = 'staging';
   } else if (isProd) {
-    envType = 'prod'
+    envType = 'prod';
   }
   Object.assign(env, envs.default, envs[envType]);
 
@@ -156,5 +153,5 @@ module.exports = (phase, {defaultConfig}) => {
     // withTranspile,
     withBundleAnalyzer,
     // withPWA,
-  ])(config)
+  ])(config);
 };
