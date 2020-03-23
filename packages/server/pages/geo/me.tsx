@@ -14,7 +14,7 @@ const LocationMePageContent = dynamic(() => import('modules/geo/components/Locat
 
 const LocationMePage: React.FC = () => {
   return (
-    <>
+    <React.Fragment>
       <Head>
         <title>我的定位</title>
       </Head>
@@ -34,7 +34,7 @@ const LocationMePage: React.FC = () => {
 
         </PageContent>
       </PageLayout>
-    </>
+    </React.Fragment>
   )
 };
 

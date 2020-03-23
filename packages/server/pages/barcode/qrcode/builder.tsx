@@ -140,7 +140,7 @@ const QRCodeBuilderPageContent = () => {
               <FormFieldBuilder pure field={{key: 'text', name: null, label: '文本内容', required: true}} />
             )}
             {valueObject.type === 'wifi' && (
-              <>
+              <React.Fragment>
                 <FormFieldsBuilder pure fields={[
                   {key: 'wifi.ssid', label: 'SSID/网络名', required: true},
                   {
@@ -154,7 +154,7 @@ const QRCodeBuilderPageContent = () => {
                   widget: 'password',
                 }} />}
                 {<FormFieldBuilder pure field={{key: 'wifi.hidden', label: '隐藏网络', widget: 'switch'}} />}
-              </>
+              </React.Fragment>
             )}
 
             {valueObject.type === 'tel' && (

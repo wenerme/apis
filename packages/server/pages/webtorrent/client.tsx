@@ -36,10 +36,10 @@ const WebTorrentPageContent: React.FC = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       {!client && <Button disabled={loading} onClick={doInit}>初始化</Button>}
       {client && <WebTorrentClient client={client} />}
-    </>
+    </React.Fragment>
   )
 };
 

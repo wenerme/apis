@@ -60,7 +60,7 @@ const Page: NextPage = () => {
   const [scel, setScel] = useState<ScelState>();
 
   return (
-    <>
+    <React.Fragment>
       <Head>
         <title>搜狗词库 SCEL 工具</title>
       </Head>
@@ -109,7 +109,7 @@ const Page: NextPage = () => {
 
         </PageContent>
       </PageLayout>
-    </>
+    </React.Fragment>
   )
 }
 
