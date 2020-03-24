@@ -141,6 +141,10 @@ export const menus: MenuSpec[] = [
         title: 'Simple Code Editor',
         path: '/editor/simple-code',
       },
+      {
+        title: 'Prettier格式化',
+        path: '/editor/prettier',
+      },
     ],
   },
   {

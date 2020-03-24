@@ -60,7 +60,7 @@ const DemoSimpleCodeEditor: React.FC = () => {
             ))}
         </Select>
       </div>
-      <SimpleCodeEditor value={code} onChange={setCode} language={lang}></SimpleCodeEditor>
+      <SimpleCodeEditor value={code} onChange={setCode} language={lang} />
     </div>
   );
 };
