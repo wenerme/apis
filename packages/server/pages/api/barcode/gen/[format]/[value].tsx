@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { flow } from 'lodash';
 import { handleErrors } from 'libs/nexts/middlewares/errors';
 import { BarcodeOptions, renderBarcode } from 'libs/barcodes/renders';
-import { firstOf } from 'utils/arrays';
+import { firstOf } from '@wener/utils/src/arrays/firstOf';
 import objectHash from 'object-hash';
 
 const mime = require('mime');

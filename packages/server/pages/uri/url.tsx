@@ -8,7 +8,7 @@ import ContentEditable from 'react-contenteditable';
 import produce from 'immer';
 import sanitizeHtml from 'sanitize-html';
 import { useRouter } from 'next/router';
-import { firstOf } from 'utils/arrays';
+import { firstOf } from '@wener/utils/src/arrays/firstOf';
 import pick from 'lodash/pick';
 import { LinkOutlined } from '@ant-design/icons';
 

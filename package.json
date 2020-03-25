@@ -10,6 +10,7 @@
     "format": "yarn workspaces run run:prettier",
     "sort": "npx sort-package-json",
     "start": "yarn --cwd packages/server start",
+    "pub": "yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
     "test": "yarn --cwd packages/server test"
   },
   "resolutions": {

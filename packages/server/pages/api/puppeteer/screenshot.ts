@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { firstOf } from 'utils/arrays';
+import { firstOf } from '@wener/utils/src/arrays/firstOf';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import { handleErrors } from 'libs/nexts/middlewares/errors';
 import { flow } from 'lodash';
