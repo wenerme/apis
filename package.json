@@ -6,10 +6,9 @@
   ],
   "scripts": {
     "build": "yarn --cwd packages/server build",
-    "build:public": "yarn --cwd packages/utils run doc && rm -rf packages/server/public/docs/@wener && mkdir -p packages/server/public/docs/@wener && cp -r packages/utils/docs packages/server/public/docs/@wener/utils",
+    "build:public": "yarn --cwd packages/utils run doc && yarn --cwd packages/tinyrpc run doc && rm -rf packages/server/public/docs/@wener && mkdir -p packages/server/public/docs/@wener && cp -r packages/utils/docs packages/server/public/docs/@wener/utils && cp -r packages/tinyrpc/docs packages/server/public/docs/@wener/tinyrpc",
     "dev": "yarn --cwd packages/server dev",
     "format": "yarn workspaces run run:prettier",
-    "now-build": "yarn build:public && yarn --cwd packages/server now-build",
     "pub": "yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
     "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json",
     "start": "yarn --cwd packages/server start",

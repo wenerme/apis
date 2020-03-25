@@ -1,5 +1,6 @@
 import { ServiceInvocationHandler } from './types';
 
+/// Used to handle client state between requests
 interface ProxyContext {
   invokers: Record<string, Function>;
 }

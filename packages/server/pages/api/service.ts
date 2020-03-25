@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ServiceInvocation } from 'apis/services/types';
 import { flow } from 'lodash';
 import { handleErrors } from 'libs/nexts/middlewares/errors';
-import { GlobalRegistry } from 'apis/services/global';
 import { PersistPeerService } from 'libs/webrtc/persist/PersistPeerService';
 import { createRtcPeerConnection } from 'libs/webrtc/persist/connection';
-import { createServiceDefinition } from 'apis/services/ServiceRegistry';
-import { PingService } from 'apis/services/PingService';
 import { ScelDataService } from 'libs/sougou/dict/ScelDataService';
+import { PingService } from '@wener/tinyrpc/src/services/PingService';
+import { GlobalRegistry } from '@wener/tinyrpc/src/global';
+import { createServiceDefinition } from '@wener/tinyrpc/src/ServiceRegistry';
+import { ServiceInvocation } from '@wener/tinyrpc/src/types';
 
 let _init = false;
 

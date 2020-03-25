@@ -137,3 +137,4 @@ ignored
 data
 .yarn
 packages/*/lib
+packages/*/docs

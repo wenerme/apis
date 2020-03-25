@@ -1,5 +1,8 @@
 import { ServiceDefinition, ServiceInvocation, ServiceResponse } from './types';
 
+/**
+ * Hold all services in server side
+ */
 export class ServiceRegistry {
   services: Record<string, ServiceDefinition> = {};
 
@@ -70,9 +73,10 @@ export function createServiceDefinition({
   // build methods
   if (target) {
     const entries: Array<[string, Function]> = includes.filter((v) => target[v]).map((v) => [v, target[v]]);
-    methods = Object.fromEntries(entries);
+    // methods = Object.fromEntries(entries);
+    methods = entries.reduce((o, [k, v]) => ((o[k] = v), o), {} as any);
   } else {
-    // todo
+    // todo call provider
   }
 
   return {

@@ -1,7 +1,14 @@
-import { ServiceInvocationHandler } from './types';
+import { ServiceInvocationHandler } from '../types';
 import unfetch from 'isomorphic-unfetch';
 
-export function createFetchConsumer<T>({ url, fetch = unfetch }): ServiceInvocationHandler {
+type Fetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+
+export interface FetchConsumerOptions {
+  url: string;
+  fetch?: Fetch;
+}
+
+export function createFetchConsumer<T>({ url, fetch = unfetch }: FetchConsumerOptions): ServiceInvocationHandler {
   return async (req) => {
     const result = fetch(url, {
       method: 'POST',
@@ -12,7 +19,9 @@ export function createFetchConsumer<T>({ url, fetch = unfetch }): ServiceInvocat
         let parsed;
         try {
           parsed = JSON.parse(body);
-        } catch (e) {}
+        } catch (e) {
+          // ignored
+        }
         const message = parsed?.message ?? body;
         throw Object.assign(new Error(`invoke failed ${v.status} ${req?.service}/${req?.method}: ${message}`), {
           status: v.status,
