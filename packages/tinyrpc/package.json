@@ -1,6 +1,6 @@
 {
   "name": "@wener/tinyrpc",
-  "version": "1.0.1-alpha.0",
+  "version": "1.0.0-alpha.0",
   "description": "Tiny RPC for ES6 Proxy",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,5 +29,8 @@
   },
   "files": [
     "lib"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
