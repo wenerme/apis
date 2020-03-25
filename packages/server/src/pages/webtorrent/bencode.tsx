@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { Button, Divider, message, PageHeader } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 
-import { useMounted } from '../../hooks/useMounted';
+import { useMounted } from '@wener/utils/src/reactx/hooks/useMounted';
 import dynamic from 'next/dynamic';
 // import {JsonEditor} from 'components/JsonEditor/JsonEditor';
 import { decode, encode } from 'bencode';
@@ -14,7 +14,7 @@ import { JsonEditor } from '../../components/JsonEditor/JsonEditor';
 import { readFileAsBuffer } from '../../utils/io';
 import { FileReceiver } from '../../components/FileReceiver';
 import { download } from '@wener/utils/src/browsers/download';
-import { useDebounceEffect } from '../../hooks/useDebounceEffect';
+import { useDebounceEffect } from '@wener/utils/src/reactx/hooks/useDebounceEffect';
 
 const JsonEditorDyn: any = dynamic(
   () => import('../../components/JsonEditor/JsonEditor').then(({ JsonEditor }) => JsonEditor),

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Instance, Torrent } from 'webtorrent';
 import { ColumnProps } from 'antd/es/table';
 import { Button, Dropdown, Menu, message, Table } from 'antd';
-import { useInterval } from '../../../hooks/useInterval';
+import { useInterval } from '@wener/utils/src/reactx/hooks/useInterval';
 import { InfoCircleOutlined, MoreOutlined } from '@ant-design/icons/lib';
 // import styles from './TorrentTable.module.css'
 import './TorrentTable.module.css';

@@ -4,7 +4,7 @@ import React from 'react';
 import Head from 'next/head';
 import { PageHeader } from 'antd';
 import { WebRTCChecker } from '../../modules/webrtc/components/WebRTCChecker';
-import { useMounted } from '../../hooks/useMounted';
+import { useMounted } from '@wener/utils/src/reactx/hooks/useMounted';
 import RtcOutlined from '../../components/icons/RtcOutlined';
 
 const Page = () => {

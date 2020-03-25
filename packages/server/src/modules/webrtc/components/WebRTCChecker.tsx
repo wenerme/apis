@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Descriptions } from 'antd';
 import { addPeerConnectionStateListener, getCandidates } from '../../../libs/webrtc/rtcs';
 import { PeerConnectionState } from '../../../libs/webrtc/types';
-import { useAsyncEffect } from '../../../hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import produce from 'immer';
 import { LoadingOutlined } from '@ant-design/icons';
 import { getGlobalThis } from '@wener/utils/src/isomorphics/getGlobalThis';

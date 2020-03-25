@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useForceUpdate } from '../../../hooks/useForceUpdate';
+import { useForceUpdate } from '@wener/utils/src/reactx/hooks/useForceUpdate';
 import { Dropdown, Menu } from 'antd';
 import { DownOutlined, TranslationOutlined } from '@ant-design/icons/lib';
 

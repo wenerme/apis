@@ -4,7 +4,7 @@ export function useOnlineEffect(): null | boolean {
   const [online, setOnline] = useState(window?.navigator?.onLine);
 
   useEffect(() => {
-    const handler = (e) => setOnline(e.type === 'online');
+    const handler = (e: Event) => setOnline(e.type === 'online');
     window.addEventListener('online', handler);
     window.addEventListener('offline', handler);
     return () => {

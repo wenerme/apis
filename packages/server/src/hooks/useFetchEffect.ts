@@ -1,5 +1,5 @@
 import { DependencyList, useState } from 'react';
-import { useAsyncEffect } from './useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import produce from 'immer';
 
 export interface FetchingData<T> {

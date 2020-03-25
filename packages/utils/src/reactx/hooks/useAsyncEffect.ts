@@ -1,7 +1,7 @@
 import { DependencyList, useEffect, useRef } from 'react';
 
 export function useAsyncEffect(
-  effect: ({ setCloser }) => Promise<void | (() => void | undefined)>,
+  effect: (o: { setCloser: (v: (() => void)) => void }) => Promise<void | (() => void | undefined)>,
   deps?: DependencyList
 ) {
   const ref = useRef<() => void>();

@@ -1,7 +1,7 @@
 import { EffectCallback, useEffect, useMemo } from 'react';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
-export function useDebounceEffect(cb: EffectCallback, deps?, wait?) {
+export function useDebounceEffect(cb: EffectCallback, deps: any[], wait: number) {
   const bounce = useMemo(
     () =>
       debounce(() => {

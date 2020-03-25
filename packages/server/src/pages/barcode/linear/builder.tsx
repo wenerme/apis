@@ -10,7 +10,7 @@ import produce from 'immer';
 import { SketchColorPicker } from '../../../libs/antds/form/SketchColorPicker';
 import { API } from '../../../apis/api';
 import { ResourceLinkButton } from '../../../components/ResourceLinkButton';
-import { useDebounceEffect } from '../../../hooks/useDebounceEffect';
+import { useDebounceEffect } from '@wener/utils/src/reactx/hooks/useDebounceEffect';
 
 const Barcode: React.FC<BarcodeOptions & { value: string; renderer?: 'svg' | 'canvas' | 'img' }> = (props) => {
   const { renderer = 'svg' } = props;

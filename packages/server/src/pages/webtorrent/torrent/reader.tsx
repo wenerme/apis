@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { Button, Descriptions, Divider, Input, List, message, PageHeader } from 'antd';
 import TorrentFileFilled from '../../../components/icons/TorrentFileFilled';
 import ParseTorrent, { toMagnetURI, toTorrentFile } from 'parse-torrent';
-import { useAsyncEffect } from '../../../hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import { format } from 'date-fns';
 import numeral from 'numeral';
 import { copy } from '@wener/utils/src/browsers/clipboard';

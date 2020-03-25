@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Console as ConsoleFeed, Hook, Unhook } from 'console-feed';
-import { useAsyncEffect } from '../../../hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import { Descriptions } from 'antd';
 
 export const LocationMePageContent: React.FC = () => {

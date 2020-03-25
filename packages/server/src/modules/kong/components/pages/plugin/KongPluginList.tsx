@@ -7,13 +7,13 @@ import {
   buildInitialValues,
   FormFieldBuilder,
   FormFieldProps,
-  FormFieldsBuilder,
+  FormFieldsBuilder
 } from '../../../../../libs/antds/form/builder';
 import { omitBy } from 'lodash';
 import { Button, Divider, Form, Spin } from 'antd';
 import { useKongSelector } from '../../../reducers/kong';
 import { getKongService } from '../../../apis/client';
-import { useAsyncEffect } from '../../../../../hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import { doUpdateInformation } from '../../../reducers/actions';
 import { useDispatch } from 'react-redux';
 import { EntitySelect } from '../../entity/EntitySelect';

@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Torrent, TorrentFile } from 'webtorrent';
 import { Button, message, Table } from 'antd';
 import { normalizeColumns } from '../../../libs/antds/table/normal';
-import { useInterval } from '../../../hooks/useInterval';
+import { useInterval } from '@wener/utils/src/reactx/hooks/useInterval';
 
 export const TorrentFileTable: React.FC<{ torrent: Torrent }> = ({ torrent }) => {
   const columns = useMemo(

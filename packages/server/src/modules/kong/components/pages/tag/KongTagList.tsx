@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react';
-import { useAsyncEffect } from '../../../../../hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import { getKongService } from '../../../apis/client';
 import { Button, Table, Tag } from 'antd';
 import { normalizeColumns } from '../../../../../libs/antds/table/normal';

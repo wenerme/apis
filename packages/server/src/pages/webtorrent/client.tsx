@@ -3,7 +3,7 @@ import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
 import Head from 'next/head';
 import { Button, PageHeader } from 'antd';
-import { useMounted } from '../../hooks/useMounted';
+import { useMounted } from '@wener/utils/src/reactx/hooks/useMounted';
 import { getCurrentWebTorrentClient, getWebTorrentClient } from '../../modules/webtorrent/client';
 import { Instance } from 'webtorrent';
 import dynamic from 'next/dynamic';

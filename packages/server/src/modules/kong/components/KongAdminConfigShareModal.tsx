@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toggleShowShare, useKongDispatch, useKongSelector } from '../reducers/kong';
 import { useTranslation } from 'react-i18next';
 import { Button, Descriptions, message, Modal, Switch } from 'antd';
-import { useAsyncEffect } from '../../../hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import produce from 'immer';
 import { copy } from '@wener/utils/src/browsers/clipboard';
 import { CopyOutlined, LockOutlined, ReloadOutlined, UnlockOutlined } from '@ant-design/icons/lib';

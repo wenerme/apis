@@ -4,7 +4,7 @@ import { KongUpstreamEntity } from '../../apis/types';
 import { renderTags, renderTimeStamp } from '../renders';
 import { KongEntityTable, OperationColumn, TagsField } from '../entity/KongEntityTable';
 import { FormFieldProps } from '../../../../libs/antds/form/builder';
-import { withProps } from '../../../../libs/reacts/libs/withProps';
+import { withProps } from '@wener/utils/lib/src/reactx/hocs/withProps';
 import { EntityForm } from '../entity/EntityForm';
 
 const fields: FormFieldProps[] = [{ key: 'cert', label: '证书', widget: 'textarea' }, TagsField];

@@ -9,7 +9,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { buildEntityService } from '../../apis/utils';
 import { KongEntityService } from '../../apis/service';
 import { FormFieldProps } from '../../../../libs/antds/form/builder';
-import { useAsyncEffect } from '../../../../hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import { TagsInput } from '../TagsInput';
 
 export interface KongEntityTableProps {
