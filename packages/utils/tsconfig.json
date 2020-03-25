@@ -10,8 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib"
+    "outDir": "lib"
   },
   "exclude": ["node_modules", "**/__tests__/*"],
   "include": ["src"]
