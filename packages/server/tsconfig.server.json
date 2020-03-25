@@ -7,5 +7,5 @@
     "noEmit": false
   },
   "extends": "./tsconfig.json",
-  "include": ["src/server/**/*.ts"]
+  "include": ["src/servers/**/*.ts"]
 }
