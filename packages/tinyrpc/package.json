@@ -1,0 +1,33 @@
+{
+  "name": "@wener/tinyrpc",
+  "version": "1.0.0",
+  "description": "Tiny RPC for ES6 Proxy",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "prepare": "yarn build",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wener/apis.git"
+  },
+  "keywords": [
+    "rpc"
+  ],
+  "author": "wener",
+  "peerDependencies": {
+    "isomorphic-unfetch": "^3.0.0"
+  },
+  "files": [
+    "lib"
+  ]
+}

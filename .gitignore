@@ -136,3 +136,4 @@ dist
 ignored
 data
 .yarn
+packages/*/lib
