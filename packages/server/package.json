@@ -2,8 +2,8 @@
   "name": "@wener/apis-server",
   "version": "1.0.0-alpha.4",
   "private": true,
-  "main": "src/servers/index.js",
-  "bin": "src/servers/index.js",
+  "main": "dist/servers/index.js",
+  "bin": "dist/servers/index.js",
   "scripts": {
     "analyze": "cross-env ANALYZE=true yarn build",
     "build": "tsc --project tsconfig.server.json && yarn run gen && next build",
@@ -43,8 +43,6 @@
     "@wener/tinyrpc": "^1.0.0-alpha.4",
     "@wener/utils": "^1.0.0-alpha.4",
     "@zeit/next-css": "^1.0.1",
-    "@zeit/next-less": "^1.0.1",
-    "@zeit/next-sass": "^1.0.1",
     "@zxing/library": "^0.16.0",
     "ali-oss": "^6.5.1",
     "antd": "^4.0.2",
@@ -54,7 +52,6 @@
     "blob-to-buffer": "^1.2.8",
     "canvas": "^2.6.1",
     "cheerio": "^1.0.0-rc.3",
-    "chrome-aws-lambda": "^2.1.1",
     "cli-progress": "^3.6.0",
     "commander": "^5.0.0",
     "console-feed": "^2.8.11",
@@ -152,7 +149,6 @@
     "use-immer": "^0.3.5",
     "webtorrent": "^0.107.17",
     "winston": "^3.2.1",
-    "wrtc": "^0.4.3",
     "xmldom": "^0.3.0",
     "zxcvbn": "^4.4.2"
   },
@@ -247,5 +243,9 @@
     "scripts": [
       ".next/server/**/*.js"
     ]
+  },
+  "peerDependencies": {
+    "chrome-aws-lambda": "^2.1.1",
+    "wrtc": "^0.4.4"
   }
 }

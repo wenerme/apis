@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { firstOf } from '@wener/utils/src/arrays/firstOf';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
-import { handleErrors } from '../../../libs/nexts/middlewares/errors';
+import { handleErrors } from 'src/libs/nexts/middlewares/errors';
 import { flow } from 'lodash';
-import puppeteer, { devices } from 'puppeteer-core';
+import puppeteer, { Browser, devices } from 'puppeteer-core';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { url, device } = req.query;
@@ -20,15 +20,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new ApiError(400, 'invalid device');
     }
   }
-  const chromium = require('chrome-aws-lambda');
-  const browser = await puppeteer.launch({
-    // args: ['--window-size=1024,968'],
-    // defaultViewport: { width: 1024, height: 968, deviceScaleFactor: 2 },
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
-  });
+  let browser: Browser;
+  try {
+    const chromium = require('chrome-aws-lambda');
+    browser = await puppeteer.launch({
+      // args: ['--window-size=1024,968'],
+      // defaultViewport: { width: 1024, height: 968, deviceScaleFactor: 2 },
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless
+    });
+  } catch (e) {
+    res.status(400).json({});
+    return;
+  }
   const page = await browser.newPage();
 
   if (dev) {
@@ -39,7 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const buffer = await page.screenshot({
     // path: `/tmp/${device ?? 'default'}-${encodeURIComponent(url)}.png`,
-    fullPage: true,
+    fullPage: true
   });
   await browser.close();
   res.setHeader('Content-Type', 'image/png');
