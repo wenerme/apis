@@ -8,7 +8,7 @@ const withCss = require('@zeit/next-css');
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
 });
-const withTranspile = require('next-transpile-modules')(['@wener/utils']);
+const withTranspile = require('next-transpile-modules')(['@wener/utils','@wener/tinyrpc']);
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
