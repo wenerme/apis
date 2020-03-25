@@ -1,7 +1,7 @@
-import { isDev } from 'utils/utils';
 import { IncomingMessage } from 'http';
 import { parseRequestUrl } from 'libs/nexts/utils/requests';
 import { urljoin } from 'utils/urljoin';
+import { isDev } from '@wener/utils/src/envs/isDev';
 
 export const API = {
   get origin(): string {

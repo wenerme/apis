@@ -4,7 +4,9 @@
   "license": "MIT",
   "description": "Tiny RPC for ES6 Proxy",
   "keywords": [
-    "rpc"
+    "utils",
+    "core library",
+    "helper"
   ],
   "repository": {
     "type": "git",

@@ -4,9 +4,9 @@ import { addPeerConnectionStateListener, getCandidates } from 'libs/webrtc/rtcs'
 import { PeerConnectionState } from 'libs/webrtc/types';
 import { useAsyncEffect } from 'hooks/useAsyncEffect';
 import produce from 'immer';
-import { createLazyPromise } from 'utils/promises';
 import { LoadingOutlined } from '@ant-design/icons';
-import { getGlobalThis } from 'utils/getGlobalThis';
+import { getGlobalThis } from '@wener/utils/src/isomorphics/getGlobalThis';
+import { createLazyPromise } from '@wener/utils/src/asyncs/LazyPromise';
 
 const CandidateErrorLine: React.FC<{ candidate }> = ({ candidate }) => {
   const { url, errorCode, errorText, hostCandidate } = candidate;

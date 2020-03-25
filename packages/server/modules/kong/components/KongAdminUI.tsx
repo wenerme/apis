@@ -6,7 +6,6 @@ import { LayoutFrame } from 'components/layout/LayoutFrame/LayoutFrame';
 import { RouteSpec } from 'components/layout/RouteFrame/types';
 import { LayoutFrameContent } from 'components/layout/LayoutFrame/LayoutFrameContent';
 import i18next from 'i18next';
-import { isDev } from 'utils/utils';
 import {
   ApiOutlined,
   AppstoreAddOutlined,
@@ -44,6 +43,7 @@ import { HeaderInput } from 'modules/kong/components/HeaderInput';
 import { FormListField } from 'modules/kong/components/FormListField';
 import { headersFromArray } from 'modules/kong/libs/headers';
 import { i18nextInflection } from 'libs/i18nexts/plugins/inflection-postprocessor';
+import { isDev } from '@wener/utils/src/envs/isDev';
 
 i18next
   .use(i18nextInflection)

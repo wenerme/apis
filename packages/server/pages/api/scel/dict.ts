@@ -4,8 +4,9 @@ import { flow, sortedIndexBy } from 'lodash';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import { ScelCompactIndex } from 'libs/sougou/dict/ScelDataService';
 
-const index: ScelCompactIndex = require('public/data/scel/index.full.json');
-
+// const index: ScelCompactIndex = require('public/data/scel/index.full.json');\
+// FIXME
+const index: ScelCompactIndex = { fields: [], rows: [] };
 export function findMetadataFromIndex({ id, version }) {
   if (!id) {
     throw new ApiError(400, 'query failed');

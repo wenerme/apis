@@ -13,7 +13,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import { JsonEditor } from 'components/JsonEditor/JsonEditor';
 import { readFileAsBuffer } from 'utils/io';
 import { FileReceiver } from 'components/FileReceiver';
-import { download } from 'utils/download';
+import { download } from '@wener/utils/src/browsers/download';
 import { useDebounceEffect } from 'hooks/useDebounceEffect';
 
 const JsonEditorDyn: any = dynamic(

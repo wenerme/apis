@@ -2,8 +2,8 @@ import { Connection } from 'typeorm/connection/Connection';
 import { createConnection } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { BaseConnectionOptions } from 'typeorm/connection/BaseConnectionOptions';
-import { isDev } from 'utils/utils';
 import { format } from 'date-fns';
+import { isDev } from '@wener/utils/src/envs/isDev';
 
 export function createApisConnectionFactory(
   options: { name } & Partial<BaseConnectionOptions>

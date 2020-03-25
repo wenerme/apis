@@ -7,8 +7,8 @@ import { addMinutes, min } from 'date-fns';
 import { applyPatches } from 'immer';
 import { cors } from 'libs/nexts/middlewares/cors';
 import uuidv4 from 'uuid/v4';
-import { isDev } from 'utils/utils';
 import { platformNotSupported } from 'server/platforms';
+import { isDev } from '@wener/utils/src/envs/isDev';
 
 interface SessionInit {
   id;

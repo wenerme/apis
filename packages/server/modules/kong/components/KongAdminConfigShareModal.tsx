@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Descriptions, message, Modal, Switch } from 'antd';
 import { useAsyncEffect } from 'hooks/useAsyncEffect';
 import produce from 'immer';
-import { copy } from 'utils/clipboard';
+import { copy } from '@wener/utils/src/browsers/clipboard';
 import { CopyOutlined, LockOutlined, ReloadOutlined, UnlockOutlined } from '@ant-design/icons/lib';
 import { encrypt } from 'modules/kong/libs/encryption';
 
@@ -52,7 +52,9 @@ const KongAdminConfigShare: React.FC = () => {
         <Descriptions.Item label={t('地址')} span={3}>
           <div style={{ wordBreak: 'break-all' }}>{url}</div>
           <div>
-            <Button type="link" onClick={() => doCopy(url)} icon={<CopyOutlined />} children="复制" />
+            <Button type="link" onClick={() => doCopy(url)} icon={<CopyOutlined />}>
+              {t('复制')}
+            </Button>
 
             <Switch
               checkedChildren={<LockOutlined />}

@@ -7,7 +7,7 @@ export function loadScripts(src) {
     const script = document.createElement('script');
     script.src = src;
     script.onload = resolve;
-    script.onerror = e => {
+    script.onerror = (e) => {
       script.remove();
       reject(e);
     };

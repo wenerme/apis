@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getFile } from 'utils/transfers';
+import { getFile } from '@wener/utils/src/browsers/transfers';
 
 export function usePasteFileEffect(opts: { onFile: (e: { file: File; filename: string }) => void }) {
   const { onFile } = opts;

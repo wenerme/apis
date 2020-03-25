@@ -8,8 +8,8 @@ import ParseTorrent, { toMagnetURI, toTorrentFile } from 'parse-torrent';
 import { useAsyncEffect } from 'hooks/useAsyncEffect';
 import { format } from 'date-fns';
 import numeral from 'numeral';
-import { copy } from 'utils/clipboard';
-import { download } from 'utils/download';
+import { copy } from '@wener/utils/src/browsers/clipboard';
+import { download } from '@wener/utils/src/browsers/download';
 import produce from 'immer';
 import { uniq } from 'lodash';
 import ContentEditable from 'react-contenteditable';
@@ -195,8 +195,8 @@ const TorrentReaderPageContent: React.FC = () => {
             <List.Item
               key={path}
               actions={[
-                <span>大小 {numeral(length).format('0.00b')}</span>,
-                <span>偏移 {numeral(offset).format('0,0')}</span>,
+                <span key={1}>大小 {numeral(length).format('0.00b')}</span>,
+                <span key={2}>偏移 {numeral(offset).format('0,0')}</span>,
               ]}
             >
               <List.Item.Meta title={<span style={{ wordBreak: 'break-all' }}>{name}</span>} />

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { copy } from 'utils/clipboard';
+import { copy } from '@wener/utils/src/browsers/clipboard';
 import { Button, Dropdown, Menu, message } from 'antd';
 
 const DefaultFormats = ['svg', 'png', 'jpg'];

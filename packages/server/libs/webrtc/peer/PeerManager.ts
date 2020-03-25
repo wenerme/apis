@@ -1,5 +1,5 @@
 import { PeerData, PeerService, PeerSessionData } from 'libs/webrtc/peer/PeerService';
-import { clearAsyncInterval, setAsyncInterval } from 'utils/promises';
+import { clearAsyncInterval, setAsyncInterval } from '@wener/utils/src/asyncs/AsyncInterval';
 import { PeerSession } from 'libs/webrtc/peer/PeerSession';
 import { BehaviorSubject } from 'rxjs';
 

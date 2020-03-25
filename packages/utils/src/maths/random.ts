@@ -1,7 +1,5 @@
-export function createRandom({ seed = 0 }) {
-  if (!seed) {
-    seed = 0;
-  }
+/// javascript pseudo random
+export function createRandom({ seed = 0 } = {}) {
   if (typeof seed === 'string') {
     const s: string = seed;
     let sum = 0;

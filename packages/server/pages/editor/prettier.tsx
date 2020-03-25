@@ -7,7 +7,7 @@ import { QrcodeOutlined } from '@ant-design/icons/lib';
 import { SimpleCodeEditor } from 'components/editor/SimpleCodeEditor';
 import { usePrismTheme } from 'hooks/prism';
 import components from 'prismjs/components';
-import { loadScripts } from 'utils/loaders';
+import { loadScripts } from '@wener/utils/src/browsers/loaders';
 import { PrismHighlight } from 'components/PrismHighlight';
 
 // https://prettier.io/docs/en/options.html#parser
@@ -97,37 +97,39 @@ nvm use 12
   return (
     <div>
       <div>
-        <Button type="primary" loading={loading} onClick={doFormat}>Prettier</Button>
+        <Button type="primary" loading={loading} onClick={doFormat}>
+          Prettier
+        </Button>
 
         <label style={{ marginLeft: 8 }}>Language</label>
-        <Select style={{ width: 200 }} showSearch value={language} onChange={(v) => {
-          setLanguage(v);
-          setParser(languageByLang[v].parsers[0]);
-        }}>
-          {languages
-            .map(({ lang }) => (
-              <Select.Option key={lang} value={lang}>
-                {lang}
-              </Select.Option>
-            ))}
+        <Select
+          style={{ width: 200 }}
+          showSearch
+          value={language}
+          onChange={(v) => {
+            setLanguage(v);
+            setParser(languageByLang[v].parsers[0]);
+          }}
+        >
+          {languages.map(({ lang }) => (
+            <Select.Option key={lang} value={lang}>
+              {lang}
+            </Select.Option>
+          ))}
         </Select>
 
-        {
-          languageByLang[language].parsers.length > 1 && (
-            <React.Fragment>
-              <label style={{ marginLeft: 8 }}>Parser</label>
-              <Select style={{ width: 200 }} showSearch value={parser} onChange={v => setParser(v)}>
-                {languageByLang[language].parsers
-                  .map((lang) => (
-                    <Select.Option key={lang} value={lang}>
-                      {lang}
-                    </Select.Option>
-                  ))}
-              </Select>
-            </React.Fragment>
-          )
-        }
-
+        {languageByLang[language].parsers.length > 1 && (
+          <React.Fragment>
+            <label style={{ marginLeft: 8 }}>Parser</label>
+            <Select style={{ width: 200 }} showSearch value={parser} onChange={(v) => setParser(v)}>
+              {languageByLang[language].parsers.map((lang) => (
+                <Select.Option key={lang} value={lang}>
+                  {lang}
+                </Select.Option>
+              ))}
+            </Select>
+          </React.Fragment>
+        )}
 
         <label style={{ marginLeft: 8 }}>Theme</label>
         <Select style={{ width: 200 }} showSearch value={theme} onChange={(v) => setTheme(v)}>
@@ -139,10 +141,8 @@ nvm use 12
               </Select.Option>
             ))}
         </Select>
-
       </div>
       <div className="container">
-
         <div>
           <SimpleCodeEditor value={code} onChange={setCode} language={languageByLang[language].highlight ?? language} />
         </div>

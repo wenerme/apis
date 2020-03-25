@@ -5,7 +5,7 @@ import { kongReducer } from 'modules/kong/reducers/kong';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import logger from 'redux-logger';
-import { isDev } from 'utils/utils';
+import { isDev } from '@wener/utils/src/envs/isDev';
 
 export const rootReducer = combineReducers({
   // layout: layoutReducer,

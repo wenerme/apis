@@ -5,8 +5,8 @@ import { notification, PageHeader, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 import { QRCode } from 'jsqr';
-import { sleep } from 'utils/utils';
 import { ImageReceiver } from 'components/ImageReceiver';
+import { sleep } from '@wener/utils/src/asyncs/sleep';
 
 const ChunkInfo: React.FC<{ chunk }> = ({ chunk }) => {
   const { type, text, bytes } = chunk;

@@ -1,6 +1,6 @@
-import { createLazyPromise } from 'utils/promises';
 import produce from 'immer';
 import { PeerConnectionState } from 'libs/webrtc/types';
+import { createLazyPromise } from '@wener/utils/src/asyncs/LazyPromise';
 
 export function getCandidates(conn: RTCPeerConnection): Promise<RTCIceCandidate[]> {
   const candidatesPromise = createLazyPromise();

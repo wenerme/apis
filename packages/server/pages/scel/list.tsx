@@ -11,7 +11,7 @@ import Link from 'next/link';
 import 'react-virtualized/styles.css';
 import { ScelFooter } from 'modules/scel/components/ScelFooter';
 import { BookOutlined } from '@ant-design/icons';
-import { getGlobalThis } from 'utils/getGlobalThis';
+import { getGlobalThis } from '@wener/utils/src/isomorphics/getGlobalThis';
 
 const ScelIndexList: React.FC<{ index: ScelIndexRecord[] }> = ({ index }) => {
   return (

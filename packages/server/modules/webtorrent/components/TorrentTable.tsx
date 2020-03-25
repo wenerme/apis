@@ -6,7 +6,7 @@ import { useInterval } from 'hooks/useInterval';
 import { InfoCircleOutlined, MoreOutlined } from '@ant-design/icons/lib';
 // import styles from './TorrentTable.module.css'
 import './TorrentTable.module.css';
-import { copy } from 'utils/clipboard';
+import { copy } from '@wener/utils/src/browsers/clipboard';
 import { useDispatch } from 'react-redux';
 import { showTorrentDetail, updateSelection } from 'reducers/webtorrent';
 import { useRootSelector } from 'reducers/store';
