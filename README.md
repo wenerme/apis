@@ -1,5 +1,24 @@
 # Wener's APIs
 
+## 概述
+* [@wener/apis-server](https://apis.wener.me)
+  * 通过 now 部署的服务
+  * 主要用于验证一些实验性质的想法和实现一些常用接口
+  * 前端 react、antd、redux
+  * 后端 nextjs、typeorm、pg
+  * 特性
+    * [WebTorrent Web 客户端](https://apis.wener.me/webtorrent/client)
+    * [Kong 网关管理界面](https://apis.wener.me/kong/admin)
+    * [摘要哈希计算](https://apis.wener.me/hash/digest)
+    * [二维码生成和解析](https://apis.wener.me/barcode/qrcode/builder)
+    * [条形码生成和解析](https://apis.wener.me/barcode/linear/builder)
+    * [电话归属地查询](https://apis.wener.me/phone/attribution)
+* [@wener/utils](https://www.npmjs.com/package/@wener/utils) / [文档](https://apis.wener.me/docs/@wener/utils/index.html)
+  * 常用的工具函数
+  * 外部一些实用工具迁移为 ts，统一打包减少依赖 
+* [@wener/tinyrpc](https://www.npmjs.com/package/@wener/tinyrpc) / [文档](https://apis.wener.me/docs/@wener/tinyrpc/index.html)
+  * 基于 ES6 代理的简洁的 RPC 实现
+
 ## 开发
 * 使用 Node 12 LTS 版本
 
