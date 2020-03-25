@@ -4,7 +4,7 @@ let _copy: (s: any) => void;
 function initCopy() {
   let textArea: HTMLTextAreaElement;
 
-  function isOS() {
+  function isIOS() {
     return navigator.userAgent.match(/ipad|iphone/i);
   }
 
@@ -17,7 +17,7 @@ function initCopy() {
   function selectText() {
     let range, selection;
 
-    if (isOS()) {
+    if (isIOS()) {
       range = document.createRange();
       range.selectNodeContents(textArea);
       selection = window.getSelection();

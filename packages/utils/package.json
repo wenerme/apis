@@ -1,7 +1,7 @@
 {
   "name": "@wener/utils",
   "version": "1.0.0-alpha.2",
-  "description": "Tiny RPC for ES6 Proxy",
+  "description": "Utils for daily use",
   "keywords": [
     "utils",
     "core library",
@@ -16,19 +16,22 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib",
+    "dist",
     "src"
   ],
   "scripts": {
     "build": "tsc",
+    "doc": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "prepare": "yarn build",
     "sort": "npx sort-package-json",
     "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",
+    "@types/node": "*",
     "jest": "^25.1.0",
     "ts-jest": "^25.2.1",
+    "typedoc": "^0.17.3",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {

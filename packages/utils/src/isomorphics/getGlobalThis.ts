@@ -1,3 +1,5 @@
+declare const global: typeof globalThis;
+
 export const getGlobalThis = (): typeof globalThis => {
   if (typeof globalThis !== 'undefined') return globalThis;
   if (typeof self !== 'undefined') return self;

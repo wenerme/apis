@@ -29,7 +29,7 @@ export function getFile(dataTransfer: DataTransfer): { file: File; filename: str
   } else {
     console.debug(
       `file item not match`,
-      [...items].map((v) => ({ type: v.type, kind: v.kind }))
+      Array.from(items).map((v) => ({ type: v.type, kind: v.kind }))
     );
   }
   return null;
