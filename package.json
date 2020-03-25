@@ -1,5 +1,5 @@
 {
-  "name": "@wener-apis/apis",
+  "name": "@wener/apis",
   "private": true,
   "workspaces": [
     "packages/*"

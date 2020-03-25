@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import { Alert, Descriptions, Input, PageHeader } from 'antd';
 import Link from 'next/link';
-import { createRandom } from 'utils/random';
+import { createRandom } from '@wener/utils/src/maths/random';
 import { createPasswordGenerator } from 'modules/password/libs/generates';
 import { API } from 'apis/api';
 import zxcvbn from 'zxcvbn';
