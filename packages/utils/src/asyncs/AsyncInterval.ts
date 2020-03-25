@@ -1,7 +1,7 @@
 export type AsyncIntervalIdentifier = any;
 
-export function setAsyncInterval(cb: () => void, interval, initial = interval): AsyncIntervalIdentifier {
-  let id;
+export function setAsyncInterval(cb: () => void, interval: number, initial = interval): AsyncIntervalIdentifier {
+  let id: any;
   const handler = async () => {
     await cb();
     id = setTimeout(handler, interval);

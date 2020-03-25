@@ -6,7 +6,7 @@ export function getFile(dataTransfer: DataTransfer): { file: File; filename: str
     const file = items[1].getAsFile() ?? dataTransfer.files?.item(0);
     if (!file) {
       console.error(`no file ${text}`, items[1]);
-      return;
+      return null;
     }
 
     // let type = file.type;
@@ -21,6 +21,10 @@ export function getFile(dataTransfer: DataTransfer): { file: File; filename: str
     return { file, filename: text };
   } else if (items[0].kind === 'file') {
     const file = items[0].getAsFile();
+    if (!file) {
+      console.error(`no file`, items[0]);
+      return null;
+    }
     return { file, filename: file.name };
   } else {
     console.debug(
@@ -28,4 +32,5 @@ export function getFile(dataTransfer: DataTransfer): { file: File; filename: str
       [...items].map((v) => ({ type: v.type, kind: v.kind }))
     );
   }
+  return null;
 }

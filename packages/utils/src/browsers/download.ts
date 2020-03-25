@@ -1,6 +1,6 @@
-export function download(filename, data, { type = 'application/octet-stream', raw = false } = {}) {
+export function download(filename: string, data: any, { type = 'application/octet-stream', raw = false } = {}) {
   const a = document.createElement('a');
-  let closer = () => null;
+  let closer: () => void = () => null;
   try {
     a.download = filename;
 

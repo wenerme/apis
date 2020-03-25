@@ -1,4 +1,4 @@
-export function loadScripts(src) {
+export function loadScripts(src: string) {
   // todo quote ?
   if (document.querySelector(`script[src="${src}"]`)) {
     return Promise.resolve();
@@ -15,7 +15,7 @@ export function loadScripts(src) {
   });
 }
 
-export function loadStyles(href) {
+export function loadStyles(href: string) {
   if (document.querySelector(`link[link="${href}"]`)) {
     return Promise.resolve();
   }
