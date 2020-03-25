@@ -75,7 +75,9 @@ export const ScelDictPage: React.FC<{
       try {
         abortRef.current = new AbortController();
         signal = abortRef.current.signal;
-      } catch (e) {}
+      } catch (e) {
+        // ignored
+      }
       const url = service.getScelUrl({ id: dictId, version: dictVersion });
       const buffer = Buffer.from(
         (await unfetch(url, { signal })

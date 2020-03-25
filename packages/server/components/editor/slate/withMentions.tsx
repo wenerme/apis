@@ -66,16 +66,18 @@ export function useMentionState({ editor }) {
     (event) => {
       if (target) {
         switch (event.key) {
-          case 'ArrowDown':
+          case 'ArrowDown': {
             event.preventDefault();
             const prevIndex = index >= chars.length - 1 ? 0 : index + 1;
             setIndex(prevIndex);
             break;
-          case 'ArrowUp':
+          }
+          case 'ArrowUp': {
             event.preventDefault();
             const nextIndex = index <= 0 ? chars.length - 1 : index - 1;
             setIndex(nextIndex);
             break;
+          }
           case 'Tab':
           case 'Enter':
             event.preventDefault();

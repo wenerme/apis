@@ -120,7 +120,7 @@ const KongAdminSummary: React.FC = () => {
                 <Card title={t('可用插件')}>
                   <div>
                     {Object.keys(information?.plugins?.available_on_server ?? {}).map((v) => (
-                      <Tag key={v} children={v} />
+                      <Tag key={v}>{v}</Tag>
                     ))}
                   </div>
                 </Card>
@@ -128,7 +128,7 @@ const KongAdminSummary: React.FC = () => {
                 <Card title={t('集群启用插件')}>
                   <div>
                     {Object.keys(information?.plugins?.enabled_in_cluster ?? {}).map((v) => (
-                      <Tag key={v} children={v} />
+                      <Tag key={v}>{v}</Tag>
                     ))}
                     {Object.keys(information?.plugins?.enabled_in_cluster ?? {}).length ? '' : t('无')}
                   </div>

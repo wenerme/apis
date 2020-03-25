@@ -1,6 +1,8 @@
 // https://gist.github.com/rproenca/64781c6a1329b48a455b645d361a9aa3
+let _copy;
+
 function initCopy() {
-  let textArea, copy;
+  let textArea;
 
   function isOS() {
     return navigator.userAgent.match(/ipad|iphone/i);
@@ -32,15 +34,12 @@ function initCopy() {
     document.body.removeChild(textArea);
   }
 
-  copy = (text) => {
+  _copy = (text) => {
     createTextArea(text);
     selectText();
     copyToClipboard();
   };
-  _copy = copy;
 }
-
-let _copy;
 
 export function copy(text) {
   if (window.navigator?.clipboard?.writeText) {

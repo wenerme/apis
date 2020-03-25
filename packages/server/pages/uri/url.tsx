@@ -83,7 +83,7 @@ const UriPageContent: React.FC = () => {
     { label: '哈希', field: 'hash' },
   ];
 
-  const onBlur = () => {};
+  const onBlur = () => null;
   return (
     <div>
       <Input.Search value={value} onChange={(v) => setValue(v.target.value)} enterButton="解析" onSearch={setCurrent} />

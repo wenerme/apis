@@ -168,7 +168,7 @@ export const CertificateViewer: React.FC<{ cert: Certificate }> = ({ cert }) => 
 
         <h3>Extensions</h3>
         {(cert.extensions ?? []).map((e) => (
-          <div>
+          <div key={e.extnID}>
             <h4>
               Extension {oidOf(e.extnID)} ({e.extnID})
             </h4>

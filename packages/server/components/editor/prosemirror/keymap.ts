@@ -66,28 +66,28 @@ export function buildKeymap(schema, mapKeys) {
   bind('Mod-BracketLeft', lift);
   bind('Escape', selectParentNode);
 
-  if (Boolean((type = schema.marks.strong))) {
+  if ((type = schema.marks.strong)) {
     bind('Mod-b', toggleMark(type));
     bind('Mod-B', toggleMark(type));
   }
-  if (Boolean((type = schema.marks.em))) {
+  if ((type = schema.marks.em)) {
     bind('Mod-i', toggleMark(type));
     bind('Mod-I', toggleMark(type));
   }
-  if (Boolean((type = schema.marks.code))) {
+  if ((type = schema.marks.code)) {
     bind('Mod-`', toggleMark(type));
   }
 
-  if (Boolean((type = schema.nodes.bullet_list))) {
+  if ((type = schema.nodes.bullet_list)) {
     bind('Shift-Ctrl-8', wrapInList(type));
   }
-  if (Boolean((type = schema.nodes.ordered_list))) {
+  if ((type = schema.nodes.ordered_list)) {
     bind('Shift-Ctrl-9', wrapInList(type));
   }
-  if (Boolean((type = schema.nodes.blockquote))) {
+  if ((type = schema.nodes.blockquote)) {
     bind('Ctrl->', wrapIn(type));
   }
-  if (Boolean((type = schema.nodes.hard_break))) {
+  if ((type = schema.nodes.hard_break)) {
     const br = type,
       cmd = chainCommands(exitCode, (state, dispatch) => {
         dispatch(state.tr.replaceSelectionWith(br.create()).scrollIntoView());
@@ -97,23 +97,23 @@ export function buildKeymap(schema, mapKeys) {
     bind('Shift-Enter', cmd);
     if (mac) bind('Ctrl-Enter', cmd);
   }
-  if (Boolean((type = schema.nodes.list_item))) {
+  if ((type = schema.nodes.list_item)) {
     bind('Enter', splitListItem(type));
     bind('Mod-[', liftListItem(type));
     bind('Mod-]', sinkListItem(type));
   }
-  if (Boolean((type = schema.nodes.paragraph))) {
+  if ((type = schema.nodes.paragraph)) {
     bind('Shift-Ctrl-0', setBlockType(type));
   }
-  if (Boolean((type = schema.nodes.code_block))) {
+  if ((type = schema.nodes.code_block)) {
     bind('Shift-Ctrl-\\', setBlockType(type));
   }
-  if (Boolean((type = schema.nodes.heading))) {
+  if ((type = schema.nodes.heading)) {
     for (let i = 1; i <= 6; i++) {
       bind('Shift-Ctrl-' + i, setBlockType(type, { level: i }));
     }
   }
-  if (Boolean((type = schema.nodes.horizontal_rule))) {
+  if ((type = schema.nodes.horizontal_rule)) {
     const hr = type;
     bind('Mod-_', (state, dispatch) => {
       dispatch(state.tr.replaceSelectionWith(hr.create()).scrollIntoView());

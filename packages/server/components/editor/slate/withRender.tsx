@@ -24,8 +24,6 @@ export const Element = (props) => {
       return <h6 {...attributes}>{children}</h6>;
     case 'list-item':
       return <li {...attributes}>{children}</li>;
-    case 'numbered-list':
-      return <ol {...attributes}>{children}</ol>;
     case 'link':
       return (
         <a {...attributes} href={element.url}>

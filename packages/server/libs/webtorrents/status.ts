@@ -12,7 +12,7 @@ export interface InstanceStatus {
   // torrents: Record<string, TorrentStatus>
 }
 
-export interface TorrentStatus extends TorrentField {}
+export type TorrentStatus = TorrentField;
 
 export function setInstanceStatus(s: InstanceStatus, c: Instance) {
   s.nodeId = c['nodeId'];

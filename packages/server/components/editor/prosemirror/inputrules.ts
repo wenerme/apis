@@ -58,18 +58,18 @@ export function headingRule(nodeType, maxLevel) {
 export function buildInputRules(schema) {
   const rules = smartQuotes.concat(ellipsis, emDash);
   let type;
-  if (Boolean((type = schema.nodes.blockquote))) {
+  if ((type = schema.nodes.blockquote)) {
     rules.push(blockQuoteRule(type));
   }
-  if (Boolean((type = schema.nodes.ordered_list))) {
+  if ((type = schema.nodes.ordered_list)) {
     rules.push(orderedListRule(type));
   }
-  if (Boolean((type = schema.nodes.bullet_list))) {
+  if ((type = schema.nodes.bullet_list)) {
     rules.push(bulletListRule(type));
   }
-  if (Boolean((type = schema.nodes.code_block))) {
+  if ((type = schema.nodes.code_block)) {
     rules.push(codeBlockRule(type));
   }
-  if (Boolean((type = schema.nodes.heading))) rules.push(headingRule(type, 6));
+  if ((type = schema.nodes.heading)) rules.push(headingRule(type, 6));
   return inputRules({ rules });
 }

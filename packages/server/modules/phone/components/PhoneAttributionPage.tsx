@@ -96,6 +96,7 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({ initialData })
   const { number } = initialData;
   const [phoneNumber, setPhoneNumber] = useState(number);
   const [currentNumber, setCurrentNumber] = useState(number);
+  const router = useRouter();
   const { loading, data, error } = useFetchEffect(async () => {
     if (!currentNumber || currentNumber === number) {
       return initialData;
@@ -104,7 +105,6 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({ initialData })
     return router.push('/phone/attribution/[num]', `/phone/attribution/${currentNumber}.html`);
     // return fetchPhoneAttribution({number: currentNumber})
   }, [currentNumber]);
-  const router = useRouter();
   // console.log(`Route`, router, data, initialData);
 
   return (
@@ -131,7 +131,11 @@ const PhoneAttributionPageContent: React.FC<{ initialData }> = ({ initialData })
       <div style={{ marginTop: 18 }}>
         <h4>接口请求</h4>
         <div>
-          <a href={`${API.origin}/api/phone/attribution/${number || '135000000000'}`} target="_blank">
+          <a
+            href={`${API.origin}/api/phone/attribution/${number || '135000000000'}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {`${API.origin}/api/phone/attribution/${number || '135000000000'}`}
           </a>
         </div>
@@ -172,7 +176,7 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({ initialData = 
               message={
                 <div>
                   数据来源于{' '}
-                  <a href="https://github.com/xluohome/phonedata" target="_blank">
+                  <a href="https://github.com/xluohome/phonedata" target="_blank" rel="noopener noreferrer">
                     xluohome/phonedata
                   </a>
                   。

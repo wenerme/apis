@@ -16,7 +16,7 @@ export const ScelFooter: React.FC = () => {
           message={
             <div>
               数据来源于{' '}
-              <a href="https://pinyin.sogou.com/dict/" target="_blank">
+              <a href="https://pinyin.sogou.com/dict/" target="_blank" rel="noopener noreferrer">
                 搜狗官方词库
               </a>
               ，仅用于分析学习。

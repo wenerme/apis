@@ -24,7 +24,7 @@ export const EntitySelect: React.FC<{ entityName; value?; onChange? }> = ({
       })
     );
     getKongService()
-      [`list${entityName}`]()
+      ?.[`list${entityName}`]()
       .then((v) => {
         setState(
           produce((s) => {

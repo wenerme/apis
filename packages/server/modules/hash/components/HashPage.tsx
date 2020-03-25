@@ -44,7 +44,7 @@ const HashPageContent: React.FC<{ algorithm; content; initialData }> = ({ algori
           enterButton="计算"
           onChange={(v) => setInput(v.target.value)}
           onSearch={(v) => {
-            if (Boolean(v)) {
+            if (v) {
               setValue({ algorithm, content: v });
             }
           }}
@@ -98,7 +98,11 @@ const HashPageContent: React.FC<{ algorithm; content; initialData }> = ({ algori
       <div style={{ marginTop: 18 }}>
         <h4>接口请求</h4>
         <div style={{ opacity: content ? 1 : 0 }}>
-          <a href={`${API.origin}/api/hash/md/${algorithm}/base64/json/${content}`} target="_blank">
+          <a
+            href={`${API.origin}/api/hash/md/${algorithm}/base64/json/${content}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {`${API.origin}/api/hash/md/${algorithm}/base64/json/${content}`}
           </a>
         </div>

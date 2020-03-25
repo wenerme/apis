@@ -185,7 +185,7 @@ const KongAdminSetupForm: React.FC<{
     return o;
   }, [initialValues]);
   if (typeof showActions !== 'boolean') {
-    showActions = !Boolean(initialForm);
+    showActions = !initialForm;
   }
   const dispatch = useKongDispatch();
   const [loading, setLoading] = useState(false);
@@ -251,15 +251,18 @@ const KongAdminSetupModal: React.FC = () => {
       onCancel={() => dispatch(toggleShowSetup())}
       footer={
         <div>
-          <Button onClick={() => dispatch(toggleShowSetup())} children={t('取消')} />
-          <Button onClick={() => form.submit()} loading={loading} type="primary" children={t('更新')} />
+          <Button onClick={() => dispatch(toggleShowSetup())}>{t('取消')}</Button>
+          <Button onClick={() => form.submit()} loading={loading} type="primary">
+            {t('更新')}
+          </Button>
           <Button
             onClick={() => {
               dispatch(clearConfig());
               dispatch(toggleShowSetup());
             }}
-            children={t('清除')}
-          />
+          >
+            {t('清除')}
+          </Button>
         </div>
       }
     >

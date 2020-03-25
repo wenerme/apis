@@ -16,32 +16,6 @@ const map = {
 const parseRegExp = /^(([-+])?(\d+(?:\.\d+)?)) *(kb|mb|gb|tb|pb|mib|kib)$/i;
 
 /**
- * Convert the given value in bytes into a string or parse to string to an integer in bytes.
- *
- * @param {string|number} value
- * @param {{
- *  case: [string],
- *  decimalPlaces: [number]
- *  fixedDecimals: [boolean]
- *  thousandsSeparator: [string]
- *  unitSeparator: [string]
- *  }} [options] bytes options.
- *
- * @returns {string|number|null}
- */
-export function bytes(value, options) {
-  if (typeof value === 'string') {
-    return parseBytes(value);
-  }
-
-  if (typeof value === 'number') {
-    return formatBytes(value, options);
-  }
-
-  return null;
-}
-
-/**
  * Format the given value in bytes into a string.
  *
  * If the value is negative, it is kept as such. If it is a float,
@@ -135,4 +109,30 @@ export function parseBytes(val) {
   }
 
   return Math.floor(map[unit] * floatValue);
+}
+
+/**
+ * Convert the given value in bytes into a string or parse to string to an integer in bytes.
+ *
+ * @param {string|number} value
+ * @param {{
+ *  case: [string],
+ *  decimalPlaces: [number]
+ *  fixedDecimals: [boolean]
+ *  thousandsSeparator: [string]
+ *  unitSeparator: [string]
+ *  }} [options] bytes options.
+ *
+ * @returns {string|number|null}
+ */
+export function bytes(value, options) {
+  if (typeof value === 'string') {
+    return parseBytes(value);
+  }
+
+  if (typeof value === 'number') {
+    return formatBytes(value, options);
+  }
+
+  return null;
 }

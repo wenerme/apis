@@ -1,6 +1,6 @@
 import { getKongService, setKongService } from 'modules/kong/apis/client';
 import { KongConfig, updateConfig, updateInformation, updateStatus } from './kong';
-import { KongInformation, KongServiceEntity } from 'modules/kong/apis/types';
+import { KongInformation } from 'modules/kong/apis/types';
 import axios from 'axios';
 import { KongClientService } from 'modules/kong/apis/KongClientService';
 
@@ -26,12 +26,4 @@ export function doSetupConfig(config: KongConfig) {
     setKongService(new KongClientService({ client: axios.create(config) }));
     dispatch(updateConfig(config));
   };
-}
-
-export function doAddService() {
-  return async (dispatch, getState) => {};
-}
-
-export function doViewService(opts: { id; service?: KongServiceEntity }) {
-  return async (dispatch, getState) => {};
 }

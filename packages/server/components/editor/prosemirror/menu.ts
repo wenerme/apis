@@ -202,59 +202,59 @@ function wrapListItem(nodeType, options) {
 export function buildMenuItems(schema) {
   const r: any = {};
   let type;
-  if (Boolean((type = schema.marks.strong))) {
+  if ((type = schema.marks.strong)) {
     r.toggleStrong = markItem(type, {
       title: 'Toggle strong style',
       icon: icons.strong,
     });
   }
-  if (Boolean((type = schema.marks.em))) {
+  if ((type = schema.marks.em)) {
     r.toggleEm = markItem(type, { title: 'Toggle emphasis', icon: icons.em });
   }
-  if (Boolean((type = schema.marks.code))) {
+  if ((type = schema.marks.code)) {
     r.toggleCode = markItem(type, {
       title: 'Toggle code font',
       icon: icons.code,
     });
   }
-  if (Boolean((type = schema.marks.link))) {
+  if ((type = schema.marks.link)) {
     r.toggleLink = linkItem(type);
   }
 
-  if (Boolean((type = schema.nodes.image))) {
+  if ((type = schema.nodes.image)) {
     r.insertImage = insertImageItem(type);
   }
-  if (Boolean((type = schema.nodes.bullet_list))) {
+  if ((type = schema.nodes.bullet_list)) {
     r.wrapBulletList = wrapListItem(type, {
       title: 'Wrap in bullet list',
       icon: icons.bulletList,
     });
   }
-  if (Boolean((type = schema.nodes.ordered_list))) {
+  if ((type = schema.nodes.ordered_list)) {
     r.wrapOrderedList = wrapListItem(type, {
       title: 'Wrap in ordered list',
       icon: icons.orderedList,
     });
   }
-  if (Boolean((type = schema.nodes.blockquote))) {
+  if ((type = schema.nodes.blockquote)) {
     r.wrapBlockQuote = wrapItem(type, {
       title: 'Wrap in block quote',
       icon: icons.blockquote,
     });
   }
-  if (Boolean((type = schema.nodes.paragraph))) {
+  if ((type = schema.nodes.paragraph)) {
     r.makeParagraph = blockTypeItem(type, {
       title: 'Change to paragraph',
       label: 'Plain',
     });
   }
-  if (Boolean((type = schema.nodes.code_block))) {
+  if ((type = schema.nodes.code_block)) {
     r.makeCodeBlock = blockTypeItem(type, {
       title: 'Change to code block',
       label: 'Code',
     });
   }
-  if (Boolean((type = schema.nodes.heading))) {
+  if ((type = schema.nodes.heading)) {
     for (let i = 1; i <= 10; i++) {
       r['makeHead' + i] = blockTypeItem(type, {
         title: 'Change to heading ' + i,
@@ -263,7 +263,7 @@ export function buildMenuItems(schema) {
       });
     }
   }
-  if (Boolean((type = schema.nodes.horizontal_rule))) {
+  if ((type = schema.nodes.horizontal_rule)) {
     const hr = type;
     r.insertHorizontalRule = new MenuItem(
       {

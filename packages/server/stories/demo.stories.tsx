@@ -16,13 +16,13 @@ export default {
   ],
 };
 
-export const helloAntdButton: any = ({ onClick }) => (
+export const helloAntdButton = ({ onClick }) => (
   <Button onDoubleClick={action('double-click')} onClick={onClick} type="primary">
     Hello
   </Button>
 );
 
-export const helloNativeButton: any = ({ onClick }) => (
+export const helloNativeButton = ({ onClick }) => (
   <button onDoubleClick={action('double-click')} onClick={onClick}>
     Hello
   </button>

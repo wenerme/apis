@@ -33,7 +33,7 @@ const Page = () => {
             message={
               <div>
                 基础检测逻辑和网关列表来源于
-                <a href="https://github.com/ipfs/public-gateway-checker" target="_blank">
+                <a href="https://github.com/ipfs/public-gateway-checker" target="_blank" rel="noopener noreferrer">
                   ipfs/public-gateway-checker
                 </a>
                 。 扩展了部分额外的异常检测。

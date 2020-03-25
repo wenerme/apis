@@ -11,7 +11,7 @@ import { menus } from 'components/layout/PageLayout/menus';
 const Footer: React.FC = () => {
   return (
     <div style={{ textAlign: 'center' }}>
-      Wener's APIs © 2020 by
+      Wener&apos;s APIs © 2020 by
       <Button type="link" href="https://wener.me" target="_blank" style={{ padding: '0 4px' }}>
         wener
       </Button>

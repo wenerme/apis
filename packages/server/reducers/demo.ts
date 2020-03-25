@@ -1,12 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface DemoState {}
+export interface DemoState {
+  count: number;
+}
 
 const slice = createSlice({
   name: 'demo',
-  initialState: {} as DemoState,
-  reducers: {},
+  initialState: {
+    count: 0,
+  } as DemoState,
+  reducers: {
+    incCount(s, { payload }) {
+      s.count += payload ?? 1;
+    },
+  },
 });
 
-export const {} = slice.actions;
+export const { incCount } = slice.actions;
 export const demoReducer = slice.reducer;

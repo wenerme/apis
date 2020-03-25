@@ -73,9 +73,9 @@ function buildFields(schema: KongPluginSchema, name, fields = []): FormFieldProp
           }
           break;
         }
+      // falls through
       case 'set':
       case 'map':
-
       case 'function':
       case 'foreign':
       case 'record':
