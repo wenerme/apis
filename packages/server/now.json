@@ -1,3 +1,10 @@
 {
-  "version": 2
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next",
+      "config": { "maxLambdaSize": "100mb" }
+    }
+  ]
 }

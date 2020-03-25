@@ -1,23 +1,11 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "^/service-worker.js$",
-      "dest": "/packages/server/_next/static/service-worker.js",
-      "headers": {
-        "cache-control": "public, max-age=43200, immutable",
-        "Service-Worker-Allowed": "/"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/packages/server/$1"
-    }
-  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/packages/server/$1" }],
   "builds": [
     {
       "src": "packages/server/next.config.js",
-      "use": "@now/next"
+      "use": "@now/next",
+      "config": { "maxLambdaSize": "100mb" }
     }
   ]
 }
