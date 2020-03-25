@@ -30,7 +30,7 @@ module.exports = {
     // 不一定都是驼峰 - 取决于场景
     '@typescript-eslint/camelcase': [1],
     // 方法可以先用后定义
-    '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: true }],
+    '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: false }],
   },
   env: {
     browser: true,

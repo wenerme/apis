@@ -15,7 +15,8 @@
   "module": "lib/tinyrpc.es5.js",
   "typings": "lib/tinyrpc.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "scripts": {
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",

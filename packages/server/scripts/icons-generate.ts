@@ -59,7 +59,7 @@ export default React.forwardRef(${name});
 }
 
 async function main() {
-  await generate('./public/icons/svg', './components/icons');
+  await generate('./public/icons/svg', './src/components/icons');
 }
 
 (async function run() {

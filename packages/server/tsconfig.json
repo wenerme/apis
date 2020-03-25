@@ -17,19 +17,9 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "components/*": ["components/*"],
-      "types/*": ["types/*"],
-      "libs/*": ["libs/*"],
-      "hooks/*": ["hooks/*"],
-      "modules/*": ["modules/*"],
-      "utils/*": ["utils/*"],
-      "apis/*": ["apis/*"],
-      "db/*": ["db/*"],
-      "server/*": ["server/*"],
-      "public/*": ["public/*"],
-      "reducers/*": ["reducers/*"]
+      "src/*": ["src/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"]
 }
