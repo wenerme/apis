@@ -18,7 +18,7 @@
     "icons": "yarn run icons-svgo && yarn run icons-gen",
     "icons-gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts",
     "icons-svgo": "svgo -f public/icons/svg/ --config svgo.config.json",
-    "now-build": "yarn --cwd ../.. && yarn --cwd ../.. build:public && yarn run set-platform NOW && yarn run build",
+    "now-build": "yarn --cwd ../.. install && yarn --cwd ../.. build:public && yarn run set-platform NOW && yarn run build",
     "prepare": "yarn run compile",
     "run:prettier": "yarn prettier --write __tests__ apis components db hooks libs modules pages reducers scripts server stories utils ./*.json ./*.js",
     "script:kong-lego": "ncc build ./scripts/kong-lego.ts -o dist/kong-lego && mv dist/kong-lego/index.js dist/kong-lego.js && git add dist/kong-lego.js",
