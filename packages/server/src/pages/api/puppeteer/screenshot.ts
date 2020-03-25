@@ -20,14 +20,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new ApiError(400, 'invalid device');
     }
   }
-  // const chromium = require('chrome-aws-lambda');
+  const chromium = require('chrome-aws-lambda');
   const browser = await puppeteer.launch({
     // args: ['--window-size=1024,968'],
-    // defaultViewport: {width: 1024, height: 968, deviceScaleFactor: 2}
-    // args: chromium.args,
-    // defaultViewport: chromium.defaultViewport,
-    // executablePath: await chromium.executablePath,
-    // headless: chromium.headless,
+    // defaultViewport: { width: 1024, height: 968, deviceScaleFactor: 2 },
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
   });
   const page = await browser.newPage();
 

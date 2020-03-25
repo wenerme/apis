@@ -54,6 +54,7 @@
     "blob-to-buffer": "^1.2.8",
     "canvas": "^2.6.1",
     "cheerio": "^1.0.0-rc.3",
+    "chrome-aws-lambda": "^2.1.1",
     "cli-progress": "^3.6.0",
     "commander": "^5.0.0",
     "console-feed": "^2.8.11",
