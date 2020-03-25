@@ -1,6 +1,6 @@
 {
   "name": "@wener/apis-server",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "private": true,
   "main": "dist/servers/index.js",
   "bin": "dist/servers/index.js",
@@ -41,7 +41,7 @@
     "@now/node": "^1.3.5",
     "@reduxjs/toolkit": "^1.2.3",
     "@wener/tinyrpc": "^1.0.0-alpha.4",
-    "@wener/utils": "^1.0.0-alpha.4",
+    "@wener/utils": "^1.0.0-alpha.5",
     "@zeit/next-css": "^1.0.1",
     "@zxing/library": "^0.16.0",
     "ali-oss": "^6.5.1",
