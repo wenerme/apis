@@ -1,31 +1,35 @@
 {
   "name": "@wener-apis/server",
+  "version": "1.0.0-alpha.0",
   "private": true,
+  "main": "server/index.js",
+  "bin": "server/index.js",
   "scripts": {
-    "icons-svgo": "svgo -f public/icons/svg/ --config svgo.config.json",
-    "icons-gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts",
-    "icons": "yarn run icons-svgo && yarn run icons-gen",
-    "test": "jest",
-    "dev": "next dev -p ${PORT:-3000}",
-    "gen": "TS_NODE_PROJECT=tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/scripts/prebuild.ts",
-    "set-platform": "TS_NODE_PROJECT=tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/scripts/set-platform.ts",
-    "build": "tsc --project tsconfig.server.json && yarn run gen && next build",
     "analyze": "cross-env ANALYZE=true yarn build",
-    "start": "next start -p ${PORT:-3000}",
+    "build": "tsc --project tsconfig.server.json && yarn run gen && next build",
+    "build-storybook": "build-storybook",
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc -p .",
+    "dev": "next dev -p ${PORT:-3000}",
     "fix": "gts fix",
+    "gen": "TS_NODE_PROJECT=tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/scripts/prebuild.ts",
     "heroku-postbuild": "yarn run set-platform HEROKU && yarn run build",
+    "icons": "yarn run icons-svgo && yarn run icons-gen",
+    "icons-gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts",
+    "icons-svgo": "svgo -f public/icons/svg/ --config svgo.config.json",
     "now-build": "yarn run set-platform NOW && yarn run build",
-    "setup-db": "node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts",
     "prepare": "yarn run compile",
-    "pretest": "yarn run compile",
-    "posttest": "yarn run check",
     "run:prettier": "yarn prettier --write __tests__ apis components db hooks libs modules pages reducers scripts server stories utils ./*.json ./*.js",
+    "script:kong-lego": "ncc build ./scripts/kong-lego.ts -o dist/kong-lego && mv dist/kong-lego/index.js dist/kong-lego.js && git add dist/kong-lego.js",
+    "set-platform": "TS_NODE_PROJECT=tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/scripts/set-platform.ts",
+    "setup-db": "node -r ts-node/register -r tsconfig-paths/register scripts/setup-db.ts",
+    "sort": "npx sort-package-json",
+    "start": "next start -p ${PORT:-3000}",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "script:kong-lego": "ncc build ./scripts/kong-lego.ts -o dist/kong-lego && mv dist/kong-lego/index.js dist/kong-lego.js && git add dist/kong-lego.js"
+    "pretest": "yarn run compile",
+    "test": "jest",
+    "posttest": "yarn run check"
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.2",
@@ -230,9 +234,9 @@
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   },
-  "version": "1.0.0-alpha.0",
-  "main": "server/index.js",
-  "bin": "server/index.js",
+  "engines": {
+    "node": "12"
+  },
   "pkg": {
     "assets": [
       ".next/**/*"
@@ -240,8 +244,5 @@
     "scripts": [
       ".next/server/**/*.js"
     ]
-  },
-  "engines": {
-    "node": "12"
   }
 }

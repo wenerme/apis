@@ -5,18 +5,16 @@
     "packages/*"
   ],
   "scripts": {
-    "format": "yarn workspaces run run:prettier",
-    "test": "yarn --cwd packages/server test",
-    "dev": "yarn --cwd packages/server dev",
     "build": "yarn --cwd packages/server build",
-    "start": "yarn --cwd packages/server start"
+    "dev": "yarn --cwd packages/server dev",
+    "format": "yarn workspaces run run:prettier",
+    "sort": "npx sort-package-json",
+    "start": "yarn --cwd packages/server start",
+    "test": "yarn --cwd packages/server test"
   },
   "resolutions": {
     "prettier": "^2.0.0",
     "svgo": "^1.3.2"
-  },
-  "engines": {
-    "node": "12"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.25.0",
@@ -30,5 +28,8 @@
     "lerna": "^3.20.2",
     "lint-staged": "^10.0.8",
     "prettier": "^2.0.2"
+  },
+  "engines": {
+    "node": "12"
   }
 }
