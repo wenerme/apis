@@ -183,6 +183,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
       </div>
       <div>
         <ResourceLinkButton
+          formats={['svg', 'png', 'jpg']}
           nameProvider={({ format: imageFormat }) => `${options.value}-${options.format}.${imageFormat}`}
           linkProvider={({ format: imageFormat }) =>
             `${API.origin}/api/barcode/gen/${options.format}/${encodeURIComponent(options.value)}.${imageFormat}`

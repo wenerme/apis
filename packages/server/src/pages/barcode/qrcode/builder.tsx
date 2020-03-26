@@ -8,7 +8,7 @@ import { QrcodeOutlined } from '@ant-design/icons';
 import produce from 'immer';
 import { FormFieldBuilder, FormFieldProps, FormFieldsBuilder } from '../../../libs/antds/form/builder';
 import { SketchColorPicker } from '../../../libs/antds/form/SketchColorPicker';
-import { UrlObject } from 'url';
+import url, { UrlObject } from 'url';
 import { API } from '../../../apis/api';
 import { merge } from 'lodash';
 import { ResourceLinkButton } from '../../../components/ResourceLinkButton';
@@ -144,7 +144,7 @@ const QRCodeBuilderPageContent = () => {
   const linkProvider = ({ format }) => {
     const { value, imageSettings, renderAs, ...query } = options;
     const svgUrl = API.apiOf(
-      format({
+      url.format({
         pathname: `/api/barcode/qrcode/svg/${encodeURIComponent(value)}`,
         query: query as any,
       } as UrlObject)

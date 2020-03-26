@@ -2,14 +2,13 @@ import React, { useMemo, useState } from 'react';
 import { copy } from '@wener/utils/src/browsers/clipboard';
 import { Button, Dropdown, Menu, message } from 'antd';
 
-const DefaultFormats = ['svg', 'png', 'jpg'];
 
 export const ResourceLinkButton: React.FC<{
   formats?: string[];
-  nameProvider?: ({ format }) => string;
-  linkProvider: ({ format }) => string;
+  nameProvider?: (o: { format: string }) => string;
+  linkProvider: (o: { format: string }) => string;
 }> = (props) => {
-  const { formats = DefaultFormats, nameProvider, linkProvider } = props;
+  const { formats = [], nameProvider, linkProvider } = props;
 
   const [format, setFormat] = useState(formats[0]);
   const doCopy = () => {
@@ -35,7 +34,7 @@ export const ResourceLinkButton: React.FC<{
           ))}
         </Menu>
       ),
-    [formats]
+    formats
   );
   return (
     <div style={{ display: 'flex', justifyContent: 'space-around' }}>
