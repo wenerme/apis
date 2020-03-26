@@ -19,7 +19,7 @@ export interface LayoutFrameProps {
 
 export const LayoutFrame: React.FC<LayoutFrameProps> = (props) => {
   const { children, showFooter, showHeader, footer, header, name, menus, link } = props;
-  const layout = useLayoutFrame(props.layout, { name });
+  const layout = useLayoutFrame(props.layout ? { layout: props.layout } : null);
 
   return (
     <LayoutFrameProvider layout={layout} options={{ name, menus, link }}>

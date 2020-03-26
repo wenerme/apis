@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+// import 'nprogress/nprogress.css';// fixme moved to _app.js
 
 NProgress.configure({ showSpinner: true });
 

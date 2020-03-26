@@ -4,6 +4,8 @@ import Router from 'next/router';
 import { initGA, logPageView } from '../utils/analytics';
 import '../../public/styles/global.css';
 
+import 'nprogress/nprogress.css';
+
 export default class WenerApisApp extends App {
   componentDidMount() {
     try {
