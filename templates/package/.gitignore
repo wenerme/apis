@@ -6,6 +6,9 @@
 .cache
 .next
 .now
+.npmignore
+.dockerignore
+.gitignore
 .*.swp
 .DS_Store
 .wafpicke-*
@@ -133,5 +136,7 @@ dist
 ignored
 data
 .yarn
+
+# for generated
 packages/*/lib
 packages/*/docs

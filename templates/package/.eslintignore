@@ -1,0 +1,10 @@
+public
+node_modules
+dist
+coverage
+.next
+out
+data
+ignored
+.yarn
+.now
