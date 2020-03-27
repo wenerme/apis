@@ -1,25 +1,14 @@
 import { createPortal } from 'react-dom';
-import { createElement, useEffect, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-function getContainer() {
-  if (typeof window !== 'undefined') {
-    const rootContainer = document.createElement('div');
-    // const parentElem = document.querySelector('#__next') ?? document.body;
-    // const parentElem = document.querySelector('#__next');
-    const parentElem = document.body;
-    parentElem.appendChild(rootContainer);
-    return rootContainer;
-  }
-  return null;
-}
+export const Portal: React.FC<{ selector?: string }> = ({ children, selector }) => {
+  const ref = useRef();
+  const [mounted, setMounted] = useState(false);
 
-export const Portal = ({ children }) => {
-  const container = useMemo(() => getContainer(), []);
   useEffect(() => {
-    return () => container.remove();
-  }, []);
+    ref.current = document.querySelector(selector ?? 'body');
+    setMounted(true);
+  }, [selector]);
 
-  return container ? createPortal(children, container) :
-    // children;
-    createElement('div', { style: { display: 'none' } }, children);
+  return mounted ? createPortal(children, ref.current) : null;
 };

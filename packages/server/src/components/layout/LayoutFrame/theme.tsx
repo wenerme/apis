@@ -6,6 +6,9 @@ const LayoutThemeContext = React.createContext<BehaviorSubject<any>>(null);
 
 export function LayoutThemeProvider({ children, initialTheme }) {
   const state = useConstant(() => new BehaviorSubject(typeof initialTheme === 'function' ? initialTheme() : initialTheme));
+  useEffect(() => {
+    return () => state.complete();
+  }, []);
   return (
     <LayoutThemeContext.Provider value={state}>
       {children}
