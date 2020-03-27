@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "build": "yarn --cwd packages/server build",
-    "build:public": "yarn --cwd packages/utils run doc && yarn --cwd packages/tinyrpc run doc && rm -rf packages/server/public/docs/@wener && mkdir -p packages/server/public/docs/@wener && cp -r packages/utils/docs packages/server/public/docs/@wener/utils && cp -r packages/tinyrpc/docs packages/server/public/docs/@wener/tinyrpc",
+    "build:public": "yarn --cwd packages/ui run storybook:build && cp -r packages/ui/storybook packages/server/public/storybook && yarn --cwd packages/utils run doc && yarn --cwd packages/tinyrpc run doc && rm -rf packages/server/public/docs/@wener && mkdir -p packages/server/public/docs/@wener && cp -r packages/utils/docs packages/server/public/docs/@wener/utils && cp -r packages/tinyrpc/docs packages/server/public/docs/@wener/tinyrpc",
     "dev": "yarn --cwd packages/server dev",
     "format": "yarn workspaces run run:prettier",
     "pub": "yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",

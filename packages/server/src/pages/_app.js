@@ -5,6 +5,8 @@ import { initGA, logPageView } from '../utils/analytics';
 import '../../public/styles/global.css';
 
 import 'nprogress/nprogress.css';
+// todo no need to global
+import 'react-virtualized/styles.css';
 
 export default class WenerApisApp extends App {
   componentDidMount() {

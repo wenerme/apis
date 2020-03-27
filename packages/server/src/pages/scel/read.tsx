@@ -4,14 +4,14 @@ import { Descriptions, message, PageHeader, Upload } from 'antd';
 import React, { useState } from 'react';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
 import { Buffer } from 'buffer/';
-import './read.css';
 import { enrichContent, parseScelContent, parseScelHeader } from '../../libs/formats/scel/parser';
 
 import { ScelContent, ScelHeader } from '../../libs/formats/scel/types';
-
-import 'react-virtualized/styles.css';
+// FIXME global
+// import 'react-virtualized/styles.css';
 import { ScelContentList } from '../../modules/scel/components/ScelContentList';
 import { BookOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 
 interface ScelState {
   file?: File;
@@ -19,9 +19,15 @@ interface ScelState {
   content?: ScelContent;
 }
 
+const ScelReaderFileUploaderContainer = styled.div`
+  .scel-uploader .ant-upload {
+    margin: 0;
+    height: auto;
+  }
+`;
 const ScelReaderFileUploader: React.FC<{ onFileChange? }> = ({ onFileChange }) => {
   return (
-    <div>
+    <ScelReaderFileUploaderContainer>
       <Upload
         className="scel-uploader"
         listType="picture-card"
@@ -54,10 +60,28 @@ const ScelReaderFileUploader: React.FC<{ onFileChange? }> = ({ onFileChange }) =
           </div>
         </div>
       </Upload>
-    </div>
+    </ScelReaderFileUploaderContainer>
   );
 };
 
+const ScelContainer = styled.div`
+  .scel-list-container {
+    border: 1px dotted lightgray;
+    box-sizing: border-box;
+
+    flex: 1;
+  }
+
+  .scel-list-item {
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+  }
+
+  .scel-list-item:hover {
+    background: lightgray;
+  }
+`;
 const Page: NextPage = () => {
   const [scel, setScel] = useState<ScelState>();
 
@@ -110,12 +134,12 @@ const Page: NextPage = () => {
           </Descriptions>
         </div>
 
-        <div style={{ flex: 1, display: 'flex', flexFlow: 'column' }}>
+        <ScelContainer style={{ flex: 1, display: 'flex', flexFlow: 'column' }}>
           <h3>词库内容</h3>
           <div style={{ minHeight: 320, flex: 1 }} className="scel-list-container">
             {scel && <ScelContentList content={scel.content} />}
           </div>
-        </div>
+        </ScelContainer>
       </PageContent>
     </PageLayout>
   );

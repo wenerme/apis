@@ -3,9 +3,10 @@ import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
 import { Button, Checkbox, Divider, PageHeader } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
-import 'prosemirror-view/style/prosemirror.css';
-import 'prosemirror-menu/style/menu.css';
-import 'prosemirror-gapcursor/style/gapcursor.css';
+// FIXME
+// import 'prosemirror-view/style/prosemirror.css';
+// import 'prosemirror-menu/style/menu.css';
+// import 'prosemirror-gapcursor/style/gapcursor.css';
 import { createEditor, EditorInstance, ProseMirrorEditor } from '../../components/editor/ProseMirrorEditor';
 import { defaultMarkdownSerializer } from 'prosemirror-markdown';
 import produce from 'immer';

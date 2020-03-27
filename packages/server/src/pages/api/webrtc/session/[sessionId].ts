@@ -40,7 +40,7 @@ class Session {
       id: this.id,
       data: {},
       createdAt: this.createdAt,
-      expiredAt: this.expiredAt,
+      expiredAt: this.expiredAt
     });
   }
 
@@ -125,7 +125,7 @@ class Session {
 class SessionManager {
   id = Date.now();
   sessions: Record<string, Session> = {};
-  tickTimeout: NodeJS.Timeout;
+  tickTimeout: number;
   shouldDispose?: (v) => boolean;
 
   constructor() {
@@ -162,7 +162,7 @@ class SessionManager {
     Object.values(this.sessions).forEach((v) => v.tick());
 
     this.tickTimeout = setTimeout(() => this.tick(), 30000);
-    this.tickTimeout.unref?.();
+    // this.tickTimeout.unref?.();
   }
 
   clean() {
@@ -224,7 +224,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
       },
       onClose(reason) {
         resolve();
-      },
+      }
     });
 
     res.on('close', () => leave());
@@ -272,7 +272,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default flow([
   cors({
-    origin: ['http://localhost:3000', 'https://apis.wener.me'],
+    origin: ['http://localhost:3000', 'https://apis.wener.me']
   }),
-  handleErrors(),
+  handleErrors()
 ])(handler);

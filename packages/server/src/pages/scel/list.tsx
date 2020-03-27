@@ -7,7 +7,8 @@ import { NextPage } from 'next';
 import { AutoSizer, List } from 'react-virtualized';
 import moment from 'moment';
 import Link from 'next/link';
-import 'react-virtualized/styles.css';
+// fixme
+// import 'react-virtualized/styles.css';
 import { ScelFooter } from '../../modules/scel/components/ScelFooter';
 import { BookOutlined } from '@ant-design/icons';
 import { getGlobalThis } from '@wener/utils/src/isomorphics/getGlobalThis';
