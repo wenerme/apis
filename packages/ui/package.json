@@ -2,16 +2,6 @@
   "name": "@wener/ui",
   "version": "1.0.0",
   "license": "MIT",
-  "scripts": {
-    "dev": "yarn run storybook",
-    "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "format": "yarn prettier --write src stories .storybook ./*.json ./*.js",
-    "lint": "eslint --fix --ext .ts,.tsx src",
-    "storybook": "start-storybook -p ${PORT:-6006}",
-    "storybook:build": "build-storybook -c .storybook -o storybook",
-    "build": "tsc",
-    "test": "jest"
-  },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -19,12 +9,20 @@
     "tsconfig.json",
     "src"
   ],
-  "peerDependencies": {
-    "@ant-design/icons": "^4.0.3",
-    "antd": "^4.0.4",
-    "lodash": "^4.17.15",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+  "scripts": {
+    "build": "tsc",
+    "dev": "yarn run storybook",
+    "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
+    "format": "yarn prettier --write src stories .storybook ./*.json ./*.js",
+    "lint": "eslint --fix --ext .ts,.tsx src",
+    "storybook": "start-storybook -p ${PORT:-6006}",
+    "storybook:build": "build-storybook -c .storybook -o storybook",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@wener/utils": "^1.0.0-alpha.5",
+    "polished": "^3.5.1",
+    "styled-components": "^5.0.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.17",
@@ -48,12 +46,14 @@
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typedoc": "^0.17.3"
   },
+  "peerDependencies": {
+    "@ant-design/icons": "^4.0.3",
+    "antd": "^4.0.4",
+    "lodash": "^4.17.15",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@wener/utils": "^1.0.0-alpha.5",
-    "polished": "^3.5.1",
-    "styled-components": "^5.0.1"
   }
 }

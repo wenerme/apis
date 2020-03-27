@@ -10,7 +10,7 @@
     "dev": "yarn --cwd packages/server dev",
     "format": "yarn workspaces run run:prettier",
     "pub": "yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
-    "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json",
+    "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json && prettier --write package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json",
     "start": "yarn --cwd packages/server start",
     "test": "yarn --cwd packages/server test"
   },

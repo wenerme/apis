@@ -37,7 +37,7 @@ const NextLink: React.FC<{ href }> = ({ href, children }) => {
   );
 };
 
-const FatButton = styled(Avatar)`
+const FatButton = styled(Avatar)<{ onClick }>`
   background-color: white !important;
   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 `;
@@ -57,7 +57,7 @@ const PageAction: React.FC = () => {
       <FixedContainer>
         <FatButton
           onClick={() =>
-            setTheme(s => {
+            setTheme((s) => {
               const next = s === 'light' ? 'dark' : 'light';
               localStorage['THEME'] = next;
               return next;
@@ -72,23 +72,25 @@ const PageAction: React.FC = () => {
 };
 
 export const PageLayout: React.FC<{ showFooter?; title?; description?; keywords?: string | string[] }> = ({
-                                                                                                            children,
-                                                                                                            showFooter,
-                                                                                                            title,
-                                                                                                            description,
-                                                                                                            keywords
-                                                                                                          }) => {
+  children,
+  showFooter,
+  title,
+  description,
+  keywords,
+}) => {
   useRouteProgress();
   title = title || `Wener's APIs`;
 
   // 预先加载 style 避免页面闪烁 - 主题不同会加载后才切换
   return (
-    <LayoutThemeProvider initialTheme={() => {
-      if (typeof window !== 'undefined') {
-        return localStorage['THEME'] === 'dark' ? 'dark' : 'light';
-      }
-      return 'light';
-    }}>
+    <LayoutThemeProvider
+      initialTheme={() => {
+        if (typeof window !== 'undefined') {
+          return localStorage['THEME'] === 'dark' ? 'dark' : 'light';
+        }
+        return 'light';
+      }}
+    >
       <PageContext>
         <Head key="layout">
           <title>
