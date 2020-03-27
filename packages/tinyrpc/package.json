@@ -16,6 +16,7 @@
   "typings": "lib/tinyrpc.d.ts",
   "files": [
     "lib",
+    "tsconfig.json",
     "src"
   ],
   "scripts": {

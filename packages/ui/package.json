@@ -1,18 +1,15 @@
 {
-  "name": "@package/package",
+  "name": "@wener/ui",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "dev": "yarn run storybook",
     "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "format": "yarn prettier --write src stories .storybook ./*.json ./*.js",
     "lint": "eslint --fix --ext .ts,.tsx src",
-    "next:build": "next build",
-    "next:dev": "next dev -p ${PORT:-3000}",
-    "next:start": "next start -p ${PORT:-3000}",
     "storybook": "start-storybook -p ${PORT:-6006}",
     "storybook:build": "build-storybook -c .storybook -o storybook",
     "build": "tsc",
-    "dev": "yarn storybook",
     "test": "jest"
   },
   "main": "lib/index.js",
@@ -22,7 +19,10 @@
     "tsconfig.json",
     "src"
   ],
-  "dependencies": {
+  "peerDependencies": {
+    "@ant-design/icons": "^4.0.3",
+    "antd": "^4.0.4",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -39,6 +39,7 @@
     "@types/jest": "^25.1.4",
     "@types/node": "^12.12.31",
     "@types/react-test-renderer": "^16.9.2",
+    "@types/styled-components": "^5.0.1",
     "dotenv": "^8.2.0",
     "jest": "^25.2.3",
     "react-docgen-typescript-loader": "^3.7.1",
@@ -49,5 +50,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@wener/utils": "^1.0.0-alpha.5",
+    "polished": "^3.5.1",
+    "styled-components": "^5.0.1"
   }
 }

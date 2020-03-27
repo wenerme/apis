@@ -17,6 +17,7 @@
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
+    "tsconfig.json",
     "src"
   ],
   "scripts": {
