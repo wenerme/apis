@@ -2,14 +2,11 @@
   "name": "@package/root",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json"
-  },
   "workspaces": [
     "packages/*"
   ],
-  "engines": {
-    "node": "12"
+  "scripts": {
+    "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.25.0",
@@ -22,5 +19,8 @@
     "husky": "^4.2.3",
     "lint-staged": "^10.0.9",
     "prettier": "^2.0.2"
+  },
+  "engines": {
+    "node": "12"
   }
 }
