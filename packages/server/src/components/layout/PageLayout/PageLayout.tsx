@@ -11,9 +11,9 @@ import { Portal } from 'src/components/Portal';
 import DarkModeFilled from 'src/components/icons/DarkModeFilled';
 import styled from 'styled-components';
 import LightModeFilled from 'src/components/icons/LightModeFilled';
-import { useLayoutFrame, useLayoutFrameSelector } from 'src/components/layout/LayoutFrame/layout';
 import { useAntdTheme } from 'src/hooks/useAntdTheme';
 import Head from 'next/head';
+import { LayoutThemeProvider, useLayoutTheme } from 'src/components/layout/LayoutFrame/theme';
 
 const Footer: React.FC = () => {
   return (
@@ -50,21 +50,17 @@ const FixedContainer = styled.div`
 `;
 
 const PageAction: React.FC = () => {
-  const theme = useLayoutFrameSelector((s) => {
-    if (typeof window !== 'undefined') {
-      localStorage['THEME'] = s.theme;
-    }
-    return s.theme;
-  });
+  const [theme, setTheme] = useLayoutTheme();
   useAntdTheme({ theme });
-  const layout = useLayoutFrame();
   return (
     <Portal>
       <FixedContainer>
         <FatButton
           onClick={() =>
-            layout.update((s) => {
-              s.theme = s.theme === 'light' ? 'dark' : 'light';
+            setTheme(s => {
+              const next = s === 'light' ? 'dark' : 'light';
+              localStorage['THEME'] = next;
+              return next;
             })
           }
           size={44}
@@ -76,47 +72,46 @@ const PageAction: React.FC = () => {
 };
 
 export const PageLayout: React.FC<{ showFooter?; title?; description?; keywords?: string | string[] }> = ({
-  children,
-  showFooter,
-  title,
-  description,
-  keywords,
-}) => {
+                                                                                                            children,
+                                                                                                            showFooter,
+                                                                                                            title,
+                                                                                                            description,
+                                                                                                            keywords
+                                                                                                          }) => {
   useRouteProgress();
-  const layout = useLayoutFrame({
-    initialState: () => {
-      if (typeof window !== 'undefined') {
-        return { theme: localStorage['THEME'] === 'dark' ? 'dark' : 'light' };
-      }
-      return {};
-    },
-  });
   title = title || `Wener's APIs`;
 
   // 预先加载 style 避免页面闪烁 - 主题不同会加载后才切换
   return (
-    <PageContext>
-      <Head key="layout">
-        <title>
-          {title}
-          {title !== `Wener's APIs` ? ` - Wener's APIs` : ''}
-        </title>
+    <LayoutThemeProvider initialTheme={() => {
+      if (typeof window !== 'undefined') {
+        return localStorage['THEME'] === 'dark' ? 'dark' : 'light';
+      }
+      return 'light';
+    }}>
+      <PageContext>
+        <Head key="layout">
+          <title>
+            {title}
+            {title !== `Wener's APIs` ? ` - Wener's APIs` : ''}
+          </title>
 
-        <meta name="og:title" property="og:title" content={title} />
+          <meta name="og:title" property="og:title" content={title} />
 
-        {description && <meta name="description" content={description} />}
-        {description && <meta name="og:description" property="og:description" content={description} />}
+          {description && <meta name="description" content={description} />}
+          {description && <meta name="og:description" property="og:description" content={description} />}
 
-        {keywords && <meta name="keywords" content={Array.isArray(keywords) ? keywords.join(',') : keywords} />}
+          {keywords && <meta name="keywords" content={Array.isArray(keywords) ? keywords.join(',') : keywords} />}
 
-        <link href="https://unpkg.com/antd@4.0.4/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />
-      </Head>
-      <LayoutFrame layout={layout} menus={menus} showFooter={showFooter} footer={<Footer />} link={NextLink}>
-        <React.Fragment>
-          {children}
-          <PageAction />
-        </React.Fragment>
-      </LayoutFrame>
-    </PageContext>
+          <link href="https://unpkg.com/antd@4.0.4/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />
+        </Head>
+        <LayoutFrame menus={menus} showFooter={showFooter} footer={<Footer />} link={NextLink}>
+          <React.Fragment>
+            {children}
+            <PageAction />
+          </React.Fragment>
+        </LayoutFrame>
+      </PageContext>
+    </LayoutThemeProvider>
   );
 };

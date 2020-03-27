@@ -1,7 +1,8 @@
 import React, { CSSProperties } from 'react';
 import { MenuSpec } from './types';
 import { Menu } from 'antd';
-import { useLayoutDarkLightTheme, useLayoutFrameOptions } from './layout';
+import { useLayoutFrameOptions } from './layout';
+import { useLayoutTheme } from 'src/components/layout/LayoutFrame/theme';
 
 interface RenderOptions {
   link: React.FunctionComponent<{ href }> | React.ComponentClass<{ href }> | string;
@@ -9,10 +10,10 @@ interface RenderOptions {
 
 export const LayoutFrameMenu: React.FC<{ style?: CSSProperties }> = ({ style }) => {
   const { menus, link = 'a' } = useLayoutFrameOptions();
-  const theme = useLayoutDarkLightTheme();
+  const [theme] = useLayoutTheme();
   return (
     <Menu
-      theme={theme}
+      theme={theme === 'dark' ? 'dark' : 'light'}
       mode="inline"
       style={style}
       // style={{minHeight: '100%', paddingBottom: 48}}

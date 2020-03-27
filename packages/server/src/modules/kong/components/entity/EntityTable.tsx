@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { buildEntityService } from '../../apis/utils';
 import { getKongService } from '../../apis/client';
 import { KongEntityTable } from './KongEntityTable';
-import { withProps } from '@wener/utils/lib/src/reactx/hocs/withProps';
+import { withProps } from '@wener/utils/src/reactx/hocs/withProps';
 import { EntityForm } from './EntityForm';
 
 export const EntityTable: React.FC<{ entity; parentId? }> = ({ parentId, entity }) => {

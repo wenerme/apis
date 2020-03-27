@@ -18,7 +18,7 @@ import {
   ShareAltOutlined,
   TagsOutlined,
   TeamOutlined,
-  UnlockOutlined,
+  UnlockOutlined
 } from '@ant-design/icons/lib';
 import CaCertificateOutlined from '../../../components/icons/CaCertificateOutlined';
 import { clearConfig, toggleShowSetup, toggleShowShare, useKongDispatch, useKongSelector } from '../reducers/kong';
@@ -63,12 +63,12 @@ i18next
       },
       fallbackNS: ['common'],
       interpolation: {
-        escapeValue: false, // not needed for react as it escapes by default
+        escapeValue: false // not needed for react as it escapes by default
       },
       backend: {
         // for all available options read the backend's repository readme file
-        loadPath: '/locales/{{lng}}/{{ns}}.json',
-      },
+        loadPath: '/locales/{{lng}}/{{ns}}.json'
+      }
     },
     (err, t) => {
       // initiali=?zed and ready to go!
@@ -87,7 +87,7 @@ const KongAdminHeader: React.FC = () => {
       style={{
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
     >
       <h2>Kong Admin</h2>
@@ -96,7 +96,7 @@ const KongAdminHeader: React.FC = () => {
           display: 'grid',
           gridAutoFlow: 'column',
           columnGap: '12px',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
       >
         <Button type="link" icon={<SettingOutlined />} onClick={() => dispatch(toggleShowSetup())}>
@@ -126,14 +126,14 @@ const KongAdminSetupForm: React.FC<{
       key: 'baseURL',
       label: t('接口地址'),
       placeholder: 'http://127.0.0.1:8001',
-      defaultValue: 'http://127.0.0.1:8001',
+      defaultValue: 'http://127.0.0.1:8001'
     },
     {
       key: 'headers',
       label: t('请求头'),
       widget: HeaderInput,
-      render: FormListField,
-    },
+      render: FormListField
+    }
   ];
 
   const encryptFields: FormFieldProps[] = [
@@ -164,9 +164,9 @@ const KongAdminSetupForm: React.FC<{
               }
             }}
           />
-        ),
-      },
-    },
+        )
+      }
+    }
   ];
 
   const initial = useMemo(() => {
@@ -309,14 +309,15 @@ const KongConfigPanel: React.FC = () => {
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
     >
       <div
         style={{
           width: '60vw',
-          backgroundColor: '#fff',
           padding: 24,
+          // 等于背景白色 - 但能配合 theme
+          backdropFilter: 'brightness(200%)'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -343,7 +344,7 @@ export const KongAdmin: React.FC = () => {
       path: '/',
       iconComponent: <FundOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/dashboard/KongAdminSummary')),
+      component: React.lazy(() => import('./pages/dashboard/KongAdminSummary'))
     },
     {
       title: t('标签', { count: 0, postProcess: 'inflection' }),
@@ -352,9 +353,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/tag/KongTagList').then(({ KongTagList }) => ({
-          default: KongTagList,
+          default: KongTagList
         }))
-      ),
+      )
     },
     {
       title: t('服务', { count: 0, postProcess: 'inflection' }),
@@ -363,7 +364,7 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/service/KongServiceList').then(({ KongServiceList }) => ({ default: KongServiceList }))
-      ),
+      )
     },
     {
       title: t('路由', { count: 0, postProcess: 'inflection' }),
@@ -372,9 +373,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/route/KongRouteList').then(({ KongRouteList }) => ({
-          default: KongRouteList,
+          default: KongRouteList
         }))
-      ),
+      )
     },
     {
       title: t('消费者', { count: 0, postProcess: 'inflection' }),
@@ -383,7 +384,7 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/consumer/KongConsumerList').then(({ KongConsumerList }) => ({ default: KongConsumerList }))
-      ),
+      )
     },
     {
       title: t('插件', { count: 0, postProcess: 'inflection' }),
@@ -392,9 +393,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/plugin/KongPluginList').then(({ KongPluginList }) => ({
-          default: KongPluginList,
+          default: KongPluginList
         }))
-      ),
+      )
     },
     {
       title: t('上游', { count: 0, postProcess: 'inflection' }),
@@ -403,7 +404,7 @@ export const KongAdmin: React.FC = () => {
       iconComponent: <ClusterOutlined />,
       component: React.lazy(() =>
         import('./pages/upstream/KongUpstreamList').then(({ KongUpstreamList }) => ({ default: KongUpstreamList }))
-      ),
+      )
     },
     {
       title: t('证书', { count: 0, postProcess: 'inflection' }),
@@ -412,9 +413,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/certificate/KongCertificateList').then(({ KongCertificateList }) => ({
-          default: KongCertificateList,
+          default: KongCertificateList
         }))
-      ),
+      )
     },
     {
       title: t('CA证书', { count: 0, postProcess: 'inflection' }),
@@ -423,9 +424,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/KongCaCertificateList').then(({ KongCaCertificateList }) => ({
-          default: KongCaCertificateList,
+          default: KongCaCertificateList
         }))
-      ),
+      )
     },
     {
       title: t('SNIs'),
@@ -434,17 +435,17 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/sni/KongSnisList').then(({ KongSnisList }) => ({
-          default: KongSnisList,
+          default: KongSnisList
         }))
-      ),
-    },
+      )
+    }
   ];
 
   return (
     <Router>
       {!init && <KongConfigPanel />}
       {init && (
-        <LayoutFrame header={<KongAdminHeader />} menus={menus} link={ReactRouterLink}>
+        <LayoutFrame name="kong" header={<KongAdminHeader />} menus={menus} link={ReactRouterLink}>
           <LayoutFrameContent>
             <KongAdminSetupModal />
             <KongAdminConfigShareModal />

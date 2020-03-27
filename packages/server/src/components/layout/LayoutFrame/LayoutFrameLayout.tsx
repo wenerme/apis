@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Layout } from 'antd';
 import { LayoutFrameSider } from './LayoutFrameSider';
+import { useLayoutFrame } from 'src/components/layout/LayoutFrame/layout';
+import { useLayoutTheme } from 'src/components/layout/LayoutFrame/theme';
 
 export interface LayoutFrameLayoutProps {
-  // menus: MenuSpec[]
-
   showHeader?: boolean;
   showFooter?: boolean;
 
@@ -22,10 +22,14 @@ export const LayoutFrameLayout: React.FC<LayoutFrameLayoutProps> = (props) => {
   if (typeof showFooter !== 'boolean') {
     showFooter = Boolean(footer);
   }
-
+  const layout = useLayoutFrame();
+  const [theme] = useLayoutTheme();
+  // height: '100%' 确保布局不变
   return (
-    <Layout style={{ height: '100%' }}>
-      {header && showHeader && <Layout.Header style={{ backgroundColor: '#fff' }}>{header}</Layout.Header>}
+    <Layout style={{ height: '100%' }} data-layout-frame-name={layout.name}>
+      {header && showHeader && (
+        <Layout.Header style={theme === 'light' ? { backgroundColor: '#fff' } : {}}>{header}</Layout.Header>
+      )}
       <Layout hasSider>
         <LayoutFrameSider />
 

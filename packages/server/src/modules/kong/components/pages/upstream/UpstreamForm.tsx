@@ -1,7 +1,7 @@
 import { FormFieldProps } from '../../../../../libs/antds/form/builder';
 import React from 'react';
 import { TagsField } from '../../entity/KongEntityTable';
-import { withProps } from '@wener/utils/lib/src/reactx/hocs/withProps';
+import { withProps } from '@wener/utils/src/reactx/hocs/withProps';
 import { EntityForm } from '../../entity/EntityForm';
 
 const HashTypes = ['none', 'consumer', 'ip', 'header', 'cookie'];

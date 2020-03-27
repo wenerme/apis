@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react';
-import { useLayoutDarkLightTheme } from './layout';
+import { useLayoutTheme } from 'src/components/layout/LayoutFrame/theme';
 
 export const LayoutFrameContent: React.FC<{ style?: CSSProperties }> = ({ children, style }) => {
-  const theme = useLayoutDarkLightTheme();
+  const [theme] = useLayoutTheme();
   return (
     <div
       style={{
@@ -10,7 +10,7 @@ export const LayoutFrameContent: React.FC<{ style?: CSSProperties }> = ({ childr
         margin: 8,
         padding: 12,
         minHeight: 'calc(100% - 16px)',
-        ...style,
+        ...style
       }}
     >
       {children}

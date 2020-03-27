@@ -1,8 +1,8 @@
 import React, { ComponentClass, FunctionComponent } from 'react';
 
 export interface MenuSpec {
-  title;
-  iconType?;
+  title: string;
+  iconType?: string;
   iconComponent?: React.ReactNode;
   path?: string;
   route?: string;

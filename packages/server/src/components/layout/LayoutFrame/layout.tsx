@@ -8,11 +8,13 @@ import produce from 'immer';
 export interface LayoutFrameInstance {
   readonly name;
 
-  subscribe(consumer: (state: LayoutFrameState) => void): () => void
+  subscribe(consumer: (state: LayoutFrameState) => void): () => void;
 
-  update(update: (state: LayoutFrameState) => void)
+  update(update: (state: LayoutFrameState) => void);
 
-  getState(): LayoutFrameState
+  getState(): LayoutFrameState;
+
+  dispose(): void
 }
 
 export interface LayoutFrameOptions {
@@ -29,12 +31,12 @@ const LayoutFrameContext = React.createContext<{
 export const useLayoutFrameSelector: TypedUseSelectorHook<LayoutFrameState> = (selector, eq?) => {
   const layout = useLayoutFrame();
   const ref = useRef<any>();
-  const [state, setState] = useState<any>(() => ref.current = selector(layout.getState()));
+  const [state, setState] = useState<any>(() => (ref.current = selector(layout.getState())));
   useEffect(() => {
-    return layout.subscribe(s => {
+    return layout.subscribe((s) => {
       const next = selector(s);
-      if (eq && !eq(next, ref.current) || next !== ref.current) {
-        setState(ref.current = next);
+      if ((eq && !eq(next, ref.current)) || next !== ref.current) {
+        setState((ref.current = next));
       }
     });
   }, []);
@@ -81,23 +83,22 @@ export const LayoutFrameProvider: React.FC<{
   layout: LayoutFrameInstance;
   options: LayoutFrameOptions;
 }> = ({ layout, options, children }) => {
-  return (
-    <LayoutFrameContext.Provider value={{ layout, options }}>
-      {children}
-    </LayoutFrameContext.Provider>
-  );
+  return <LayoutFrameContext.Provider value={{ layout, options }}>{children}</LayoutFrameContext.Provider>;
 };
 
-
-function createLayoutFrame(initial?: Partial<LayoutFrameInstance> | (() => Partial<LayoutFrameInstance>)): LayoutFrameInstance {
-  // console.trace(`createLayoutFrame`);
+function createLayoutFrame(
+  options: { current?: LayoutFrameInstance, initialState?: Partial<LayoutFrameState> | (() => Partial<LayoutFrameState>); name?: string } = {}
+): LayoutFrameInstance {
+  const { initialState, name = 'default', current } = options;
   const state = new BehaviorSubject<LayoutFrameState>({
-    theme: 'light',
-    ...(typeof initial === 'function' ? initial() : initial)
+    ...(typeof initialState === 'function' ? initialState() : initialState ?? {})
   });
 
-  return {
-    name: '',
+
+  const layout = {
+    get name() {
+      return name;
+    },
     subscribe(consumer: (state: LayoutFrameState) => void): () => void {
       const s = state.subscribe(consumer);
       return s.unsubscribe.bind(s);
@@ -105,33 +106,47 @@ function createLayoutFrame(initial?: Partial<LayoutFrameInstance> | (() => Parti
     getState(): LayoutFrameState {
       return state.value;
     },
-    update(update: (state: LayoutFrameState) => void) {
+    update(update: ((state: LayoutFrameState) => void) | Partial<LayoutFrameState>) {
+      if (typeof update !== 'function') {
+        layout.update((s => {
+          Object.assign(s, update);
+        }));
+        return;
+      }
       const current = state.value;
-      const next = produce(current, update);
+      const next = produce(current, update as (state: LayoutFrameState) => void);
       if (current !== next) {
         state.next(next);
         console.debug(`next layout state`, next, current);
       }
+    },
+    dispose(): void {
+      //
     }
   };
+
+  return layout;
 }
 
-export function useLayoutFrame(options?: { layout?: LayoutFrameInstance, initialState? }): LayoutFrameInstance {
-  const { layout } = options || {};
+export function useLayoutFrame(options?: {
+  layout?: LayoutFrameInstance;
+  initialState?: Partial<LayoutFrameState> | (() => Partial<LayoutFrameState>);
+  name?: string;
+}): LayoutFrameInstance {
+  const { layout, name = 'default', initialState } = options || {};
   const instanceRef = React.useRef<LayoutFrameInstance>();
   const [, forceRootUpdate] = useReducer((a) => a + 1, 0);
-  const cur = useContext(LayoutFrameContext)?.layout;
+
+  const current = useContext(LayoutFrameContext)?.layout;
   if (!instanceRef.current) {
-    if (cur) {
-      instanceRef.current = cur;
+    if (current && current.name === name) {
+      instanceRef.current = current;
     } else if (layout) {
       instanceRef.current = layout;
     } else {
       // const layoutStore = new LayoutFrameStore({ forceRootUpdate, name });
-      instanceRef.current = createLayoutFrame(options?.initialState);
+      instanceRef.current = createLayoutFrame({ name, initialState, current });
     }
   }
   return instanceRef.current;
 }
-
-export const useLayoutDarkLightTheme: () => 'dark' | 'light' = () => useLayoutFrameSelector((s) => s.theme as any);

@@ -1,16 +1,16 @@
 import React, { CSSProperties, useState } from 'react';
 import { Layout } from 'antd';
 import { LayoutFrameMenu } from './LayoutFrameMenu';
-import { useLayoutDarkLightTheme } from './layout';
+import { useLayoutTheme } from 'src/components/layout/LayoutFrame/theme';
 
 export const LayoutFrameSider: React.FC<{ style?: CSSProperties }> = ({ style }) => {
   const [broken, setBroken] = useState(false);
   const [collapse, setCollapse] = useState(true);
-  const theme = useLayoutDarkLightTheme();
+  const [theme] = useLayoutTheme();
 
   return (
     <Layout.Sider
-      theme={theme}
+      theme={theme === 'dark' ? 'dark' : 'light'}
       breakpoint="md"
       onBreakpoint={setBroken}
       collapsedWidth={broken ? 0 : 80}
