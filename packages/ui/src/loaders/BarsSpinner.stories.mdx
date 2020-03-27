@@ -1,0 +1,30 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import {BarsSpinner} from './BarsSpinner'
+
+<Meta title="loader/spinner/BarsSpinner" component={BarsSpinner} />
+
+# BarsSpinner
+
+* default 16 bars
+
+<Preview>
+  <Story name="Basic">
+    <BarsSpinner/>
+  </Story>
+</Preview>
+
+* thinker - 12 bars
+
+<Preview>
+  <Story name="Think">
+    <BarsSpinner bars={12}/>
+  </Story>
+</Preview>
+
+* complex - 20 bars
+
+<Preview>
+  <Story name="Complex">
+    <BarsSpinner bars={20}/>
+  </Story>
+</Preview>
