@@ -1,7 +1,5 @@
 {
-  "presets": [
-    "next/babel"
-  ],
+  "presets": ["next/babel"],
   "plugins": [
     [
       "inline-react-svg",
@@ -20,6 +18,7 @@
       {
         "loose": true
       }
-    ]
+    ],
+    ["babel-plugin-styled-components"]
   ]
 }

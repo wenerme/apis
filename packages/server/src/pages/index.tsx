@@ -1,20 +1,11 @@
 import React from 'react';
-import { Button, Result } from 'antd';
 import { PageLayout } from '../components/layout/PageLayout/PageLayout';
-import { ApiOutlined, GithubOutlined } from '@ant-design/icons';
+import { WenerApisWelcome } from '@wener/ui/src/components/WenerApisWelcome';
 
 const IndexPage: React.FC = () => {
   return (
     <PageLayout title="Wener's APIs">
-      <Result
-        title="Wener's APIs"
-        icon={<ApiOutlined style={{ marginRight: 8 }} />}
-        extra={
-          <Button type="primary" icon={<GithubOutlined />} target="_blank" href="https://github.com/wenerme/apis">
-            wenerme/apis
-          </Button>
-        }
-      />
+      <WenerApisWelcome />
     </PageLayout>
   );
 };

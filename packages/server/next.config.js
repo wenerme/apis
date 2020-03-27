@@ -5,17 +5,17 @@ const { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } = require('next/const
 
 // const withPWA = require('next-pwa');
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
+  extension: /\.mdx?$/
 });
-const withTranspile = require('next-transpile-modules')(['@wener/utils','@wener/tinyrpc']);
+const withTranspile = require('next-transpile-modules')(['@wener/utils', '@wener/tinyrpc', '@wener/ui']);
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: process.env.ANALYZE === 'true'
 });
 
 // 环境变量
 const env = {
   APP_VERSION: moment().format('YYYYMMDD'),
-  APP_BUILD_DATE: moment().format('YYYY-MM-DD hh:mm:ss'),
+  APP_BUILD_DATE: moment().format('YYYY-MM-DD hh:mm:ss')
 };
 
 // 不同环境配置
@@ -23,7 +23,7 @@ const envs = {
   default: {},
   dev: {},
   prod: {},
-  staging: {},
+  staging: {}
 };
 
 // 添加环境变量
@@ -38,7 +38,7 @@ const config = {
 
     if (!isServer) {
       config.node = {
-        fs: 'empty',
+        fs: 'empty'
       };
     }
 
@@ -93,22 +93,22 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 100000,
-          name: '[name].[ext]',
-        },
-      },
+          name: '[name].[ext]'
+        }
+      }
     });
 
     return config;
   },
   devIndicators: {
-    autoPrerender: false,
+    autoPrerender: false
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 
   //
   env,
   // no X-Powered-By header
-  poweredByHeader: false,
+  poweredByHeader: false
 };
 
 module.exports = (phase, { defaultConfig }) => {
@@ -128,7 +128,7 @@ module.exports = (phase, { defaultConfig }) => {
   return flow([
     withMDX,
     withTranspile,
-    withBundleAnalyzer,
+    withBundleAnalyzer
     // withPWA,
   ])(config);
 };
