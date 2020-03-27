@@ -1,6 +1,6 @@
 {
   "name": "@wener/ui",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.6",
   "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -20,7 +20,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@wener/utils": "^1.0.0-alpha.5",
+    "@wener/utils": "^1.0.0-alpha.6",
     "polished": "^3.5.1",
     "styled-components": "^5.0.1"
   },

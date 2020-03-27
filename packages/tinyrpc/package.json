@@ -1,6 +1,6 @@
 {
   "name": "@wener/tinyrpc",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.6",
   "description": "Tiny RPC for ES6 Proxy",
   "keywords": [
     "rpc"
