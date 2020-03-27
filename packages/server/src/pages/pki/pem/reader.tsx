@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Button, Input, message, PageHeader } from 'antd';
 import CertificateVerifiedFilled from '../../../components/icons/CertificateVerifiedFilled';
 import Certificate from 'pkijs/src/Certificate';
@@ -132,13 +131,8 @@ const PemReaderPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="PEM Reader" description="PEM 文件解析" keywords="pem file reader, pem decode">
       <PageContent>
-        <Head>
-          <title>PEM Reader</title>
-          <meta name="description" content="PEM 文件解析" />
-          <meta name="keywords" content="pem file reader, pem decode" />
-        </Head>
         <PageHeader
           title={
             <div>

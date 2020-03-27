@@ -1,6 +1,5 @@
 import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Alert, Form, Input, PageHeader } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import QRCode, { CanvasQRCodeProps, SvgQRCodeProps } from 'qrcode.react';
@@ -290,11 +289,8 @@ const QRCodeBuilderPageContent = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="二维码/QR code/快速响应码 生成器">
       <PageContent>
-        <Head>
-          <title>二维码/QR code/快速响应码 生成器</title>
-        </Head>
         <PageHeader
           title={
             <div>

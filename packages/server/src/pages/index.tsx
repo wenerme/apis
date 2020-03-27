@@ -5,7 +5,7 @@ import { ApiOutlined, GithubOutlined } from '@ant-design/icons';
 
 const IndexPage: React.FC = () => {
   return (
-    <PageLayout>
+    <PageLayout title="Wener's APIs">
       <Result
         title="Wener's APIs"
         icon={<ApiOutlined style={{ marginRight: 8 }} />}

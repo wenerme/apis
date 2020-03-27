@@ -1,7 +1,6 @@
 import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../../components/layout/PageLayout/PageContent';
 import { GatewayChecker } from '../../../modules/ipfs/components/GatewayChecker';
-import Head from 'next/head';
 import React from 'react';
 import { Alert, PageHeader } from 'antd';
 import { PublicGateways } from '../../../libs/ipfs/gateway/gateways';
@@ -9,11 +8,8 @@ import { FileOutlined } from '@ant-design/icons';
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="IPFS 公共网关检测">
       <PageContent>
-        <Head>
-          <title>IPFS 公共网关检测</title>
-        </Head>
         <PageHeader
           title={
             <div>

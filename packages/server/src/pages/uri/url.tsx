@@ -1,7 +1,6 @@
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
 import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
 import { Descriptions, Input, PageHeader } from 'antd';
 import url from 'url';
 import ContentEditable from 'react-contenteditable';
@@ -140,11 +139,8 @@ const UriPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="URI 解析格式化">
       <PageContent>
-        <Head>
-          <title>URI 解析格式化</title>
-        </Head>
         <PageHeader
           title={
             <div>

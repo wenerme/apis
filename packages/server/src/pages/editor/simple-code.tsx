@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { PageHeader, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
 import dynamic from 'next/dynamic';
@@ -11,7 +10,7 @@ import { usePrismTheme } from '../../hooks/prism';
 const SimpleCodeEditor = dynamic(
   () => import('../../components/editor/SimpleCodeEditor').then(({ SimpleCodeEditor }) => SimpleCodeEditor),
   {
-    loading: () => <div>Loading...</div>,
+    loading: () => <div>Loading...</div>
   }
 );
 const DemoPageContent: React.FC = () => {
@@ -67,13 +66,8 @@ const DemoSimpleCodeEditor: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="React Simple Code Editor" description="演示页面" keywords="demo, react nextjs, zeit now">
       <PageContent>
-        <Head>
-          <title>React Simple Code Editor</title>
-          <meta name="description" content="演示页面" />
-          <meta name="keywords" content="demo, react nextjs, zeit now" />
-        </Head>
         <PageHeader
           title={
             <div>

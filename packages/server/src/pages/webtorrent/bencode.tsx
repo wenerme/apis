@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Button, Divider, message, PageHeader } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 
@@ -108,18 +107,12 @@ const Page = () => {
   const mounted = useMounted();
 
   return (
-    <PageLayout>
+    <PageLayout
+      title="Bencode 解析/生成"
+      description="Bencode (pronounced like B-encode) is the encoding used by the peer-to-peer file sharing system BitTorrent for storing and transmitting loosely structured data"
+      keywords="bencode encode ui, bencode decode ui, bencode online"
+    >
       <PageContent>
-        <Head>
-          <title>Bencode 解析/生成</title>
-          <meta
-            name="description"
-            content="Bencode (pronounced like B-encode) is the encoding used by the peer-to-peer file sharing system BitTorrent for storing and transmitting loosely structured data"
-          />
-          <meta name="keywords" content="bencode encode ui, bencode decode ui, bencode online" />
-
-          <link rel="stylesheet" href="/assets/jsoneditor/jsoneditor.css" />
-        </Head>
         <PageHeader
           title={
             <div>

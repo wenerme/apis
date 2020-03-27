@@ -2,7 +2,6 @@ import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
 import { Descriptions, Input, PageHeader } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
 import { createScelDataService, ScelIndexRecord } from '../../libs/sougou/dict/ScelDataService';
 import { NextPage } from 'next';
 import { AutoSizer, List } from 'react-virtualized';
@@ -66,8 +65,8 @@ const ScelIndex: React.FC<{ index: ScelIndexRecord[] }> = ({ index }) => {
 };
 
 const ScelIndexItem: React.FC<{ item: ScelIndexRecord }> = ({
-  item: { id, name, count, size, type, version, updatedAt, createdBy },
-}) => {
+                                                              item: { id, name, count, size, type, version, updatedAt, createdBy }
+                                                            }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div>
@@ -101,17 +100,8 @@ const Page: NextPage<{ index?: ScelIndexRecord[]; raw? }> = ({ index, raw }) => 
   index = index ?? service.parseScelIndex(raw);
   getGlobalThis()['ScelIndex'] = index;
   return (
-    <PageLayout>
+    <PageLayout title="搜狗词库列表" description="搜狗词库 SCEL 解析索引查询" keywords="搜狗,词库,SCEl,解析,接口,API,查询">
       <PageContent style={{ display: 'flex', flexFlow: 'column' }}>
-        <Head>
-          <title>搜狗词库列表</title>
-
-          <meta name="keywords" content={`搜狗,词库,SCEl,解析,接口,API,查询}`} />
-
-          <meta name="description" content={`搜狗词库 SCEL 解析索引查询`} />
-          <meta name="og:title" property="og:title" content={`搜狗词库查询`} />
-          <meta name="og:description" property="og:description" content={`搜狗词库 SCEL 词库文件索引查询`} />
-        </Head>
         <PageHeader
           title={
             <div>

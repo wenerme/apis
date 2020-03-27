@@ -1,6 +1,5 @@
 import React from 'react';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
 const KongAdminUI = dynamic(
@@ -17,13 +16,12 @@ const KongAdminPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout showFooter={false}>
-      <Head>
-        <title>Kong 管理界面</title>
-        <meta name="description" content="Kong GUI" />
-        <meta name="keywords" content="online kong admin, kong web admin, kong react ui" />
-      </Head>
-
+    <PageLayout
+      showFooter={false}
+      title="Kong 管理界面"
+      description="Kong Admin GUI"
+      keywords="online kong admin, kong web admin, kong react ui"
+    >
       <KongAdminPageContent />
     </PageLayout>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Button, Checkbox, Divider, PageHeader } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
 import 'prosemirror-view/style/prosemirror.css';
@@ -105,13 +104,8 @@ const ProseMirrorEditorPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="ProseMirror" description="ProseMirror React Demo" keywords="ProseMirror editor react" >
       <PageContent>
-        <Head>
-          <title>ProseMirror</title>
-          <meta name="description" content="ProseMirror React Demo" />
-          <meta name="keywords" content="ProseMirror editor react" />
-        </Head>
         <PageHeader
           title={
             <div>

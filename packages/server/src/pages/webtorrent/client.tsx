@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Button, PageHeader } from 'antd';
 import { useMounted } from '@wener/utils/src/reactx/hooks/useMounted';
 import { getCurrentWebTorrentClient, getWebTorrentClient } from '../../modules/webtorrent/client';
@@ -52,7 +51,12 @@ const WebTorrentPageContent: React.FC = () => {
 const Page = () => {
   const mounted = useMounted();
   return (
-    <PageLayout showFooter={false}>
+    <PageLayout
+      showFooter={false}
+      title="WebTorrent 网页客户端"
+      description="WebTorrent client"
+      keywords="online webtorrent"
+    >
       <PageContent
         style={{
           display: 'flex',
@@ -61,11 +65,6 @@ const Page = () => {
           paddingBottom: 4,
         }}
       >
-        <Head>
-          <title>WebTorrent 网页客户端</title>
-          <meta name="description" content="WebTorrent client" />
-          <meta name="keywords" content="online webtorrent" />
-        </Head>
         <PageHeader
           title={
             <div>

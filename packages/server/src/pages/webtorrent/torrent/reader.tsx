@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Button, Descriptions, Divider, Input, List, message, PageHeader } from 'antd';
 import TorrentFileFilled from '../../../components/icons/TorrentFileFilled';
 import ParseTorrent, { toMagnetURI, toTorrentFile } from 'parse-torrent';
@@ -258,13 +257,12 @@ const TorrentReaderPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout
+      title="BT种子文件解析"
+      description="BitTorrent file parser"
+      keywords="torrent file reader,torrent file parser"
+    >
       <PageContent>
-        <Head>
-          <title>BT种子文件解析</title>
-          <meta name="description" content="BitTorrent file parser" />
-          <meta name="keywords" content="torrent file reader,torrent file parser" />
-        </Head>
         <PageHeader
           title={
             <div>

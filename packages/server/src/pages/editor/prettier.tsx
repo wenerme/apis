@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Button, message, PageHeader, Select } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 import { SimpleCodeEditor } from '../../components/editor/SimpleCodeEditor';
@@ -32,12 +31,12 @@ const languages = [
 
   { lang: 'lwc', parsers: ['html'], highlight: 'html' },
   { lang: 'vue', parsers: ['html'], highlight: 'html' },
-  { lang: 'angular', parsers: ['angular'], highlight: 'html' },
+  { lang: 'angular', parsers: ['angular'], highlight: 'html' }
 ];
 
 const parserMapping = {
   'babel-ts': 'babel',
-  'babel-flow': 'babel',
+  'babel-flow': 'babel'
 };
 
 const languageByLang = languages.reduce((o, v) => {
@@ -80,7 +79,7 @@ nvm use 12
 
       const format = window['prettier'].format(code, {
         parser: languageByLang[language].useParserName ? parser : language,
-        plugins: window['prettierPlugins'],
+        plugins: window['prettierPlugins']
       });
       setFormatted(format);
     } catch (e) {
@@ -171,13 +170,9 @@ nvm use 12
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="Prettier Code / 代码格式化" description="Prettier online format"
+                keywords="prettier demo, react nextjs, zeit now, code format">
       <PageContent>
-        <Head>
-          <title>Prettier Code / 代码格式化</title>
-          <meta name="description" content="Prettier online format" />
-          <meta name="keywords" content="prettier demo, react nextjs, zeit now, code format" />
-        </Head>
         <PageHeader
           title={
             <div>

@@ -1,6 +1,5 @@
 import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { notification, PageHeader, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
@@ -101,11 +100,8 @@ const QRCodeReaderPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout title="二维码/QR code/快速响应码 解析器">
       <PageContent>
-        <Head>
-          <title>二维码/QR code/快速响应码 解析器</title>
-        </Head>
         <PageHeader
           title={
             <div>

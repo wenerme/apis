@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../../../components/layout/PageLayout/PageContent';
-import Head from 'next/head';
 import { Alert, Form, message, PageHeader } from 'antd';
 import { BarcodeOutlined } from '@ant-design/icons/lib';
 import JsBarcode, { Options as BarcodeOptions } from 'jsbarcode';
@@ -215,13 +214,12 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout>
+    <PageLayout
+      title="条形码生成"
+      description="在线条形码生成"
+      keywords="自定义,条形码生成,customize,linear barcode generate"
+    >
       <PageContent>
-        <Head>
-          <title>条形码生成</title>
-          <meta name="description" content="在线条形码生成" />
-          <meta name="keywords" content="自定义,条形码生成,customize,linear barcode generate" />
-        </Head>
         <PageHeader
           title={
             <div>
