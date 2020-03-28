@@ -1,48 +1,67 @@
 import { normalizeOptions, OptionLike } from './options';
 import { Form, Input, InputNumber, Select, Slider, Switch } from 'antd';
-import React, { useMemo } from 'react';
+import React, { DependencyList, useMemo } from 'react';
 import { Rule } from 'rc-field-form/lib/interface';
 import set from 'lodash/set';
-// import { Trans } from 'react-i18next';
 
 export type Widget =
   | string
   | React.ReactNode
   | React.ComponentClass
   | React.FunctionComponent
-  | ((item: any) => React.ReactNode)
-  // 例如 switch - overrides 需要 valuePropName='checked'
-  | { component; overrides };
+  | ((item: any) => React.ReactNode);
+// 例如 switch - overrides 需要 valuePropName='checked'
+// | { component: React.ElementType; overrides: any }
 
 export interface FormFieldProps {
+  // region 基础
   key: string;
   name?: string | string[];
   label?: string | React.ReactNode;
+  // endregion
 
-  /// 默认值 - 需要实现支持
+  // region 辅助属性
+  /// 默认值
   defaultValue?: any;
+  // endregion
+
+  // region 组件属性 - widgetProps
   autoFocus?: boolean;
   disabled?: boolean;
   readOnly?: boolean;
   placeholder?: any;
+  // endregion
 
+  /// 定义使用的组件 - 可能是字符串映射
   widget?: Widget;
+  /// 具体组件 - 字符串映射后的内容
+  widgetComponent?: React.ElementType;
+  /// 组件额外属性
   widgetProps?: any;
 
-  fieldProps?: any;
-
+  /// 是否必须
   required?: boolean;
 
   options?: OptionLike;
 
+  /// 校验规则
   rules?: Rule[];
 
   /// 跳过构建逻辑 - 直接渲染
   render?: (props: { field: FormFieldProps }) => any;
 
-  // 值处理
+  // region 字段属性 - fieldProps
+  /// 从事件获取值
   getValueFromEvent?: (...args: any[]) => any;
-  normalize?: (value, prevValue, prevValues) => any;
+  /// 将值标准化给组件
+  normalize?: (value: any, prevValue: any, prevValues: any) => any;
+
+  help: React.ReactNode;
+  extra: React.ReactNode;
+  // endregion
+
+  /// 字段属性
+  fieldProps?: any;
 
   // 自定义控件
   trigger?: string; // onChange
@@ -56,14 +75,14 @@ export interface FormBuilderOptions {
   widgets?: Widget[];
 }
 
-function prefixedObject(entries: any, prefix) {
+function prefixedObject(entries: Array<[string, any]>, prefix: string) {
   return Object.fromEntries(
     entries.filter(([v]) => v.startsWith(prefix)).map(([k, v]) => [k.substring(prefix.length), v])
   );
 }
 
-export function normalizeField(item: FormFieldProps) {
-  if (item.key && !item.name && typeof item.key === 'string') {
+export function normalizeField(item: FormFieldProps, normalizers?: Array<(v: FormFieldProps) => FormFieldProps>) {
+  if (!item.name && typeof item.key === 'string') {
     item.name = item.key.split('.');
   }
 
@@ -71,16 +90,14 @@ export function normalizeField(item: FormFieldProps) {
   if (!item.valuePropName && item.widget === 'switch') {
     item.valuePropName = 'checked';
   }
-  // FIXME Do not do this here
-  // if (typeof item.label === 'string') {
-  //   item.label = <Trans>{item.label}</Trans>;
-  // }
 
   // extract
   const entries = Object.entries(item);
-
   // widget
   item.widgetProps = Object.assign(prefixedObject(entries, 'widget:'), item.widgetProps);
+  // field
+  item.fieldProps = Object.assign(prefixedObject(entries, 'field:'), item.fieldProps);
+
   // 常用组件属性
   // defaultValue 无效 - 组件受控
   const { autoFocus, disabled, readOnly, placeholder } = item;
@@ -90,9 +107,8 @@ export function normalizeField(item: FormFieldProps) {
     }
     item.widgetProps[k] = v;
   });
+  // item.widgetComponent = item.widgetComponent ?? findWidget(item.widget)
 
-  // field
-  item.fieldProps = Object.assign(prefixedObject(entries, 'field:'), item.fieldProps);
   // 常用字段属性
   // https://ant.design/components/form-cn/#Form.Item
   const { help, extra, normalize } = item;
@@ -102,6 +118,9 @@ export function normalizeField(item: FormFieldProps) {
     }
     item.fieldProps[k] = v;
   });
+
+  // 预处理
+  item = normalizers?.reduce((o, v) => v(o), item) ?? item;
 
   return item;
 }
@@ -114,8 +133,8 @@ export const Widgets: Record<string, Widget> = {
   number: InputNumber,
   slider: Slider,
   switch: Switch,
-  select: ({ field: { options, name }, ...props }) => {
-    options = normalizeOptions(options);
+  select: ({ field: { options, name }, ...props }: { field: FormFieldProps }) => {
+    options = normalizeOptions(options || []);
     return (
       <Select {...props}>
         {options.map(({ label, value }) => (
@@ -128,13 +147,26 @@ export const Widgets: Record<string, Widget> = {
   },
 };
 
+function findWidget(w?: Widget) {
+  let widget: any = w ?? 'default';
+  if (typeof widget === 'string') {
+    widget = Widgets[widget];
+    if (!widget) {
+      console.error(`invalid widget`, widget);
+      widget = Widgets['default'];
+    }
+  }
+  return widget;
+}
+
 function buildWidget(field: FormFieldProps, opts?: FormBuilderOptions) {
   const { widget: w, widgetProps } = field;
   let widget: any = w ?? 'default';
   if (typeof widget === 'string') {
     const { widgets = [] } = opts ?? {};
-
-    widget = widgets.find((v) => v['displayName'] === widget || v['factoryName'] === widget) ?? Widgets[widget];
+    // fixme - not good
+    widget =
+      widgets.find((v: any) => v?.['displayName'] === widget || v?.['factoryName'] === widget) ?? Widgets[widget];
     if (!widget) {
       console.error(`invalid widget`, field);
       widget = Widgets['default'];
@@ -166,7 +198,7 @@ function buildRules(item: FormFieldProps) {
   return rules;
 }
 
-function buildFormFields(fields, opt?) {
+function buildFormFields(fields: FormFieldProps[], opt?: FormBuilderOptions) {
   return fields.map((v) => buildFormField(v, opt));
 }
 
@@ -203,27 +235,17 @@ export function buildInitialValues(fields: FormFieldProps[]): any {
   return o;
 }
 
-let objectHash;
-
 export interface FormFieldBuilderProps extends FormBuilderOptions {
   field: FormFieldProps;
-  hash?: boolean;
   pure?: boolean;
 }
 
 export const FormFieldBuilder: React.FC<FormFieldBuilderProps> = (props) => {
-  const { field, children, hash, pure, ...opts } = props;
-  let deps;
-  if (pure) {
-    deps = [];
-  } else if (hash) {
-    if (objectHash) {
-      deps = [objectHash(field)];
-    } else {
-      import('object-hash').then(({ default: oh }) => (objectHash = oh));
-    }
+  const { field, children, pure, ...opts } = props;
+  let deps: DependencyList = [];
+  if (!pure) {
+    deps = [field, children];
   }
-  deps = deps || [field, children];
   return useMemo(() => {
     // debug rerender
     // console.log(`render ${field.key}`, field)
@@ -234,16 +256,19 @@ export const FormFieldBuilder: React.FC<FormFieldBuilderProps> = (props) => {
     return buildFormField(field, opts);
   }, deps);
 };
-export const FormFieldsBuilder: React.FC<{ fields: FormFieldProps[]; pure?: boolean } & FormBuilderOptions> = (
-  props
-) => {
-  const { fields, children, pure, ...opts } = props;
 
-  let deps;
-  if (pure) {
-    deps = [];
+export interface FormFieldsBuilderOptions extends FormBuilderOptions {
+  fields: FormFieldProps[];
+  pure?: boolean;
+}
+
+export const FormFieldsBuilder: React.FC<FormFieldsBuilderOptions> = (props) => {
+  const { fields, pure, ...opts } = props;
+
+  let deps: DependencyList = [];
+  if (!pure) {
+    deps = fields;
   }
-  deps = deps || [fields];
 
-  return useMemo(() => buildFormFields(fields, opts), deps);
+  return <React.Fragment>{useMemo(() => buildFormFields(fields, opts), deps)}</React.Fragment>;
 };

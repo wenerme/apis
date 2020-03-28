@@ -9,7 +9,7 @@ import {
 import { Button, PageHeader, Result } from 'antd';
 import React from 'react';
 
-export const WenerApisWelcome: React.FC<{ title?, subTitle?, icon? }> = (props) => {
+export const WenerApisWelcome: React.FC<{ title?: string, subTitle?: string, icon?: React.ReactNode }> = (props) => {
   const { title = `Wener's APIs`, subTitle = '', icon = <ApiOutlined />, children } = props;
   const docs = [
     { url: 'https://apis.wener.me/storybook/', label: '@wener/ui Storybook', icon: <FormatPainterOutlined /> },

@@ -2,19 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-const cbox = (props) => `
+const cbox = (props: any) => `
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 `;
-const fbox = (props) => `
+const fbox = (props: any) => `
   ${cbox}
   width: 100%;
   height: 100%;
 `;
 
-const BoxShuffleContainer = styled.div`
+const BoxShuffleContainer = styled.div<{ size?: string,colors?:string[] }>`
   --size: ${(props) => props['size'] || '3em'};
 
   ${cbox};
@@ -41,8 +41,8 @@ const BoxShuffleContainer = styled.div`
   }
 
   ${(props) =>
-    (props['colors'] || ['#1FBCD3', '#CBE2B4', '#F6B6CA']).map(
-      (color, i) => `
+  (props.colors || ['#1FBCD3', '#CBE2B4', '#F6B6CA']).map(
+    (color, i) => `
     .holder:nth-child(${i + 1}){
       .box{
         background-color: ${color};
@@ -56,7 +56,7 @@ const BoxShuffleContainer = styled.div`
     }
   }
 `
-    )}
+  )}
 
   .box {
     ${cbox};
