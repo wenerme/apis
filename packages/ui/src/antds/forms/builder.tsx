@@ -150,11 +150,7 @@ export const Widgets: Record<string, Widget> = {
 function findWidget(w?: Widget) {
   let widget: any = w ?? 'default';
   if (typeof widget === 'string') {
-    widget = Widgets[widget];
-    if (!widget) {
-      console.error(`invalid widget`, widget);
-      widget = Widgets['default'];
-    }
+    widget = Widgets[widget] ?? widget;
   }
   return widget;
 }

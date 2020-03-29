@@ -7,9 +7,10 @@ module.exports = {
     '@storybook/addon-links',
     // 不太好看
     // '@storybook/addon-info',
+    '@storybook/addon-knobs',
     '@storybook/addon-docs',
     '@storybook/addon-viewport',
-    '@storybook/addon-storysource',
+    '@storybook/addon-storysource'
     // https://www.npmjs.com/package/@storybook/preset-typescript
     // {
     //   name: '@storybook/preset-typescript',
@@ -24,5 +25,5 @@ module.exports = {
     //     transpileManager: true,
     //   },
     // }
-  ],
+  ]
 };
