@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeColumns } from '../../../../../libs/antds/table/normal';
 import { KongPluginSchema, KongUpstreamEntity, ProtocolTypes } from '../../../apis/types';
 import { renderBoolean, renderTags } from '../../renders';
@@ -7,7 +7,7 @@ import {
   buildInitialValues,
   FormFieldBuilder,
   FormFieldProps,
-  FormFieldsBuilder
+  FormFieldsBuilder,
 } from '../../../../../libs/antds/form/builder';
 import { omitBy } from 'lodash';
 import { Button, Divider, Form, Spin } from 'antd';
@@ -21,13 +21,13 @@ import { Trans } from 'react-i18next';
 
 function buildFields(schema: KongPluginSchema, name, fields = []): FormFieldProps[] {
   if (schema.fields) {
-    schema.fields.forEach((v) => {
+    schema.fields.forEach(v => {
       Object.entries(v).forEach(([k, v]) => {
         buildFields(v, [...name, k], fields);
       });
     });
   } else if (schema.type) {
-    const field: FormFieldProps = { name, key: name.join('.') };
+    const field: FormFieldProps = { name, key: name.join('.'), fieldProps: {}, widgetProps: {} };
     field.label = name.filter((_, i) => i > 0).join('.');
     const { default: defaultValue, required, one_of, elements } = schema;
     if (defaultValue !== undefined) {
@@ -93,61 +93,63 @@ function buildFields(schema: KongPluginSchema, name, fields = []): FormFieldProp
   return fields;
 }
 
+const pluginCommonFields: FormFieldProps[] = [
+  {
+    key: 'protocols',
+    label: '协议',
+    widget: 'select',
+    widgetProps: { mode: 'multiple' },
+    defaultValue: ['grpc', 'grpcs', 'http', 'https'],
+    options: ProtocolTypes,
+  },
+  { key: 'enabled', label: '启用', widget: 'switch', defaultValue: true },
+  TagsField,
+  {
+    key: 'service',
+    label: '服务',
+    widget: EntitySelect,
+    widgetProps: {
+      entityName: 'Service',
+    },
+  },
+  {
+    key: 'route',
+    label: '路由',
+    widget: EntitySelect,
+    widgetProps: {
+      entityName: 'Route',
+    },
+  },
+  {
+    key: 'consumer',
+    label: '消费者',
+    widget: EntitySelect,
+    widgetProps: {
+      entityName: 'Consumer',
+    },
+  },
+];
+
 const PluginForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, onSubmit }) => {
-  const plugins = useKongSelector((v) => v.information?.plugins?.available_on_server ?? []);
+  const plugins = useKongSelector(v => v.information?.plugins?.available_on_server ?? []);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(doUpdateInformation());
   }, []);
 
-  const fields: FormFieldProps[] = [
-    {
-      key: 'name',
-      label: '插件',
-      required: true,
-      widget: 'select',
-      widgetProps: { showSearch: true },
-      options: Object.keys(plugins ?? []),
-    },
-    {
-      key: 'protocols',
-      label: '协议',
-      widget: 'select',
-      widgetProps: { mode: 'multiple' },
-      defaultValue: ['grpc', 'grpcs', 'http', 'https'],
-      options: ProtocolTypes,
-    },
-    { key: 'enabled', label: '启用', widget: 'switch', defaultValue: true },
-    TagsField,
-    {
-      key: 'service',
-      label: '服务',
-      widget: EntitySelect,
-      widgetProps: {
-        entityName: 'Service',
-      },
-    },
-    {
-      key: 'route',
-      label: '路由',
-      widget: EntitySelect,
-      widgetProps: {
-        entityName: 'Route',
-      },
-    },
-    {
-      key: 'consumer',
-      label: '消费者',
-      widget: EntitySelect,
-      widgetProps: {
-        entityName: 'Consumer',
-      },
-    },
-  ];
+  const pluginNameField = {
+    key: 'name',
+    label: '插件',
+    required: true,
+    widget: 'select',
+    widgetProps: { showSearch: true },
+    options: Object.keys(plugins ?? []),
+  };
+
   const [configFields, setConfigFields] = useState([]);
 
   const initial = useMemo(() => {
-    return initialValues ? omitBy(initialValues, (v) => v === null) : buildInitialValues([...fields]);
+    return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...pluginCommonFields]);
   }, [initialValues]);
 
   const [form] = Form.useForm();
@@ -156,26 +158,33 @@ const PluginForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, on
 
   const [schema, setSchema] = useState({});
   const [pluginConfigLoading, setPluginConfigLoading] = useState(false);
+
+  const initialConfig = useRef<{ name; config }>();
+  if (!initialConfig.current) {
+    initialConfig.current = { name: initial.name, config: initial.config };
+  }
   useAsyncEffect(async () => {
-    if (name) {
-      try {
-        setPluginConfigLoading(true);
-        const schema = await getKongService().getPluginSchema(name);
-        console.log(`Schema`, schema);
-        setSchema(schema);
-        form.setFieldsValue({ config: null });
-        const fields = buildFields(schema, ['config']);
-        setConfigFields(fields);
-      } finally {
-        setPluginConfigLoading(false);
-      }
-    } else {
+    if (!name) {
       setConfigFields([]);
+      return;
+    }
+    try {
+      setPluginConfigLoading(true);
+      const schema = await getKongService().getPluginSchema(name);
+      console.log(`Schema`, schema);
+      setSchema(schema);
+      const fields = buildFields(schema, ['config']);
+      // 回显值
+      if (name === initialConfig.current.name) {
+        form.setFieldsValue({ config: initialConfig.current.config });
+      } else {
+        form.setFieldsValue({ config: buildInitialValues(fields) });
+      }
+      setConfigFields(fields);
+    } finally {
+      setPluginConfigLoading(false);
     }
   }, [name]);
-  useEffect(() => {
-    form.setFieldsValue(buildInitialValues(configFields));
-  }, [configFields]);
 
   return (
     <Form
@@ -184,14 +193,15 @@ const PluginForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, on
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       onFinish={onSubmit}
-      onValuesChange={(v) => {
+      onValuesChange={v => {
         if (v?.['name']) {
           setName(v['name']);
         }
       }}
     >
       {initial?.id && <FormFieldBuilder pure field={{ key: 'id', label: 'ID', readOnly: true }} />}
-      <FormFieldsBuilder pure fields={fields} />
+      <FormFieldBuilder pure field={pluginNameField} />
+      <FormFieldsBuilder pure fields={pluginCommonFields} />
 
       <Divider>
         <Trans>插件配置</Trans>
@@ -231,9 +241,9 @@ export const KongPluginList: React.FC = () => {
             width: 80,
             render: renderBoolean,
           },
-        ])
+        ]),
       ),
-    []
+    [],
   );
   return <KongEntityTable label="插件" name="Plugin" columns={columns} editor={PluginForm} />;
 };
