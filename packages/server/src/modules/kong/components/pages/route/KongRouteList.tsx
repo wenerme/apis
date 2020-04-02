@@ -154,11 +154,11 @@ const RouteForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, onS
 
   const [form] = Form.useForm();
 
-  const [protocols, setProtocols] = useState<string[]>(initialValues?.['protocols'] || []);
+  const [protocols, setProtocols] = useState<string[]>(initialValues?.['protocols'] || ['http', 'https']);
   const currentProtocolFields = useMemo(() => {
     const keys = uniq(flatMapDeep(protocols, (v) => protocolFieldSet[v]));
     return keys.map((v) => protocolFieldByKey[v]);
-  }, [protocols]);
+  }, protocols);
 
   return (
     <Form
@@ -267,9 +267,9 @@ export const KongRouteList: React.FC<Partial<KongEntityTableProps>> = (props) =>
             width: 80,
             render: renderBoolean,
           },
-        ])
+        ]),
       ),
-    []
+    [],
   );
 
   return <KongEntityTable label="路由" name="Route" columns={columns} editor={RouteForm} {...props} />;

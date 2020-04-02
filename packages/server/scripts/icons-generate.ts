@@ -2,13 +2,14 @@ import glob from 'glob';
 import * as fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import { pascalCase } from '@wener/utils/src/strings/camelCase';
 
 _.mixin({ pascalCase: _.flow(_.camelCase, _.upperFirst) });
 
 /*
 ts-node --project ./tsconfig.ts-node.json ./scripts/icons-generate.ts
  */
-async function generate(svgPath, compPath) {
+async function generate(svgPath: string, compPath: string) {
   const files: string[] = await new Promise((resolve, reject) =>
     glob('*.svg', { cwd: svgPath }, (e, v) => {
       if (e) {
@@ -16,12 +17,12 @@ async function generate(svgPath, compPath) {
       } else {
         resolve(v);
       }
-    })
+    }),
   );
   console.log(files);
   // files.ea
   for (const f of files) {
-    const name = _?.['pascalCase'](path.basename(f, path.extname(f)));
+    const name = pascalCase(path.basename(f, path.extname(f)));
 
     await gen({
       svg: path.join(svgPath, f),
@@ -54,7 +55,7 @@ const ${name}: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) 
 
 ${name}.displayName = '${name}';
 export default React.forwardRef(${name});
-`.trimLeft()
+`.trimLeft(),
   );
 }
 
