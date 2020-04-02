@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import produce from 'immer';
 import './WebConsole.module.css';
+import { HookedConsole } from 'console-feed/lib/definitions/Console';
 
 export const AllMethods: Methods[] = ['log', 'warn', 'error', 'info', 'debug', 'command', 'result'];
 export type Methods = 'log' | 'warn' | 'error' | 'info' | 'debug' | 'command' | 'result';
@@ -36,13 +37,13 @@ export const WebConsole: React.FC<WebConsoleProps> = (props) => {
     const { Console: ConsoleFeed, Hook, Unhook } = await import('console-feed');
     consoleFeedRef.current = ConsoleFeed;
 
-    let console: Console;
+    let console: HookedConsole;
     if (global) {
-      console = window.console;
+      console = window.console as any;
     } else {
       console = {} as any;
       ['log', 'debug', 'info', 'warn', 'error', 'table', 'clear', 'time', 'timeEnd', 'count', 'assert'].map(
-        (v) => (console[v] = window.console[v])
+        (v) => (console[v] = window.console[v]),
       );
     }
 
@@ -53,10 +54,10 @@ export const WebConsole: React.FC<WebConsoleProps> = (props) => {
         setLogs(
           produce((s) => {
             s.push(log);
-          })
+          }),
         );
       },
-      false
+      false,
     );
 
     console.debug('Init console');

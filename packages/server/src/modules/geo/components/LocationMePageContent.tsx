@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Console as ConsoleFeed, Hook, Unhook } from 'console-feed';
 import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
 import { Descriptions } from 'antd';
+import { HookedConsole } from 'console-feed/lib/definitions/Console';
 
 export const LocationMePageContent: React.FC = () => {
   const [logs, setLogs] = useState([]);
@@ -9,16 +10,16 @@ export const LocationMePageContent: React.FC = () => {
   const [init, setInit] = useState(false);
   const consoleRef = useRef<any>();
   useAsyncEffect(async () => {
-    const console: Console = (consoleRef.current = {} as any);
+    const console: HookedConsole = (consoleRef.current = {} as any);
     ['log', 'debug', 'info', 'warn', 'error', 'table', 'clear', 'time', 'timeEnd', 'count', 'assert'].map(
-      (v) => (console[v] = window.console[v])
+      (v) => (console[v] = window.console[v]),
     );
     Hook(
       console,
       (log) => {
         setLogs((v) => [...v, log]);
       },
-      false
+      false,
     );
 
     console.log('Init console');
@@ -106,7 +107,7 @@ async function watchPosition(options: {
             enableHighAccuracy: true,
             timeout: 15000,
             maximumAge: 0,
-          }
+          },
         );
       },
       (error) => {
@@ -116,7 +117,7 @@ async function watchPosition(options: {
         enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 0,
-      }
+      },
     );
   } catch (e) {
     console.error('操作失败', e);
