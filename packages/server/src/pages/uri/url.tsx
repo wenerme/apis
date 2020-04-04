@@ -7,14 +7,14 @@ import ContentEditable from 'react-contenteditable';
 import produce from 'immer';
 import sanitizeHtml from 'sanitize-html';
 import { useRouter } from 'next/router';
-import { firstOf } from '@wener/utils/src/arrays/firstOf';
 import pick from 'lodash/pick';
 import { LinkOutlined } from '@ant-design/icons';
+import { firstOfMaybeArray } from '@wener/utils/src';
 
 const UriPageContent: React.FC = () => {
   const router = useRouter();
   const [current, setCurrent] = useState(
-    firstOf(router.query['url']) ?? 'https://admin:pass@wener.me:8443/notes/java/java/?name=wener#hero'
+    firstOfMaybeArray(router.query['url']) ?? 'https://admin:pass@wener.me:8443/notes/java/java/?name=wener#hero',
   );
   const [value, setValue] = useState(current);
   const [parsed, setParsed] = useState<URL>(null);
@@ -45,7 +45,7 @@ const UriPageContent: React.FC = () => {
 
     setParsed(o);
     // sync url param
-    if (firstOf(router.query['url']) !== current) {
+    if (firstOfMaybeArray(router.query['url']) !== current) {
       router.push({ pathname: location.pathname, query: { url: current } });
     }
   }, [current]);
@@ -113,7 +113,7 @@ const UriPageContent: React.FC = () => {
                         t = t.replace(/[\r\n]/g, '');
                         // console.log(`Change`, v.target.value, t);
                         s[field] = t;
-                      })
+                      }),
                     );
                   }}
                 />

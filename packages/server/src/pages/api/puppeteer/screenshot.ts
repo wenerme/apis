@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { firstOf } from '@wener/utils/src/arrays/firstOf';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import { handleErrors } from 'src/libs/nexts/middlewares/errors';
 import { flow } from 'lodash';
 import puppeteer, { Browser, devices } from 'puppeteer-core';
+import { firstOfMaybeArray } from '@wener/utils/src';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { url, device } = req.query;
-  url = firstOf(url);
-  device = firstOf(device);
+  url = firstOfMaybeArray(url);
+  device = firstOfMaybeArray(device);
   if (!url) {
     throw new ApiError(400, 'invalid url');
   }
@@ -29,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
-      headless: chromium.headless
+      headless: chromium.headless,
     });
   } catch (e) {
     res.status(400).json({});
@@ -45,7 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const buffer = await page.screenshot({
     // path: `/tmp/${device ?? 'default'}-${encodeURIComponent(url)}.png`,
-    fullPage: true
+    fullPage: true,
   });
   await browser.close();
   res.setHeader('Content-Type', 'image/png');

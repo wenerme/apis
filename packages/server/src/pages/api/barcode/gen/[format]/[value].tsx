@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { flow } from 'lodash';
 import { handleErrors } from '../../../../../libs/nexts/middlewares/errors';
 import { BarcodeOptions, renderBarcode } from '../../../../../libs/barcodes/renders';
-import { firstOf } from '@wener/utils/src/arrays/firstOf';
 import objectHash from 'object-hash';
+import { firstOfMaybeArray } from '@wener/utils/src';
 
 const mime = require('mime');
 
@@ -14,9 +14,9 @@ function detectImageExtension(s: string): { ext?; name } {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { value, renderFormat, format } = req.query;
-  format = firstOf(format);
-  value = firstOf(value);
-  renderFormat = firstOf(renderFormat);
+  format = firstOfMaybeArray(format);
+  value = firstOfMaybeArray(value);
+  renderFormat = firstOfMaybeArray(renderFormat);
 
   if (!renderFormat) {
     const { name, ext } = detectImageExtension(value);

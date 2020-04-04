@@ -1,11 +1,11 @@
 import { HashPage } from '../../../../modules/hash/components/HashPage';
 import { NextPage } from 'next';
 import { fetchHashing } from '../../../../modules/hash/apis/fetchs';
-import { firstOf } from '@wener/utils/src/arrays/firstOf';
+import { firstOfMaybeArray } from '@wener/utils/src';
 
 const Page: NextPage<{ algorithm; content?; initialData? }> = HashPage;
 Page.getInitialProps = async ({ query: { algorithm, content } }) => {
-  algorithm = firstOf(algorithm)?.replace(/[.]html$/, '') || 'md5';
+  algorithm = firstOfMaybeArray(algorithm)?.replace(/[.]html$/, '') || 'md5';
   if (algorithm === 'index') {
     algorithm = 'md5';
   }
