@@ -13,10 +13,10 @@
   "author": "wener",
   "main": "lib/tinyrpc.js",
   "umd:main": "dist/tinyrpc.umd.js",
-  "browser": "dist/tinyrpc.umd.js",
   "module": "dist/tinyrpc.es5.js",
-  "typings": "lib/tinyrpc.d.ts",
   "source": "src/tinyrpc.ts",
+  "browser": "dist/tinyrpc.umd.js",
+  "typings": "lib/tinyrpc.d.ts",
   "files": [
     "lib",
     "README.md",

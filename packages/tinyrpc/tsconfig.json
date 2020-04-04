@@ -3,7 +3,7 @@
     "moduleResolution": "node",
     "target": "ES2019",
     "module": "commonjs",
-    "lib": ["ES2019","dom"],
+    "lib": ["ES2019", "dom"],
     "skipLibCheck": true,
     "strict": true,
     "sourceMap": true,
