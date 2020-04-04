@@ -11,16 +11,25 @@
   },
   "license": "MIT",
   "author": "wener",
-  "main": "lib/tinyrpc.umd.js",
-  "module": "lib/tinyrpc.es5.js",
+  "main": "lib/tinyrpc.js",
+  "umd:main": "dist/tinyrpc.umd.js",
+  "browser": "dist/tinyrpc.umd.js",
+  "module": "dist/tinyrpc.es5.js",
   "typings": "lib/tinyrpc.d.ts",
+  "source": "src/tinyrpc.ts",
   "files": [
     "lib",
+    "README.md",
+    "rollup.config.ts",
+    "tsconfig.jest.json",
+    "jest.config.js",
+    "jest.setup.js",
     "tsconfig.json",
     "src"
   ],
   "scripts": {
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "prebuild": "rm -rf ./lib ./dist",
+    "build": "tsc && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "doc": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "prepare": "yarn build",
     "start": "rollup -c rollup.config.ts -w",
@@ -39,7 +48,7 @@
     "typedoc": "^0.17.3",
     "typescript": "^3.8.3"
   },
-  "peerDependencies": {
+  "optionalDependencies": {
     "isomorphic-unfetch": "^3.0.0"
   },
   "publishConfig": {

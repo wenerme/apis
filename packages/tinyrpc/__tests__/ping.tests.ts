@@ -1,7 +1,7 @@
-import { createServiceConsumer } from '../consumer';
-import { PingService } from '../services/PingService';
-import { GlobalRegistry } from '../global';
-import { createServiceDefinition } from '../ServiceRegistry';
+import { createServiceConsumer } from '../src/consumer';
+import { PingService } from '../src/services/PingService';
+import { GlobalRegistry } from '../src/global';
+import { createServiceDefinition } from '../src/ServiceRegistry';
 
 const consumeMemoryService = createServiceConsumer({ consumer: GlobalRegistry.invoke.bind(GlobalRegistry) });
 

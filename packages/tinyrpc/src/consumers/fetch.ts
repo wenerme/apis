@@ -1,5 +1,5 @@
 import { ServiceInvocationHandler } from '../types';
-import unfetch from 'isomorphic-unfetch';
+// import unfetch from 'isomorphic-unfetch';
 
 type Fetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
@@ -8,7 +8,17 @@ export interface FetchConsumerOptions {
   fetch?: Fetch;
 }
 
-export function createFetchConsumer<T>({ url, fetch = unfetch }: FetchConsumerOptions): ServiceInvocationHandler {
+export function createFetchConsumer<T>({ url, fetch: maybeFetch }: FetchConsumerOptions): ServiceInvocationHandler {
+  if (!maybeFetch && typeof globalThis !== 'undefined' && globalThis.fetch) {
+    maybeFetch = globalThis.fetch;
+  }
+  if (!maybeFetch && typeof window !== 'undefined') {
+    maybeFetch = window.fetch;
+  }
+  if (!maybeFetch) {
+    throw new Error('please pass a fetch implementation to createFetchConsumer');
+  }
+  const fetch: Fetch = maybeFetch;
   return async (req) => {
     const result = fetch(url, {
       method: 'POST',
