@@ -7,6 +7,12 @@
   "files": [
     "lib",
     "tsconfig.json",
+    "tsconfig.jest.json",
+    "tsconfig.ts-node.json",
+    "jest.config.js",
+    "jest.setup.js",
+    ".storybook",
+    "stories",
     "src"
   ],
   "scripts": {
