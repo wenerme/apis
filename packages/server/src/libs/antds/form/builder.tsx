@@ -58,7 +58,7 @@ export interface FormBuilderOptions {
 
 function prefixedObject(entries: any, prefix) {
   return Object.fromEntries(
-    entries.filter(([v]) => v.startsWith(prefix)).map(([k, v]) => [k.substring(prefix.length), v])
+    entries.filter(([v]) => v.startsWith(prefix)).map(([k, v]) => [k.substring(prefix.length), v]),
   );
 }
 
@@ -134,7 +134,8 @@ function buildWidget(field: FormFieldProps, opts?: FormBuilderOptions) {
   if (typeof widget === 'string') {
     const { widgets = [] } = opts ?? {};
 
-    widget = widgets.find((v) => v['displayName'] === widget || v['factoryName'] === widget) ?? Widgets[widget];
+    widget =
+      widgets.find((v) => (v && v['displayName'] === widget) || (v && v['factoryName'] === widget)) ?? Widgets[widget];
     if (!widget) {
       console.error(`invalid widget`, field);
       widget = Widgets['default'];
@@ -235,7 +236,7 @@ export const FormFieldBuilder: React.FC<FormFieldBuilderProps> = (props) => {
   }, deps);
 };
 export const FormFieldsBuilder: React.FC<{ fields: FormFieldProps[]; pure?: boolean } & FormBuilderOptions> = (
-  props
+  props,
 ) => {
   const { fields, children, pure, ...opts } = props;
 

@@ -3,20 +3,29 @@
   "version": "1.0.0-alpha.7",
   "license": "MIT",
   "main": "lib/index.js",
+  "umd:main": "dist/ui.umd.js",
+  "module": "dist/ui.es5.js",
+  "source": "src/index.ts",
+  "browser": "dist/ui.umd.js",
   "typings": "lib/index.d.ts",
   "files": [
-    "lib",
-    "tsconfig.json",
-    "tsconfig.jest.json",
     "tsconfig.ts-node.json",
-    "jest.config.js",
-    "jest.setup.js",
     ".storybook",
     "stories",
-    "src"
+    "lib",
+    "dist",
+    "src",
+    "README.md",
+    "rollup.config.ts",
+    "jest.config.js",
+    "jest.setup.js",
+    "tsconfig.rollup.json",
+    "tsconfig.jest.json",
+    "tsconfig.json"
   ],
   "scripts": {
-    "build": "tsc",
+    "prebuild": "rm -rf ./lib ./dist",
+    "build": "tsc && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "dev": "yarn run storybook",
     "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "format": "yarn prettier --write src stories .storybook ./*.json ./*.js",
@@ -32,6 +41,10 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-typescript": "^4.0.0",
     "@storybook/addon-actions": "^5.3.17",
     "@storybook/addon-centered": "^5.3.17",
     "@storybook/addon-docs": "^5.3.17",
@@ -52,9 +65,12 @@
     "jest": "^25.2.3",
     "react-docgen-typescript-loader": "^3.7.1",
     "react-test-renderer": "^16.13.1",
+    "rollup": "^2.3.2",
     "ts-jest": "^25.2.1",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "typedoc": "^0.17.3"
+    "tslib": "^1.11.1",
+    "typedoc": "^0.17.3",
+    "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.0.3",

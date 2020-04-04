@@ -56,8 +56,8 @@ export interface FormFieldProps {
   /// 将值标准化给组件
   normalize?: (value: any, prevValue: any, prevValues: any) => any;
 
-  help: React.ReactNode;
-  extra: React.ReactNode;
+  help?: React.ReactNode;
+  extra?: React.ReactNode;
   // endregion
 
   /// 字段属性
@@ -77,7 +77,7 @@ export interface FormBuilderOptions {
 
 function prefixedObject(entries: Array<[string, any]>, prefix: string) {
   return Object.fromEntries(
-    entries.filter(([v]) => v.startsWith(prefix)).map(([k, v]) => [k.substring(prefix.length), v])
+    entries.filter(([v]) => v.startsWith(prefix)).map(([k, v]) => [k.substring(prefix.length), v]),
   );
 }
 
@@ -133,8 +133,8 @@ export const Widgets: Record<string, Widget> = {
   number: InputNumber,
   slider: Slider,
   switch: Switch,
-  select: ({ field: { options, name }, ...props }: { field: FormFieldProps }) => {
-    options = normalizeOptions(options || []);
+  select: ({ field: { options = [], name }, ...props }: { field: FormFieldProps }) => {
+    options = normalizeOptions(options);
     return (
       <Select {...props}>
         {options.map(({ label, value }) => (
