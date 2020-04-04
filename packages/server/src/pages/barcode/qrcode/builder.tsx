@@ -1,16 +1,16 @@
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Alert, Form, Input, PageHeader } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import QRCode, { CanvasQRCodeProps, SvgQRCodeProps } from 'qrcode.react';
 import { QrcodeOutlined } from '@ant-design/icons';
 import produce from 'immer';
-import { FormFieldBuilder, FormFieldProps, FormFieldsBuilder } from '../../../libs/antds/form/builder';
-import { SketchColorPicker } from '../../../libs/antds/form/SketchColorPicker';
+import { FormFieldBuilder, FormFieldProps, FormFieldsBuilder } from 'src/libs/antds/form/builder';
+import { SketchColorPicker } from 'src/libs/antds/form/SketchColorPicker';
 import url, { UrlObject } from 'url';
-import { API } from '../../../apis/api';
+import { API } from 'src/apis/api';
 import { merge } from 'lodash';
-import { ResourceLinkButton } from '../../../components/ResourceLinkButton';
+import { ResourceLinkButton } from 'src/components/ResourceLinkButton';
 
 function buildValue(o) {
   const v = o[o.type];
@@ -76,7 +76,7 @@ const QRCodeBuilderPageContent = () => {
     setOptions(
       produce((s) => {
         s.value = value;
-      })
+      }),
     );
     form.setFieldsValue({ value });
   }, [valueObject]);
@@ -137,7 +137,7 @@ const QRCodeBuilderPageContent = () => {
         widget: 'switch',
       },
     ],
-    []
+    [],
   );
 
   const linkProvider = ({ format }) => {
@@ -146,7 +146,7 @@ const QRCodeBuilderPageContent = () => {
       url.format({
         pathname: `/api/barcode/qrcode/svg/${encodeURIComponent(value)}`,
         query: query as any,
-      } as UrlObject)
+      } as UrlObject),
     );
     return svgUrl;
   };
@@ -162,7 +162,7 @@ const QRCodeBuilderPageContent = () => {
               setValueObject(
                 produce((s) => {
                   merge(s, v);
-                })
+                }),
               );
             }}
             labelCol={{ span: 6 }}
@@ -253,7 +253,7 @@ const QRCodeBuilderPageContent = () => {
               setOptions(
                 produce((s) => {
                   Object.assign(s, v);
-                })
+                }),
               );
             }}
             labelCol={{ span: 6 }}

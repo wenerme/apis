@@ -1,18 +1,18 @@
 import { BarcodeOutlined, BorderlessTableOutlined, EditOutlined, PartitionOutlined } from '@ant-design/icons/lib';
-import QrcodePrintOutlined from '../../icons/QrcodePrintOutlined';
-import QrcodeReadOutlined from '../../icons/QrcodeReadOutlined';
-import BarcodePrintOutlined from '../../icons/BarcodePrintOutlined';
-import BarcodeReadOutlined from '../../icons/BarcodeReadOutlined';
-import WebTorrentFilled from '../../icons/WebTorrentFilled';
-import RtcOutlined from '../../icons/RtcOutlined';
-import DictOutlined from '../../icons/DictOutlined';
-import IpfsOutlined from '../../icons/IpfsOutlined';
-import { HashingAlgorithms } from '../../../modules/hash/types';
+import QrcodePrintOutlined from '@wener/ui/src/icons/components/QrcodePrintOutlined';
+import QrcodeReadOutlined from '@wener/ui/src/icons/components/QrcodeReadOutlined';
+import BarcodePrintOutlined from '@wener/ui/src/icons/components/BarcodePrintOutlined';
+import BarcodeReadOutlined from '@wener/ui/src/icons/components/BarcodeReadOutlined';
+import WebTorrentFilled from '@wener/ui/src/icons/components/WebTorrentFilled';
+import RtcOutlined from '@wener/ui/src/icons/components/RtcOutlined';
+import DictOutlined from '@wener/ui/src/icons/components/DictOutlined';
+import IpfsOutlined from '@wener/ui/src/icons/components/IpfsOutlined';
+import { HashingAlgorithms } from 'src/modules/hash/types';
 import React from 'react';
 import { MenuSpec } from '../LayoutFrame/types';
 
 import { EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';
-import CertificateVerifiedBadgeOutlined from '../../icons/CertificateVerifiedBadgeOutlined';
+import CertificateVerifiedBadgeOutlined from '@wener/ui/src/icons/components/CertificateVerifiedBadgeOutlined';
 
 export const menus: MenuSpec[] = [
   {

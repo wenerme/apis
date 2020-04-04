@@ -1,5 +1,5 @@
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { PageHeader } from 'antd';
 import React from 'react';
 
@@ -10,8 +10,8 @@ const LocationMePageContent = dynamic(
   () => import('../../modules/geo/components/LocationMePageContent').then((v) => v.LocationMePageContent),
   {
     ssr: false,
-    loading: () => <div>加载中...</div>
-  }
+    loading: () => <div>加载中...</div>,
+  },
 );
 
 const LocationMePage: React.FC = () => {

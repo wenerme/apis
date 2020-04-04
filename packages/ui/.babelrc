@@ -1,0 +1,24 @@
+{
+  "presets": ["@babel/preset-typescript"],
+  "plugins": [
+    [
+      "inline-react-svg",
+      {
+        "svgo": false
+      }
+    ],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ],
+    ["styled-components"]
+  ]
+}

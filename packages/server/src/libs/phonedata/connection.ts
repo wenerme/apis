@@ -1,4 +1,4 @@
-import { createApisConnectionFactory } from '../../db/apis';
+import { createApisConnectionFactory } from 'src/db/apis';
 import { PhoneDataIndexEntity, PhoneDataRecordEntity } from './schema';
 
 export const createPhoneDataConnection = createApisConnectionFactory({

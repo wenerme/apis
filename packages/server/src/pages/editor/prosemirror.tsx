@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, Checkbox, Divider, PageHeader } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
 // FIXME
 // import 'prosemirror-view/style/prosemirror.css';
 // import 'prosemirror-menu/style/menu.css';
 // import 'prosemirror-gapcursor/style/gapcursor.css';
-import { createEditor, EditorInstance, ProseMirrorEditor } from '../../components/editor/ProseMirrorEditor';
+import { createEditor, EditorInstance, ProseMirrorEditor } from 'src/components/editor/ProseMirrorEditor';
 import { defaultMarkdownSerializer } from 'prosemirror-markdown';
 import produce from 'immer';
 import { DOMSerializer } from 'prosemirror-model';
@@ -71,7 +71,7 @@ const ProseMirrorEditorPageContent: React.FC = () => {
               setSetting(
                 produce((s) => {
                   s.markdown = e.target.checked;
-                })
+                }),
               )
             }
           >
@@ -105,7 +105,7 @@ const ProseMirrorEditorPageContent: React.FC = () => {
 
 const Page = () => {
   return (
-    <PageLayout title="ProseMirror" description="ProseMirror React Demo" keywords="ProseMirror editor react" >
+    <PageLayout title="ProseMirror" description="ProseMirror React Demo" keywords="ProseMirror editor react">
       <PageContent>
         <PageHeader
           title={

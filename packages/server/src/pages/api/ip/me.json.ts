@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getClientAddress } from '../../../libs/nexts/utils/requests';
-import { cors } from '../../../libs/nexts/middlewares/cors';
+import { getClientAddress } from 'src/libs/nexts/utils/requests';
+import { cors } from 'src/libs/nexts/middlewares/cors';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const address = getClientAddress(req);

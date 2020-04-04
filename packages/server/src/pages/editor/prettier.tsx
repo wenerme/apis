@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, message, PageHeader, Select } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
-import { SimpleCodeEditor } from '../../components/editor/SimpleCodeEditor';
-import { usePrismTheme } from '../../hooks/prism';
+import { SimpleCodeEditor } from 'src/components/editor/SimpleCodeEditor';
+import { usePrismTheme } from 'src/hooks/prism';
 import components from 'prismjs/components';
 import { loadScripts } from '@wener/utils/src/browsers/loaders';
-import { PrismHighlight } from '../../components/PrismHighlight';
+import { PrismHighlight } from 'src/components/PrismHighlight';
 
 // https://prettier.io/docs/en/options.html#parser
 // https://unpkg.com/browse/prettier@2.0.2/
@@ -31,12 +31,12 @@ const languages = [
 
   { lang: 'lwc', parsers: ['html'], highlight: 'html' },
   { lang: 'vue', parsers: ['html'], highlight: 'html' },
-  { lang: 'angular', parsers: ['angular'], highlight: 'html' }
+  { lang: 'angular', parsers: ['angular'], highlight: 'html' },
 ];
 
 const parserMapping = {
   'babel-ts': 'babel',
-  'babel-flow': 'babel'
+  'babel-flow': 'babel',
 };
 
 const languageByLang = languages.reduce((o, v) => {
@@ -79,7 +79,7 @@ nvm use 12
 
       const format = window['prettier'].format(code, {
         parser: languageByLang[language].useParserName ? parser : language,
-        plugins: window['prettierPlugins']
+        plugins: window['prettierPlugins'],
       });
       setFormatted(format);
     } catch (e) {
@@ -170,8 +170,11 @@ nvm use 12
 
 const Page = () => {
   return (
-    <PageLayout title="Prettier Code / 代码格式化" description="Prettier online format"
-                keywords="prettier demo, react nextjs, zeit now, code format">
+    <PageLayout
+      title="Prettier Code / 代码格式化"
+      description="Prettier online format"
+      keywords="prettier demo, react nextjs, zeit now, code format"
+    >
       <PageContent>
         <PageHeader
           title={

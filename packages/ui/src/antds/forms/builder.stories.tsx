@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import { Button, Divider, Form } from 'antd';
-import { buildInitialValues, FormFieldProps, FormFieldsBuilder } from 'src/antds/forms/builder';
+import { buildInitialValues, FormFieldProps, FormFieldsBuilder } from './builder';
 import centered from '@storybook/addon-centered/react';
 import { action } from '@storybook/addon-actions';
 import { useAntdTheme } from '@wener/apis-server/src/hooks/useAntdTheme';
 import { FormFieldBuilder } from '@wener/apis-server/src/libs/antds/form/builder';
 import { FormInstance } from 'antd/lib/form';
-import { withProps } from 'src/hocs';
-import _ = require('lodash');
+import { withProps } from '../../hocs/withProps';
+import _ from 'lodash';
 
 export default {
   title: 'antds/forms/builder',

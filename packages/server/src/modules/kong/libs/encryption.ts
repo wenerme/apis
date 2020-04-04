@@ -1,4 +1,4 @@
-import { Base64Url } from '../../../utils/base';
+import { Base64Url } from 'src/utils/base';
 
 export async function encrypt(v): Promise<{ encrypted; secret }> {
   const encoder = new TextEncoder();
@@ -11,7 +11,7 @@ export async function encrypt(v): Promise<{ encrypted; secret }> {
       length: 64,
     },
     key,
-    encoder.encode(v)
+    encoder.encode(v),
   );
   const keyRaw = await crypto.subtle.exportKey('raw', key);
   // console.log(await crypto.subtle.exportKey('jwk', key))

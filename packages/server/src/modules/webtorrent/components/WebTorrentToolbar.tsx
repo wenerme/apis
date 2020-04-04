@@ -2,7 +2,7 @@ import React from 'react';
 import { Instance } from 'webtorrent';
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd';
-import { showDialog } from '../../../reducers/webtorrent';
+import { showDialog } from 'src/reducers/webtorrent';
 import {
   DeleteOutlined,
   DownloadOutlined,
@@ -10,8 +10,8 @@ import {
   PlaySquareOutlined,
   UploadOutlined,
 } from '@ant-design/icons/lib';
-import { useRootSelector } from '../../../reducers/store';
-import { doDeleteSelections, doPauseSelections, doResumeSelections } from '../../../reducers/webtorrent/actions';
+import { useRootSelector } from 'src/reducers/store';
+import { doDeleteSelections, doPauseSelections, doResumeSelections } from 'src/reducers/webtorrent/actions';
 
 export const WebTorrentToolbar: React.FC<{ client: Instance }> = ({ client }) => {
   const hasSelection = useRootSelector((v) => Boolean(v.webtorrent.selections?.length));

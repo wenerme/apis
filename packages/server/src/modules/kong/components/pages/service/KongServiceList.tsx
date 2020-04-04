@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { normalizeColumns } from '../../../../../libs/antds/table/normal';
+import { normalizeColumns } from 'src/libs/antds/table/normal';
 import URI from 'urijs';
 import { createEntityColumns, KongEntityTable } from '../../entity/KongEntityTable';
 import { ServiceForm } from './ServiceForm';
@@ -29,9 +29,9 @@ export const KongServiceList: React.FC = (props) => {
           { dataIndex: 'connect_timeout', title: '链接超时', width: 100 },
           { dataIndex: 'write_timeout', title: '写超时', width: 100 },
           { dataIndex: 'read_timeout', title: '读超时', width: 100 },
-        ])
+        ]),
       ),
-    []
+    [],
   );
 
   return (

@@ -1,4 +1,4 @@
 import React from 'react';
-import { PhoneAttributionPage } from '../../../modules/phone/components/PhoneAttributionPage';
+import { PhoneAttributionPage } from 'src/modules/phone/components/PhoneAttributionPage';
 
 export default PhoneAttributionPage;

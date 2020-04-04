@@ -1,5 +1,5 @@
 import { Form, Modal } from 'antd';
-import { buildInitialValues, FormFieldsBuilder } from '../../../libs/antds/form/builder';
+import { buildInitialValues, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import React, { useEffect } from 'react';
 import { FormInstance } from 'antd/lib/form';
 
@@ -37,7 +37,7 @@ export function openFormPromote({ title, fields: originFields, callback }) {
       label,
       required,
       defaultValue: value,
-    })
+    }),
   );
   let form: FormInstance = null;
   Modal.confirm({

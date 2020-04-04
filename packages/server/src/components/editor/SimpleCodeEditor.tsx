@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
-import { usePrismLanguage } from '../../hooks/prism';
+import { usePrismLanguage } from 'src/hooks/prism';
 
 export const SimpleCodeEditor: React.FC<{
   value;

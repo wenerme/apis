@@ -1,6 +1,6 @@
 import React from 'react';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { PageHeader } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 

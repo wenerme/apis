@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { flow } from 'lodash';
-import { handleErrors } from '../../../../../libs/nexts/middlewares/errors';
-import { BarcodeOptions, renderBarcode } from '../../../../../libs/barcodes/renders';
+import { handleErrors } from 'src/libs/nexts/middlewares/errors';
+import { BarcodeOptions, renderBarcode } from 'src/libs/barcodes/renders';
 import objectHash from 'object-hash';
 import { firstOfMaybeArray } from '@wener/utils/src';
 

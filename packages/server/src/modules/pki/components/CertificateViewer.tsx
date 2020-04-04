@@ -1,7 +1,7 @@
 import React from 'react';
 import Certificate from 'pkijs/src/Certificate';
 import { Descriptions } from 'antd';
-import { Base16 } from '../../../utils/base';
+import { Base16 } from 'src/utils/base';
 import { format } from 'date-fns';
 
 // http://www.oid-info.com/get/2.5.4
@@ -188,7 +188,7 @@ export const CertificateViewer: React.FC<{ cert: Certificate }> = ({ cert }) => 
                         <Descriptions.Item label={oidOf(k)} key={k}>
                           {stringOf(v)}
                         </Descriptions.Item>
-                      )
+                      ),
                     )}
               </Descriptions>
             }

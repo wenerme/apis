@@ -9,7 +9,7 @@ import {
   SettingFilled,
 } from '@ant-design/icons/lib';
 import { useDispatch } from 'react-redux';
-import { toggleConsole } from '../../../reducers/webtorrent';
+import { toggleConsole } from 'src/reducers/webtorrent';
 
 export const StatusBar: React.FC<{ client: Instance }> = ({ client }) => {
   const dispatch = useDispatch();

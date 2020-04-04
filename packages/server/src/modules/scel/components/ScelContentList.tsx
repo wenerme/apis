@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScelContent, ScelWord } from '../../../libs/formats/scel/types';
+import { ScelContent, ScelWord } from 'src/libs/formats/scel/types';
 import { AutoSizer, List } from 'react-virtualized';
 import { Descriptions, Input } from 'antd';
 

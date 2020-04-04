@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Input, message, Modal, Radio } from 'antd';
-import { FormFieldBuilder, FormFieldsBuilder } from '../../../libs/antds/form/builder';
+import { FormFieldBuilder, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import { FileOutlined, FileTextOutlined } from '@ant-design/icons/lib';
-import { useRootSelector } from '../../../reducers/store';
+import { useRootSelector } from 'src/reducers/store';
 import { useDispatch } from 'react-redux';
-import { hideDialog } from '../../../reducers/webtorrent';
-import { doCreateSeed } from '../../../reducers/webtorrent/actions';
+import { hideDialog } from 'src/reducers/webtorrent';
+import { doCreateSeed } from 'src/reducers/webtorrent/actions';
 
 export const NewSeedModal: React.FC = () => {
   const visible = useRootSelector((v) => v.webtorrent.showDialog === 'new-seed');

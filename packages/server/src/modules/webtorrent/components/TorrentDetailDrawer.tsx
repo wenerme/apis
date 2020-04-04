@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Drawer } from 'antd';
-import { useRootSelector } from '../../../reducers/store';
+import { useRootSelector } from 'src/reducers/store';
 import { useDispatch } from 'react-redux';
-import { hideTorrentDetail } from '../../../reducers/webtorrent';
+import { hideTorrentDetail } from 'src/reducers/webtorrent';
 import { getCurrentWebTorrentClient } from '../client';
 import { Torrent } from 'webtorrent';
 import { TorrentDetailPanel } from './TorrentDetailPanel';

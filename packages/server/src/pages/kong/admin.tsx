@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import dynamic from 'next/dynamic';
 
 const KongAdminUI = dynamic(
@@ -7,7 +7,7 @@ const KongAdminUI = dynamic(
   {
     loading: () => <div>Loading KongAdminUI</div>,
     ssr: false,
-  }
+  },
 );
 
 const KongAdminPageContent: React.FC = () => {

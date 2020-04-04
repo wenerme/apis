@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { useNamedTheme } from 'src/hooks/useNamedTheme';
+import { useNamedTheme } from '../../../hooks/useNamedTheme';
 
 export const LayoutFrameContent: React.FC<{ style?: CSSProperties }> = ({ children, style }) => {
   const [theme] = useNamedTheme();

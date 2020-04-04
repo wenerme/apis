@@ -7,7 +7,7 @@ module.exports = {
     '@storybook/addon-links',
     // 不太好看
     // '@storybook/addon-info',
-    // '@storybook/addon-knobs',
+    '@storybook/addon-knobs',
     '@storybook/addon-docs',
     '@storybook/addon-viewport',
     '@storybook/addon-storysource',

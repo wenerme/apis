@@ -1,10 +1,5 @@
 import React, { useMemo } from 'react';
-import {
-  buildInitialValues,
-  FormFieldBuilder,
-  FormFieldProps,
-  FormFieldsBuilder,
-} from '../../../../libs/antds/form/builder';
+import { buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import { omitBy } from 'lodash';
 import { Button, Form } from 'antd';
 import { Trans } from 'react-i18next';

@@ -1,6 +1,6 @@
-import { createDownload, CreateDownloadOptions } from '../../modules/webtorrent/libs/downloads';
-import { createSeed, CreateSeedOptions } from '../../modules/webtorrent/libs/seeds';
-import { getCurrentWebTorrentClient } from '../../modules/webtorrent/client';
+import { createDownload, CreateDownloadOptions } from 'src/modules/webtorrent/libs/downloads';
+import { createSeed, CreateSeedOptions } from 'src/modules/webtorrent/libs/seeds';
+import { getCurrentWebTorrentClient } from 'src/modules/webtorrent/client';
 import { RootState } from '../store';
 import { Torrent } from 'webtorrent';
 

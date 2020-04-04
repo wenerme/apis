@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createScelDataService } from '../../../libs/sougou/dict/ScelDataService';
+import { createScelDataService } from 'src/libs/sougou/dict/ScelDataService';
 import Link from 'next/link';
 
 export const ScelDictRecommend: React.FC = () => {

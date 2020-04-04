@@ -1,6 +1,6 @@
-import { createScelDataService, ScelMetadata } from '../../../../../libs/sougou/dict/ScelDataService';
+import { createScelDataService, ScelMetadata } from 'src/libs/sougou/dict/ScelDataService';
 import { NextPage } from 'next';
-import { ScelDictPage } from '../../../../../modules/scel/components/ScelDictPage';
+import { ScelDictPage } from 'src/modules/scel/components/ScelDictPage';
 
 const Page: NextPage<{
   dictId;

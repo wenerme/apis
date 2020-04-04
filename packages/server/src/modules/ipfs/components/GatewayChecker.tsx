@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { checkGateways, compareCheckState, OnScriptloaded } from '../../../libs/ipfs/gateway/checker';
-import { getPreferIpfsGateway, setPreferIpfsGateway } from '../../../libs/ipfs/gateway/selector';
+import { checkGateways, compareCheckState, OnScriptloaded } from 'src/libs/ipfs/gateway/checker';
+import { getPreferIpfsGateway, setPreferIpfsGateway } from 'src/libs/ipfs/gateway/selector';
 import { Button } from 'antd';
 
 export const GatewayChecker: React.FC<{ gateways: string[] }> = ({ gateways }) => {

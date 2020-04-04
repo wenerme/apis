@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { handleErrors } from '../../../libs/nexts/middlewares/errors';
+import { handleErrors } from 'src/libs/nexts/middlewares/errors';
 import { flow, sortedIndexBy } from 'lodash';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
-import { ScelCompactIndex } from '../../../libs/sougou/dict/ScelDataService';
+import { ScelCompactIndex } from 'src/libs/sougou/dict/ScelDataService';
 
 // const index: ScelCompactIndex = require('public/data/scel/index.full.json');\
 // FIXME

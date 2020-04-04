@@ -1,4 +1,4 @@
-import { PasswordStrengthPage } from '../../../modules/password/components/PasswordStrengthPage';
+import { PasswordStrengthPage } from 'src/modules/password/components/PasswordStrengthPage';
 import { NextPage } from 'next';
 
 const Page: NextPage<{ initialValue }> = PasswordStrengthPage;

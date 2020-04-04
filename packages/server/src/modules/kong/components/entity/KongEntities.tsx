@@ -1,6 +1,6 @@
 import { OperationColumn, TagsField } from './KongEntityTable';
 import { renderTags, renderTimeStamp } from '../renders';
-import { normalizeColumns } from '../../../../libs/antds/table/normal';
+import { normalizeColumns } from 'src/libs/antds/table/normal';
 import { mapValues } from 'lodash';
 
 export const KongEntities: Record<string, { attributes; fields?; columns? } & any> = {
@@ -105,7 +105,7 @@ export function buildEntity(entity) {
       width: 160,
       render: renderTimeStamp,
     },
-    OperationColumn
+    OperationColumn,
   );
   entity.columns = normalizeColumns(entity.columns);
 

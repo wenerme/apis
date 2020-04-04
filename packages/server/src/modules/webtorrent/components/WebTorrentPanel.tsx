@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Instance } from 'webtorrent';
-import { InstanceStatus, setInstanceStatus } from '../../../libs/webtorrents/status';
-import { useInterval } from '@wener/utils/src/reactx/hooks/useInterval';
+import { InstanceStatus, setInstanceStatus } from 'src/libs/webtorrents/status';
+import { useInterval } from '@wener/ui';
 import { getCurrentWebTorrentClient } from '../client';
 import produce from 'immer';
 import { TorrentTable } from './TorrentTable';
@@ -18,7 +18,7 @@ export const WebTorrentPanel: React.FC<{ client: Instance }> = ({ client }) => {
     setClientStatus(
       produce((s) => {
         setInstanceStatus(s, c);
-      })
+      }),
     );
   }, 3000);
 

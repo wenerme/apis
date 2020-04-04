@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook } from 'react-redux';
 import React, { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import { MenuSpec } from './types';
-import { LayoutFrameState } from 'src/antds/layouts/LayoutFrame/state';
+import { LayoutFrameState } from './state';
 import { BehaviorSubject } from 'rxjs';
 import produce from 'immer';
 

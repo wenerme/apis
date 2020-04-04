@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { handleErrors } from '../../../../libs/nexts/middlewares/errors';
+import { handleErrors } from 'src/libs/nexts/middlewares/errors';
 import { flow } from 'lodash';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
-import { getCertificateByUrl } from '../../../../libs/pki/utils/getCertificateByUrl';
+import { getCertificateByUrl } from 'src/libs/pki/utils/getCertificateByUrl';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {

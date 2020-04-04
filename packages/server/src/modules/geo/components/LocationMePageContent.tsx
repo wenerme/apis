@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Console as ConsoleFeed, Hook, Unhook } from 'console-feed';
-import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/ui';
 import { Descriptions } from 'antd';
 import { HookedConsole } from 'console-feed/lib/definitions/Console';
 

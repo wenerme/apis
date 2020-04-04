@@ -1,9 +1,9 @@
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import React from 'react';
 import { PageHeader } from 'antd';
-import { WebRTCChecker } from '../../modules/webrtc/components/WebRTCChecker';
-import { useMounted } from '@wener/utils/src/reactx/hooks/useMounted';
+import { WebRTCChecker } from 'src/modules/webrtc/components/WebRTCChecker';
+import { useMounted } from '@wener/ui';
 import RtcOutlined from '../../components/icons/RtcOutlined';
 
 const Page = () => {

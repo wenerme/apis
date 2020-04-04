@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { PageHeader, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
 import dynamic from 'next/dynamic';
 import components from 'prismjs/components';
-import { usePrismTheme } from '../../hooks/prism';
+import { usePrismTheme } from 'src/hooks/prism';
 
 const SimpleCodeEditor = dynamic(
   () => import('../../components/editor/SimpleCodeEditor').then(({ SimpleCodeEditor }) => SimpleCodeEditor),
   {
-    loading: () => <div>Loading...</div>
-  }
+    loading: () => <div>Loading...</div>,
+  },
 );
 const DemoPageContent: React.FC = () => {
   const [lang, setLang] = useState('tsx');

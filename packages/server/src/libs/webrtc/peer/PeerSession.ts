@@ -4,7 +4,7 @@ import { getCandidates, getPeerConnectionState } from '../rtcs';
 import { clearAsyncInterval, setAsyncInterval } from '@wener/utils/src/asyncs/AsyncInterval';
 import produce from 'immer';
 import { isFunction } from 'lodash';
-import { promiseOfSubject } from '../../../utils/rxjsx';
+import { promiseOfSubject } from 'src/utils/rxjsx';
 import { PeerManager } from './PeerManager';
 import { RTCPeerConnection } from 'isomorphic-webrtc';
 import moment from 'moment';
@@ -89,7 +89,7 @@ export class PeerSession {
         if (isFunction(updater)) {
           updater(s);
         }
-      }
+      },
     ) as PeerSessionConnectionState;
 
     if (this.connectionState.value === neo) {
@@ -126,7 +126,7 @@ export class PeerSession {
         }
       },
       5000,
-      1000
+      1000,
     );
 
     this.connectionState.subscribe((v) => {

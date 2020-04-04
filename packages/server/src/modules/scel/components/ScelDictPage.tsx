@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { createScelDataService, ScelMetadata } from '../../../libs/sougou/dict/ScelDataService';
+import { createScelDataService, ScelMetadata } from 'src/libs/sougou/dict/ScelDataService';
 import { Button, Descriptions, PageHeader } from 'antd';
 import moment from 'moment';
 import unfetch from 'isomorphic-unfetch';
-import { enrichContent, parseScelContent, parseScelHeader } from '../../../libs/formats/scel/parser';
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { enrichContent, parseScelContent, parseScelHeader } from 'src/libs/formats/scel/parser';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import Head from 'next/head';
 import { ScelContentList } from './ScelContentList';
 import { Buffer } from 'buffer/';
 import { ScelFooter } from './ScelFooter';
-import { fetchProgress } from '../../../utils/fetch-progress';
+import { fetchProgress } from 'src/utils/fetch-progress';
 import { BookOutlined, DownloadOutlined } from '@ant-design/icons';
 
 const ScelMetaDescription: React.FC<{ metadata: ScelMetadata }> = ({ metadata }) => {
@@ -86,9 +86,9 @@ export const ScelDictPage: React.FC<{
               onProgress({ percentage, transferred, total, speed }) {
                 setLoadInfo(`${percentage.toFixed(2)}% - ${transferred}/${total} - ${Math.round(speed / 5)}/s`);
               },
-            })
+            }),
           )
-          .then((v) => v.arrayBuffer())) as any
+          .then((v) => v.arrayBuffer())) as any,
       );
 
       const content = parseScelContent(buffer as any);

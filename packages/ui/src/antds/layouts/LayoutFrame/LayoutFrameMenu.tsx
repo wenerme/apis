@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { MenuSpec } from './types';
 import { Menu } from 'antd';
 import { useLayoutFrameOptions } from './layout';
-import { useNamedTheme } from 'src/hooks/useNamedTheme';
+import { useNamedTheme } from '../../../hooks/useNamedTheme';
 
 interface RenderOptions {
   link: React.FunctionComponent<{ href }> | React.ComponentClass<{ href }> | string;

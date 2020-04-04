@@ -1,8 +1,8 @@
 import React, { useReducer, useState } from 'react';
-import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/ui';
 import { getKongService } from '../../../apis/client';
 import { Button, Table, Tag } from 'antd';
-import { normalizeColumns } from '../../../../../libs/antds/table/normal';
+import { normalizeColumns } from 'src/libs/antds/table/normal';
 import { ReloadOutlined } from '@ant-design/icons/lib';
 import { Trans, useTranslation } from 'react-i18next';
 import { groupBy, mapValues } from 'lodash';

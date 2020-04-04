@@ -1,14 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { normalizeColumns } from '../../../../../libs/antds/table/normal';
+import { normalizeColumns } from 'src/libs/antds/table/normal';
 import { KongRouteEntity } from '../../../apis/types';
 import { renderArrayOfString, renderBoolean, renderTags } from '../../renders';
 import { Button, Divider, Form } from 'antd';
-import {
-  buildInitialValues,
-  FormFieldBuilder,
-  FormFieldProps,
-  FormFieldsBuilder,
-} from '../../../../../libs/antds/form/builder';
+import { buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import { createEntityColumns, KongEntityTable, KongEntityTableProps } from '../../entity/KongEntityTable';
 import { flatMapDeep, keyBy, omitBy, uniq } from 'lodash';
 import { EntitySelect } from '../../entity/EntitySelect';

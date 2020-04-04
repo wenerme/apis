@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Alert, Input, PageHeader } from 'antd';
 import { PhoneAttributionDetail } from './PhoneAttributionDetail';
-import { useFetchEffect } from '../../../hooks/useFetchEffect';
+import { useFetchEffect } from 'src/hooks/useFetchEffect';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { API } from '../../../apis/api';
+import { API } from 'src/apis/api';
 import { createRandom } from '@wener/utils/src/maths/random';
 import { PhoneOutlined } from '@ant-design/icons';
 

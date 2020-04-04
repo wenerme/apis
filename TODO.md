@@ -8,6 +8,9 @@
     * [ ] map
     * [ ] set
     * [ ] non string array
+* [ ] p2 迁移 icons 到 @wener/ui
+* [ ] p3 icons 生成 manfiest
+* [ ] p4 为 antd 图标生成名字引用
 
 ## 20200405
 

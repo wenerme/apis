@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import objectHash from 'object-hash';
-import { handleErrors } from '../../../../../libs/nexts/middlewares/errors';
+import { handleErrors } from 'src/libs/nexts/middlewares/errors';
 import { flow } from 'lodash';
 
 type QrCodeProps = CanvasQRCodeProps | SvgQRCodeProps;

@@ -1,9 +1,9 @@
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
-import { GatewayChecker } from '../../../modules/ipfs/components/GatewayChecker';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
+import { GatewayChecker } from 'src/modules/ipfs/components/GatewayChecker';
 import React from 'react';
 import { Alert, PageHeader } from 'antd';
-import { PublicGateways } from '../../../libs/ipfs/gateway/gateways';
+import { PublicGateways } from 'src/libs/ipfs/gateway/gateways';
 import { FileOutlined } from '@ant-design/icons';
 
 const Page = () => {

@@ -1,7 +1,7 @@
-import { ScelDirectoryIpfsHash } from '../../libs/sougou/dict/ScelDataService';
-import { PublicGateways } from '../../libs/ipfs/gateway/gateways';
+import { ScelDirectoryIpfsHash } from 'src/libs/sougou/dict/ScelDataService';
+import { PublicGateways } from 'src/libs/ipfs/gateway/gateways';
 import fs from 'fs';
-import { buildIpfsUrl, detectingDummyFastestGateway } from '../../libs/ipfs/gateway/selector';
+import { buildIpfsUrl, detectingDummyFastestGateway } from 'src/libs/ipfs/gateway/selector';
 import unfetch from 'isomorphic-unfetch';
 import { lineInFile } from './utils';
 
@@ -18,16 +18,16 @@ async function main() {
 
   fs.writeFileSync(
     'public/data/scel/index.csv',
-    await unfetch(buildIpfsUrl(gateway, ScelDirectoryIpfsHash, 'index.csv')).then((v) => v.text())
+    await unfetch(buildIpfsUrl(gateway, ScelDirectoryIpfsHash, 'index.csv')).then((v) => v.text()),
   );
   fs.writeFileSync(
     'public/data/scel/index.full.json',
     JSON.stringify(
       Object.assign(
         await unfetch(buildIpfsUrl(gateway, ScelDirectoryIpfsHash, 'index.full.json')).then((v) => v.json()),
-        { hash: ScelDirectoryIpfsHash }
-      )
-    )
+        { hash: ScelDirectoryIpfsHash },
+      ),
+    ),
   );
 }
 

@@ -1,6 +1,6 @@
 import centered from '@storybook/addon-centered/react';
 import React from 'react';
-import { BoxShuffle } from 'src/loaders/BoxShuffle';
+import { BoxShuffle } from './BoxShuffle';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
 export default {

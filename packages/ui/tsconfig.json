@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "importHelpers": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
@@ -19,10 +20,7 @@
     "declaration": true,
     "sourceMap": true,
     "outDir": "lib",
-    "baseUrl": ".",
-    "paths": {
-      "src/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules"],
   "include": ["src"]

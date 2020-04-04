@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Layout } from 'antd';
 import { LayoutFrameSider } from './LayoutFrameSider';
-import { useLayoutFrame } from 'src/antds/layouts/LayoutFrame/layout';
-import { useNamedTheme } from 'src/hooks/useNamedTheme';
+import { useLayoutFrame } from './layout';
+import { useNamedTheme } from '../../../hooks/useNamedTheme';
 
 export interface LayoutFrameLayoutProps {
   showHeader?: boolean;

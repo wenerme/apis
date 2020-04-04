@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, PageHeader } from 'antd';
-import { useMounted } from '@wener/utils/src/reactx/hooks/useMounted';
-import { getCurrentWebTorrentClient, getWebTorrentClient } from '../../modules/webtorrent/client';
+import { useMounted } from '@wener/ui';
+import { getCurrentWebTorrentClient, getWebTorrentClient } from 'src/modules/webtorrent/client';
 import { Instance } from 'webtorrent';
 import dynamic from 'next/dynamic';
 import WebTorrentFilled from '../../components/icons/WebTorrentFilled';
@@ -13,7 +13,7 @@ const WebTorrentClient = dynamic(
   {
     loading: () => <div>Loading WebTorrentClient ...</div>,
     ssr: false,
-  }
+  },
 );
 
 const WebTorrentPageContent: React.FC = () => {

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/ui';
 import produce from 'immer';
 import './WebConsole.module.css';
 import { HookedConsole } from 'console-feed/lib/definitions/Console';

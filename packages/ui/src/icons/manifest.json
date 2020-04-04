@@ -1,1 +1,71 @@
-{}
+[
+  {
+    "name": "BarcodePrintOutlined"
+  },
+  {
+    "name": "BarcodeReadOutlined"
+  },
+  {
+    "name": "BarcodeScanOutlined"
+  },
+  {
+    "name": "BittorrentFilled"
+  },
+  {
+    "name": "BtFileFilled"
+  },
+  {
+    "name": "CaCertificateOutlined"
+  },
+  {
+    "name": "CertificateVerifiedBadgeOutlined"
+  },
+  {
+    "name": "CertificateVerifiedFilled"
+  },
+  {
+    "name": "DarkModeFilled"
+  },
+  {
+    "name": "DictOutlined"
+  },
+  {
+    "name": "ExternalLinkOutlined"
+  },
+  {
+    "name": "HashLock"
+  },
+  {
+    "name": "IpfsOutlined"
+  },
+  {
+    "name": "KongLogo"
+  },
+  {
+    "name": "LightModeFilled"
+  },
+  {
+    "name": "MagnetOutlined"
+  },
+  {
+    "name": "QrcodePrintOutlined"
+  },
+  {
+    "name": "QrcodeReadOutlined"
+  },
+  {
+    "name": "RtcOutlined"
+  },
+  {
+    "name": "TorrentFileFilled"
+  },
+  {
+    "name": "UTorrentFilled"
+  },
+  {
+    "name": "WebTorrentFilled"
+  },
+  {
+    "name": "WikipediaOutlined"
+  }
+]

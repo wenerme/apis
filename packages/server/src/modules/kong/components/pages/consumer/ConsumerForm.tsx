@@ -1,6 +1,6 @@
 import React from 'react';
 import { TagsField } from '../../entity/KongEntityTable';
-import { withProps } from '@wener/utils/src/reactx/hocs/withProps';
+import { withProps } from '@wener/ui';
 import { EntityForm } from '../../entity/EntityForm';
 
 export const ConsumerForm = withProps(EntityForm, {

@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import { BehaviorSubject } from 'rxjs';
-import { handleErrors } from '../../../../libs/nexts/middlewares/errors';
+import { handleErrors } from 'src/libs/nexts/middlewares/errors';
 import { flow } from 'lodash';
 import { addMinutes, min } from 'date-fns';
 import { applyPatches } from 'immer';
-import { cors } from '../../../../libs/nexts/middlewares/cors';
+import { cors } from 'src/libs/nexts/middlewares/cors';
 import uuidv4 from 'uuid/v4';
-import { platformNotSupported } from '../../../../servers/platforms';
+import { platformNotSupported } from 'src/servers/platforms';
 import { isDev } from '@wener/utils/src/envs/isDev';
 
 interface SessionInit {
@@ -40,7 +40,7 @@ class Session {
       id: this.id,
       data: {},
       createdAt: this.createdAt,
-      expiredAt: this.expiredAt
+      expiredAt: this.expiredAt,
     });
   }
 
@@ -224,7 +224,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
       },
       onClose(reason) {
         resolve();
-      }
+      },
     });
 
     res.on('close', () => leave());
@@ -272,7 +272,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default flow([
   cors({
-    origin: ['http://localhost:3000', 'https://apis.wener.me']
+    origin: ['http://localhost:3000', 'https://apis.wener.me'],
   }),
-  handleErrors()
+  handleErrors(),
 ])(handler);

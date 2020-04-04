@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Form, message, Modal, Radio } from 'antd';
-import { FormFieldBuilder, FormFieldsBuilder } from '../../../libs/antds/form/builder';
+import { FormFieldBuilder, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import MagnetOutlined from '../../../components/icons/MagnetOutlined';
 import TorrentFileFilled from '../../../components/icons/TorrentFileFilled';
-import { useRootSelector } from '../../../reducers/store';
+import { useRootSelector } from 'src/reducers/store';
 import { useDispatch } from 'react-redux';
-import { hideDialog } from '../../../reducers/webtorrent';
-import { doCreateDownload } from '../../../reducers/webtorrent/actions';
+import { hideDialog } from 'src/reducers/webtorrent';
+import { doCreateDownload } from 'src/reducers/webtorrent/actions';
 
 export const NewDownloadModal: React.FC = () => {
   const visible = useRootSelector((v) => v.webtorrent.showDialog === 'new-download');

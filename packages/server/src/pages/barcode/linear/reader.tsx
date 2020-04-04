@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Descriptions, notification, PageHeader, Spin } from 'antd';
 import { BarcodeOutlined } from '@ant-design/icons/lib';
-import { ImageReceiver } from '../../../components/ImageReceiver';
+import { ImageReceiver } from 'src/components/ImageReceiver';
 import { Result } from '@zxing/library';
-import { getZxingFormat } from '../../../libs/barcodes/formats';
+import { getZxingFormat } from 'src/libs/barcodes/formats';
 
 const LinearBarCodeReaderPageContent: React.FC = () => {
   const [image, setImage] = useState<HTMLImageElement>();
@@ -33,7 +33,7 @@ const LinearBarCodeReaderPageContent: React.FC = () => {
         notification.error({
           message: '解析失败',
           description: e.message,
-          duration: 8
+          duration: 8,
         });
       })
       .finally(() => {

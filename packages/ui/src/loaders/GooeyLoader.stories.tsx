@@ -1,6 +1,6 @@
 import centered from '@storybook/addon-centered/react';
 import React from 'react';
-import { GooeyLoader } from 'src/loaders/GooeyLoader';
+import { GooeyLoader } from './GooeyLoader';
 
 export default {
   title: 'loader/spinner/GooeyLoader',
@@ -16,8 +16,8 @@ export default {
         <div>{storyFn()}</div>
       </div>
     ),
-    centered
-  ]
+    centered,
+  ],
 };
 
 export const BasicGooeyLoader = GooeyLoader;

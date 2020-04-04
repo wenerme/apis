@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { MenuSpec } from '../../../components/layout/LayoutFrame/types';
+import { MenuSpec } from 'src/components/layout/LayoutFrame/types';
 import { HashRouter as Router, Link } from 'react-router-dom';
-import { RouteFrameContent } from '../../../components/layout/RouteFrame/RouteFrameContent';
-import { LayoutFrame } from '../../../components/layout/LayoutFrame/LayoutFrame';
-import { RouteSpec } from '../../../components/layout/RouteFrame/types';
-import { LayoutFrameContent } from '../../../components/layout/LayoutFrame/LayoutFrameContent';
+import { RouteFrameContent } from 'src/components/layout/RouteFrame/RouteFrameContent';
+import { LayoutFrame } from 'src/components/layout/LayoutFrame/LayoutFrame';
+import { RouteSpec } from 'src/components/layout/RouteFrame/types';
+import { LayoutFrameContent } from 'src/components/layout/LayoutFrame/LayoutFrameContent';
 import i18next from 'i18next';
 import {
   ApiOutlined,
@@ -18,13 +18,12 @@ import {
   ShareAltOutlined,
   TagsOutlined,
   TeamOutlined,
-  UnlockOutlined
+  UnlockOutlined,
 } from '@ant-design/icons/lib';
-import CaCertificateOutlined from '../../../components/icons/CaCertificateOutlined';
 import { clearConfig, toggleShowSetup, toggleShowShare, useKongDispatch, useKongSelector } from '../reducers/kong';
 import { Button, Divider, Form, message, Modal } from 'antd';
 import { omitBy } from 'lodash';
-import { buildInitialValues, FormFieldProps, FormFieldsBuilder } from '../../../libs/antds/form/builder';
+import { buildInitialValues, FormFieldProps, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import { FormInstance } from 'antd/lib/form';
 import { doSetupConfig } from '../reducers/actions';
 import Backend from 'i18next-xhr-backend';
@@ -36,8 +35,9 @@ import { I18nLanguageSelector } from './I18nLanguageSelector';
 import { HeaderInput } from './HeaderInput';
 import { FormListField } from './FormListField';
 import { headersFromArray } from '../libs/headers';
-import { i18nextInflection } from '../../../libs/i18nexts/plugins/inflection-postprocessor';
+import { i18nextInflection } from 'src/libs/i18nexts/plugins/inflection-postprocessor';
 import { isDev } from '@wener/utils/src/envs/isDev';
+import CaCertificateOutlined from '@wener/ui/src/icons/components/CaCertificateOutlined';
 
 i18next
   .use(i18nextInflection)
@@ -63,17 +63,17 @@ i18next
       },
       fallbackNS: ['common'],
       interpolation: {
-        escapeValue: false // not needed for react as it escapes by default
+        escapeValue: false, // not needed for react as it escapes by default
       },
       backend: {
         // for all available options read the backend's repository readme file
-        loadPath: '/locales/{{lng}}/{{ns}}.json'
-      }
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
+      },
     },
     (err, t) => {
       // initiali=?zed and ready to go!
       // document.getElementById('output').innerHTML = i18next.t('key');
-    }
+    },
   );
 
 const ReactRouterLink: React.FC<{ href }> = ({ href, ...props }) => <Link to={href} {...props} />;
@@ -87,7 +87,7 @@ const KongAdminHeader: React.FC = () => {
       style={{
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <h2>Kong Admin</h2>
@@ -96,7 +96,7 @@ const KongAdminHeader: React.FC = () => {
           display: 'grid',
           gridAutoFlow: 'column',
           columnGap: '12px',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Button type="link" icon={<SettingOutlined />} onClick={() => dispatch(toggleShowSetup())}>
@@ -126,14 +126,14 @@ const KongAdminSetupForm: React.FC<{
       key: 'baseURL',
       label: t('接口地址'),
       placeholder: 'http://127.0.0.1:8001',
-      defaultValue: 'http://127.0.0.1:8001'
+      defaultValue: 'http://127.0.0.1:8001',
     },
     {
       key: 'headers',
       label: t('请求头'),
       widget: HeaderInput,
-      render: FormListField
-    }
+      render: FormListField,
+    },
   ];
 
   const encryptFields: FormFieldProps[] = [
@@ -164,9 +164,9 @@ const KongAdminSetupForm: React.FC<{
               }
             }}
           />
-        )
-      }
-    }
+        ),
+      },
+    },
   ];
 
   const initial = useMemo(() => {
@@ -290,7 +290,7 @@ export const KongAdminUI: React.FC = () => {
 const KongConfigPanel: React.FC = () => {
   const { t } = useTranslation();
 
-  let initial = null;
+  let initial: any = null;
   const params = new URL(location.href.replace('#', '')).searchParams;
   const conf = params.get('config') ?? '';
   if (conf.includes('.')) {
@@ -309,7 +309,7 @@ const KongConfigPanel: React.FC = () => {
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <div
@@ -317,7 +317,7 @@ const KongConfigPanel: React.FC = () => {
           width: '60vw',
           padding: 24,
           // 等于背景白色 - 但能配合 theme
-          backdropFilter: 'brightness(200%)'
+          backdropFilter: 'brightness(200%)',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -344,7 +344,7 @@ export const KongAdmin: React.FC = () => {
       path: '/',
       iconComponent: <FundOutlined />,
       exact: true,
-      component: React.lazy(() => import('./pages/dashboard/KongAdminSummary'))
+      component: React.lazy(() => import('./pages/dashboard/KongAdminSummary')),
     },
     {
       title: t('标签', { count: 0, postProcess: 'inflection' }),
@@ -353,9 +353,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/tag/KongTagList').then(({ KongTagList }) => ({
-          default: KongTagList
-        }))
-      )
+          default: KongTagList,
+        })),
+      ),
     },
     {
       title: t('服务', { count: 0, postProcess: 'inflection' }),
@@ -363,8 +363,8 @@ export const KongAdmin: React.FC = () => {
       iconComponent: <ApiOutlined />,
       exact: true,
       component: React.lazy(() =>
-        import('./pages/service/KongServiceList').then(({ KongServiceList }) => ({ default: KongServiceList }))
-      )
+        import('./pages/service/KongServiceList').then(({ KongServiceList }) => ({ default: KongServiceList })),
+      ),
     },
     {
       title: t('路由', { count: 0, postProcess: 'inflection' }),
@@ -373,9 +373,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/route/KongRouteList').then(({ KongRouteList }) => ({
-          default: KongRouteList
-        }))
-      )
+          default: KongRouteList,
+        })),
+      ),
     },
     {
       title: t('消费者', { count: 0, postProcess: 'inflection' }),
@@ -383,8 +383,8 @@ export const KongAdmin: React.FC = () => {
       iconComponent: <TeamOutlined />,
       exact: true,
       component: React.lazy(() =>
-        import('./pages/consumer/KongConsumerList').then(({ KongConsumerList }) => ({ default: KongConsumerList }))
-      )
+        import('./pages/consumer/KongConsumerList').then(({ KongConsumerList }) => ({ default: KongConsumerList })),
+      ),
     },
     {
       title: t('插件', { count: 0, postProcess: 'inflection' }),
@@ -393,9 +393,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/plugin/KongPluginList').then(({ KongPluginList }) => ({
-          default: KongPluginList
-        }))
-      )
+          default: KongPluginList,
+        })),
+      ),
     },
     {
       title: t('上游', { count: 0, postProcess: 'inflection' }),
@@ -403,8 +403,8 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       iconComponent: <ClusterOutlined />,
       component: React.lazy(() =>
-        import('./pages/upstream/KongUpstreamList').then(({ KongUpstreamList }) => ({ default: KongUpstreamList }))
-      )
+        import('./pages/upstream/KongUpstreamList').then(({ KongUpstreamList }) => ({ default: KongUpstreamList })),
+      ),
     },
     {
       title: t('证书', { count: 0, postProcess: 'inflection' }),
@@ -413,9 +413,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/certificate/KongCertificateList').then(({ KongCertificateList }) => ({
-          default: KongCertificateList
-        }))
-      )
+          default: KongCertificateList,
+        })),
+      ),
     },
     {
       title: t('CA证书', { count: 0, postProcess: 'inflection' }),
@@ -424,9 +424,9 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/KongCaCertificateList').then(({ KongCaCertificateList }) => ({
-          default: KongCaCertificateList
-        }))
-      )
+          default: KongCaCertificateList,
+        })),
+      ),
     },
     {
       title: t('SNIs'),
@@ -435,10 +435,10 @@ export const KongAdmin: React.FC = () => {
       exact: true,
       component: React.lazy(() =>
         import('./pages/sni/KongSnisList').then(({ KongSnisList }) => ({
-          default: KongSnisList
-        }))
-      )
-    }
+          default: KongSnisList,
+        })),
+      ),
+    },
   ];
 
   return (

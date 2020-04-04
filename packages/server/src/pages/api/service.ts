@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { flow } from 'lodash';
-import { handleErrors } from '../../libs/nexts/middlewares/errors';
-import { PersistPeerService } from '../../libs/webrtc/persist/PersistPeerService';
-import { createRtcPeerConnection } from '../../libs/webrtc/persist/connection';
-import { ScelDataService } from '../../libs/sougou/dict/ScelDataService';
+import { handleErrors } from 'src/libs/nexts/middlewares/errors';
+import { PersistPeerService } from 'src/libs/webrtc/persist/PersistPeerService';
+import { createRtcPeerConnection } from 'src/libs/webrtc/persist/connection';
+import { ScelDataService } from 'src/libs/sougou/dict/ScelDataService';
 import { PingService } from '@wener/tinyrpc/src/services/PingService';
 import { GlobalRegistry } from '@wener/tinyrpc/src/global';
 import { createServiceDefinition } from '@wener/tinyrpc/src/ServiceRegistry';
@@ -20,7 +20,7 @@ async function registryServices() {
       createServiceDefinition({
         name: 'PingService',
         target: PingService.instance,
-      })
+      }),
     );
   }
   {
@@ -31,7 +31,7 @@ async function registryServices() {
         name: 'PeerService',
         target: svc,
         includes: svc.methods,
-      })
+      }),
     );
   }
   {
@@ -43,7 +43,7 @@ async function registryServices() {
         provider: () => {
           return new ScelDataService();
         },
-      })
+      }),
     );
   }
   _init = true;

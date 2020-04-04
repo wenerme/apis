@@ -1,6 +1,6 @@
 import { fetchGatewayChecker } from './checker';
 import { getGlobalThis } from '@wener/utils/src/isomorphics/getGlobalThis';
-import { urljoin } from '../../../utils/urljoin';
+import { urljoin } from 'src/utils/urljoin';
 import { isDev } from '@wener/utils/src/envs/isDev';
 
 export function detectingDummyFastestGateway(gateways: string[]): Promise<string> {
@@ -11,7 +11,7 @@ function firstSuccessResolve(promises) {
   return new Promise((resolve, reject) => {
     const errors = [];
     Promise.all(promises.map((promise) => promise.then(resolve).catch((e) => errors.push(e)))).finally(() =>
-      reject(errors)
+      reject(errors),
     );
   });
 }

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, Input, message, PageHeader } from 'antd';
 import CertificateVerifiedFilled from '../../../components/icons/CertificateVerifiedFilled';
 import Certificate from 'pkijs/src/Certificate';
-import { API } from '../../../apis/api';
+import { API } from 'src/apis/api';
 import { DownloadOutlined } from '@ant-design/icons';
 import { download } from '@wener/utils/src/browsers/download';
-import { resultOf } from '../../../utils/axioses';
+import { resultOf } from 'src/utils/axioses';
 import { getFile } from '@wener/utils/src/browsers/transfers';
-import { readFileAsText } from '../../../utils/io';
-import { CertificateViewer } from '../../../modules/pki/components/CertificateViewer';
+import { readFileAsText } from 'src/utils/io';
+import { CertificateViewer } from 'src/modules/pki/components/CertificateViewer';
 
 async function decodeCert(pem) {
   if (typeof pem !== 'string') {

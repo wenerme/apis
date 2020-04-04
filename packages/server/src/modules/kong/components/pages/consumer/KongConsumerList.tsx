@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { normalizeColumns } from '../../../../../libs/antds/table/normal';
+import { normalizeColumns } from 'src/libs/antds/table/normal';
 import { KongUpstreamEntity } from '../../../apis/types';
 import { KongEntityTable, OperationColumn } from '../../entity/KongEntityTable';
 import { renderTags, renderTimeStamp } from '../../renders';
@@ -30,7 +30,7 @@ export const KongConsumerList: React.FC = () => {
         },
         OperationColumn,
       ]),
-    []
+    [],
   );
   return (
     <KongEntityTable label="消费者" name="Consumer" columns={columns} editor={ConsumerForm} viewer={ConsumerViewer} />

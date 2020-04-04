@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { normalizeColumns } from '../../../../../libs/antds/table/normal';
+import { normalizeColumns } from 'src/libs/antds/table/normal';
 import { KongUpstreamEntity } from '../../../apis/types';
 import { renderTags, renderTimeStamp } from '../../renders';
 import { KongEntityTable, OperationColumn, TagsField } from '../../entity/KongEntityTable';
-import { FormFieldProps } from '../../../../../libs/antds/form/builder';
+import { FormFieldProps } from 'src/libs/antds/form/builder';
 import { EntitySelect } from '../../entity/EntitySelect';
-import { withProps } from '@wener/utils/src/reactx/hocs/withProps';
+import { withProps } from '@wener/ui';
 import { EntityForm } from '../../entity/EntityForm';
 
 const fields: FormFieldProps[] = [
@@ -39,7 +39,7 @@ export const KongSnisList: React.FC = () => {
         },
         OperationColumn,
       ]),
-    []
+    [],
   );
   return <KongEntityTable label="SNIs" name="Snis" columns={columns} editor={SnisForm} />;
 };

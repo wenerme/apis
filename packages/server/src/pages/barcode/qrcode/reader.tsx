@@ -1,10 +1,10 @@
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { notification, PageHeader, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 import { QRCode } from 'jsqr';
-import { ImageReceiver } from '../../../components/ImageReceiver';
+import { ImageReceiver } from 'src/components/ImageReceiver';
 import { sleep } from '@wener/utils/src/asyncs/sleep';
 
 const ChunkInfo: React.FC<{ chunk }> = ({ chunk }) => {

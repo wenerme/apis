@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Alert, Form, message, PageHeader } from 'antd';
 import { BarcodeOutlined } from '@ant-design/icons/lib';
 import JsBarcode, { Options as BarcodeOptions } from 'jsbarcode';
-import { FormFieldProps, FormFieldsBuilder } from '../../../libs/antds/form/builder';
+import { FormFieldProps, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import produce from 'immer';
-import { SketchColorPicker } from '../../../libs/antds/form/SketchColorPicker';
-import { API } from '../../../apis/api';
-import { ResourceLinkButton } from '../../../components/ResourceLinkButton';
-import { useDebounceEffect } from '@wener/utils/src/reactx/hooks/useDebounceEffect';
+import { SketchColorPicker } from 'src/libs/antds/form/SketchColorPicker';
+import { API } from 'src/apis/api';
+import { ResourceLinkButton } from 'src/components/ResourceLinkButton';
+import { useDebounceEffect } from '@wener/ui';
 
 const Barcode: React.FC<BarcodeOptions & { value: string; renderer?: 'svg' | 'canvas' | 'img' }> = (props) => {
   const { renderer = 'svg' } = props;
@@ -31,7 +31,7 @@ const Barcode: React.FC<BarcodeOptions & { value: string; renderer?: 'svg' | 'ca
       }
     },
     [props],
-    1000
+    1000,
   );
 
   const Ele = renderer;
@@ -154,7 +154,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
       { key: 'background', label: '背景色', widget: SketchColorPicker },
       { key: 'lineColor', label: '线条色', widget: SketchColorPicker },
     ],
-    []
+    [],
   );
 
   return (
@@ -171,7 +171,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
                   form.setFieldsValue({ value: defaults[v.format] });
                 }
                 Object.assign(s, v);
-              })
+              }),
             );
           }}
           labelCol={{ span: 6 }}

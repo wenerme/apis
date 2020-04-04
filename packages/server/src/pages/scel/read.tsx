@@ -1,15 +1,15 @@
 import { NextPage } from 'next';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { Descriptions, message, PageHeader, Upload } from 'antd';
 import React, { useState } from 'react';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Buffer } from 'buffer/';
-import { enrichContent, parseScelContent, parseScelHeader } from '../../libs/formats/scel/parser';
+import { enrichContent, parseScelContent, parseScelHeader } from 'src/libs/formats/scel/parser';
 
-import { ScelContent, ScelHeader } from '../../libs/formats/scel/types';
+import { ScelContent, ScelHeader } from 'src/libs/formats/scel/types';
 // FIXME global
 // import 'react-virtualized/styles.css';
-import { ScelContentList } from '../../modules/scel/components/ScelContentList';
+import { ScelContentList } from 'src/modules/scel/components/ScelContentList';
 import { BookOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 

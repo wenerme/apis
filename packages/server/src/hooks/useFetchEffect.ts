@@ -1,5 +1,5 @@
 import { DependencyList, useState } from 'react';
-import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/ui';
 import produce from 'immer';
 
 export interface FetchingData<T> {
@@ -18,7 +18,7 @@ export function useFetchEffect<T = any>(fetcher: () => Promise<T>, deps?: Depend
       produce((state) => {
         state.loading = true;
         state.error = null;
-      })
+      }),
     );
     try {
       const data = await fetcher();
@@ -26,7 +26,7 @@ export function useFetchEffect<T = any>(fetcher: () => Promise<T>, deps?: Depend
         produce((state) => {
           state.loading = false;
           state.data = data;
-        })
+        }),
       );
     } catch (e) {
       setState(
@@ -34,7 +34,7 @@ export function useFetchEffect<T = any>(fetcher: () => Promise<T>, deps?: Depend
           state.loading = false;
           state.error = e;
           state.data = null;
-        })
+        }),
       );
     }
   }, deps);

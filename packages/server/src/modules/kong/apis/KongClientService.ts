@@ -1,7 +1,7 @@
 import { KongService } from './service';
 import { AxiosInstance } from 'axios';
 import inflection from 'inflection';
-import { resultOf } from '../../../utils/axioses';
+import { resultOf } from 'src/utils/axioses';
 
 export interface KongClientServiceInit {
   client: AxiosInstance;
@@ -86,14 +86,14 @@ export class KongClientService implements KongService {
       buildExplicitNestRestMethod('UpstreamTarget', this.client, {
         path: 'targets',
         parentPath: 'upstreams',
-      })
+      }),
     );
     Object.assign(
       this,
       buildExplicitNestRestMethod('ConsumerBasicAuth', this.client, {
         path: 'basic-auth',
         parentPath: 'consumers',
-      })
+      }),
     );
     // TODO add interface
     Object.assign(
@@ -101,35 +101,35 @@ export class KongClientService implements KongService {
       buildExplicitNestRestMethod('ConsumerKeyAuth', this.client, {
         path: 'key-auth',
         parentPath: 'consumers',
-      })
+      }),
     );
     Object.assign(
       this,
       buildExplicitNestRestMethod('ConsumerHmacAuth', this.client, {
         path: 'hmac-auth',
         parentPath: 'consumers',
-      })
+      }),
     );
     Object.assign(
       this,
       buildExplicitNestRestMethod('ConsumerAcl', this.client, {
         path: 'acls',
         parentPath: 'consumers',
-      })
+      }),
     );
     Object.assign(
       this,
       buildExplicitNestRestMethod('ConsumerOAuth2', this.client, {
         path: 'oauth2',
         parentPath: 'consumers',
-      })
+      }),
     );
     Object.assign(
       this,
       buildExplicitNestRestMethod('ConsumerJwt', this.client, {
         path: 'jwt',
         parentPath: 'consumers',
-      })
+      }),
     );
 
     Object.assign(
@@ -137,7 +137,7 @@ export class KongClientService implements KongService {
       buildExplicitNestRestMethod('ServiceRoute', this.client, {
         path: 'routes',
         parentPath: 'services',
-      })
+      }),
     );
   }
 

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PhoneData } from '../../../../libs/phonedata/types';
-import { fetchPhoneData } from '../../../../libs/phonedata/source';
-import { parsePhoneData, searchByPhoneNumber } from '../../../../libs/phonedata/parser';
+import { PhoneData } from 'src/libs/phonedata/types';
+import { fetchPhoneData } from 'src/libs/phonedata/source';
+import { parsePhoneData, searchByPhoneNumber } from 'src/libs/phonedata/parser';
 
 let _phoneData;
 

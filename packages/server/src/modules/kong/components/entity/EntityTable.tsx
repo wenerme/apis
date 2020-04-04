@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { buildEntityService } from '../../apis/utils';
 import { getKongService } from '../../apis/client';
 import { KongEntityTable } from './KongEntityTable';
-import { withProps } from '@wener/utils/src/reactx/hocs/withProps';
 import { EntityForm } from './EntityForm';
+import { withProps } from '@wener/ui';
 
 export const EntityTable: React.FC<{ entity; parentId? }> = ({ parentId, entity }) => {
   const { name, label, columns, fields, editor, viewer } = entity;

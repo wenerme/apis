@@ -3,14 +3,14 @@ import { Avatar, Button } from 'antd';
 import Link from 'next/link';
 
 import 'moment/locale/zh-cn';
-import { useRouteProgress } from '../../../libs/nexts/hooks/useRouteProgress';
+import { useRouteProgress } from 'src/libs/nexts/hooks/useRouteProgress';
 import { PageContext } from './PageContext';
 import { LayoutFrame } from '../LayoutFrame/LayoutFrame';
 import { menus } from './menus';
 import { Portal } from 'src/components/Portal';
-import DarkModeFilled from 'src/components/icons/DarkModeFilled';
+import DarkModeFilled from '@wener/ui/src/icons/components/DarkModeFilled';
 import styled from 'styled-components';
-import LightModeFilled from 'src/components/icons/LightModeFilled';
+import LightModeFilled from '@wener/ui/src/icons/components/LightModeFilled';
 import { useAntdTheme } from 'src/hooks/useAntdTheme';
 import Head from 'next/head';
 import { LayoutThemeProvider, useLayoutTheme } from 'src/components/layout/LayoutFrame/theme';

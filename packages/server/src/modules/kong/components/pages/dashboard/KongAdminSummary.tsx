@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useKongSelector } from '../../../reducers/kong';
-import { DataDescriptionProps, renderDataDescription } from '../../../../../libs/antds/description/data';
+import { DataDescriptionProps, renderDataDescription } from 'src/libs/antds/description/data';
 import { Card, Checkbox, Descriptions, Spin, Statistic, Tag } from 'antd';
 import { useDispatch } from 'react-redux';
 import { doUpdateInformation, doUpdateStatus } from '../../../reducers/actions';
 import { KongInformation, KongNodeStatus } from '../../../apis/types';
-import { formatBytes, parseBytes } from '../../../../../utils/bytes';
+import { formatBytes, parseBytes } from 'src/utils/bytes';
 import { useTranslation } from 'react-i18next';
 import { get } from 'lodash';
 
@@ -55,7 +55,7 @@ const KongAdminSummary: React.FC = () => {
       span: 4,
       render({ record }) {
         return formatBytes(
-          record.memory.workers_lua_vms.map((v) => parseBytes(v.http_allocated_gc)).reduce((a, b) => a + b, 0)
+          record.memory.workers_lua_vms.map((v) => parseBytes(v.http_allocated_gc)).reduce((a, b) => a + b, 0),
         );
       },
     },

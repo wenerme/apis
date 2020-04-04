@@ -1,19 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { normalizeColumns } from '../../../../../libs/antds/table/normal';
+import { normalizeColumns } from 'src/libs/antds/table/normal';
 import { KongPluginSchema, KongUpstreamEntity, ProtocolTypes } from '../../../apis/types';
 import { renderBoolean, renderTags } from '../../renders';
 import { createEntityColumns, KongEntityTable, TagsField } from '../../entity/KongEntityTable';
-import {
-  buildInitialValues,
-  FormFieldBuilder,
-  FormFieldProps,
-  FormFieldsBuilder,
-} from '../../../../../libs/antds/form/builder';
+import { buildInitialValues, FormFieldBuilder, FormFieldProps, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import { omitBy } from 'lodash';
 import { Button, Divider, Form, Spin } from 'antd';
 import { useKongSelector } from '../../../reducers/kong';
 import { getKongService } from '../../../apis/client';
-import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/ui';
 import { doUpdateInformation } from '../../../reducers/actions';
 import { useDispatch } from 'react-redux';
 import { EntitySelect } from '../../entity/EntitySelect';
@@ -21,7 +16,7 @@ import { Trans } from 'react-i18next';
 
 function buildFields(schema: KongPluginSchema, name, fields = []): FormFieldProps[] {
   if (schema.fields) {
-    schema.fields.forEach(v => {
+    schema.fields.forEach((v) => {
       Object.entries(v).forEach(([k, v]) => {
         buildFields(v, [...name, k], fields);
       });
@@ -131,7 +126,7 @@ const pluginCommonFields: FormFieldProps[] = [
 ];
 
 const PluginForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, onSubmit }) => {
-  const plugins = useKongSelector(v => v.information?.plugins?.available_on_server ?? []);
+  const plugins = useKongSelector((v) => v.information?.plugins?.available_on_server ?? []);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(doUpdateInformation());
@@ -149,7 +144,7 @@ const PluginForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, on
   const [configFields, setConfigFields] = useState([]);
 
   const initial = useMemo(() => {
-    return initialValues ? omitBy(initialValues, v => v === null) : buildInitialValues([...pluginCommonFields]);
+    return initialValues ? omitBy(initialValues, (v) => v === null) : buildInitialValues([...pluginCommonFields]);
   }, [initialValues]);
 
   const [form] = Form.useForm();
@@ -193,7 +188,7 @@ const PluginForm: React.FC<{ initialValues?; onSubmit? }> = ({ initialValues, on
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       onFinish={onSubmit}
-      onValuesChange={v => {
+      onValuesChange={(v) => {
         if (v?.['name']) {
           setName(v['name']);
         }

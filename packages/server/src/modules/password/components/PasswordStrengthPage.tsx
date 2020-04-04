@@ -1,11 +1,11 @@
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Descriptions, Input, PageHeader } from 'antd';
 import Link from 'next/link';
 import { createRandom } from '@wener/utils/src/maths/random';
 import { createPasswordGenerator } from '../libs/generates';
-import { API } from '../../../apis/api';
+import { API } from 'src/apis/api';
 import zxcvbn from 'zxcvbn';
 import { KeyOutlined } from '@ant-design/icons';
 
@@ -37,23 +37,23 @@ const ZxcvbnDescription: React.FC<{ password; result? }> = ({ password, result }
     {
       label: '100 个每小时',
       speedTip: '被限流的在线破解速度',
-      value: times.online_throttling_100_per_hour
+      value: times.online_throttling_100_per_hour,
     },
     {
       label: '10 个每秒',
       speedTip: '未被限流的在线破解速度',
-      value: times.online_no_throttling_10_per_second
+      value: times.online_no_throttling_10_per_second,
     },
     {
       label: '10,000 个每秒',
       speedTip: '离线破解, 较慢的算法, 多核',
-      value: times.offline_slow_hashing_1e4_per_second
+      value: times.offline_slow_hashing_1e4_per_second,
     },
     {
       label: '10亿 个每秒',
       speedTip: '离线破解, 较快的算法, 多核',
-      value: times.offline_fast_hashing_1e10_per_second
-    }
+      value: times.offline_fast_hashing_1e10_per_second,
+    },
   ];
   return (
     <div>
@@ -94,7 +94,7 @@ function suggest(seed) {
   const generator = createPasswordGenerator({
     random,
     upper: false,
-    symbol: false
+    symbol: false,
   });
 
   const result = [];

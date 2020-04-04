@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import { Layout } from 'antd';
 import { LayoutFrameMenu } from './LayoutFrameMenu';
-import { useNamedTheme } from 'src/hooks/useNamedTheme';
+import { useNamedTheme } from '../../../hooks/useNamedTheme';
 
 export const LayoutFrameSider: React.FC<{ style?: CSSProperties }> = ({ style }) => {
   const [broken, setBroken] = useState(false);

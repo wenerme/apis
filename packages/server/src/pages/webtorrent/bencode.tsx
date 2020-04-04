@@ -1,26 +1,25 @@
 import React, { useRef, useState } from 'react';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, Divider, message, PageHeader } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 
-import { useMounted } from '@wener/utils/src/reactx/hooks/useMounted';
+import { useDebounceEffect, useMounted } from '@wener/ui';
 import dynamic from 'next/dynamic';
 // import {JsonEditor} from 'components/JsonEditor/JsonEditor';
 import { decode, encode } from 'bencode';
 import TextArea from 'antd/lib/input/TextArea';
-import { JsonEditor } from '../../components/JsonEditor/JsonEditor';
-import { readFileAsBuffer } from '../../utils/io';
-import { FileReceiver } from '../../components/FileReceiver';
+import { JsonEditor } from 'src/components/JsonEditor/JsonEditor';
+import { readFileAsBuffer } from 'src/utils/io';
+import { FileReceiver } from 'src/components/FileReceiver';
 import { download } from '@wener/utils/src/browsers/download';
-import { useDebounceEffect } from '@wener/utils/src/reactx/hooks/useDebounceEffect';
 
 const JsonEditorDyn: any = dynamic(
   () => import('../../components/JsonEditor/JsonEditor').then(({ JsonEditor }) => JsonEditor),
   {
     loading: () => <div>Loading editor</div>,
     ssr: false,
-  }
+  },
 );
 // const JsonEditor: any = () => <div>Test</div>
 
@@ -38,7 +37,7 @@ const BencodePageContent: React.FC = () => {
       setEncoded(encode(value).toString());
     },
     [value],
-    200
+    200,
   );
 
   const doDownload = () => {

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { EntitySelect } from '../../entity/EntitySelect';
 import { ProtocolTypes } from '../../../apis/types';
 import { omitBy } from 'lodash';
-import { buildInitialValues, FormFieldBuilder, FormFieldsBuilder } from '../../../../../libs/antds/form/builder';
+import { buildInitialValues, FormFieldBuilder, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import URI from 'urijs';
 import { Button, Divider, Form, message } from 'antd';
 import { Trans } from 'react-i18next';

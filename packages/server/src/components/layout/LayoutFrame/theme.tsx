@@ -1,19 +1,17 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { BehaviorSubject } from 'rxjs';
-import { useConstant } from '@wener/utils/src/reactx/hooks/useConstant';
+import { useConstant } from '@wener/ui';
 
-const LayoutThemeContext = React.createContext<BehaviorSubject<any>>(null);
+const LayoutThemeContext = React.createContext<BehaviorSubject<any>>(new BehaviorSubject<any>(null));
 
 export function LayoutThemeProvider({ children, initialTheme }) {
-  const state = useConstant(() => new BehaviorSubject(typeof initialTheme === 'function' ? initialTheme() : initialTheme));
+  const state = useConstant(
+    () => new BehaviorSubject(typeof initialTheme === 'function' ? initialTheme() : initialTheme),
+  );
   useEffect(() => {
     return () => state.complete();
   }, []);
-  return (
-    <LayoutThemeContext.Provider value={state}>
-      {children}
-    </LayoutThemeContext.Provider>
-  );
+  return <LayoutThemeContext.Provider value={state}>{children}</LayoutThemeContext.Provider>;
 }
 
 export function useLayoutTheme(): [string, Dispatch<SetStateAction<string>>] {
@@ -23,5 +21,5 @@ export function useLayoutTheme(): [string, Dispatch<SetStateAction<string>>] {
     const subscribe = state.subscribe(setTheme);
     return subscribe.unsubscribe.bind(subscribe);
   }, [state]);
-  return [theme, v => state.next(v)];
+  return [theme, (v) => state.next(v)];
 }

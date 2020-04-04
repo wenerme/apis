@@ -9,6 +9,7 @@
   "browser": "dist/ui.umd.js",
   "typings": "lib/index.d.ts",
   "files": [
+    "scripts",
     "tsconfig.ts-node.json",
     ".storybook",
     "stories",
@@ -32,6 +33,9 @@
     "lint": "eslint --fix --ext .ts,.tsx src",
     "storybook": "start-storybook -p ${PORT:-6006}",
     "storybook:build": "build-storybook -c .storybook -o storybook",
+    "icons": "yarn run icons:svgo && yarn run icons:gen && git add src/icons",
+    "icons:gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons.ts",
+    "icons:svgo": "svgo -f src/icons/svgs --config svgo.config.json",
     "test": "jest"
   },
   "dependencies": {
@@ -41,6 +45,9 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/preset-typescript": "^7.9.0",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
@@ -74,6 +81,7 @@
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.0.3",
+    "tslib": "^1.11.1",
     "antd": "^4.0.4",
     "lodash": "^4.17.15",
     "react": "^16.13.1",

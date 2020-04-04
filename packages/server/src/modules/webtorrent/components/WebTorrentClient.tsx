@@ -1,9 +1,9 @@
 import React from 'react';
 import { Instance } from 'webtorrent';
 import { WebTorrentPanel } from './WebTorrentPanel';
-import { AllMethods, WebConsole } from '../../../components/WebConsole';
+import { AllMethods, WebConsole } from 'src/components/WebConsole';
 import { StatusBar } from './StatusBar';
-import { useRootSelector } from '../../../reducers/store';
+import { useRootSelector } from 'src/reducers/store';
 import { DialogModal } from './DialogModal';
 import { TorrentDetailDrawer } from './TorrentDetailDrawer';
 import { WebTorrentToolbar } from './WebTorrentToolbar';

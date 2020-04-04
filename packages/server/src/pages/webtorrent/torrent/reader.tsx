@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PageLayout } from '../../../components/layout/PageLayout/PageLayout';
-import { PageContent } from '../../../components/layout/PageLayout/PageContent';
+import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
+import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, Descriptions, Divider, Input, List, message, PageHeader } from 'antd';
 import TorrentFileFilled from '../../../components/icons/TorrentFileFilled';
 import ParseTorrent, { toMagnetURI, toTorrentFile } from 'parse-torrent';
-import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
+import { useAsyncEffect } from '@wener/ui';
 import { format } from 'date-fns';
 import numeral from 'numeral';
 import { copy } from '@wener/utils/src/browsers/clipboard';
@@ -13,8 +13,8 @@ import produce from 'immer';
 import { uniq } from 'lodash';
 import ContentEditable from 'react-contenteditable';
 import sanitizeHtml from 'sanitize-html';
-import { readFileAsArrayBuffer } from '../../../utils/io';
-import { FileReceiver } from '../../../components/FileReceiver';
+import { readFileAsArrayBuffer } from 'src/utils/io';
+import { FileReceiver } from 'src/components/FileReceiver';
 
 const Editable: React.FC<{ disabled?; onEdit?; initialValue? }> = ({ disabled, onEdit, initialValue }) => {
   const [value, setValue] = useState(initialValue);
@@ -83,7 +83,7 @@ const TorrentReaderPageContent: React.FC = () => {
     setEditing(
       produce((s) => {
         s.tracker = torrent?.announce?.join('\n') ?? '';
-      })
+      }),
     );
   }, [torrent]);
 
@@ -172,7 +172,7 @@ const TorrentReaderPageContent: React.FC = () => {
                     setTorrent(
                       produce((s) => {
                         s[name] = v;
-                      })
+                      }),
                     );
                   }}
                 />
@@ -211,7 +211,7 @@ const TorrentReaderPageContent: React.FC = () => {
             setEditing(
               produce((s) => {
                 s.tracker = value;
-              })
+              }),
             );
           }}
           readOnly={!torrent}
@@ -226,9 +226,9 @@ const TorrentReaderPageContent: React.FC = () => {
                   value
                     .split('\n')
                     .map((v) => v.trim())
-                    .filter((v) => v)
+                    .filter((v) => v),
                 );
-              })
+              }),
             );
           }}
         />

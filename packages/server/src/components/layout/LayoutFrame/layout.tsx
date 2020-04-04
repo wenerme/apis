@@ -14,7 +14,7 @@ export interface LayoutFrameInstance {
 
   getState(): LayoutFrameState;
 
-  dispose(): void
+  dispose(): void;
 }
 
 export interface LayoutFrameOptions {
@@ -26,7 +26,7 @@ export interface LayoutFrameOptions {
 const LayoutFrameContext = React.createContext<{
   layout: LayoutFrameInstance;
   options: LayoutFrameOptions;
-}>(null);
+} | null>(null);
 
 export const useLayoutFrameSelector: TypedUseSelectorHook<LayoutFrameState> = (selector, eq?) => {
   const layout = useLayoutFrame();
@@ -44,7 +44,7 @@ export const useLayoutFrameSelector: TypedUseSelectorHook<LayoutFrameState> = (s
 };
 
 export function useLayoutFrameOptions(): LayoutFrameOptions {
-  return useContext(LayoutFrameContext).options;
+  return useContext(LayoutFrameContext)!.options;
 }
 
 // class LayoutFrameStore implements LayoutFrameInstance {
@@ -87,13 +87,16 @@ export const LayoutFrameProvider: React.FC<{
 };
 
 function createLayoutFrame(
-  options: { current?: LayoutFrameInstance, initialState?: Partial<LayoutFrameState> | (() => Partial<LayoutFrameState>); name?: string } = {}
+  options: {
+    current?: LayoutFrameInstance;
+    initialState?: Partial<LayoutFrameState> | (() => Partial<LayoutFrameState>);
+    name?: string;
+  } = {},
 ): LayoutFrameInstance {
   const { initialState, name = 'default', current } = options;
   const state = new BehaviorSubject<LayoutFrameState>({
-    ...(typeof initialState === 'function' ? initialState() : initialState ?? {})
+    ...(typeof initialState === 'function' ? initialState() : initialState ?? {}),
   });
-
 
   const layout = {
     get name() {
@@ -108,9 +111,9 @@ function createLayoutFrame(
     },
     update(update: ((state: LayoutFrameState) => void) | Partial<LayoutFrameState>) {
       if (typeof update !== 'function') {
-        layout.update((s => {
+        layout.update((s) => {
           Object.assign(s, update);
-        }));
+        });
         return;
       }
       const current = state.value;
@@ -122,7 +125,7 @@ function createLayoutFrame(
     },
     dispose(): void {
       //
-    }
+    },
   };
 
   return layout;

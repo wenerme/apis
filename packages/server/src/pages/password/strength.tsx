@@ -1,3 +1,3 @@
-import { PasswordStrengthPage } from '../../modules/password/components/PasswordStrengthPage';
+import { PasswordStrengthPage } from 'src/modules/password/components/PasswordStrengthPage';
 
 export default PasswordStrengthPage;

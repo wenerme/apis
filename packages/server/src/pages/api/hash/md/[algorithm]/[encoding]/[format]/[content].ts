@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { hashing } from '../../../../../../../modules/hash/libs/hasings';
-import { isValidRequest } from '../../../../../../../modules/hash/types';
+import { hashing } from 'src/modules/hash/libs/hasings';
+import { isValidRequest } from 'src/modules/hash/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const request = req.query;

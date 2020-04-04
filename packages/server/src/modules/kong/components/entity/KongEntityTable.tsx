@@ -8,8 +8,8 @@ import { renderTags, renderTimeStamp } from '../renders';
 import { Trans, useTranslation } from 'react-i18next';
 import { buildEntityService } from '../../apis/utils';
 import { KongEntityService } from '../../apis/service';
-import { FormFieldProps } from '../../../../libs/antds/form/builder';
-import { useAsyncEffect } from '@wener/utils/src/reactx/hooks/useAsyncEffect';
+import { FormFieldProps } from 'src/libs/antds/form/builder';
+import { useAsyncEffect } from '@wener/ui';
 import { TagsInput } from '../TagsInput';
 
 export interface KongEntityTableProps {
@@ -81,7 +81,7 @@ export const OperationColumn: ColumnProps<any> = {
 
 export function createEntityColumns<T = any>(
   columns: Array<ColumnProps<T>>,
-  { excludes = [] } = {}
+  { excludes = [] } = {},
 ): Array<ColumnProps<T>> {
   const cols: Array<ColumnProps<T>> = [
     {
@@ -131,7 +131,7 @@ function createKongEntityTableService(props: KongEntityTableProps, setState, ent
       setState(
         produce((s) => {
           s.editing = entity;
-        })
+        }),
       );
     },
     showAdd(entity?) {
@@ -142,7 +142,7 @@ function createKongEntityTableService(props: KongEntityTableProps, setState, ent
       setState(
         produce((s) => {
           s.creating = entity || true;
-        })
+        }),
       );
     },
     async delete(entity) {
@@ -153,7 +153,7 @@ function createKongEntityTableService(props: KongEntityTableProps, setState, ent
       setState(
         produce((s) => {
           s.count++;
-        })
+        }),
       );
     },
   };
@@ -191,7 +191,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
     setState(
       produce((s) => {
         s.loading = true;
-      })
+      }),
     );
     try {
       const { data, offset } = await entityService.list();
@@ -200,7 +200,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
           s.loading = false;
           s.rows = data;
           s.next = offset;
-        })
+        }),
       );
     } catch (e) {
       message.error(`${t('错误')}: ${e.message || e}`);
@@ -208,7 +208,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
       setState(
         produce((s) => {
           s.loading = false;
-        })
+        }),
       );
     }
   }, [count, offset]);
@@ -230,7 +230,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
               produce((s) => {
                 s.editing = null;
                 s.count++;
-              })
+              }),
             );
           }}
         />
@@ -245,7 +245,7 @@ export const KongEntityTable: React.FC<KongEntityTableProps> = (props) => {
               produce((s) => {
                 s.creating = null;
                 s.count++;
-              })
+              }),
             );
           }}
         />
