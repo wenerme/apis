@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { BehaviorSubject } from 'rxjs';
-import { useConstant } from '@wener/utils/src/reactx/hooks/useConstant';
+import { useConstant } from 'src/hooks/useConstant';
 
 const NamedThemeContext = React.createContext<BehaviorSubject<any>>(new BehaviorSubject<any>(null));
 

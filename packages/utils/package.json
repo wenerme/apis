@@ -18,6 +18,9 @@
   "files": [
     "lib",
     "tsconfig.json",
+    "jest.setup.js",
+    "jest.config.js",
+    "tsconfig.jest.json",
     "src"
   ],
   "scripts": {
@@ -32,12 +35,13 @@
     "jest": "^25.1.0",
     "ts-jest": "^25.2.1",
     "typedoc": "^0.17.3",
-    "typescript": "^3.8.3"
-  },
-  "peerDependencies": {
+    "typescript": "^3.8.3",
     "isomorphic-unfetch": "^3.0.0",
-    "lodash": "^4.17.15",
-    "react": "^16.13.1"
+    "lodash": "^4.17.15"
+  },
+  "optionalDependencies": {
+    "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.15"
   },
   "publishConfig": {
     "access": "public"
