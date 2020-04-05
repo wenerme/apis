@@ -9,7 +9,10 @@
     "build:public": "yarn --cwd packages/ui run storybook:build && cp -r packages/ui/storybook packages/server/public/storybook && yarn --cwd packages/utils run doc && yarn --cwd packages/tinyrpc run doc && rm -rf packages/server/public/docs/@wener && mkdir -p packages/server/public/docs/@wener && cp -r packages/utils/docs packages/server/public/docs/@wener/utils && cp -r packages/tinyrpc/docs packages/server/public/docs/@wener/tinyrpc",
     "dev": "yarn --cwd packages/server dev",
     "format": "yarn workspaces run format",
-    "pub": "yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
+    "build:ui": "yarn --cwd packages/ui build",
+    "build:tinyrpc": "yarn --cwd packages/tinyrpc build",
+    "build:utils": "yarn --cwd packages/utils build",
+    "pub": "yarn build:tinyrpc && yarn build:utils && yarn build:ui && yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
     "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json && prettier --write package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json",
     "start": "yarn --cwd packages/server start",
     "test": "yarn --cwd packages/server test"
