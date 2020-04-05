@@ -1,6 +1,6 @@
 {
   "name": "@wener/ui",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "license": "MIT",
   "main": "lib/index.js",
   "umd:main": "dist/ui.umd.js",

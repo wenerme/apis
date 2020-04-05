@@ -1,6 +1,6 @@
 {
   "name": "@wener/apis-server",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "private": true,
   "main": "dist/servers/index.js",
   "bin": "dist/servers/index.js",
