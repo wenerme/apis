@@ -23,6 +23,7 @@ export function resolver({ type }) {
     case 'KongLogo':c = import('./components/KongLogo');break;
     case 'LightModeFilled':c = import('./components/LightModeFilled');break;
     case 'MagnetOutlined':c = import('./components/MagnetOutlined');break;
+    case 'ManTiedOutlined':c = import('./components/ManTiedOutlined');break;
     case 'QrcodePrintOutlined':c = import('./components/QrcodePrintOutlined');break;
     case 'QrcodeReadOutlined':c = import('./components/QrcodeReadOutlined');break;
     case 'RtcOutlined':c = import('./components/RtcOutlined');break;
@@ -30,6 +31,7 @@ export function resolver({ type }) {
     case 'UTorrentFilled':c = import('./components/UTorrentFilled');break;
     case 'WebTorrentFilled':c = import('./components/WebTorrentFilled');break;
     case 'WikipediaOutlined':c = import('./components/WikipediaOutlined');break;
+    case 'WomenWithMicroPhoneFIlled':c = import('./components/WomenWithMicroPhoneFIlled');break;
     // generated:end
     // @formatter:on
     default:

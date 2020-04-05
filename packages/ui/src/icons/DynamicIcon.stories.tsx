@@ -1,6 +1,6 @@
 import React from 'react';
 import centered from '@storybook/addon-centered/react';
-import { boolean, select, withKnobs } from '@storybook/addon-knobs';
+import { boolean, color, number, select, withKnobs } from '@storybook/addon-knobs';
 import { DynamicIcon } from './DynamicIcon';
 
 import IconManifest from './manifest.json';
@@ -47,11 +47,13 @@ const IconsContainer = styled.div`
   }
 `;
 export const dynamicLoadAll = () => {
+  const fontColor = color('color', '#F4511E');
+  const fontSize = number('size', 32, { range: true, max: 64, step: 1, min: 16 });
   return (
-    <IconsContainer>
+    <IconsContainer style={{ color: fontColor }}>
       {IconManifest.map((v) => v.name).map((v) => (
         <figure key={v}>
-          <DynamicIcon type={v} style={{ fontSize: 32 }} />
+          <DynamicIcon type={v} style={{ fontSize }} />
           <figcaption>{v}</figcaption>
         </figure>
       ))}

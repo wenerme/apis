@@ -3539,7 +3539,7 @@
   resolved "https://registry.npm.taobao.org/@types/babel-types/download/@types/babel-types-7.0.7.tgz#667eb1640e8039436028055737d2b9986ee336e3"
   integrity sha1-Zn6xZA6AOUNgKAVXN9K5mG7jNuM=
 
-"@types/babel__core@^7.1.0":
+"@types/babel__core@^7.1.0", "@types/babel__core@^7.1.7":
   version "7.1.7"
   resolved "https://registry.npm.taobao.org/@types/babel__core/download/@types/babel__core-7.1.7.tgz#1dacad8840364a57c98d0dd4855c6dd3752c6b89"
   integrity sha1-HaytiEA2SlfJjQ3UhVxt03Usa4k=
@@ -3556,6 +3556,11 @@
   integrity sha1-SQF2ezl+hxGuuZ3405bXunt/DgQ=
   dependencies:
     "@babel/types" "^7.0.0"
+
+"@types/babel__preset-env@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.npm.taobao.org/@types/babel__preset-env/download/@types/babel__preset-env-7.9.0.tgz#9498eeb833ce9bd8324dd8a26a45886bc4426aa8"
+  integrity sha1-lJjuuDPOm9gyTdiiakWIa8RCaqg=
 
 "@types/babel__template@*":
   version "7.0.2"
@@ -4200,6 +4205,14 @@
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/@types/rollup-plugin-json/download/@types/rollup-plugin-json-3.0.2.tgz#1153136a515ed4fbb7ef214ace496f5fc3ed7796"
   integrity sha1-EVMTalFe1Pu37yFKzklvX8Ptd5Y=
+  dependencies:
+    "@types/node" "*"
+    rollup "^0.63.4"
+
+"@types/rollup-plugin-peer-deps-external@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.npm.taobao.org/@types/rollup-plugin-peer-deps-external/download/@types/rollup-plugin-peer-deps-external-2.2.0.tgz#eae7d8b9d27fa037f5bcaded24e389f85b81973c"
+  integrity sha1-6ufYudJ/oDf1vK3tJOOJ+FuBlzw=
   dependencies:
     "@types/node" "*"
     rollup "^0.63.4"

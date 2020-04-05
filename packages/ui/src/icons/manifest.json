@@ -48,6 +48,9 @@
     "name": "MagnetOutlined"
   },
   {
+    "name": "ManTiedOutlined"
+  },
+  {
     "name": "QrcodePrintOutlined"
   },
   {
@@ -67,5 +70,8 @@
   },
   {
     "name": "WikipediaOutlined"
+  },
+  {
+    "name": "WomenWithMicroPhoneFIlled"
   }
 ]

@@ -1,3 +1,6 @@
+export * from './DynamicIcon'
+
+// generated:begin
 export { default as BarcodePrintOutlined } from './components/BarcodePrintOutlined';
 export { default as BarcodeReadOutlined } from './components/BarcodeReadOutlined';
 export { default as BarcodeScanOutlined } from './components/BarcodeScanOutlined';
@@ -14,6 +17,7 @@ export { default as IpfsOutlined } from './components/IpfsOutlined';
 export { default as KongLogo } from './components/KongLogo';
 export { default as LightModeFilled } from './components/LightModeFilled';
 export { default as MagnetOutlined } from './components/MagnetOutlined';
+export { default as ManTiedOutlined } from './components/ManTiedOutlined';
 export { default as QrcodePrintOutlined } from './components/QrcodePrintOutlined';
 export { default as QrcodeReadOutlined } from './components/QrcodeReadOutlined';
 export { default as RtcOutlined } from './components/RtcOutlined';
@@ -21,3 +25,5 @@ export { default as TorrentFileFilled } from './components/TorrentFileFilled';
 export { default as UTorrentFilled } from './components/UTorrentFilled';
 export { default as WebTorrentFilled } from './components/WebTorrentFilled';
 export { default as WikipediaOutlined } from './components/WikipediaOutlined';
+export { default as WomenWithMicroPhoneFIlled } from './components/WomenWithMicroPhoneFIlled';
+// generated:end

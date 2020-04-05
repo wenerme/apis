@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "outDir": ".",
+    "noEmit": false
+  },
+  "extends": "./tsconfig.json",
+  "include": [
+    "icons.ts",
+    "index.ts"
+  ]
+}
