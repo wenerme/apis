@@ -29,7 +29,7 @@ export const HashingAlgorithms = [
   'ripemd160',
 ];
 
-export function isValidRequest(req, errors = []): req is HashingRequest {
+export function isValidRequest(req, errors: string[] = []): req is HashingRequest {
   const { algorithm, content, encoding, format } = req;
   if (!['txt', 'json'].includes(format)) {
     errors.push(`错误的格式(${format}): txt, json`);

@@ -5,8 +5,8 @@ import { Descriptions } from 'antd';
 import { HookedConsole } from 'console-feed/lib/definitions/Console';
 
 export const LocationMePageContent: React.FC = () => {
-  const [logs, setLogs] = useState([]);
-  const [position, setPosition] = useState(null);
+  const [logs, setLogs] = useState<any[]>([]);
+  const [position, setPosition] = useState<any>(null);
   const [init, setInit] = useState(false);
   const consoleRef = useRef<any>();
   useAsyncEffect(async () => {
@@ -31,7 +31,7 @@ export const LocationMePageContent: React.FC = () => {
     });
 
     return () => {
-      cleaner();
+      cleaner?.();
       Unhook(console);
     };
   }, []);
@@ -54,12 +54,12 @@ export const LocationMePageContent: React.FC = () => {
 async function watchPosition(options: {
   console?: Console;
   onPositionChange?: (pos: Position) => void;
-}): Promise<() => void | undefined> {
+}): Promise<(() => void) | undefined> {
   const { console = window.console, onPositionChange = () => null } = options;
 
   if (!('geolocation' in navigator)) {
     console.error('无 geolocation 支持');
-    return;
+    return ;
   }
 
   await new Promise((resolve, reject) => {

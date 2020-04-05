@@ -97,7 +97,7 @@ function suggest(seed) {
     symbol: false,
   });
 
-  const result = [];
+  const result: string[] = [];
   for (let i = 0; i < 20; i++) {
     result.push(generator());
   }

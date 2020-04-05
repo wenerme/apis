@@ -5,15 +5,14 @@ import Link from 'next/link';
 import 'moment/locale/zh-cn';
 import { useRouteProgress } from 'src/libs/nexts/hooks/useRouteProgress';
 import { PageContext } from './PageContext';
-import { LayoutFrame } from '../LayoutFrame/LayoutFrame';
 import { menus } from './menus';
 import { Portal } from 'src/components/Portal';
-import DarkModeFilled from '@wener/ui/src/icons/components/DarkModeFilled';
+import { DarkModeFilled, LightModeFilled } from '@wener/ui/icons';
 import styled from 'styled-components';
-import LightModeFilled from '@wener/ui/src/icons/components/LightModeFilled';
 import { useAntdTheme } from 'src/hooks/useAntdTheme';
 import Head from 'next/head';
-import { LayoutThemeProvider, useLayoutTheme } from 'src/components/layout/LayoutFrame/theme';
+import { LayoutFrame } from '@wener/ui/src/antds/layouts/LayoutFrame';
+import { NamedThemeProvider, useNamedTheme } from '@wener/ui';
 
 const Footer: React.FC = () => {
   return (
@@ -50,7 +49,7 @@ const FixedContainer = styled.div`
 `;
 
 const PageAction: React.FC = () => {
-  const [theme, setTheme] = useLayoutTheme();
+  const [theme, setTheme] = useNamedTheme();
   useAntdTheme({ theme });
   return (
     <Portal>
@@ -80,16 +79,17 @@ export const PageLayout: React.FC<{ showFooter?; title?; description?; keywords?
 }) => {
   useRouteProgress();
   title = title || `Wener's APIs`;
-
+  console.log(`PageLayout init`,title)
   // 预先加载 style 避免页面闪烁 - 主题不同会加载后才切换
   return (
-    <LayoutThemeProvider
-      initialTheme={() => {
-        if (typeof window !== 'undefined') {
-          return localStorage['THEME'] === 'dark' ? 'dark' : 'light';
-        }
-        return 'light';
-      }}
+    <NamedThemeProvider
+      initialTheme={
+        typeof window === 'undefined'
+          ? 'light'
+          : () => {
+              return localStorage['THEME'] === 'dark' ? 'dark' : 'light';
+            }
+      }
     >
       <PageContext>
         <Head key="layout">
@@ -114,6 +114,6 @@ export const PageLayout: React.FC<{ showFooter?; title?; description?; keywords?
           </React.Fragment>
         </LayoutFrame>
       </PageContext>
-    </LayoutThemeProvider>
+    </NamedThemeProvider>
   );
 };

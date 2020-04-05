@@ -26,13 +26,13 @@ const slice = createSlice({
       state.showDialog = payload;
     },
     hideDialog(state) {
-      state.showDialog = null;
+      state.showDialog = undefined;
     },
     showTorrentDetail(state, { payload }) {
       state.showTorrentDetail = payload;
     },
     hideTorrentDetail(state) {
-      state.showTorrentDetail = null;
+      state.showTorrentDetail = undefined;
     },
 
     updateSelection(state, { payload }) {

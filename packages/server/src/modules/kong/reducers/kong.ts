@@ -52,7 +52,7 @@ const slice = createSlice({
       state.config = payload;
     },
     clearConfig(state) {
-      state.config = null;
+      state.config = undefined;
     },
   },
 });

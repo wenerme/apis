@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Form, message, Modal, Radio } from 'antd';
 import { FormFieldBuilder, FormFieldsBuilder } from 'src/libs/antds/form/builder';
-import MagnetOutlined from '../../../components/icons/MagnetOutlined';
-import TorrentFileFilled from '../../../components/icons/TorrentFileFilled';
+import { MagnetOutlined, TorrentFileFilled } from '@wener/ui/icons';
 import { useRootSelector } from 'src/reducers/store';
 import { useDispatch } from 'react-redux';
 import { hideDialog } from 'src/reducers/webtorrent';

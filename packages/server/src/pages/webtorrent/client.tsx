@@ -6,7 +6,7 @@ import { useMounted } from '@wener/ui';
 import { getCurrentWebTorrentClient, getWebTorrentClient } from 'src/modules/webtorrent/client';
 import { Instance } from 'webtorrent';
 import dynamic from 'next/dynamic';
-import WebTorrentFilled from '../../components/icons/WebTorrentFilled';
+import { WebTorrentFilled } from '@wener/ui/icons';
 
 const WebTorrentClient = dynamic(
   () => import('../../modules/webtorrent/components/WebTorrentClient').then(({ WebTorrentClient }) => WebTorrentClient),

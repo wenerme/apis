@@ -6,9 +6,10 @@
   "umd:main": "dist/ui.umd.js",
   "module": "dist/ui.es5.js",
   "source": "src/index.ts",
-  "browser": "dist/ui.umd.js",
   "typings": "lib/index.d.ts",
   "files": [
+    "icons.js",
+    "index.js",
     "scripts",
     "tsconfig.ts-node.json",
     ".storybook",
@@ -26,17 +27,23 @@
   ],
   "scripts": {
     "prebuild": "rm -rf ./lib ./dist",
-    "build": "tsc && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "dev": "yarn run storybook",
+    "build": "yarn build:types && yarn build:js && yarn build:bundle && yarn build:docs",
+    "build:bundle": "rollup -c rollup.config.ts",
+    "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build:js": "babel src -d lib -x .ts,.tsx -s true",
+    "build:types": "tsc --emitDeclarationOnly",
+    "dev": "yarn run storybook --ci",
     "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "format": "yarn prettier --write src stories .storybook ./*.json ./*.js",
-    "lint": "eslint --fix --ext .ts,.tsx src",
-    "storybook": "start-storybook -p ${PORT:-6006}",
-    "storybook:build": "build-storybook -c .storybook -o storybook",
     "icons": "yarn run icons:svgo && yarn run icons:gen && git add src/icons",
     "icons:gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons.ts",
     "icons:svgo": "svgo -f src/icons/svgs --config svgo.config.json",
-    "test": "jest"
+    "lint": "eslint --fix --ext .ts,.tsx src",
+    "storybook": "start-storybook -p ${PORT:-6006}",
+    "storybook:build": "build-storybook -c .storybook -o storybook",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn type-check --watch"
   },
   "dependencies": {
     "@wener/utils": "^1.0.0-alpha.8",
@@ -45,8 +52,14 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
@@ -63,7 +76,10 @@
     "@storybook/addons": "^5.3.17",
     "@storybook/react": "^5.3.17",
     "@types/jest": "^25.1.4",
+    "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.31",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
     "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "^5.0.1",
     "babel-plugin-inline-react-svg": "^1.1.1",
@@ -73,15 +89,14 @@
     "react-docgen-typescript-loader": "^3.7.1",
     "react-test-renderer": "^16.13.1",
     "rollup": "^2.3.2",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
     "ts-jest": "^25.2.1",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "tslib": "^1.11.1",
     "typedoc": "^0.17.3",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.0.3",
-    "tslib": "^1.11.1",
     "antd": "^4.0.4",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
@@ -90,5 +105,12 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "targets": {
+    "browsers": [
+      "last 2 versions",
+      "safari >= 7"
+    ],
+    "node": "12"
   }
 }

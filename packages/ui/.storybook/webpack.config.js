@@ -8,10 +8,10 @@ module.exports = ({ config }) => {
     loaders: [
       {
         loader: require.resolve('@storybook/source-loader'),
-        options: { parser: 'typescript' }
-      }
+        options: { parser: 'typescript' },
+      },
     ],
-    enforce: 'pre'
+    enforce: 'pre',
   });
 
   config.module.rules.push({
@@ -20,24 +20,24 @@ module.exports = ({ config }) => {
       {
         loader: require.resolve('babel-loader'),
         options: {
-          presets: [require.resolve('babel-preset-react-app')]
-        }
+          presets: [require.resolve('babel-preset-react-app')],
+        },
       },
       {
         loader: require.resolve('react-docgen-typescript-loader'),
         options: {
           // Provide the path to your tsconfig.json so that your stories can
           // display types from outside each individual story.
-          tsconfigPath: path.resolve(__dirname, '../tsconfig.json')
-        }
-      }
-    ]
+          tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
+        },
+      },
+    ],
   });
 
   config.module.rules.push({
     test: /\.s?css$/,
     use: ['style-loader', 'css-loader', 'sass-loader'],
-    include: path.resolve(__dirname, '../')
+    include: path.resolve(__dirname, '../'),
   });
 
   config.resolve.extensions.push('.ts', '.tsx', '.css', '.scss', '.mdx', '.md');

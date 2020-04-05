@@ -67,7 +67,7 @@ function suggestNumbers(seed) {
   const random = createRandom({ seed });
 
   // const random = () => Math.random();
-  const result = [];
+  const result: string[] = [];
   for (let i = 0; i < 20; i++) {
     result.push(`${pre[Math.floor(random() * pre.length)]}${(Math.floor(random() * 999999999) + '').padStart(9, '0')}`);
   }

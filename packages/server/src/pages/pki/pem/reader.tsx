@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, Input, message, PageHeader } from 'antd';
-import CertificateVerifiedFilled from '../../../components/icons/CertificateVerifiedFilled';
+import { CertificateVerifiedFilled } from '@wener/ui/icons';
 import Certificate from 'pkijs/src/Certificate';
 import { API } from 'src/apis/api';
 import { DownloadOutlined } from '@ant-design/icons';

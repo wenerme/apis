@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Button, Descriptions, Divider, Input, List, message, PageHeader } from 'antd';
-import TorrentFileFilled from '../../../components/icons/TorrentFileFilled';
+import { TorrentFileFilled } from '@wener/ui/icons';
 import ParseTorrent, { toMagnetURI, toTorrentFile } from 'parse-torrent';
 import { useAsyncEffect } from '@wener/ui';
 import { format } from 'date-fns';

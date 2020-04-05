@@ -5,12 +5,13 @@ import React from 'react';
 
 import dynamic from 'next/dynamic';
 import { EnvironmentOutlined } from '@ant-design/icons';
+import { BoxShuffle } from '@wener/ui';
 
-const LocationMePageContent = dynamic(
-  () => import('../../modules/geo/components/LocationMePageContent').then((v) => v.LocationMePageContent),
+const LocationMePageContent = dynamic<any>(
+  () => import('../../modules/geo/components/LocationMePageContent').then(({LocationMePageContent})=> LocationMePageContent),
   {
     ssr: false,
-    loading: () => <div>加载中...</div>,
+    loading: () => <BoxShuffle title="Loading page..."/>,
   },
 );
 

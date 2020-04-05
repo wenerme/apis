@@ -16,7 +16,7 @@ export function NamedThemeProvider({ children, initialTheme }) {
 
 export function useNamedTheme(): [string, Dispatch<SetStateAction<string>>] {
   const state = useContext(NamedThemeContext);
-  const [theme, setTheme] = useState('');
+  const [theme, setTheme] = useState(state.value);
   useEffect(() => {
     const subscribe = state.subscribe(setTheme);
     return subscribe.unsubscribe.bind(subscribe);

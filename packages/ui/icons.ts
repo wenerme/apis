@@ -1,1 +1,1 @@
-export * from './src/icons';
+export * from './lib/icons';

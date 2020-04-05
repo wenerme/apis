@@ -4,7 +4,7 @@ import React from 'react';
 import { PageHeader } from 'antd';
 import { WebRTCChecker } from 'src/modules/webrtc/components/WebRTCChecker';
 import { useMounted } from '@wener/ui';
-import RtcOutlined from '../../components/icons/RtcOutlined';
+import { RtcOutlined } from '@wener/ui/icons';
 
 const Page = () => {
   const mounted = useMounted();

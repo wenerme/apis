@@ -17,7 +17,7 @@ export function configRootStore() {
   return configureStore({
     reducer: rootReducer,
     devTools: isDev(),
-    middleware: [...getDefaultMiddleware(), isDev() ? logger : null].filter((v) => v),
+    middleware: [...getDefaultMiddleware(), isDev() ? logger : null].filter((v) => v) as any,
   });
 }
 

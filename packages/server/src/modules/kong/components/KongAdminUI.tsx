@@ -1,10 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import { MenuSpec } from 'src/components/layout/LayoutFrame/types';
 import { HashRouter as Router, Link } from 'react-router-dom';
 import { RouteFrameContent } from 'src/components/layout/RouteFrame/RouteFrameContent';
-import { LayoutFrame } from 'src/components/layout/LayoutFrame/LayoutFrame';
 import { RouteSpec } from 'src/components/layout/RouteFrame/types';
-import { LayoutFrameContent } from 'src/components/layout/LayoutFrame/LayoutFrameContent';
 import i18next from 'i18next';
 import {
   ApiOutlined,
@@ -37,7 +34,10 @@ import { FormListField } from './FormListField';
 import { headersFromArray } from '../libs/headers';
 import { i18nextInflection } from 'src/libs/i18nexts/plugins/inflection-postprocessor';
 import { isDev } from '@wener/utils/src/envs/isDev';
-import CaCertificateOutlined from '@wener/ui/src/icons/components/CaCertificateOutlined';
+import { CaCertificateOutlined } from '@wener/ui/icons';
+import { MenuSpec } from '@wener/ui/src/antds/layouts/LayoutFrame/types';
+import { LayoutFrame } from '@wener/ui/src/antds/layouts/LayoutFrame/LayoutFrame';
+import { LayoutFrameContent } from '@wener/ui/src/antds/layouts/LayoutFrame';
 
 i18next
   .use(i18nextInflection)

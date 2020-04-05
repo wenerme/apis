@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import React, { useEffect, useRef, useState } from 'react';
 
 export const Portal: React.FC<{ selector?: string }> = ({ children, selector }) => {
-  const ref = useRef();
+  const ref = useRef<any>();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
