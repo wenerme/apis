@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { loadStyles } from '@wener/utils/src/browsers/loaders';
+import { MaybePromise } from '@wener/utils';
 
 interface LoadThemeOption {
   theme: string;
@@ -7,7 +8,7 @@ interface LoadThemeOption {
   url?: string;
 }
 
-function loadTheme(options: LoadThemeOption): Promise<void> | boolean {
+function loadTheme(options: LoadThemeOption): MaybePromise<boolean> {
   const { theme, type, url = '' } = options ?? {};
   const attr = `data-${type}-theme`;
   const cur = document.querySelector<HTMLLinkElement>(`link[${attr}="${theme}"]`);
@@ -22,6 +23,7 @@ function loadTheme(options: LoadThemeOption): Promise<void> | boolean {
         // disable others
         const themes = document.querySelectorAll<HTMLLinkElement>(`link[${attr}]:not([${attr}="${theme}"])`);
         themes.forEach((v) => v.setAttribute('disabled', 'true'));
+        return true;
       });
     }
     return false;
@@ -34,10 +36,25 @@ function loadTheme(options: LoadThemeOption): Promise<void> | boolean {
   return true;
 }
 
+// fixme - should use current version ?
 const urls = {
-  light: 'https://unpkg.com/antd@4.0.4/dist/antd.min.css',
-  dark: 'https://unpkg.com/antd@4.0.4/dist/antd.dark.min.css',
+  light: 'https://unpkg.com/antd@4.1.1/dist/antd.min.css',
+  dark: 'https://unpkg.com/antd@4.1.1/dist/antd.dark.min.css',
 };
+
+export function loadAntdTheme(options?: { theme; src? }): MaybePromise<boolean> {
+  const { theme = 'light', src } = options || {};
+  const url = src || urls[theme];
+  if (!url) {
+    console.error(`Theme not found: ${theme}`);
+    return;
+  }
+  return loadTheme({
+    theme,
+    type: 'antd',
+    url,
+  });
+}
 
 export function useAntdTheme(options?: { theme; src? }) {
   const { theme = 'light', src } = options || {};

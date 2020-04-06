@@ -18,6 +18,8 @@
   "browser": "dist/tinyrpc.umd.js",
   "typings": "lib/tinyrpc.d.ts",
   "files": [
+    "index.js",
+    "index.d.ts",
     "lib",
     "dist",
     "src",
@@ -31,7 +33,11 @@
   ],
   "scripts": {
     "prebuild": "rm -rf ./lib ./dist",
-    "build": "tsc && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build:js": "tsc",
+    "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build:root": "tsc --project tsconfig.root.json",
+    "build:bundle": "rollup -c rollup.config.ts",
+    "build": "yarn build:js && yarn build:root && yarn build:bundle && yarn build:docs",
     "doc": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest"
