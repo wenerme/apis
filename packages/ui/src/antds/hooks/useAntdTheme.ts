@@ -47,7 +47,7 @@ export function loadAntdTheme(options?: { theme; src? }): MaybePromise<boolean> 
   const url = src || urls[theme];
   if (!url) {
     console.error(`Theme not found: ${theme}`);
-    return;
+    return false;
   }
   return loadTheme({
     theme,

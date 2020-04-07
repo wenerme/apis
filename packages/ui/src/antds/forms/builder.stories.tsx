@@ -3,10 +3,10 @@ import { Button, Divider, Form } from 'antd';
 import { buildInitialValues, FormFieldProps, FormFieldsBuilder } from './builder';
 import centered from '@storybook/addon-centered/react';
 import { action } from '@storybook/addon-actions';
-import { useAntdTheme } from '@wener/apis-server/src/hooks/useAntdTheme';
+import { useAntdTheme } from '../hooks';
 import { FormFieldBuilder } from '@wener/apis-server/src/libs/antds/form/builder';
 import { FormInstance } from 'antd/lib/form';
-import { withProps } from '../../hocs/withProps';
+import { withProps } from '../../hocs';
 import _ from 'lodash';
 
 export default {

@@ -8,6 +8,8 @@
   "source": "src/index.ts",
   "typings": "lib/index.d.ts",
   "files": [
+    "antds.js",
+    "antds.d.ts",
     "icons.js",
     "icons.d.ts",
     "index.js",

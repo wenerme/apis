@@ -9,7 +9,7 @@ import { menus } from './menus';
 import { Portal } from 'src/components/Portal';
 import { DarkModeFilled, LightModeFilled } from '@wener/ui/icons';
 import styled from 'styled-components';
-import { useAntdTheme } from 'src/hooks/useAntdTheme';
+import { useAntdTheme } from '@wener/ui/src/antds/hooks/useAntdTheme';
 import Head from 'next/head';
 import { LayoutFrame } from '@wener/ui/src/antds/layouts/LayoutFrame';
 import { NamedThemeProvider, useNamedTheme } from '@wener/ui';
