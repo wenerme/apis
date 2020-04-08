@@ -1,6 +1,5 @@
 import React, { ComponentType } from 'react';
 import { LoadingOutlined } from '@ant-design/icons/lib';
-import { resolver } from './resolver';
 import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon';
 
 export interface DynamicIconProps extends AntdIconProps {
@@ -48,4 +47,4 @@ export const DynamicIcon: React.FC<DynamicIconProps> & { Fallback; resolvers } =
 };
 
 DynamicIcon.Fallback = <LoadingOutlined />;
-DynamicIcon.resolvers = [resolver];
+DynamicIcon.resolvers = [];

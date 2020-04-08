@@ -1,6 +1,3 @@
-export * from './DynamicIcon'
-
-// generated:begin
 export { default as BarcodePrintOutlined } from './components/BarcodePrintOutlined';
 export { default as BarcodeReadOutlined } from './components/BarcodeReadOutlined';
 export { default as BarcodeScanOutlined } from './components/BarcodeScanOutlined';
@@ -26,4 +23,3 @@ export { default as UTorrentFilled } from './components/UTorrentFilled';
 export { default as WebTorrentFilled } from './components/WebTorrentFilled';
 export { default as WikipediaOutlined } from './components/WikipediaOutlined';
 export { default as WomenWithMicroPhoneFIlled } from './components/WomenWithMicroPhoneFIlled';
-// generated:end

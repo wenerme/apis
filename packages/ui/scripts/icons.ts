@@ -1,7 +1,8 @@
-import glob from 'glob';
+import * as glob from 'glob';
 import * as fs from 'fs';
-import path from 'path';
+import * as path from 'path';
 import { pascalCase } from '@wener/utils/src/strings/camelCase';
+import { processFileContent, replaceGenerated } from './utils';
 
 /*
 ts-node --project ./tsconfig.ts-node.json ./scripts/icons.ts
@@ -44,33 +45,20 @@ async function generate(svgPath, compPath, utilPath) {
   fs.writeFileSync(
     path.join(utilPath, 'index.ts'),
     names.map((v) => `export { default as ${v} } from './${path.relative(utilPath, compPath)}/${v}';`).join('\n') +
-    '\n',
-  );
-  fs.writeFileSync(
-    path.join(utilPath, 'manifest.json'),
-    JSON.stringify(
-      names.map((v) => ({ name: v })),
-      null,
-      '  ',
-    ),
+      '\n',
   );
 
   const resolveCase = names
     .map((v) => `    case '${v}':c = import('./${path.relative(utilPath, compPath)}/${v}');break;`)
     .join('\n');
-  const resolver = path.join(utilPath, 'resolver.ts');
+  const resolver = path.join(utilPath, 'iconsResolver.ts');
   const rel = replaceGenerated(fs.readFileSync(resolver).toString(), resolveCase);
 
-  fs.writeFileSync(resolver, rel);
-}
+  processFileContent(path.join(utilPath, 'iconsResolverTypes.ts'), (v) => {
+    return replaceGenerated(v, `export const iconsResolverTypes: string[] = ${JSON.stringify(names)};`, 'types');
+  });
 
-function replaceGenerated(s: string, v: string) {
-  return s.replace(
-    /^[^\n]*generated:begin.*?generated:end.*?$/ms,
-    `    // generated:begin
-${v}
-    // generated:end`,
-  );
+  fs.writeFileSync(resolver, rel);
 }
 
 async function gen({ svg, comp, name, svgImport, force = false }) {

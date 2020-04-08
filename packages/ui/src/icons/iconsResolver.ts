@@ -1,12 +1,12 @@
 import { LazyComponentType } from '../types/types';
 
-export function resolver({ type }) {
+export function iconsResolver({ type }) {
   let c: LazyComponentType | null = null;
   console.info(`resolving icons ${type}`);
   // @formatter:off
   // prettier-ignore
   switch (type) {
-    // generated:begin
+// generated:begin
     case 'BarcodePrintOutlined':c = import('./components/BarcodePrintOutlined');break;
     case 'BarcodeReadOutlined':c = import('./components/BarcodeReadOutlined');break;
     case 'BarcodeScanOutlined':c = import('./components/BarcodeScanOutlined');break;
@@ -32,7 +32,7 @@ export function resolver({ type }) {
     case 'WebTorrentFilled':c = import('./components/WebTorrentFilled');break;
     case 'WikipediaOutlined':c = import('./components/WikipediaOutlined');break;
     case 'WomenWithMicroPhoneFIlled':c = import('./components/WomenWithMicroPhoneFIlled');break;
-    // generated:end
+// generated:end
     // @formatter:on
     default:
   }

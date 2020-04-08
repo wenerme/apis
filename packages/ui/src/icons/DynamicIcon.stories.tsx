@@ -4,9 +4,11 @@ import { boolean, color, number, select, withKnobs } from '@storybook/addon-knob
 import { DynamicIcon } from './DynamicIcon';
 import LazyLoad from 'react-lazyload';
 
-import IconManifest from './manifest.json';
 import styled from 'styled-components';
-import { antdIconsResolver, types } from './antdIconsResolver';
+import { antdIconsResolver } from './antdIconsResolver';
+import { antdIconsResolverTypes } from './antdIconsResolverTypes';
+import { iconsResolverTypes } from './iconsResolverTypes';
+import { iconsResolver } from './iconsResolver';
 
 export default {
   title: 'icons/DynamicIcon',
@@ -24,11 +26,7 @@ export const dynamicLoadManifest = () => {
   return (
     <DynamicIcon
       style={{ fontSize: 32 }}
-      type={select(
-        'type',
-        IconManifest.map((v) => v.name),
-        'BarcodePrintOutlined',
-      )}
+      type={select('type', iconsResolverTypes, 'BarcodePrintOutlined')}
       spin={boolean('spin', false)}
     />
   );
@@ -53,7 +51,7 @@ export const dynamicLoadAll = () => {
   const fontSize = number('size', 32, { range: true, max: 64, step: 1, min: 16 });
   return (
     <IconsContainer style={{ color: fontColor }}>
-      {IconManifest.map((v) => v.name).map((v) => (
+      {iconsResolverTypes.map((v) => (
         <figure key={v}>
           <DynamicIcon type={v} style={{ fontSize }} />
           <figcaption>{v}</figcaption>
@@ -63,13 +61,13 @@ export const dynamicLoadAll = () => {
   );
 };
 
-DynamicIcon.resolvers.push(antdIconsResolver);
+DynamicIcon.resolvers.push(iconsResolver, antdIconsResolver);
 export const antdAll = () => {
   const fontColor = color('color', '#F4511E');
   const fontSize = number('size', 32, { range: true, max: 64, step: 1, min: 16 });
   return (
     <IconsContainer style={{ color: fontColor }}>
-      {types.map((v) => v).map((v) => (
+      {antdIconsResolverTypes.map((v) => (
         <figure key={v}>
           <LazyLoad overflow height={64} scrollContainer={document.querySelector('#root > div > div')}>
             <DynamicIcon type={v} style={{ fontSize }} />
