@@ -1,6 +1,14 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
+  // https://eslint.org/docs/user-guide/configuring#specifying-environments
+  env: {
+    browser: true,
+    amd: true,
+    node: true,
+    // 影响 global
+    es2017: true,
+  },
   plugins: ['@typescript-eslint', 'jest', 'react-hooks'],
   extends: [
     'eslint:recommended',
@@ -31,10 +39,5 @@ module.exports = {
     '@typescript-eslint/camelcase': [1],
     // 方法可以先用后定义
     '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: false }],
-  },
-  env: {
-    browser: true,
-    amd: true,
-    node: true,
   },
 };

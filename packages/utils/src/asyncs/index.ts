@@ -1,4 +1,6 @@
 export * from './LazyPromise'
 export * from './AsyncInterval'
-export * from './sleep'
 export * from './MaybePromise'
+
+export * from './sleep'
+export * from './timeout'
