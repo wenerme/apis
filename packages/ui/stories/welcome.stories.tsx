@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAntdTheme } from '@wener/apis-server/src/hooks/useAntdTheme';
+import { useAntdTheme } from '../antds';
 import { FormatPainterOutlined } from '@ant-design/icons/lib';
 import { WenerApisWelcome } from '../src/components/WenerApisWelcome';
 
