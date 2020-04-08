@@ -30,6 +30,7 @@
     "tsconfig.json"
   ],
   "scripts": {
+    "antd-icons:gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/antd-icons.ts",
     "prebuild": "rm -rf ./lib ./dist",
     "build": "yarn build:types && yarn build:js && yarn build:root && yarn build:bundle && yarn build:docs",
     "build:root": "tsc --project tsconfig.root.json",
@@ -97,6 +98,7 @@
     "moment": "^2.24.0",
     "next-tinacms-json": "^0.3.11",
     "react-docgen-typescript-loader": "^3.7.1",
+    "react-lazyload": "^2.6.7",
     "react-markdown": "^4.3.1",
     "react-test-renderer": "^16.13.1",
     "react-tinacms-inline": "^0.4.4",

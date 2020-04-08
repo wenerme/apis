@@ -44,7 +44,7 @@ async function generate(svgPath, compPath, utilPath) {
   fs.writeFileSync(
     path.join(utilPath, 'index.ts'),
     names.map((v) => `export { default as ${v} } from './${path.relative(utilPath, compPath)}/${v}';`).join('\n') +
-      '\n',
+    '\n',
   );
   fs.writeFileSync(
     path.join(utilPath, 'manifest.json'),
@@ -59,16 +59,18 @@ async function generate(svgPath, compPath, utilPath) {
     .map((v) => `    case '${v}':c = import('./${path.relative(utilPath, compPath)}/${v}');break;`)
     .join('\n');
   const resolver = path.join(utilPath, 'resolver.ts');
-  const rel = fs
-    .readFileSync(resolver)
-    .toString()
-    .replace(
-      /^[^\n]*generated:begin.*?generated:end.*?$/ms,
-      `    // generated:begin
-${resolveCase}
-    // generated:end`,
-    );
+  const rel = replaceGenerated(fs.readFileSync(resolver).toString(), resolveCase);
+
   fs.writeFileSync(resolver, rel);
+}
+
+function replaceGenerated(s: string, v: string) {
+  return s.replace(
+    /^[^\n]*generated:begin.*?generated:end.*?$/ms,
+    `    // generated:begin
+${v}
+    // generated:end`,
+  );
 }
 
 async function gen({ svg, comp, name, svgImport, force = false }) {
