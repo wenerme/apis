@@ -1,6 +1,6 @@
 {
   "name": "@wener/ui",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.13",
   "license": "MIT",
   "main": "lib/index.js",
   "umd:main": "dist/ui.umd.js",
@@ -52,7 +52,7 @@
     "type-check:watch": "yarn type-check --watch"
   },
   "dependencies": {
-    "@wener/utils": "^1.0.0-alpha.12",
+    "@wener/utils": "^1.0.0-alpha.13",
     "polished": "^3.5.1",
     "react-fast-compare": "^3.0.1",
     "styled-components": ">= 5"
