@@ -1,6 +1,6 @@
 import { IncomingMessage } from 'http';
 import { parseRequestUrl } from '../libs/nexts/utils/requests';
-import { urljoin } from '../utils/urljoin';
+import { urljoin } from '@wener/utils/src/strings/urljoin';
 import { isDev } from '@wener/utils/src/envs/isDev';
 
 export const API = {
