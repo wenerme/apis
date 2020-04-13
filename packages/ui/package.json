@@ -104,7 +104,7 @@
     "next-tinacms-json": "^0.3.11",
     "react-contenteditable": "^3.3.4",
     "react-docgen-typescript-loader": "^3.7.1",
-    "react-draggable": "4.2.0",
+    "react-draggable": "^4.2.0",
     "react-grid-layout": "^0.18.3",
     "react-lazyload": "^2.6.7",
     "react-markdown": "^4.3.1",
