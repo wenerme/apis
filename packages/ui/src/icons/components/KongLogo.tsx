@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import KongLogoSvg from '../svgs/KongLogo.svg';
+import KongLogoSvg from './../svgr/KongLogo';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const KongLogo: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

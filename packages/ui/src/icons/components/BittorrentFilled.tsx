@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import BittorrentFilledSvg from '../svgs/BittorrentFilled.svg';
+import BittorrentFilledSvg from './../svgr/BittorrentFilled';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const BittorrentFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

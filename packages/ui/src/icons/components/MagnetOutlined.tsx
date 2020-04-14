@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import MagnetOutlinedSvg from '../svgs/MagnetOutlined.svg';
+import MagnetOutlinedSvg from './../svgr/MagnetOutlined';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const MagnetOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

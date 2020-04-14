@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import DictOutlinedSvg from '../svgs/DictOutlined.svg';
+import DictOutlinedSvg from './../svgr/DictOutlined';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const DictOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

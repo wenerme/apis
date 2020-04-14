@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import QrcodeReadOutlinedSvg from '../svgs/QrcodeReadOutlined.svg';
+import QrcodeReadOutlinedSvg from './../svgr/QrcodeReadOutlined';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const QrcodeReadOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

@@ -3475,40 +3475,80 @@
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-add-jsx-attribute/download/@svgr/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
   integrity sha1-2ty2IYUDUy1ohLIQ5/PFAsqqRLE=
 
+"@svgr/babel-plugin-add-jsx-attribute@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-add-jsx-attribute/download/@svgr/babel-plugin-add-jsx-attribute-5.0.1.tgz?cache=0&sync_timestamp=1577614243676&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fbabel-plugin-add-jsx-attribute%2Fdownload%2F%40svgr%2Fbabel-plugin-add-jsx-attribute-5.0.1.tgz#744853b6533e83ce712d41d1873200b3e0a0b6fc"
+  integrity sha1-dEhTtlM+g85xLUHRhzIAs+Cgtvw=
+
 "@svgr/babel-plugin-remove-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-remove-jsx-attribute/download/@svgr/babel-plugin-remove-jsx-attribute-4.2.0.tgz#297550b9a8c0c7337bea12bdfc8a80bb66f85abc"
   integrity sha1-KXVQuajAxzN76hK9/IqAu2b4Wrw=
+
+"@svgr/babel-plugin-remove-jsx-attribute@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-remove-jsx-attribute/download/@svgr/babel-plugin-remove-jsx-attribute-5.0.1.tgz#5df0ccf99e4745e105f76059025986d4da8443cd"
+  integrity sha1-XfDM+Z5HReEF92BZAlmG1NqEQ80=
 
 "@svgr/babel-plugin-remove-jsx-empty-expression@^4.2.0":
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-remove-jsx-empty-expression/download/@svgr/babel-plugin-remove-jsx-empty-expression-4.2.0.tgz#c196302f3e68eab6a05e98af9ca8570bc13131c7"
   integrity sha1-wZYwLz5o6ragXpivnKhXC8ExMcc=
 
+"@svgr/babel-plugin-remove-jsx-empty-expression@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-remove-jsx-empty-expression/download/@svgr/babel-plugin-remove-jsx-empty-expression-5.0.1.tgz#25621a8915ed7ad70da6cea3d0a6dbc2ea933efd"
+  integrity sha1-JWIaiRXtetcNps6j0KbbwuqTPv0=
+
 "@svgr/babel-plugin-replace-jsx-attribute-value@^4.2.0":
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-replace-jsx-attribute-value/download/@svgr/babel-plugin-replace-jsx-attribute-value-4.2.0.tgz#310ec0775de808a6a2e4fd4268c245fd734c1165"
   integrity sha1-MQ7Ad13oCKai5P1CaMJF/XNMEWU=
+
+"@svgr/babel-plugin-replace-jsx-attribute-value@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-replace-jsx-attribute-value/download/@svgr/babel-plugin-replace-jsx-attribute-value-5.0.1.tgz#0b221fc57f9fcd10e91fe219e2cd0dd03145a897"
+  integrity sha1-CyIfxX+fzRDpH+IZ4s0N0DFFqJc=
 
 "@svgr/babel-plugin-svg-dynamic-title@^4.3.3":
   version "4.3.3"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-svg-dynamic-title/download/@svgr/babel-plugin-svg-dynamic-title-4.3.3.tgz#2cdedd747e5b1b29ed4c241e46256aac8110dd93"
   integrity sha1-LN7ddH5bGyntTCQeRiVqrIEQ3ZM=
 
+"@svgr/babel-plugin-svg-dynamic-title@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-svg-dynamic-title/download/@svgr/babel-plugin-svg-dynamic-title-5.0.1.tgz#221abd28898130c6466b018bf19e905648100c38"
+  integrity sha1-Ihq9KImBMMZGawGL8Z6QVkgQDDg=
+
 "@svgr/babel-plugin-svg-em-dimensions@^4.2.0":
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-svg-em-dimensions/download/@svgr/babel-plugin-svg-em-dimensions-4.2.0.tgz#9a94791c9a288108d20a9d2cc64cac820f141391"
   integrity sha1-mpR5HJoogQjSCp0sxkysgg8UE5E=
+
+"@svgr/babel-plugin-svg-em-dimensions@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-svg-em-dimensions/download/@svgr/babel-plugin-svg-em-dimensions-5.0.1.tgz#bd77607634deb1d970dbd8c0b1397b41e28c59dd"
+  integrity sha1-vXdgdjTesdlw29jAsTl7QeKMWd0=
 
 "@svgr/babel-plugin-transform-react-native-svg@^4.2.0":
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-transform-react-native-svg/download/@svgr/babel-plugin-transform-react-native-svg-4.2.0.tgz#151487322843359a1ca86b21a3815fd21a88b717"
   integrity sha1-FRSHMihDNZocqGsho4Ff0hqItxc=
 
+"@svgr/babel-plugin-transform-react-native-svg@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-transform-react-native-svg/download/@svgr/babel-plugin-transform-react-native-svg-5.0.1.tgz?cache=0&sync_timestamp=1577614245451&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fbabel-plugin-transform-react-native-svg%2Fdownload%2F%40svgr%2Fbabel-plugin-transform-react-native-svg-5.0.1.tgz#8c593dcfe17179f5a87734a76c9174aac91d2a2b"
+  integrity sha1-jFk9z+FxefWodzSnbJF0qskdKis=
+
 "@svgr/babel-plugin-transform-svg-component@^4.2.0":
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-transform-svg-component/download/@svgr/babel-plugin-transform-svg-component-4.2.0.tgz#5f1e2f886b2c85c67e76da42f0f6be1b1767b697"
   integrity sha1-Xx4viGsshcZ+dtpC8Pa+Gxdntpc=
+
+"@svgr/babel-plugin-transform-svg-component@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-transform-svg-component/download/@svgr/babel-plugin-transform-svg-component-5.3.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fbabel-plugin-transform-svg-component%2Fdownload%2F%40svgr%2Fbabel-plugin-transform-svg-component-5.3.1.tgz#1c512bc3d1b595cc7c5edcb3ac992f655d2dd6bc"
+  integrity sha1-HFErw9G1lcx8XtyzrJkvZV0t1rw=
 
 "@svgr/babel-preset@^4.3.3":
   version "4.3.3"
@@ -3524,6 +3564,36 @@
     "@svgr/babel-plugin-transform-react-native-svg" "^4.2.0"
     "@svgr/babel-plugin-transform-svg-component" "^4.2.0"
 
+"@svgr/babel-preset@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.npm.taobao.org/@svgr/babel-preset/download/@svgr/babel-preset-5.3.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fbabel-preset%2Fdownload%2F%40svgr%2Fbabel-preset-5.3.1.tgz#e7e678e38cd74c2074b810da7a90582d6dbc6898"
+  integrity sha1-5+Z444zXTCB0uBDaepBYLW28aJg=
+  dependencies:
+    "@svgr/babel-plugin-add-jsx-attribute" "^5.0.1"
+    "@svgr/babel-plugin-remove-jsx-attribute" "^5.0.1"
+    "@svgr/babel-plugin-remove-jsx-empty-expression" "^5.0.1"
+    "@svgr/babel-plugin-replace-jsx-attribute-value" "^5.0.1"
+    "@svgr/babel-plugin-svg-dynamic-title" "^5.0.1"
+    "@svgr/babel-plugin-svg-em-dimensions" "^5.0.1"
+    "@svgr/babel-plugin-transform-react-native-svg" "^5.0.1"
+    "@svgr/babel-plugin-transform-svg-component" "^5.3.1"
+
+"@svgr/cli@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.npm.taobao.org/@svgr/cli/download/@svgr/cli-5.3.1.tgz#3762b4db805eb2dfcb396abff084c770fb2619d9"
+  integrity sha1-N2K024Best/LOWq/8ITHcPsmGdk=
+  dependencies:
+    "@svgr/core" "^5.3.1"
+    "@svgr/plugin-jsx" "^5.3.1"
+    "@svgr/plugin-prettier" "^5.3.1"
+    "@svgr/plugin-svgo" "^5.3.0"
+    camelcase "^5.3.1"
+    chalk "^4.0.0"
+    commander "^5.0.0"
+    dashify "^2.0.0"
+    glob "^7.1.4"
+    output-file-sync "^2.0.1"
+
 "@svgr/core@^4.3.3":
   version "4.3.3"
   resolved "https://registry.npm.taobao.org/@svgr/core/download/@svgr/core-4.3.3.tgz#b37b89d5b757dc66e8c74156d00c368338d24293"
@@ -3533,10 +3603,26 @@
     camelcase "^5.3.1"
     cosmiconfig "^5.2.1"
 
+"@svgr/core@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.npm.taobao.org/@svgr/core/download/@svgr/core-5.3.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fcore%2Fdownload%2F%40svgr%2Fcore-5.3.1.tgz#32c2d5146beeb0ca0fadb0549108d0b2512a7b8e"
+  integrity sha1-MsLVFGvusMoPrbBUkQjQslEqe44=
+  dependencies:
+    "@svgr/plugin-jsx" "^5.3.1"
+    camelcase "^5.3.1"
+    cosmiconfig "^6.0.0"
+
 "@svgr/hast-util-to-babel-ast@^4.3.2":
   version "4.3.2"
   resolved "https://registry.npm.taobao.org/@svgr/hast-util-to-babel-ast/download/@svgr/hast-util-to-babel-ast-4.3.2.tgz#1d5a082f7b929ef8f1f578950238f630e14532b8"
   integrity sha1-HVoIL3uSnvjx9XiVAjj2MOFFMrg=
+  dependencies:
+    "@babel/types" "^7.4.4"
+
+"@svgr/hast-util-to-babel-ast@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/@svgr/hast-util-to-babel-ast/download/@svgr/hast-util-to-babel-ast-5.0.1.tgz?cache=0&sync_timestamp=1577614244601&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fhast-util-to-babel-ast%2Fdownload%2F%40svgr%2Fhast-util-to-babel-ast-5.0.1.tgz#0dce60a955465f0bd86bcd9c523b21472d6531d3"
+  integrity sha1-Dc5gqVVGXwvYa82cUjshRy1lMdM=
   dependencies:
     "@babel/types" "^7.4.4"
 
@@ -3550,12 +3636,39 @@
     "@svgr/hast-util-to-babel-ast" "^4.3.2"
     svg-parser "^2.0.0"
 
+"@svgr/plugin-jsx@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.npm.taobao.org/@svgr/plugin-jsx/download/@svgr/plugin-jsx-5.3.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fplugin-jsx%2Fdownload%2F%40svgr%2Fplugin-jsx-5.3.1.tgz#8e0c9501ff6a807f5aae5538c7bd2afa818a4b0c"
+  integrity sha1-jgyVAf9qgH9arlU4x70q+oGKSww=
+  dependencies:
+    "@babel/core" "^7.7.5"
+    "@svgr/babel-preset" "^5.3.1"
+    "@svgr/hast-util-to-babel-ast" "^5.0.1"
+    svg-parser "^2.0.2"
+
+"@svgr/plugin-prettier@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.npm.taobao.org/@svgr/plugin-prettier/download/@svgr/plugin-prettier-5.3.1.tgz#91b378874682c4cd938d8c64943424e565cd055d"
+  integrity sha1-kbN4h0aCxM2TjYxklDQk5WXNBV0=
+  dependencies:
+    merge-deep "^3.0.2"
+    prettier "^2.0.2 || ^1.19.1"
+
 "@svgr/plugin-svgo@^4.3.1":
   version "4.3.1"
   resolved "https://registry.npm.taobao.org/@svgr/plugin-svgo/download/@svgr/plugin-svgo-4.3.1.tgz#daac0a3d872e3f55935c6588dd370336865e9e32"
   integrity sha1-2qwKPYcuP1WTXGWI3TcDNoZenjI=
   dependencies:
     cosmiconfig "^5.2.1"
+    merge-deep "^3.0.2"
+    svgo "^1.2.2"
+
+"@svgr/plugin-svgo@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npm.taobao.org/@svgr/plugin-svgo/download/@svgr/plugin-svgo-5.3.0.tgz#a33d45ecd64cb2c1adaab9196faddc10022552a7"
+  integrity sha1-oz1F7NZMssGtqrkZb63cEAIlUqc=
+  dependencies:
+    cosmiconfig "^6.0.0"
     merge-deep "^3.0.2"
     svgo "^1.2.2"
 
@@ -8112,6 +8225,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+dashify@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/dashify/download/dashify-2.0.0.tgz#fff270ca2868ca427fee571de35691d6e437a648"
+  integrity sha1-//JwyihoykJ/7lcd41aR1uQ3pkg=
 
 data-uri-to-buffer@1:
   version "1.2.0"
@@ -14951,6 +15069,15 @@ osx-release@^1.0.0:
   dependencies:
     minimist "^1.1.0"
 
+output-file-sync@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/output-file-sync/download/output-file-sync-2.0.1.tgz#f53118282f5f553c2799541792b723a4c71430c0"
+  integrity sha1-9TEYKC9fVTwnmVQXkrcjpMcUMMA=
+  dependencies:
+    graceful-fs "^4.1.11"
+    is-plain-obj "^1.1.0"
+    mkdirp "^0.5.1"
+
 p-defer@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/p-defer/download/p-defer-3.0.0.tgz#d1dceb4ee9b2b604b1d94ffec83760175d4e6f83"
@@ -15743,7 +15870,7 @@ prepend-http@^1.0.0:
   resolved "https://registry.npm.taobao.org/prepend-http/download/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
 
-prettier@^1.16.4, prettier@^2.0.0, prettier@^2.0.1, prettier@^2.0.2:
+prettier@^1.16.4, prettier@^2.0.0, prettier@^2.0.1, prettier@^2.0.2, "prettier@^2.0.2 || ^1.19.1":
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/prettier/download/prettier-2.0.4.tgz?cache=0&sync_timestamp=1586174253764&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fprettier%2Fdownload%2Fprettier-2.0.4.tgz#2d1bae173e355996ee355ec9830a7a1ee05457ef"
   integrity sha1-LRuuFz41WZbuNV7Jgwp6HuBUV+8=
@@ -19457,7 +19584,7 @@ supports-hyperlinks@^2.0.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-svg-parser@^2.0.0:
+svg-parser@^2.0.0, svg-parser@^2.0.2:
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/svg-parser/download/svg-parser-2.0.4.tgz#fdc2e29e13951736140b76cb122c8ee6630eb6b5"
   integrity sha1-/cLinhOVFzYUC3bLEiyO5mMOtrU=

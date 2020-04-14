@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import UTorrentFilledSvg from '../svgs/UTorrentFilled.svg';
+import UTorrentFilledSvg from './../svgr/UTorrentFilled';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const UTorrentFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

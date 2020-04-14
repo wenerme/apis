@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import CertificateVerifiedBadgeOutlinedSvg from '../svgs/CertificateVerifiedBadgeOutlined.svg';
+import CertificateVerifiedBadgeOutlinedSvg from './../svgr/CertificateVerifiedBadgeOutlined';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const CertificateVerifiedBadgeOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

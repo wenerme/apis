@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import ExternalLinkOutlinedSvg from '../svgs/ExternalLinkOutlined.svg';
+import ExternalLinkOutlinedSvg from './../svgr/ExternalLinkOutlined';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const ExternalLinkOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

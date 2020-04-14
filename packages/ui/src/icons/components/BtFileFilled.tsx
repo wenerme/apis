@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import BtFileFilledSvg from '../svgs/BtFileFilled.svg';
+import BtFileFilledSvg from './../svgr/BtFileFilled';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const BtFileFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

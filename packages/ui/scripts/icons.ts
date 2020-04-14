@@ -1,6 +1,6 @@
-import * as glob from 'glob';
-import * as fs from 'fs';
-import * as path from 'path';
+import glob from 'glob';
+import fs from 'fs';
+import path from 'path';
 import { pascalCase } from '@wener/utils/src/strings/camelCase';
 import { processFileContent, replaceGenerated } from './utils';
 
@@ -8,8 +8,8 @@ import { processFileContent, replaceGenerated } from './utils';
 ts-node --project ./tsconfig.ts-node.json ./scripts/icons.ts
  */
 async function generate(svgPath, compPath, utilPath) {
-  const files: string[] = await new Promise((resolve, reject) =>
-    glob('*.svg', { cwd: svgPath }, (e, v) => {
+  let files: string[] = await new Promise((resolve, reject) =>
+    glob('*.tsx', { cwd: svgPath }, (e, v) => {
       if (e) {
         reject(e);
       } else {
@@ -17,6 +17,7 @@ async function generate(svgPath, compPath, utilPath) {
       }
     }),
   );
+  files = files.filter((v) => !/index[.]/i.test(v));
   console.log(files);
   const names: string[] = [];
   // files.ea
@@ -37,7 +38,7 @@ async function generate(svgPath, compPath, utilPath) {
       svgImport: './' + path.join(path.relative(compPath, svgPath), f),
       name,
       comp: path.join(compPath, `${name}.tsx`),
-      // force: true,
+      force: true,
     });
   }
 
@@ -70,7 +71,7 @@ async function gen({ svg, comp, name, svgImport, force = false }) {
     comp,
     `
 import React, {ForwardRefRenderFunction} from 'react';
-import ${name}Svg from '${svgImport}'
+import ${name}Svg from '${svgImport.replace(/[.]tsx$/, '')}'
 import Icon, {IconComponentProps} from '@ant-design/icons/lib/components/Icon';
 
 const ${name}: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
@@ -87,7 +88,7 @@ export default React.forwardRef(${name});
 }
 
 async function main() {
-  await generate('./src/icons/svgs', './src/icons/components', './src/icons');
+  await generate('./src/icons/svgr', './src/icons/components', './src/icons');
 }
 
 (async function run() {

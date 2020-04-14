@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import BarcodeReadOutlinedSvg from '../svgs/BarcodeReadOutlined.svg';
+import BarcodeReadOutlinedSvg from './../svgr/BarcodeReadOutlined';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const BarcodeReadOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import DarkModeFilledSvg from '../svgs/DarkModeFilled.svg';
+import DarkModeFilledSvg from './../svgr/DarkModeFilled';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const DarkModeFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

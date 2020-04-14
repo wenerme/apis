@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import HashLockSvg from '../svgs/HashLock.svg';
+import HashLockSvg from './../svgr/HashLock';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const HashLock: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {

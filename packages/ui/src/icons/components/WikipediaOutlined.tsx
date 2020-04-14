@@ -1,5 +1,5 @@
 import React, { ForwardRefRenderFunction } from 'react';
-import WikipediaOutlinedSvg from '../svgs/WikipediaOutlined.svg';
+import WikipediaOutlinedSvg from './../svgr/WikipediaOutlined';
 import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const WikipediaOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
