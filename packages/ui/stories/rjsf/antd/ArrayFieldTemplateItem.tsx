@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Button, Col, Row } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined } from '@ant-design/icons/lib';
@@ -23,7 +22,19 @@ export const ArrayFieldTemplateItem = ({
 
   return (
     <Row align="bottom" key={`array-item-${index}`} gutter={24}>
-      <Col style={{ flex: '1' }}>{children}</Col>
+      <Col
+        style={{
+          flex: 1,
+          // 如果数组内部很复杂
+          // padding: 8,
+          // border: '1px solid #ddd',
+          // marginBottom: 20,
+          // borderRadius: 4,
+          // boxShadow: '0 1px 1px rgba(0,0,0,.05);',
+        }}
+      >
+        {children}
+      </Col>
 
       {hasToolbar && (
         <Col {...ArrayActionColProps}>
@@ -62,19 +73,6 @@ export const ArrayFieldTemplateItem = ({
       )}
     </Row>
   );
-};
-
-ArrayFieldTemplateItem.propTypes = {
-  children: PropTypes.node.isRequired,
-  disabled: PropTypes.bool,
-  hasMoveDown: PropTypes.bool,
-  hasMoveUp: PropTypes.bool,
-  hasRemove: PropTypes.bool,
-  hasToolbar: PropTypes.bool,
-  index: PropTypes.number.isRequired,
-  onDropIndexClick: PropTypes.func,
-  onReorderClick: PropTypes.func,
-  readonly: PropTypes.bool,
 };
 
 ArrayFieldTemplateItem.defaultProps = {

@@ -57,7 +57,7 @@ export const NormalArrayFieldTemplate = ({
             style={{ width: '100%' }}
             type="primary"
           >
-            <PlusCircleOutlined /> Add Item
+            <PlusCircleOutlined /> {formContext.texts?.['Add Item'] ?? 'Add Item'}
           </Button>
         </Col>
       </Row>

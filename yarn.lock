@@ -10942,7 +10942,7 @@ immer@^5.0.0:
   resolved "https://registry.npm.taobao.org/immer/download/immer-5.3.6.tgz#51eab8cbbeb13075fe2244250f221598818cac04"
   integrity sha1-Ueq4y76xMHX+IkQlDyIVmIGMrAQ=
 
-immer@^6.0.1:
+immer@^6.0.1, immer@^6.0.3:
   version "6.0.3"
   resolved "https://registry.npm.taobao.org/immer/download/immer-6.0.3.tgz#94d5051cd724668160a900d66d85ec02816f29bd"
   integrity sha1-lNUFHNckZoFgqQDWbYXsAoFvKb0=

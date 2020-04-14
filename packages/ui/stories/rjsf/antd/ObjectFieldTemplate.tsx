@@ -27,6 +27,17 @@ export const ObjectFieldTemplate = ({
 
   const findUiSchemaWidget = (element) => findUiSchema(element)['ui:widget'];
 
+  const getColProps = (e) => {
+    if (Number.isInteger(colSpan)) {
+      return { span: colSpan };
+    }
+    const type = findSchemaType(e);
+    // no label
+    if (type === 'boolean') {
+      return { span: 18, offset: 6 };
+    }
+    return {};
+  };
   const calculateColSpan = (element) => {
     if (Number.isInteger(colSpan)) {
       return colSpan;
@@ -73,6 +84,7 @@ export const ObjectFieldTemplate = ({
           <Col
             key={element.name}
             // span={calculateColSpan(element)}
+            {...getColProps(element)}
           >
             {element.content}
           </Col>

@@ -1,5 +1,6 @@
 import { ErrorListProps } from '@rjsf/core';
 import React from 'react';
+import { Alert } from 'antd';
 
 export const ErrorList: React.FC<ErrorListProps> = ({
   // errorSchema,
@@ -9,12 +10,15 @@ export const ErrorList: React.FC<ErrorListProps> = ({
   // uiSchema,
 }) => (
   <div>
-    <ul>
+    {/*<ul>
       {errors.map((error, index) => (
         <li key={index} style={{ margin: '3px' }}>
           {error.stack}
         </li>
       ))}
-    </ul>
+    </ul>*/}
+    {errors.map((error, index) => (
+      <Alert key={index} message={error.stack} type="error" showIcon />
+    ))}
   </div>
 );

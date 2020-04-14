@@ -62,7 +62,11 @@ export const TitleField: Field = ({
         title={typeof title === 'string' ? title : ''}
       >
         {/*{labelChildren}*/}
-        <PageHeader title={labelChildren} subTitle={description} />
+        <PageHeader
+          title={labelChildren}
+          subTitle={description}
+          style={{ marginBottom: 20, borderBottom: '1px solid #e5e5e5' }}
+        />
       </label>
     </Col>
   ) : null;

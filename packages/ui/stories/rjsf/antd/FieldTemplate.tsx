@@ -1,6 +1,7 @@
 import React from 'react';
 import { FieldTemplateProps } from '@rjsf/core';
 import { Form } from 'antd';
+import { AntdThemeFormContext } from './layouts';
 
 export const FieldTemplate: React.FC<FieldTemplateProps> = ({
   children,
@@ -21,15 +22,15 @@ export const FieldTemplate: React.FC<FieldTemplateProps> = ({
   // readonly,
   required,
   schema,
-  // uiSchema,
+  uiSchema,
 }) => {
-  const { colon, labelCol, wrapperCol, wrapperStyle } = formContext;
+  const { colon, labelCol, wrapperCol, wrapperStyle } = formContext as AntdThemeFormContext;
 
   if (hidden) {
     return <div className="field-hidden">{children}</div>;
   }
 
-  const renderFieldErrors = () => rawErrors.map(error => <div key={`field-${id}-error-${error}`}>{error}</div>);
+  const renderFieldErrors = () => rawErrors.map((error) => <div key={`field-${id}-error-${error}`}>{error}</div>);
 
   return id === 'root' ? (
     children

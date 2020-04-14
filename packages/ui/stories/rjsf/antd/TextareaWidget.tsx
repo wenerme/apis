@@ -15,7 +15,7 @@ export const TextareaWidget: Widget = ({
   placeholder,
   readonly,
   // required,
-  // schema,
+  schema,
   value,
 }) => {
   const { readonlyAsDisabled = true } = formContext;

@@ -2,6 +2,7 @@ import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { ArrayFieldTemplateItem } from './ArrayFieldTemplateItem';
 import { PlusCircleOutlined } from '@ant-design/icons/lib';
+import { ArrayActionColProps, getTextFromContext } from './layouts';
 
 export const FixedArrayFieldTemplate = ({
   canAdd,
@@ -47,7 +48,7 @@ export const FixedArrayFieldTemplate = ({
         // type="flex"
       >
         <Col style={{ flex: '1' }} />
-        <Col style={{ width: '192px' }}>
+        <Col {...ArrayActionColProps}>
           <Button
             className="array-item-add"
             disabled={disabled || readonly}
@@ -55,7 +56,7 @@ export const FixedArrayFieldTemplate = ({
             style={{ width: '100%' }}
             type="primary"
           >
-            <PlusCircleOutlined /> Add Item
+            <PlusCircleOutlined /> {getTextFromContext(formContext, 'Add Item')}
           </Button>
         </Col>
       </Row>

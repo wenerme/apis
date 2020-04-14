@@ -102,6 +102,7 @@
     "babel-plugin-inline-react-svg": "^1.1.1",
     "babel-plugin-styled-components": "^1.10.7",
     "dotenv": "^8.2.0",
+    "immer": "^6.0.3",
     "jest": "^25.2.3",
     "jsonpointer": "^4.0.1",
     "moment": "^2.24.0",
@@ -142,5 +143,8 @@
       "safari >= 7"
     ],
     "node": "12"
+  },
+  "optionalDependencies": {
+    "immer": "^6.0.3"
   }
 }
