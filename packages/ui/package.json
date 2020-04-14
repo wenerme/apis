@@ -32,8 +32,7 @@
   "scripts": {
     "antd-icons:gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/antd-icons.ts",
     "prebuild": "rm -rf ./lib ./dist",
-    "build": "yarn build:types && yarn build:js && yarn build:root && yarn build:bundle && yarn build:docs",
-    "build:root": "tsc --project tsconfig.root.json",
+    "build": "yarn build:types && yarn build:js && yarn build:bundle && yarn build:docs",
     "build:bundle": "rollup -c rollup.config.ts",
     "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "build:js": "babel src -d lib -x .ts,.tsx -s true",

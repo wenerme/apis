@@ -136,6 +136,3 @@ data
 packages/*/lib
 packages/*/docs
 
-packages/*/index.js
-packages/*/index.js.map
-packages/*/*.d.ts

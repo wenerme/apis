@@ -1,1 +1,1 @@
-export * from './lib/antds'
+export * from './src/antds'
