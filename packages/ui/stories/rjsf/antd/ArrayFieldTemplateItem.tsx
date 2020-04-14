@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button, Col, Row } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined } from '@ant-design/icons/lib';
+import { ArrayActionColProps } from './layouts';
 
 export const ArrayFieldTemplateItem = ({
   children,
@@ -21,13 +22,11 @@ export const ArrayFieldTemplateItem = ({
   };
 
   return (
-    <Row align="bottom" key={`array-item-${index}`} gutter={24}
-         // type="flex"
-    >
+    <Row align="bottom" key={`array-item-${index}`} gutter={24}>
       <Col style={{ flex: '1' }}>{children}</Col>
 
       {hasToolbar && (
-        <Col style={{ width: '192px' }}>
+        <Col {...ArrayActionColProps}>
           <Button.Group style={{ width: '100%' }}>
             {(hasMoveUp || hasMoveDown) && (
               <Button

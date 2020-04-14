@@ -21,6 +21,8 @@ export default {
   ],
 };
 
+DynamicIcon.resolvers.push(iconsResolver, antdIconsResolver);
+
 export const dynamicLoadWithSpin = () => <DynamicIcon style={{ fontSize: 32 }} type={'BarcodePrintOutlined'} spin />;
 export const dynamicLoadManifest = () => {
   return (
@@ -61,7 +63,6 @@ export const dynamicLoadAll = () => {
   );
 };
 
-DynamicIcon.resolvers.push(iconsResolver, antdIconsResolver);
 export const antdAll = () => {
   const fontColor = color('color', '#F4511E');
   const fontSize = number('size', 32, { range: true, max: 64, step: 1, min: 16 });
@@ -69,7 +70,7 @@ export const antdAll = () => {
     <IconsContainer style={{ color: fontColor }}>
       {antdIconsResolverTypes.map((v) => (
         <figure key={v}>
-          <LazyLoad overflow height={64} scrollContainer={document.querySelector('#root > div > div')}>
+          <LazyLoad overflow height={64} scrollContainer={document.querySelector('#root > div > div') || undefined}>
             <DynamicIcon type={v} style={{ fontSize }} />
           </LazyLoad>
           <figcaption>{v}</figcaption>

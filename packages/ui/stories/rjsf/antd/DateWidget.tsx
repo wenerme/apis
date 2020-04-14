@@ -4,24 +4,24 @@ import moment from 'moment';
 import React from 'react';
 
 export const DateWidget: Widget = ({
-                                     // autofocus,
-                                     disabled,
-                                     formContext,
-                                     id,
-                                     // label,
-                                     onBlur,
-                                     onChange,
-                                     onFocus,
-                                     // options,
-                                     placeholder,
-                                     readonly,
-                                     // required,
-                                     // schema,
-                                     value,
-                                   }) => {
+  // autofocus,
+  disabled,
+  formContext,
+  id,
+  // label,
+  onBlur,
+  onChange,
+  onFocus,
+  // options,
+  placeholder,
+  readonly,
+  // required,
+  // schema,
+  value,
+}) => {
   const { readonlyAsDisabled = true } = formContext;
 
-  const handleChange = nextValue => onChange(nextValue && nextValue.format('YYYY-MM-DD'));
+  const handleChange = (nextValue) => onChange(nextValue && nextValue.format('YYYY-MM-DD'));
 
   const handleBlur = () => onBlur(id, value);
 
@@ -30,7 +30,7 @@ export const DateWidget: Widget = ({
   return (
     <DatePicker
       disabled={disabled || (readonlyAsDisabled && readonly)}
-      id={id}
+      // id={id}
       name={id}
       onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}

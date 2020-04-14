@@ -25,9 +25,9 @@ const processValue = (schema, value) => {
   // If type is undefined, but an enum is present, try and infer the type from
   // the enum values
   if (schema.enum) {
-    if (schema.enum.every(x => guessType(x) === 'number')) {
+    if (schema.enum.every((x) => guessType(x) === 'number')) {
       return asNumber(value);
-    } else if (schema.enum.every(x => guessType(x) === 'boolean')) {
+    } else if (schema.enum.every((x) => guessType(x) === 'boolean')) {
       return value === 'true';
     }
   }
@@ -53,17 +53,17 @@ export const SelectWidget: Widget = ({
 }) => {
   const { readonlyAsDisabled = true } = formContext;
 
-  const { enumOptions, enumDisabled } = options;
+  const { enumOptions, enumDisabled } = options as any; //todo typing
 
   const emptyValue = multiple ? [] : '';
 
-  const handleChange = nextValue => onChange(processValue(schema, nextValue));
+  const handleChange = (nextValue) => onChange(processValue(schema, nextValue));
 
   const handleBlur = () => onBlur(id, processValue(schema, value));
 
   const handleFocus = () => onFocus(id, processValue(schema, value));
 
-  const stringify = currentValue => (Array.isArray(currentValue) ? value.map(String) : String(value));
+  const stringify = (currentValue) => (Array.isArray(currentValue) ? value.map(String) : String(value));
 
   return (
     <Select
@@ -71,7 +71,7 @@ export const SelectWidget: Widget = ({
       disabled={disabled || (readonlyAsDisabled && readonly)}
       id={id}
       mode={typeof multiple !== 'undefined' ? 'multiple' : undefined}
-      name={id}
+      // name={id}
       onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}
       onFocus={!readonly ? handleFocus : undefined}

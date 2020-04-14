@@ -1,4 +1,4 @@
-import { ArrayFieldTemplateProps, Widget, WidgetProps } from '@rjsf/core';
+import { ArrayFieldTemplateProps, Widget } from '@rjsf/core';
 import UnsupportedField from '@rjsf/core/lib/components/fields/UnsupportedField';
 
 import {
@@ -16,10 +16,10 @@ import React from 'react';
 import { FixedArrayFieldTemplate } from './FixedArrayFieldTemplate';
 import { NormalArrayFieldTemplate } from './NormalArrayFieldTemplate';
 
-export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps & WidgetProps> = ({
+export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   DescriptionField,
   TitleField,
-  autofocus,
+  // autofocus,
   canAdd,
   className,
   disabled,
@@ -27,14 +27,14 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps & WidgetProps>
   formData,
   idSchema,
   items,
-  label,
-  name,
+  // label,
+  // name,
   onAddClick,
-  onBlur,
-  onChange,
-  onFocus,
-  placeholder,
-  rawErrors,
+  // onBlur,
+  // onChange,
+  // onFocus,
+  // placeholder,
+  // rawErrors,
   readonly,
   registry = getDefaultRegistry(),
   required,
@@ -47,19 +47,19 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps & WidgetProps>
   const renderFiles = () => {
     const { widget = 'files', ...options } = getUiOptions(uiSchema) ?? {};
 
-    const Widget = getWidget(schema, widget as Widget, widgets) as Widget; // todo assert
+    const Widget = getWidget(schema, widget as Widget, widgets) as any; // todo assert
 
     return (
       <Widget
-        autofocus={autofocus}
+        // autofocus={autofocus}
         disabled={disabled}
         formContext={formContext}
         id={idSchema && idSchema.$id}
         multiple
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        rawErrors={rawErrors}
+        // onBlur={onBlur}
+        // onChange={onChange}
+        // onFocus={onFocus}
+        // rawErrors={rawErrors}
         options={options}
         readonly={readonly}
         schema={schema}
@@ -70,28 +70,28 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps & WidgetProps>
   };
 
   const renderMultiSelect = () => {
-    const itemsSchema = retrieveSchema(schema.items, rootSchema, formData);
+    const itemsSchema = retrieveSchema(schema.items as any /* todo typing */, rootSchema, formData);
     const enumOptions = optionsList(itemsSchema);
     const { widget = 'select', ...options } = {
       ...getUiOptions(uiSchema),
       enumOptions,
     };
 
-    const Widget = getWidget(schema, widget, widgets);
+    const Widget = getWidget(schema, widget as any, widgets) as any; // todo typing
 
     return (
       <Widget
-        autofocus={autofocus}
+        // autofocus={autofocus}
         disabled={disabled}
         formContext={formContext}
         id={idSchema && idSchema.$id}
         multiple
-        label={label}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        placeholder={placeholder}
-        rawErrors={rawErrors}
+        // label={label}
+        // onBlur={onBlur}
+        // onChange={onChange}
+        // onFocus={onFocus}
+        // placeholder={placeholder}
+        // rawErrors={rawErrors}
         options={options}
         readonly={readonly}
         registry={registry}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field } from '@rjsf/core';
+import { Col, Row } from 'antd';
 // import PropTypes from 'prop-types';
 
 export const DescriptionField: Field = ({
@@ -18,4 +19,11 @@ export const DescriptionField: Field = ({
   // required,
   // schema,
   // uiSchema,
-}) => <span id={id}>{description}</span>;
+}) => {
+  return (
+    <Row id={id}>
+      <Col offset={1}>{description}</Col>
+    </Row>
+  );
+  // return <span id={id}>{description}</span>;
+};

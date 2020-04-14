@@ -21,6 +21,7 @@ export const TitleField: Field = ({
   // schema,
   title,
   // uiSchema,
+  description,
 }) => {
   const { colon = true, labelAlign = 'right', labelCol = {} } = formContext;
 
@@ -61,7 +62,7 @@ export const TitleField: Field = ({
         title={typeof title === 'string' ? title : ''}
       >
         {/*{labelChildren}*/}
-        <PageHeader title={labelChildren} />
+        <PageHeader title={labelChildren} subTitle={description} />
       </label>
     </Col>
   ) : null;

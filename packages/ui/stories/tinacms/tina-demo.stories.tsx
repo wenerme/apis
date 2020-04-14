@@ -1,12 +1,9 @@
 import React, { useMemo } from 'react';
-import { inlineJsonForm, jsonForm } from 'next-tinacms-json';
+import { inlineJsonForm, useLocalJsonForm } from 'next-tinacms-json';
 import ReactMarkdown from 'react-markdown';
-import { InlineForm, InlineField, useInlineForm, InlineTextField } from 'react-tinacms-inline';
-import { Wysiwyg } from '@tinacms/fields';
+import { InlineField, InlineForm, InlineTextField, useInlineForm } from 'react-tinacms-inline';
 import { TinaField } from '@tinacms/form-builder';
-import { Tina, TinaCMS, TinaForm } from 'tinacms';
-import { useLocalJsonForm } from 'next-tinacms-json';
-import { Button as TinaButton } from '@tinacms/styles';
+import { Tina, TinaCMS, TinaForm, Wysiwyg } from 'tinacms';
 
 export default {
   title: 'tinacms/Demo',
@@ -60,7 +57,7 @@ const InlineMarkdown: React.FC<{ jsonFile?; setIsEditing; isEditing }> = ({ json
       <TinaField name="content" Component={({ input, meta }) => <input {...input} />}>
         <ReactMarkdown>{data?.content || '# no content'}</ReactMarkdown>
       </TinaField>
-      <button onClick={() => setIsEditing(p => !p)}>{isEditing ? 'Preview' : 'Edit'}</button>
+      <button onClick={() => setIsEditing((p) => !p)}>{isEditing ? 'Preview' : 'Edit'}</button>
     </div>
   );
 };
@@ -83,7 +80,7 @@ const WrapInlineMarkdown = inlineJsonForm(InlineMarkdown, {
 
 const FormEditor: React.FC = () => {
   const [data, form] = useLocalJsonForm({ fileRelativePath: 'inline', data: {} }, {});
-  return <TinaForm form={form}>{props => <InlineMarkdown {...props} />}</TinaForm>;
+  return <TinaForm form={form}>{(props) => <InlineMarkdown {...props} />}</TinaForm>;
 };
 
 const InlineFormDemo: React.FC = () => {
@@ -219,7 +216,7 @@ class MockGit implements GitClient {
 
   async commit(data) {
     console.log(`Commit`, data);
-    data.files.forEach(v => (this.saved[v] = this.records[v]));
+    data.files.forEach((v) => (this.saved[v] = this.records[v]));
     return {};
   }
   async writeToDisk(data) {
@@ -238,7 +235,7 @@ class MockGit implements GitClient {
     console.log(`push`);
   }
   async reset(data) {
-    data.files.forEach(v => (this.records[v] = this.saved[v]));
+    data.files.forEach((v) => (this.records[v] = this.saved[v]));
   }
   async show(fileRelativePath) {
     // FXIME - fallback

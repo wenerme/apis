@@ -1,13 +1,26 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import { Canvas as CraftCanvas, Editor, Frame, useEditor, useNode, UserComponent } from '@craftjs/core';
 import { Card, Col, Input, InputNumber, Row, Slider } from 'antd';
 import styled from 'styled-components';
 import { Layers } from '@craftjs/layers';
-import { useAntdTheme } from '../../antds';
+import { useAntdTheme } from '@wener/ui/src/antds';
 import ContentEditable from 'react-contenteditable';
 import { DeleteOutlined, DragOutlined, VerticalAlignTopOutlined } from '@ant-design/icons/lib';
+import { useInternalNode } from '@craftjs/core/lib/nodes/useInternalNode';
+import { NodeConnectors } from '@craftjs/core/lib/nodes/NodeHandlers';
+import { Node } from '@craftjs/core/lib/interfaces';
+
+declare type useNode<S = null> = Omit<useInternalNode<S>, 'actions'> &
+  Pick<useInternalNode<S>['actions'], 'setProp'> & {
+    // not optional
+    connectors: NodeConnectors;
+  };
+declare function useNode(): useNode;
+declare function useNode<S = null>(collect?: (node: Node) => S): useNode<S>;
 
 const ROOT_NODE = 'canvas-ROOT';
 export default {
@@ -56,7 +69,7 @@ const RenderNode = ({ render }) => {
     deletable,
     connectors: { drag },
     parent,
-  } = useNode(node => ({
+  } = useNode((node) => ({
     isActive: node.events.selected,
     isHover: node.events.hovered,
     dom: node.dom,
@@ -108,7 +121,7 @@ const RenderNode = ({ render }) => {
       {isHover || isActive
         ? ReactDOM.createPortal(
             <IndicatorDiv
-              ref={currentRef}
+              ref={currentRef as any}
               className="px-2 py-2 text-white bg-primary fixed flex items-center"
               style={{
                 left: getPos(dom).left,
@@ -157,7 +170,7 @@ const RenderNode = ({ render }) => {
 };
 
 const StyleSettings = () => {
-  const { style, setProp } = useNode(node => ({
+  const { style, setProp } = useNode((node) => ({
     style: node.data.props.style ?? {},
   }));
 
@@ -169,7 +182,7 @@ const StyleSettings = () => {
         <Col span={16}>
           <Input
             value={style.fontSize}
-            onChange={e => setProp(prop => (prop.style = { ...style, fontSize: e.target.value }))}
+            onChange={(e) => setProp((prop) => (prop.style = { ...style, fontSize: e.target.value }))}
           />
         </Col>
       </Row>
@@ -178,7 +191,7 @@ const StyleSettings = () => {
         <Col span={16}>
           <Input
             value={style.backgroundColor ?? 'unset'}
-            onChange={e => setProp(prop => (prop.style = { ...style, backgroundColor: e.target.value }))}
+            onChange={(e) => setProp((prop) => (prop.style = { ...style, backgroundColor: e.target.value }))}
           />
         </Col>
       </Row>
@@ -187,7 +200,7 @@ const StyleSettings = () => {
 };
 
 const HeaderSettings = () => {
-  const { setProp, level } = useNode(node => ({
+  const { setProp, level } = useNode((node) => ({
     level: node?.data?.props?.level,
   }));
   return (
@@ -204,7 +217,12 @@ const HeaderSettings = () => {
           {/*  value={typeof inputValue === 'number' ? inputValue : 0}*/}
           {/*/>*/}
 
-          <Slider min={1} max={6} value={level} onChange={e => setProp(prop => (prop.level = parseInt(e[0] || e)))} />
+          <Slider
+            min={1}
+            max={6}
+            value={level}
+            onChange={(e) => setProp((prop) => (prop.level = parseInt(e[0] || e)))}
+          />
         </Col>
         <Col span={4}>
           <InputNumber
@@ -212,7 +230,7 @@ const HeaderSettings = () => {
             max={6}
             style={{ margin: '0 16px' }}
             value={level}
-            onChange={e => setProp(prop => (prop.level = parseInt(e[0] || e)))}
+            onChange={(e) => setProp((prop) => (prop.level = parseInt(e?.[0] || e)))}
           />
         </Col>
       </Row>
@@ -226,12 +244,12 @@ const HeaderComponent: UserComponent = ({ children, level = 1, ...props }) => {
     connectors: { connect, drag },
     setProp,
     isClicked,
-  } = useNode(node => ({
+  } = useNode((node) => ({
     isClicked: node.events.selected,
   }));
   // return React.createElement(Comp, { ...props, ref: dom => connect(drag(dom)) }, children);
   return (
-    <Comp ref={ref => connect(drag(ref as any))} {...props}>
+    <Comp ref={(ref) => connect(drag(ref as any))} {...props}>
       {children}
     </Comp>
   );
@@ -251,7 +269,7 @@ const ContainerComponent: UserComponent = ({ children, ...props }) => {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <div ref={ref => connect(drag(ref as any))} style={{ padding: '8px 0' }} {...props}>
+    <div ref={(ref) => connect(drag(ref as any))} style={{ padding: '8px 0' }} {...props}>
       {children}
     </div>
   );
@@ -274,7 +292,7 @@ const CardComponent: UserComponent = ({ children }) => {
 
   return (
     <Card
-      ref={ref => connect(drag(ref as any))}
+      ref={(ref) => connect(drag(ref as any))}
       title={
         <Canvas id="title">
           <TextComponent text="Title" />
@@ -295,7 +313,7 @@ const TextComponent: UserComponent = ({ text, ...props }) => {
     setProp,
     selected,
     dragged,
-  } = useNode(state => ({
+  } = useNode((state) => ({
     selected: state.events.selected,
     dragged: state.events.dragged,
   }));
@@ -306,14 +324,14 @@ const TextComponent: UserComponent = ({ text, ...props }) => {
   }, [selected]);
 
   return (
-    <div ref={ref => connect(drag(ref))} onDoubleClick={e => setEditable(true)}>
+    <div ref={(ref) => connect(drag(ref))} onDoubleClick={(e) => setEditable(true)}>
       <ContentEditable
         style={props.style}
         disabled={!editable}
         onBlur={() => setEditable(false)}
         html={text}
-        onChange={e => {
-          setProp(props => (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')));
+        onChange={(e) => {
+          setProp((props) => (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')));
         }}
         tagName="p"
       />
@@ -339,7 +357,7 @@ const ButtonComponent: UserComponent = ({ children }) => {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <button ref={ref => connect(drag(ref as any))}>
+    <button ref={(ref) => connect(drag(ref as any))}>
       <Canvas id="content" is={TextComponent}>
         <TextComponent text="Button" />
       </Canvas>
@@ -354,7 +372,7 @@ const InputComponent: UserComponent = ({ children, ...props }) => {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <span ref={ref => connect(drag(ref as any))}>
+    <span ref={(ref) => connect(drag(ref as any))}>
       <Input {...props} />
     </span>
   );
@@ -363,7 +381,7 @@ InputComponent.craft = {
   name: 'Input',
   related: {
     settings() {
-      const { placeholder, readOnly, setProp } = useNode(s => {
+      const { placeholder, readOnly, setProp } = useNode((s) => {
         return {
           placeholder: s.data.props.placeholder,
           readOnly: s.data.props.readOnly ?? false,
@@ -379,7 +397,7 @@ InputComponent.craft = {
               <input
                 type="text"
                 value={placeholder}
-                onChange={e => setProp(props => (props.placeholder = e.target.value))}
+                onChange={(e) => setProp((props) => (props.placeholder = e.target.value))}
               />
             </Col>
           </Row>
@@ -389,8 +407,8 @@ InputComponent.craft = {
               <input
                 type="checkbox"
                 checked={readOnly}
-                onChange={e => {
-                  setProp(props => (props.readOnly = e.target.checked));
+                onChange={(e) => {
+                  setProp((props) => (props.readOnly = e.target.checked));
                 }}
               />
             </Col>
@@ -426,7 +444,7 @@ FieldComponent.craft = {
   name: 'Field',
   related: {
     settings: () => {
-      const { name, setProp } = useNode(s => {
+      const { name, setProp } = useNode((s) => {
         return { name: s.data.props.name };
       });
       return (
@@ -435,7 +453,7 @@ FieldComponent.craft = {
           <Row>
             <Col span={8}>名字</Col>
             <Col span={16}>
-              <Input value={name} onChange={e => setProp(props => (props.name = e.target.value))} />
+              <Input value={name} onChange={(e) => setProp((props) => (props.name = e.target.value))} />
             </Col>
           </Row>
         </div>
@@ -497,10 +515,10 @@ const Toolbar = () => {
         </button>
       </Card>
       <Card title="组件">
-        {Object.values(components).map(v => (
+        {Object.values(components).map((v) => (
           <button
             key={v.craft?.name}
-            ref={ref => connectors.create(ref, React.createElement(v, v.craft.defaultProps ?? {}))}
+            ref={(ref) => connectors.create(ref, React.createElement(v, v?.craft?.defaultProps ?? {}))}
           >
             {v.craft?.name}
           </button>

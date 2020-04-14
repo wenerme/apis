@@ -17,17 +17,17 @@ export const ObjectFieldTemplate = ({
 }) => {
   const { colSpan, rowGutter = 24 } = formContext;
 
-  const findSchema = element => element.content.props.schema;
+  const findSchema = (element) => element.content.props.schema;
 
-  const findSchemaType = element => findSchema(element).type;
+  const findSchemaType = (element) => findSchema(element).type;
 
-  const findUiSchema = element => element.content.props.uiSchema;
+  const findUiSchema = (element) => element.content.props.uiSchema;
 
-  const findUiSchemaField = element => findUiSchema(element)['ui:field'];
+  const findUiSchemaField = (element) => findUiSchema(element)['ui:field'];
 
-  const findUiSchemaWidget = element => findUiSchema(element)['ui:widget'];
+  const findUiSchemaWidget = (element) => findUiSchema(element)['ui:widget'];
 
-  const calculateColSpan = element => {
+  const calculateColSpan = (element) => {
     if (Number.isInteger(colSpan)) {
       return colSpan;
     }
@@ -50,21 +50,26 @@ export const ObjectFieldTemplate = ({
     return defaultColSpan;
   };
 
-  const filterHidden = element => element.content.props.uiSchema['ui:widget'] !== 'hidden';
+  const filterHidden = (element) => element.content.props.uiSchema['ui:widget'] !== 'hidden';
 
   return (
     <Row gutter={rowGutter}>
       <fieldset id={idSchema.$id} style={{ width: '100%' }}>
         {uiSchema['ui:title'] !== false && (uiSchema['ui:title'] || title) && (
-          <TitleField id={`${idSchema.$id}-title`} required={required} title={uiSchema['ui:title'] || title} />
-        )}
-        {uiSchema['ui:description'] !== false && (uiSchema['ui:description'] || description) && (
-          <DescriptionField
+          <TitleField
+            id={`${idSchema.$id}-title`}
             description={uiSchema['ui:description'] || description}
-            id={`${idSchema.$id}-description`}
+            required={required}
+            title={uiSchema['ui:title'] || title}
           />
         )}
-        {properties.filter(filterHidden).map(element => (
+        {/*{uiSchema['ui:description'] !== false && (uiSchema['ui:description'] || description) && (*/}
+        {/*  <DescriptionField*/}
+        {/*    description={uiSchema['ui:description'] || description}*/}
+        {/*    id={`${idSchema.$id}-description`}*/}
+        {/*  />*/}
+        {/*)}*/}
+        {properties.filter(filterHidden).map((element) => (
           <Col
             key={element.name}
             // span={calculateColSpan(element)}

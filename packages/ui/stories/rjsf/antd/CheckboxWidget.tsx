@@ -32,9 +32,9 @@ export const CheckboxWidget = ({
       disabled={disabled || (readonlyAsDisabled && readonly)}
       id={id}
       name={id}
-      onBlur={!readonly ? handleBlur : undefined}
+      // onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}
-      onFocus={!readonly ? handleFocus : undefined}
+      // onFocus={!readonly ? handleFocus : undefined}
     >
       {label}
     </Checkbox>

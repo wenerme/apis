@@ -21,7 +21,7 @@ export const DateTimeWidget: Widget = ({
 }) => {
   const { readonlyAsDisabled = true } = formContext;
 
-  const handleChange = nextValue => onChange(nextValue && nextValue.toISOString());
+  const handleChange = (nextValue) => onChange(nextValue && nextValue.toISOString());
 
   const handleBlur = () => onBlur(id, value);
 
@@ -30,7 +30,7 @@ export const DateTimeWidget: Widget = ({
   return (
     <DatePicker
       disabled={disabled || (readonlyAsDisabled && readonly)}
-      id={id}
+      // id={id}
       name={id}
       onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}

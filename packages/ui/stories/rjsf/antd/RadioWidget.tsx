@@ -21,7 +21,7 @@ export const RadioWidget: Widget = ({
 }) => {
   const { readonlyAsDisabled = true } = formContext;
 
-  const { enumOptions, enumDisabled } = options;
+  const { enumOptions, enumDisabled } = options as any; // todo typing
 
   const handleChange = ({ target: { value: nextValue } }: RadioChangeEvent) =>
     onChange(schema.type === 'boolean' ? nextValue !== 'false' : nextValue);

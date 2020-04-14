@@ -2,7 +2,6 @@ import { LazyComponentType } from '../types/types';
 
 export function iconsResolver({ type }) {
   let c: LazyComponentType | null = null;
-  console.info(`resolving icons ${type}`);
   // @formatter:off
   // prettier-ignore
   switch (type) {

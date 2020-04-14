@@ -2,6 +2,7 @@ import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { ArrayFieldTemplateItem } from './ArrayFieldTemplateItem';
 import { PlusCircleOutlined } from '@ant-design/icons/lib';
+import { ArrayActionColProps } from './layouts';
 
 export const NormalArrayFieldTemplate = ({
   canAdd,
@@ -28,16 +29,17 @@ export const NormalArrayFieldTemplate = ({
         key={`array-field-title-${idSchema.$id}`}
         required={required}
         title={uiSchema['ui:title'] || title}
+        description={uiSchema['ui:description'] || schema.description}
       />
     )}
 
-    {(uiSchema['ui:description'] || schema.description) && (
-      <DescriptionField
-        description={uiSchema['ui:description'] || schema.description}
-        id={`${idSchema.$id}__description`}
-        key={`array-field-description-${idSchema.$id}`}
-      />
-    )}
+    {/*{(uiSchema['ui:description'] || schema.description) && (*/}
+    {/*  <DescriptionField*/}
+    {/*    description={uiSchema['ui:description'] || schema.description}*/}
+    {/*    id={`${idSchema.$id}__description`}*/}
+    {/*    key={`array-field-description-${idSchema.$id}`}*/}
+    {/*  />*/}
+    {/*)}*/}
 
     {items && items.map(ArrayFieldTemplateItem)}
 
@@ -47,7 +49,7 @@ export const NormalArrayFieldTemplate = ({
         // type="flex"
       >
         <Col style={{ flex: '1' }} />
-        <Col style={{ width: '192px' }}>
+        <Col {...ArrayActionColProps}>
           <Button
             className="array-item-add"
             disabled={disabled || readonly}

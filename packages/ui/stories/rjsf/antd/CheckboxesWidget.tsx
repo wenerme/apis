@@ -21,9 +21,9 @@ export const CheckboxesWidget: Widget = ({
 }) => {
   const { readonlyAsDisabled = true } = formContext;
 
-  const { enumOptions, enumDisabled, inline } = options;
+  const { enumOptions, enumDisabled, inline } = options as any; // todo typing
 
-  const handleChange = nextValue => onChange(nextValue);
+  const handleChange = (nextValue) => onChange(nextValue);
 
   const handleBlur = ({ target }) => onBlur(id, target.value);
 
@@ -32,11 +32,11 @@ export const CheckboxesWidget: Widget = ({
   return !_.isEmpty(enumOptions) ? (
     <Checkbox.Group
       disabled={disabled || (readonlyAsDisabled && readonly)}
-      id={id}
+      // id={id}
       name={id}
-      onBlur={!readonly ? handleBlur : undefined}
+      // onBlur={!readonly ? handleBlur : undefined}
       onChange={!readonly ? handleChange : undefined}
-      onFocus={!readonly ? handleFocus : undefined}
+      // onFocus={!readonly ? handleFocus : undefined}
       value={value}
     >
       {enumOptions.map(({ value: optionValue, label: optionLabel }, i) => (
