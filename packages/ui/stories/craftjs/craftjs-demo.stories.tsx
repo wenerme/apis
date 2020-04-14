@@ -1,81 +1,163 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Canvas as CraftCanvas, Editor, Frame, useEditor, useNode, UserComponent } from '@craftjs/core';
 import { Card, Col, Input, InputNumber, Row, Slider } from 'antd';
 import styled from 'styled-components';
 import { Layers } from '@craftjs/layers';
 import { useAntdTheme } from '../../antds';
 import ContentEditable from 'react-contenteditable';
+import { DeleteOutlined, DragOutlined, VerticalAlignTopOutlined } from '@ant-design/icons/lib';
 
+const ROOT_NODE = 'canvas-ROOT';
 export default {
   title: 'craftjs/Demo',
 };
 
-// const TextComponent = ({ text }) => {
-//   const {
-//     connectors: { connect, drag },
-//     isClicked,
-//     setProp,
-//   } = useNode(state => ({
-//     isClicked: state.events.selected,
-//   }));
-//   return (
-//     <div ref={dom => connect(drag(dom))}>
-//       <h2>{text}</h2>
-//       {isClicked ? (
-//         <Modal>
-//           <input type="text" value={text} onChange={e => setProp(e.target.value)} />
-//         </Modal>
-//       ) : null}
-//     </div>
-//   );
-// };
-//
-// const Hero: React.FC<{ title? }> & { craft? } = ({ title, children }) => {
-//   const {
-//     connectors: { connect, drag },
-//     setProp,
-//     isClicked,
-//   } = useNode(node => ({
-//     isClicked: node.events.selected,
-//   }));
-//   return (
-//     <div ref={dom => connect(drag(dom))}>
-//       <h2
-//         contentEditable={isClicked}
-//         onKeyUp={e => {
-//           setProp(props => {
-//             props.title = e.target['innerText'];
-//           });
-//         }}
-//       >
-//         {title}
-//       </h2>
-//       <div>{children}</div>
-//     </div>
-//   );
-// };
-//
-// const HeroToolbarSettings = () => {
-//   const { setProp, text } = useNode(node => ({
-//     text: node.data.props.text,
-//   }));
-//   return (
-//     <div>
-//       <h2>Hero settings</h2>
-//       <input type="text" value={text} onChange={e => setProp(prop => (prop.text = e.target.value))} />
-//     </div>
-//   );
-// };
-//
-// Hero.craft = {
-//   related: {
-//     toolbar: HeroToolbarSettings,
-//   },
-// };
+const IndicatorDiv = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+
+  height: 30px;
+  margin-top: -29px;
+  font-size: 12px;
+  line-height: 12px;
+
+  svg {
+    //fill: #fff;
+    //width: 15px;
+    //height: 15px;
+  }
+`;
+
+const Btn = styled.a`
+  padding: 0 0px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  > div {
+    position: relative;
+    top: -50%;
+    left: -50%;
+  }
+`;
+
+const RenderNode = ({ render }) => {
+  const { actions, query, connectors } = useEditor();
+  const {
+    id,
+    isActive,
+    isHover,
+    dom,
+    name,
+    moveable,
+    deletable,
+    connectors: { drag },
+    parent,
+  } = useNode(node => ({
+    isActive: node.events.selected,
+    isHover: node.events.hovered,
+    dom: node.dom,
+    name: node.data.custom.displayName || node.data.displayName,
+    moveable: query.node(node.id).isDraggable(),
+    deletable: query.node(node.id).isDeletable(),
+    parent: node.data.parent,
+  }));
+
+  const currentRef = React.useRef<HTMLDivElement>();
+  useEffect(() => {
+    if (dom) {
+      if (isActive || isHover) {
+        dom.classList.add('component-selected');
+      } else {
+        dom.classList.remove('component-selected');
+      }
+    }
+  }, [dom, isActive, isHover]);
+
+  const getPos = React.useCallback((dom: HTMLElement) => {
+    const { top, left, bottom } = dom ? dom.getBoundingClientRect() : { top: 0, left: 0, bottom: 0 };
+    return {
+      top: `${top > 0 ? top : bottom}px`,
+      left: `${left}px`,
+    };
+  }, []);
+
+  const scroll = useCallback(() => {
+    const { current: currentDOM } = currentRef;
+
+    if (!currentDOM) return;
+    const { top, left } = getPos(dom);
+    currentDOM.style.top = top;
+    currentDOM.style.left = left;
+  }, [dom]);
+
+  // 外部容器
+  // useEffect(() => {
+  //   document.querySelector('.craftjs-renderer')?.addEventListener('scroll', scroll);
+  //
+  //   return () => {
+  //     document.querySelector('.craftjs-renderer')?.removeEventListener('scroll', scroll);
+  //   };
+  // }, [scroll]);
+
+  return (
+    <>
+      {isHover || isActive
+        ? ReactDOM.createPortal(
+            <IndicatorDiv
+              ref={currentRef}
+              className="px-2 py-2 text-white bg-primary fixed flex items-center"
+              style={{
+                left: getPos(dom).left,
+                top: getPos(dom).top,
+                zIndex: 9999,
+              }}
+            >
+              <h2 className="flex-1 mr-4">{name}</h2>
+              {moveable ? (
+                <Btn className="mr-2 cursor-move" ref={drag}>
+                  {/*<Move />*/}
+                  <DragOutlined />
+                  {/*<MoveOutlined/>*/}
+                </Btn>
+              ) : null}
+              {id !== ROOT_NODE && (
+                <Btn
+                  className="mr-2 cursor-pointer"
+                  onClick={() => {
+                    actions.selectNode(parent);
+                  }}
+                >
+                  {/*<ArrowUp />*/}
+                  <VerticalAlignTopOutlined />
+                </Btn>
+              )}
+              {deletable ? (
+                <Btn
+                  className="cursor-pointer"
+                  onMouseDown={(e: React.MouseEvent) => {
+                    e.stopPropagation();
+                    actions.delete(id);
+                  }}
+                >
+                  {/*<Delete />*/}
+                  <DeleteOutlined />
+                </Btn>
+              ) : null}
+            </IndicatorDiv>,
+            document.body,
+          )
+        : null}
+      {render}
+    </>
+  );
+};
 
 const StyleSettings = () => {
-  const { style, setProp } = useNode((node) => ({
+  const { style, setProp } = useNode(node => ({
     style: node.data.props.style ?? {},
   }));
 
@@ -87,7 +169,7 @@ const StyleSettings = () => {
         <Col span={16}>
           <Input
             value={style.fontSize}
-            onChange={(e) => setProp((prop) => (prop.style = { ...style, fontSize: e.target.value }))}
+            onChange={e => setProp(prop => (prop.style = { ...style, fontSize: e.target.value }))}
           />
         </Col>
       </Row>
@@ -96,7 +178,7 @@ const StyleSettings = () => {
         <Col span={16}>
           <Input
             value={style.backgroundColor ?? 'unset'}
-            onChange={(e) => setProp((prop) => (prop.style = { ...style, backgroundColor: e.target.value }))}
+            onChange={e => setProp(prop => (prop.style = { ...style, backgroundColor: e.target.value }))}
           />
         </Col>
       </Row>
@@ -105,7 +187,7 @@ const StyleSettings = () => {
 };
 
 const HeaderSettings = () => {
-  const { setProp, level } = useNode((node) => ({
+  const { setProp, level } = useNode(node => ({
     level: node?.data?.props?.level,
   }));
   return (
@@ -122,12 +204,7 @@ const HeaderSettings = () => {
           {/*  value={typeof inputValue === 'number' ? inputValue : 0}*/}
           {/*/>*/}
 
-          <Slider
-            min={1}
-            max={6}
-            value={level}
-            onChange={(e) => setProp((prop) => (prop.level = parseInt(e[0] || e)))}
-          />
+          <Slider min={1} max={6} value={level} onChange={e => setProp(prop => (prop.level = parseInt(e[0] || e)))} />
         </Col>
         <Col span={4}>
           <InputNumber
@@ -135,7 +212,7 @@ const HeaderSettings = () => {
             max={6}
             style={{ margin: '0 16px' }}
             value={level}
-            onChange={(e) => setProp((prop) => (prop.level = parseInt(e[0] || e)))}
+            onChange={e => setProp(prop => (prop.level = parseInt(e[0] || e)))}
           />
         </Col>
       </Row>
@@ -149,12 +226,12 @@ const HeaderComponent: UserComponent = ({ children, level = 1, ...props }) => {
     connectors: { connect, drag },
     setProp,
     isClicked,
-  } = useNode((node) => ({
+  } = useNode(node => ({
     isClicked: node.events.selected,
   }));
   // return React.createElement(Comp, { ...props, ref: dom => connect(drag(dom)) }, children);
   return (
-    <Comp ref={(ref) => connect(drag(ref as any))} {...props}>
+    <Comp ref={ref => connect(drag(ref as any))} {...props}>
       {children}
     </Comp>
   );
@@ -174,7 +251,7 @@ const ContainerComponent: UserComponent = ({ children, ...props }) => {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <div ref={(ref) => connect(drag(ref as any))} style={{ padding: '8px 0' }} {...props}>
+    <div ref={ref => connect(drag(ref as any))} style={{ padding: '8px 0' }} {...props}>
       {children}
     </div>
   );
@@ -197,7 +274,7 @@ const CardComponent: UserComponent = ({ children }) => {
 
   return (
     <Card
-      ref={(ref) => connect(drag(ref as any))}
+      ref={ref => connect(drag(ref as any))}
       title={
         <Canvas id="title">
           <TextComponent text="Title" />
@@ -218,7 +295,7 @@ const TextComponent: UserComponent = ({ text, ...props }) => {
     setProp,
     selected,
     dragged,
-  } = useNode((state) => ({
+  } = useNode(state => ({
     selected: state.events.selected,
     dragged: state.events.dragged,
   }));
@@ -229,14 +306,14 @@ const TextComponent: UserComponent = ({ text, ...props }) => {
   }, [selected]);
 
   return (
-    <div ref={(ref) => connect(drag(ref))} onDoubleClick={(e) => setEditable(true)}>
+    <div ref={ref => connect(drag(ref))} onDoubleClick={e => setEditable(true)}>
       <ContentEditable
         style={props.style}
         disabled={!editable}
         onBlur={() => setEditable(false)}
         html={text}
-        onChange={(e) => {
-          setProp((props) => (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')));
+        onChange={e => {
+          setProp(props => (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')));
         }}
         tagName="p"
       />
@@ -262,7 +339,7 @@ const ButtonComponent: UserComponent = ({ children }) => {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <button ref={(ref) => connect(drag(ref as any))}>
+    <button ref={ref => connect(drag(ref as any))}>
       <Canvas id="content" is={TextComponent}>
         <TextComponent text="Button" />
       </Canvas>
@@ -277,7 +354,7 @@ const InputComponent: UserComponent = ({ children, ...props }) => {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <span ref={(ref) => connect(drag(ref as any))}>
+    <span ref={ref => connect(drag(ref as any))}>
       <Input {...props} />
     </span>
   );
@@ -286,7 +363,7 @@ InputComponent.craft = {
   name: 'Input',
   related: {
     settings() {
-      const { placeholder, readOnly, setProp } = useNode((s) => {
+      const { placeholder, readOnly, setProp } = useNode(s => {
         return {
           placeholder: s.data.props.placeholder,
           readOnly: s.data.props.readOnly ?? false,
@@ -302,7 +379,7 @@ InputComponent.craft = {
               <input
                 type="text"
                 value={placeholder}
-                onChange={(e) => setProp((props) => (props.placeholder = e.target.value))}
+                onChange={e => setProp(props => (props.placeholder = e.target.value))}
               />
             </Col>
           </Row>
@@ -312,8 +389,8 @@ InputComponent.craft = {
               <input
                 type="checkbox"
                 checked={readOnly}
-                onChange={(e) => {
-                  setProp((props) => (props.readOnly = e.target.checked));
+                onChange={e => {
+                  setProp(props => (props.readOnly = e.target.checked));
                 }}
               />
             </Col>
@@ -349,7 +426,7 @@ FieldComponent.craft = {
   name: 'Field',
   related: {
     settings: () => {
-      const { name, setProp } = useNode((s) => {
+      const { name, setProp } = useNode(s => {
         return { name: s.data.props.name };
       });
       return (
@@ -358,7 +435,7 @@ FieldComponent.craft = {
           <Row>
             <Col span={8}>名字</Col>
             <Col span={16}>
-              <Input value={name} onChange={(e) => setProp((props) => (props.name = e.target.value))} />
+              <Input value={name} onChange={e => setProp(props => (props.name = e.target.value))} />
             </Col>
           </Row>
         </div>
@@ -420,12 +497,12 @@ const Toolbar = () => {
         </button>
       </Card>
       <Card title="组件">
-        {Object.values(components).map((v) => (
+        {Object.values(components).map(v => (
           <button
-            key={v.craft.name}
-            ref={(ref) => connectors.create(ref, React.createElement(v, v.craft.defaultProps ?? {}))}
+            key={v.craft?.name}
+            ref={ref => connectors.create(ref, React.createElement(v, v.craft.defaultProps ?? {}))}
           >
-            {v.craft.name}
+            {v.craft?.name}
           </button>
         ))}
       </Card>
@@ -476,7 +553,7 @@ const App = () => {
   return (
     <EditorContainer>
       <div className="container">
-        <Editor resolvers={components}>
+        <Editor resolver={components} onRender={RenderNode}>
           <div className="canvas">
             <div className="viewport">
               <Frame>
@@ -505,6 +582,7 @@ const App = () => {
 
 export const SimpleDemo: React.FC = () => {
   useAntdTheme({ theme: 'light' });
+  // loadStyles('https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css');
   return (
     <div>
       <App></App>
