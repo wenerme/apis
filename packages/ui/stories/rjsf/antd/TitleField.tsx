@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Field } from '@rjsf/core';
-import { Col, PageHeader } from 'antd';
+import { Badge, Col, PageHeader } from 'antd';
 
 export const TitleField: Field = ({
   // autofocus,
@@ -22,6 +22,9 @@ export const TitleField: Field = ({
   title,
   // uiSchema,
   description,
+
+  // custom props
+  extra,
 }) => {
   const { colon = true, labelAlign = 'right', labelCol = {} } = formContext;
 
@@ -32,9 +35,12 @@ export const TitleField: Field = ({
     labelCol.className,
   );
 
-  let labelChildren = title;
+  let _title: React.ReactNode = title;
   if (colon && typeof title === 'string' && title.trim() !== '') {
-    labelChildren = title.replace(/[：:]\s*$/, '');
+    _title = title.replace(/[：:]\s*$/, '');
+  }
+  if (required && _title) {
+    _title = <Badge count={<span style={{ color: '#f5222d' }}>*</span>}>{_title}</Badge>;
   }
 
   const labelClassName = classNames({
@@ -53,7 +59,7 @@ export const TitleField: Field = ({
     }
   };
 
-  return title ? (
+  return !title && !extra && !description ? null : (
     <Col {...labelCol} className={labelColClassName}>
       <label
         className={labelClassName}
@@ -63,13 +69,14 @@ export const TitleField: Field = ({
       >
         {/*{labelChildren}*/}
         <PageHeader
-          title={labelChildren}
+          title={_title}
           subTitle={description}
+          extra={extra}
           style={{ marginBottom: 20, borderBottom: '1px solid #e5e5e5' }}
         />
       </label>
     </Col>
-  ) : null;
+  );
 };
 
 TitleField.defaultProps = {

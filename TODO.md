@@ -7,8 +7,12 @@
     * [ ] map
     * [ ] set
     * [ ] non string array
-* [ ] p4 为 antd 图标生成名字引用
-* [ ] p2 server's theme not fully working
+* [ ] rjsf antd 主题发布到包或提交 pr
+    * [ ] `"ui:enumDisabled": ['two']` 不能禁用 radio 
+
+## 20200415
+* [x] p4 为 antd 图标生成名字引用
+* [x] p2 server's theme not fully working
 
 ## 20200406
 * [x] p2 迁移 icons 到 @wener/ui

@@ -1,8 +1,12 @@
 import _ from 'lodash';
 import { Col, Row } from 'antd';
 import React from 'react';
+import { getUiOptions } from '@rjsf/core/lib/utils';
+import { AddButton } from './AddButton';
+import { ObjectFieldTemplateProps } from '@rjsf/core';
+import { AntdThemeFormContext } from './layouts';
 
-export const ObjectFieldTemplate = ({
+export const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps & any> = ({
   DescriptionField,
   TitleField,
   description,
@@ -11,11 +15,33 @@ export const ObjectFieldTemplate = ({
   idSchema,
   properties,
   required,
-  // schema,
+  formData,
+  schema,
   title,
   uiSchema,
+  // not defined in typescript
+  disabled,
+  readonly,
+  onAddClick,
 }) => {
-  const { colSpan, rowGutter = 24 } = formContext;
+  const canExpand = function canExpand() {
+    // const { formData, schema, uiSchema } = props;
+    if (!schema.additionalProperties) {
+      return false;
+    }
+    const { expandable } = getUiOptions(uiSchema) as any;
+    if (expandable === false) {
+      return expandable;
+    }
+    // if ui:options.expandable was not explicitly set to false, we can add
+    // another property if we have not exceeded maxProperties yet
+    if (schema.maxProperties !== undefined) {
+      return Object.keys(formData).length < schema.maxProperties;
+    }
+    return true;
+  };
+
+  const { colSpan, rowGutter = 24 } = formContext as AntdThemeFormContext;
 
   const findSchema = (element) => element.content.props.schema;
 
@@ -63,23 +89,32 @@ export const ObjectFieldTemplate = ({
 
   const filterHidden = (element) => element.content.props.uiSchema['ui:widget'] !== 'hidden';
 
+  // FIXME onKeyChange cause title undefined - all title
+  const _title = uiSchema['ui:title'] || title;
+  const expand = canExpand();
+
+  const _description = uiSchema['ui:description'] || description;
   return (
     <Row gutter={rowGutter}>
       <fieldset id={idSchema.$id} style={{ width: '100%' }}>
-        {uiSchema['ui:title'] !== false && (uiSchema['ui:title'] || title) && (
+        {(_title || _description || expand) && (
           <TitleField
             id={`${idSchema.$id}-title`}
-            description={uiSchema['ui:description'] || description}
+            description={_description}
             required={required}
-            title={uiSchema['ui:title'] || title}
+            title={_title}
+            extra={
+              expand && (
+                <AddButton
+                  className="object-property-expand"
+                  onClick={onAddClick(schema)}
+                  disabled={disabled || readonly}
+                />
+              )
+            }
           />
         )}
-        {/*{uiSchema['ui:description'] !== false && (uiSchema['ui:description'] || description) && (*/}
-        {/*  <DescriptionField*/}
-        {/*    description={uiSchema['ui:description'] || description}*/}
-        {/*    id={`${idSchema.$id}-description`}*/}
-        {/*  />*/}
-        {/*)}*/}
+
         {properties.filter(filterHidden).map((element) => (
           <Col
             key={element.name}

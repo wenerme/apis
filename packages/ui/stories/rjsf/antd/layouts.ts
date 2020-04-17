@@ -11,6 +11,14 @@ export interface AntdThemeFormContext {
   wrapperCol?;
   wrapperStyle?;
   readonlyAsDisabled?: boolean;
+
+  labelSpan?;
+  rowGutter?;
+
+  /**
+   * @deprecated
+   */
+  colSpan?;
 }
 
 export function getTextFromContext(formContext, text) {

@@ -1,8 +1,6 @@
-import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { ArrayFieldTemplateItem } from './ArrayFieldTemplateItem';
-import { PlusCircleOutlined } from '@ant-design/icons/lib';
-import { ArrayActionColProps } from './layouts';
+import { AddButton } from './AddButton';
 
 export const NormalArrayFieldTemplate = ({
   canAdd,
@@ -23,44 +21,17 @@ export const NormalArrayFieldTemplate = ({
   uiSchema,
 }) => (
   <fieldset className={className} id={idSchema.$id}>
-    {title && (
+    {(title || canAdd) && (
       <TitleField
         id={`${idSchema.$id}__title`}
         key={`array-field-title-${idSchema.$id}`}
         required={required}
         title={uiSchema['ui:title'] || title}
         description={uiSchema['ui:description'] || schema.description}
+        extra={canAdd && <AddButton className="array-item-add" disabled={disabled || readonly} onClick={onAddClick} />}
       />
     )}
 
-    {/*{(uiSchema['ui:description'] || schema.description) && (*/}
-    {/*  <DescriptionField*/}
-    {/*    description={uiSchema['ui:description'] || schema.description}*/}
-    {/*    id={`${idSchema.$id}__description`}*/}
-    {/*    key={`array-field-description-${idSchema.$id}`}*/}
-    {/*  />*/}
-    {/*)}*/}
-
     {items && items.map(ArrayFieldTemplateItem)}
-
-    {canAdd && (
-      <Row
-        gutter={24}
-        // type="flex"
-      >
-        <Col style={{ flex: '1' }} />
-        <Col {...ArrayActionColProps}>
-          <Button
-            className="array-item-add"
-            disabled={disabled || readonly}
-            onClick={onAddClick}
-            style={{ width: '100%' }}
-            type="primary"
-          >
-            <PlusCircleOutlined /> {formContext.texts?.['Add Item'] ?? 'Add Item'}
-          </Button>
-        </Col>
-      </Row>
-    )}
   </fieldset>
 );

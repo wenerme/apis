@@ -39,7 +39,7 @@ export const Widgets = {
   TextWidget,
   UpDownWidget,
 };
-export const Theme: ThemeProps = {
+export const AntdRjsfTheme: ThemeProps = {
   ArrayFieldTemplate,
   fields: { ...fields, ...Fields },
   FieldTemplate,

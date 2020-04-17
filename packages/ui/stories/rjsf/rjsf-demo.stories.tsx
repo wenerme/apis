@@ -2,7 +2,7 @@ import Form, { FormProps, withTheme } from '@rjsf/core';
 import React, { useState } from 'react';
 import { JSONSchema7 } from 'json-schema';
 import { useAntdTheme } from '../../src/antds/hooks';
-import { Theme } from './antd/AntdTheme';
+import { AntdRjsfTheme } from './antd/AntdTheme';
 import styled from 'styled-components';
 import { Button, Card, Col, Input, message, Row } from 'antd';
 import produce from 'immer';
@@ -49,7 +49,7 @@ const schema: JSONSchema7 = {
 
 const log = (type) => console.log.bind(console, type);
 
-const ThemedForm: React.ComponentType<FormProps<any>> = withTheme(Theme);
+const ThemedForm: React.ComponentType<FormProps<any>> = withTheme(AntdRjsfTheme);
 
 export const Demo = () => {
   return <Form schema={schema} onChange={log('changed')} onSubmit={log('submitted')} onError={log('errors')} />;
@@ -107,7 +107,7 @@ export const Nested = () => {
 const PlaygroundDiv = styled.div`
   padding: 0 16px;
 `;
-const playgrounds: Record<string, any> = require('./playground.json');
+const playgrounds: Record<string, any> = Object.assign({}, require('./playground.json'), require('./plays-more.json'));
 export const Playground = () => {
   useAntdTheme();
 

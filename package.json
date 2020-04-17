@@ -16,6 +16,7 @@
     "pub:build": "yarn build:tinyrpc && yarn build:utils && yarn build:ui && yarn --cwd packages/server tsc --noEmit",
     "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json && prettier --write package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json",
     "start": "yarn --cwd packages/server start",
+    "start:server": "yarn --cwd packages/server start",
     "test": "yarn --cwd packages/server test"
   },
   "resolutions": {
