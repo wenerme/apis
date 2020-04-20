@@ -19,7 +19,7 @@ export const UpDownWidget: Widget = ({
 }) => {
   const { readonlyAsDisabled = true } = formContext;
 
-  const handleChange = nextValue => onChange(nextValue);
+  const handleChange = (nextValue) => onChange(nextValue);
 
   const handleBlur = ({ target }) => onBlur(id, target.value);
 
