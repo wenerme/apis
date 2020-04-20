@@ -19,11 +19,5 @@ export const DescriptionField: Field = ({
   // schema,
   // uiSchema,
 }) => {
-  return (
-    // <Row id={id}>
-    //   <Col offset={1}>{description}</Col>
-    // </Row>
-    // no description in this theme
-    <span></span>
-  );
+  return <span>{description}</span>;
 };

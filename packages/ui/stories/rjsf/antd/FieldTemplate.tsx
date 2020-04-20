@@ -44,11 +44,13 @@ export const FieldTemplate: React.FC<FieldTemplateProps & any> = ({
 
   const renderFieldErrors = () => rawErrors.map((error) => <div key={`field-${id}-error-${error}`}>{error}</div>);
 
-  // nested object also use root
-  // if (id === 'root' && !React.Children.count(children)) {
-  //   return <>{children}</>;
-  // }
+  // array and object will use ArrayFieldTemplate and ObjectFieldTemplate
+  // which handle addition and description
+  if (schema.type === 'array' || schema.type === 'object') {
+    return <>{children}</>;
+  }
   if (ADDITIONAL_PROPERTY_FLAG in schema) {
+    // additional property can edit label
     return (
       <Row justify="space-around" style={{ paddingBottom: 16 }}>
         <Col span={10} offset={1}>
@@ -78,11 +80,13 @@ export const FieldTemplate: React.FC<FieldTemplateProps & any> = ({
   if (!displayLabel) {
     _label = false;
   }
+
   return (
     <Form.Item
       className={classNames}
       colon={colon}
-      extra={!!rawDescription && description}
+      // description is always created
+      extra={Boolean(rawDescription) && description}
       hasFeedback={schema.type !== 'array' && schema.type !== 'object'}
       help={(!!rawHelp && help) || (!!rawErrors && renderFieldErrors())}
       htmlFor={id}
