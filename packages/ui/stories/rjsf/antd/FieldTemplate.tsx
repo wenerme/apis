@@ -46,9 +46,10 @@ export const FieldTemplate: React.FC<FieldTemplateProps & any> = ({
 
   // array and object will use ArrayFieldTemplate and ObjectFieldTemplate
   // which handle addition and description
-  if (schema.type === 'array' || schema.type === 'object') {
-    return <>{children}</>;
-  }
+  // if (schema.type === 'array' || schema.type === 'object') {
+  //   return <>{children}</>;
+  // }
+  const isSimpleType = schema.type !== 'array' && schema.type !== 'object';
   if (ADDITIONAL_PROPERTY_FLAG in schema) {
     // additional property can edit label
     return (
@@ -86,7 +87,7 @@ export const FieldTemplate: React.FC<FieldTemplateProps & any> = ({
       className={classNames}
       colon={colon}
       // description is always created
-      extra={Boolean(rawDescription) && description}
+      extra={isSimpleType && Boolean(rawDescription) && description}
       hasFeedback={schema.type !== 'array' && schema.type !== 'object'}
       help={(!!rawHelp && help) || (!!rawErrors && renderFieldErrors())}
       htmlFor={id}

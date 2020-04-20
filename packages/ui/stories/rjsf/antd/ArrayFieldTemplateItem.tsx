@@ -21,7 +21,7 @@ export const ArrayFieldTemplateItem = ({
   };
 
   return (
-    <Row align="bottom" key={`array-item-${index}`} gutter={24}>
+    <Row key={`array-item-${index}`} gutter={24}>
       <Col
         style={{
           flex: 1,

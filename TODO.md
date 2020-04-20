@@ -7,8 +7,12 @@
     * [ ] map
     * [ ] set
     * [ ] non string array
-* [ ] rjsf antd 主题发布到包或提交 pr
+* [ ] rjsf
+    * [ ] antd 主题发布到包或提交 pr
     * [ ] `"ui:enumDisabled": ['two']` 不能禁用 radio 
+    * [ ] errorSchema 行为不一致
+    * [ ] 数组枚举渲染为 select，但没有 title - 因为 root/array
+    * [ ] AltDateWidget 格式不一致 - 没有自定义 - 但不需要
 
 ## 20200415
 * [x] p4 为 antd 图标生成名字引用
