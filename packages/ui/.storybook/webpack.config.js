@@ -40,6 +40,6 @@ module.exports = ({ config }) => {
     include: path.resolve(__dirname, '../'),
   });
 
-  config.resolve.extensions.push('.ts', '.tsx', '.css', '.scss', '.mdx', '.md','.svg');
+  config.resolve.extensions.push('.ts', '.tsx', '.css', '.scss', '.mdx', '.md', '.svg');
   return config;
 };

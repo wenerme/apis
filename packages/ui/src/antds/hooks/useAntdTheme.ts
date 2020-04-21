@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { loadStyles } from '@wener/utils/src/browsers/loaders';
-import { MaybePromise } from '@wener/utils';
+import { loadStyles, MaybePromise } from '@wener/utils';
 
 interface LoadThemeOption {
   theme: string;
@@ -38,8 +37,8 @@ function loadTheme(options: LoadThemeOption): MaybePromise<boolean> {
 
 // fixme - should use current version ?
 const urls = {
-  light: 'https://unpkg.com/antd@4.1.1/dist/antd.min.css',
-  dark: 'https://unpkg.com/antd@4.1.1/dist/antd.dark.min.css',
+  light: 'https://unpkg.com/antd/dist/antd.min.css',
+  dark: 'https://unpkg.com/antd/dist/antd.dark.min.css',
 };
 
 export function loadAntdTheme(options?: { theme; src? }): MaybePromise<boolean> {
