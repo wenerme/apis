@@ -1,6 +1,4 @@
-import { DependencyList, useState } from 'react';
-import { useAsyncEffect } from '@wener/ui';
-import produce from 'immer';
+import React, { DependencyList } from 'react';
 
 export interface FetchingData<T> {
   loading: boolean;
@@ -8,34 +6,28 @@ export interface FetchingData<T> {
   error?: Error;
 }
 
-export function useFetchEffect<T = any>(fetcher: () => Promise<T>, deps?: DependencyList): FetchingData<T> {
-  const [state, setState] = useState<FetchingData<T>>(() => ({
-    loading: false,
-  }));
+export function useFetchEffect<T = any>(fetcher: () => Promise<T> | T, deps?: DependencyList) {
+  const [state, setState] = React.useState<FetchingData<T>>(() => ({ loading: true }));
 
-  useAsyncEffect(async () => {
-    setState(
-      produce((state) => {
-        state.loading = true;
-        state.error = null;
-      }),
-    );
+  React.useEffect(() => {
+    // keep data
+    setState((state) => ({ ...state, loading: true, error: null }));
+
+    let rel: Promise<T> | T;
     try {
-      const data = await fetcher();
-      setState(
-        produce((state) => {
-          state.loading = false;
-          state.data = data;
-        }),
+      rel = fetcher();
+    } catch (error) {
+      setState({ loading: false, data: null, error });
+      return;
+    }
+
+    if (rel['then']) {
+      const promise = rel as Promise<T>;
+      promise.then((data) => setState({ loading: false, data })).catch((error) =>
+        setState({ loading: false, data: null, error }),
       );
-    } catch (e) {
-      setState(
-        produce((state) => {
-          state.loading = false;
-          state.error = e;
-          state.data = null;
-        }),
-      );
+    } else {
+      setState({ loading: false, data: rel as any });
     }
   }, deps);
 
