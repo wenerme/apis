@@ -7,3 +7,5 @@ export * from './useMounted';
 export * from './useOnlineEffect';
 export * from './useNamedTheme';
 export * from './useEffectOnce';
+export * from './useFetchEffect';
+export * from './usePromiseEffect';
