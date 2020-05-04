@@ -1,5 +1,5 @@
 export { GlobalRegistry } from './global';
-export * from './types';
+export * from './interfaces';
 export * from './ServiceRegistry';
 export * from './consumer';
 

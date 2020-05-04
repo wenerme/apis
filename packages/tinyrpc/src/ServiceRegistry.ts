@@ -1,9 +1,9 @@
-import { ServiceDefinition, ServiceInvocation, ServiceResponse } from './types';
+import { ServiceDefinition, ServiceInvocation, ServiceProvider, ServiceResponse } from './interfaces';
 
 /**
  * Hold all services in server side
  */
-export class ServiceRegistry {
+export class ServiceRegistry implements ServiceProvider {
   services: Record<string, ServiceDefinition> = {};
 
   async invoke(req: ServiceInvocation): Promise<ServiceResponse> {

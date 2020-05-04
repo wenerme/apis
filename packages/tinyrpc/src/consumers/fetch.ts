@@ -1,4 +1,4 @@
-import { ServiceInvocationHandler } from '../types';
+import { ServiceInvocationHandler } from '../interfaces';
 // import unfetch from 'isomorphic-unfetch';
 
 type Fetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;

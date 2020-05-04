@@ -1,4 +1,4 @@
-import { ServiceInvocationHandler } from './types';
+import { ServiceInvocationHandler } from './interfaces';
 
 /// Used to handle client state between requests
 interface ProxyContext {
