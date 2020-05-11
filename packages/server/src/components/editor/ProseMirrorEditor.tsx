@@ -5,7 +5,7 @@ import { schema as basicSchema } from 'prosemirror-schema-basic';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { proseMirrorSetup } from './prosemirror/setup';
-import { defaultMarkdownParser, schema as markdownSchema } from 'prosemirror-markdown';
+import { defaultMarkdownParser } from 'prosemirror-markdown';
 
 export interface EditorInstance {
   state: EditorState;
@@ -34,7 +34,8 @@ export function createEditor(options: EditorOptions = {}): EditorInstance {
           initial = DOMParser.fromSchema(schema).parse(new window.DOMParser().parseFromString(initialDoc, 'text/html'));
         }
       } else {
-        schema = markdownSchema;
+        // fixme ts no schema def
+        schema = require('prosemirror-markdown').schema;
         if (typeof initialDoc === 'string') {
           initial = defaultMarkdownParser.parse(initialDoc);
         }
