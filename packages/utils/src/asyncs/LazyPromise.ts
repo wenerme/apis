@@ -4,19 +4,26 @@ export type LazyPromise<T> = Promise<T> & {
 };
 
 export function createLazyPromise<T = any>(): LazyPromise<T> {
-  const promise: LazyPromise<T> = Object.assign(
+  const holder = {
+    resolve(_: any): void {
+      throw new Error('pending resolve');
+    },
+    reject(_: any): void {
+      throw new Error('pending reject');
+    },
+  };
+  return Object.assign(
     new Promise<T>((resolve, reject) => {
-      promise.reject = reject;
-      promise.resolve = resolve;
+      holder.reject = reject;
+      holder.resolve = resolve;
     }),
     {
-      resolve() {
-        throw new Error('pending resolve');
+      resolve(v: any) {
+        holder.resolve(v);
       },
-      reject() {
-        throw new Error('pending reject');
+      reject(v: any) {
+        holder.resolve(v);
       },
-    }
+    },
   );
-  return promise;
 }

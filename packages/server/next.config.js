@@ -27,7 +27,7 @@ const envs = {
 };
 
 // 添加环境变量
-Object.assign(env, require('dotenv').config().parsed);
+// Object.assign(env, require('dotenv').config().parsed);
 
 const config = {
   // distDir: 'dist',

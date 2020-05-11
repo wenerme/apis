@@ -8,6 +8,10 @@ import 'nprogress/nprogress.css';
 // todo no need to global
 import 'react-virtualized/styles.css';
 
+export function reportWebVitals(metric) {
+  console.debug(`Vitals`, metric);
+}
+
 export default class WenerApisApp extends App {
   componentDidMount() {
     try {

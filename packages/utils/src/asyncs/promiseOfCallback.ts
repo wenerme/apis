@@ -1,4 +1,4 @@
-export function promiseOfCallback<T>(fun: (cb: (err: any, val: T) => void) => void) {
+export function promiseOfCallback<T>(fun: (cb: (err: any, val?: T) => void) => void) {
   return new Promise<T>((resolve, reject) => {
     try {
       fun((e: any, v: any) => {

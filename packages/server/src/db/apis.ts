@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { isDev } from '@wener/utils/src/envs/isDev';
 
 export function createApisConnectionFactory(
-  options: { name } & Partial<BaseConnectionOptions>
+  options: { name } & Partial<BaseConnectionOptions>,
 ): () => Connection | Promise<Connection> {
   let _connection: Connection;
   return () => {
@@ -16,6 +16,7 @@ export function createApisConnectionFactory(
     const { name: rawName, ...opts } = options;
     let name = rawName;
     if (isDev()) {
+      // prevent hmr conflict with exists connection
       name = `${name}-${format(new Date(), 'yyyyMMddHHmmss')}`;
     }
     console.log(`create connection ${name}`);

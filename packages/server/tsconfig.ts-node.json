@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "esnext",
+    "target": "es2019",
     "noEmit": false
   },
   "extends": "./tsconfig.json"

@@ -79,7 +79,7 @@ export const PageLayout: React.FC<{ showFooter?; title?; description?; keywords?
 }) => {
   useRouteProgress();
   title = title || `Wener's APIs`;
-  console.log(`PageLayout init`,title)
+  console.log(`PageLayout init`, title);
   // 预先加载 style 避免页面闪烁 - 主题不同会加载后才切换
   return (
     <NamedThemeProvider
@@ -105,7 +105,7 @@ export const PageLayout: React.FC<{ showFooter?; title?; description?; keywords?
 
           {keywords && <meta name="keywords" content={Array.isArray(keywords) ? keywords.join(',') : keywords} />}
 
-          <link href="https://unpkg.com/antd@4.0.4/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />
+          <link href="https://unpkg.com/antd/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />
         </Head>
         <LayoutFrame menus={menus} showFooter={showFooter} footer={<Footer />} link={NextLink}>
           <React.Fragment>
