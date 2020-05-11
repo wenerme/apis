@@ -69,7 +69,7 @@ export const FieldTemplate: React.FC<FieldTemplateProps & any> = ({
           <Button
             disabled={disabled || readonly}
             onClick={onDropPropertyClick(label)}
-            type="danger"
+            danger
             // icon={<DeleteOutlined />}
             icon={<CloseOutlined />}
           />

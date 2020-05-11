@@ -65,7 +65,7 @@ export const ArrayFieldTemplateItem = ({
                 icon={<DeleteOutlined />}
                 onClick={onDropIndexClick(index)}
                 style={btnStyle}
-                type="danger"
+                danger
               />
             )}
           </Button.Group>

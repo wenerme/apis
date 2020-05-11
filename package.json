@@ -5,10 +5,15 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn --cwd packages/server build",
-    "build:public": "yarn --cwd packages/ui run storybook:build && cp -r packages/ui/storybook packages/server/public/storybook && yarn --cwd packages/utils run doc && yarn --cwd packages/tinyrpc run doc && rm -rf packages/server/public/docs/@wener && mkdir -p packages/server/public/docs/@wener && cp -r packages/utils/docs packages/server/public/docs/@wener/utils && cp -r packages/tinyrpc/docs packages/server/public/docs/@wener/tinyrpc",
+    "build": "yarn build:server",
+    "build:doc:prepare": "rm -rf packages/server/public/docs/@wener && mkdir -p packages/server/public/docs/@wener",
+    "build:public": "yarn build:doc:prepare && run-p --silent build:public:**",
+    "build:public:ui": "yarn --cwd packages/ui run storybook:build && cp -r packages/ui/storybook packages/server/public/storybook",
+    "build:public:utils": "yarn --cwd packages/utils run doc && cp -r packages/utils/docs packages/server/public/docs/@wener/utils",
+    "build:public:tinyrpc": "yarn --cwd packages/tinyrpc run doc  && cp -r packages/tinyrpc/docs packages/server/public/docs/@wener/tinyrpc",
     "dev": "yarn --cwd packages/server dev",
     "format": "yarn workspaces run format",
+    "build:server": "yarn --cwd packages/server build",
     "build:ui": "yarn --cwd packages/ui build",
     "build:tinyrpc": "yarn --cwd packages/tinyrpc build",
     "build:utils": "yarn --cwd packages/utils build",
@@ -38,6 +43,7 @@
     "husky": "^4.2.3",
     "lerna": "^3.20.2",
     "lint-staged": "^10.0.8",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.0.0"
   },
   "engines": {
