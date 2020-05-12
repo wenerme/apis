@@ -105,6 +105,7 @@ export const PageLayout: React.FC<{ showFooter?; title?; description?; keywords?
 
           {keywords && <meta name="keywords" content={Array.isArray(keywords) ? keywords.join(',') : keywords} />}
 
+          <link rel="preload" as="style" href="https://unpkg.com/antd/dist/antd.dark.min.css" />
           <link href="https://unpkg.com/antd/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />
         </Head>
         <LayoutFrame menus={menus} showFooter={showFooter} footer={<Footer />} link={NextLink}>

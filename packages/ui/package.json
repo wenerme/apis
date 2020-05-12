@@ -3,8 +3,6 @@
   "version": "1.0.0-alpha.13",
   "license": "MIT",
   "main": "lib/index.js",
-  "umd:main": "dist/ui.umd.js",
-  "module": "dist/ui.es5.js",
   "source": "src/index.ts",
   "typings": "lib/index.d.ts",
   "files": [
@@ -33,7 +31,7 @@
     "antd-icons:gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/antd-icons.ts",
     "prebuild": "rm -rf ./lib ./dist",
     "build": "npm-run-all -p build:types build:js build:docs && yarn build:bundle",
-    "build:bundle": "rollup -c rollup.config.ts",
+    "build:bundle": "echo rollup -c rollup.config.ts",
     "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "build:js": "babel src -d lib -x .ts,.tsx -s true",
     "build:types": "tsc --emitDeclarationOnly",

@@ -6,7 +6,7 @@ export const LayoutFrameContent: React.FC<{ style?: CSSProperties }> = ({ childr
   return (
     <div
       style={{
-        ...(theme === 'light' ? { backgroundColor: 'white' } : {}),
+        ...(theme !== 'dark' ? { backgroundColor: 'white' } : {}),
         margin: 8,
         padding: 12,
         minHeight: 'calc(100% - 16px)',
