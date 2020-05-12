@@ -17,7 +17,7 @@
     "build:ui": "yarn --cwd packages/ui build",
     "build:tinyrpc": "yarn --cwd packages/tinyrpc build",
     "build:utils": "yarn --cwd packages/utils build",
-    "build:rjsf-antd": "yarn --cwd packages/rjsf-antd build",
+    "build:rjsf-antd": "yarn --cwd packages/rjsf-antd-theme build",
     "pub": "yarn pub:build && yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
     "pub:build": "yarn build:utils && run-p build:tinyrpc build:ui build:rjsf-antd && yarn --cwd packages/server tsc --noEmit",
     "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json && prettier --write package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json",

@@ -53,7 +53,6 @@
     "@wener/utils": "^1.0.0-alpha.14",
     "polished": "^3.5.1",
     "react-fast-compare": "^3.0.1",
-    "rjsf-antd": "^1.0.0-alpha.14",
     "styled-components": ">= 5"
   },
   "devDependencies": {
