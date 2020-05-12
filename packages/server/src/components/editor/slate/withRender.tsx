@@ -59,7 +59,7 @@ export const Leaf = ({ attributes, children, leaf }) => {
 export function withRender() {
   return (editor: Editor) => {
     editor.editableProps = {
-      ...editor.editableProps,
+      ...(editor.editableProps as any),
       renderElement: (props) => <Element {...props} />,
       renderLeaf: (props) => <Leaf {...props} />,
     };
