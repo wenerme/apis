@@ -27,7 +27,7 @@ export const toggleBlock = (editor, format) => {
   const isList = ListTypes.includes(format);
 
   Transforms.unwrapNodes(editor, {
-    match: (n) => ListTypes.includes(n.type),
+    match: (n) => ListTypes.includes(n.type as string),
     split: true,
   });
 
