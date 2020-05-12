@@ -1,6 +1,6 @@
 {
   "name": "rjsf-antd",
-  "version": "1.0.0-alpha.13",
+  "version": "1.0.0-alpha.14",
   "license": "MIT",
   "description": "Ant Design Theme for React Json Schema Form / RJSF",
   "scripts": {
