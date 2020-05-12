@@ -1,13 +1,17 @@
 import { normalizeError } from 'src/libs/nexts/middlewares/errors';
 import { sleep } from '@wener/utils';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getCertificateByUrl } from 'src/libs/pki/utils/getCertificateByUrl';
-import zxcvbn from 'zxcvbn';
-import { getClientAddress } from 'src/libs/nexts/utils/requests';
-import { isValidRequest } from 'src/modules/hash/types';
-import { hashing } from 'src/modules/hash/libs/hasings';
+import { handleTestSse } from 'src/servers/routers/api/test/sse';
+import { handleHash } from 'src/servers/routers/api/hash';
+import { handleMyIpJson, handleMyIpText } from 'src/servers/routers/api/ip';
+import { handleZxcvbnStrength } from 'src/servers/routers/api/password/zxcvbn';
+import { handleCertOfUrl } from 'src/servers/routers/api/pki/cert/url';
+import { Router } from 'src/servers/routers/interfaces';
+import { handleLinearCodeGenerate } from 'src/servers/routers/api/barcode/handleLinearCodeGenerate';
+import { handleQrCodeGenerate } from 'src/servers/routers/api/barcode/handleQrCodeGenerate';
 
-export function routes(route) {
+export function routes(r: any) {
+  const route = r as Router<NextApiRequest, NextApiResponse>;
   // handle error
   route.use(async (req, res, next) => {
     try {
@@ -31,57 +35,19 @@ export function routes(route) {
     });
   });
 
-  route.post('/api/pki/cert/url', async (req: NextApiRequest, res: NextApiResponse) => {
-    const { url } = req.body;
-    const certificate = await getCertificateByUrl(url, { timeout: 5000 });
-    res.status(200).json({
-      url,
-      certificate: certificate.pemEncoded,
-    });
-  });
+  route.get('/api/barcode/qrcode', handleQrCodeGenerate);
+  route.get('/api/barcode/linear', handleLinearCodeGenerate);
 
-  route.get('/api/password/zxcvbn/:password', (req, res) => {
-    const result = zxcvbn(req.params['password'] + '');
-    res.setHeader('Cache-Control', 'public, max-age=86400');
-    res.status(200).json(result);
-  });
+  route.post('/api/pki/cert/url', handleCertOfUrl);
 
-  route.get('/api/ip', (req, res) => {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send(getClientAddress(req));
-  });
-  route.get('/api/ip.json', async (req: NextApiRequest, res: NextApiResponse) => {
-    const address = getClientAddress(req);
-    const { 'cf-ipcountry': countryCode = null } = req.headers;
+  route.get('/api/password/zxcvbn/:password', handleZxcvbnStrength);
+  route.get('/api/password/zxcvbn', handleZxcvbnStrength);
 
-    // console.log(`Header`, req.headers);
+  route.get('/api/ip', handleMyIpText);
+  route.get('/api/ip.json', handleMyIpJson);
 
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send({
-      address,
-      raw: req?.socket?.address(),
-      country: { code: countryCode },
-    });
-  });
-
-  route.get('/api/hash', async (req: NextApiRequest, res: NextApiResponse) => {
-    const { algorithm, alg, encoding = 'base64', format = 'txt', content } = req.query;
-    const request = { algorithm: algorithm || alg, encoding, format, content };
-    const errors = [];
-    if (!isValidRequest(request, errors)) {
-      res.status(400).json({ code: 400, message: errors.join(';') });
-      return;
-    }
-    const result = hashing(request);
-
-    res.setHeader('Cache-Control', 'public, max-age=86400');
-    if (request['format'] === 'txt') {
-      res.setHeader('Content-Type', 'text/plain');
-      res.status(200).send(result['digest']);
-      return;
-    }
-    res.status(200).json(result);
-  });
+  route.get('/api/hash', handleHash);
+  route.get('/api/test/sse', handleTestSse);
 
   return route;
 }

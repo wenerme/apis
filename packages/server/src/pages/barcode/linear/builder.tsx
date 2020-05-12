@@ -7,9 +7,9 @@ import JsBarcode, { Options as BarcodeOptions } from 'jsbarcode';
 import { FormFieldProps, FormFieldsBuilder } from 'src/libs/antds/form/builder';
 import produce from 'immer';
 import { SketchColorPicker } from 'src/libs/antds/form/SketchColorPicker';
-import { API } from 'src/apis/api';
 import { ResourceLinkButton } from 'src/components/ResourceLinkButton';
 import { useDebounceEffect } from '@wener/ui';
+import { buildLinearCodeLink } from 'src/servers/routers/api/barcode/buildQrCodeLink';
 
 const Barcode: React.FC<BarcodeOptions & { value: string; renderer?: 'svg' | 'canvas' | 'img' }> = (props) => {
   const { renderer = 'svg' } = props;
@@ -184,9 +184,7 @@ const LinearBarCodeBuilderPageContent: React.FC = () => {
         <ResourceLinkButton
           formats={['svg', 'png', 'jpg']}
           nameProvider={({ format: imageFormat }) => `${options.value}-${options.format}.${imageFormat}`}
-          linkProvider={({ format: imageFormat }) =>
-            `${API.origin}/api/barcode/gen/${options.format}/${encodeURIComponent(options.value)}.${imageFormat}`
-          }
+          linkProvider={({ format }) => buildLinearCodeLink({ codec: options.format, value: options.value, format })}
         />
         <figure style={{ textAlign: 'center', marginTop: 16 }}>
           {/*<Barcode {...options} />*/}

@@ -5,9 +5,9 @@ import { Alert, Descriptions, Input, PageHeader } from 'antd';
 import Link from 'next/link';
 import { createRandom } from '@wener/utils/src/maths/random';
 import { createPasswordGenerator } from '../libs/generates';
-import { API } from 'src/apis/api';
 import zxcvbn from 'zxcvbn';
 import { KeyOutlined } from '@ant-design/icons';
+import { buildZxcvbnLink } from 'src/servers/routers/api/password/buildZxcvbnLink';
 
 const ZxcvbnDescription: React.FC<{ password; result? }> = ({ password, result }) => {
   const { score, guesses, guesses_log10, feedback, crack_times_display: times } = result;
@@ -149,8 +149,8 @@ const PasswordStrengthPageContent: React.FC<{ initialValue? }> = ({ initialValue
       <div style={{ marginTop: 18 }}>
         <h4>接口请求</h4>
         <div>
-          <a href={`${API.origin}/api/password/zxcvbn/${value}`} target="_blank" rel="noopener noreferrer">
-            {`${API.origin}/api/password/zxcvbn/${value}`}
+          <a href={buildZxcvbnLink({ password: value })} target="_blank" rel="noopener noreferrer">
+            {buildZxcvbnLink({ password: value })}
           </a>
         </div>
         <div>
