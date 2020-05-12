@@ -1,26 +1,30 @@
 # Wener's APIs
 
 ## 概述
-* [@wener/apis-server](https://apis.wener.me)
-  * 通过 now 部署的服务
-  * 主要用于验证一些实验性质的想法和实现一些常用接口
-  * 前端 react、antd、redux
-  * 后端 nextjs、typeorm、pg
-  * 特性
-    * [WebTorrent Web 客户端](https://apis.wener.me/webtorrent/client)
-    * [Kong 网关管理界面](https://apis.wener.me/kong/admin)
-    * [摘要哈希计算](https://apis.wener.me/hash/digest)
-    * [二维码生成和解析](https://apis.wener.me/barcode/qrcode/builder)
-    * [条形码生成和解析](https://apis.wener.me/barcode/linear/builder)
-    * [电话归属地查询](https://apis.wener.me/phone/attribution)
-* [@wener/utils](https://www.npmjs.com/package/@wener/utils) / [文档](https://apis.wener.me/docs/@wener/utils/index.html)
-  * 常用的工具函数
-  * 外部一些实用工具迁移为 ts，统一打包减少依赖 
-* [@wener/tinyrpc](https://www.npmjs.com/package/@wener/tinyrpc) / [文档](https://apis.wener.me/docs/@wener/tinyrpc/index.html)
-  * 基于 ES6 代理的简洁的 RPC 实现
+
+- [@wener/apis-server](https://apis.wener.me)
+  - 通过 now 部署的服务
+  - 主要用于验证一些实验性质的想法和实现一些常用接口
+  - 前端 react、antd、redux
+  - 后端 nextjs、typeorm、pg
+  - 特性
+    - [WebTorrent Web 客户端](https://apis.wener.me/webtorrent/client)
+    - [Kong 网关管理界面](https://apis.wener.me/kong/admin)
+    - [摘要哈希计算](https://apis.wener.me/hash/digest)
+    - [二维码生成和解析](https://apis.wener.me/barcode/qrcode/builder)
+    - [条形码生成和解析](https://apis.wener.me/barcode/linear/builder)
+    - [电话归属地查询](https://apis.wener.me/phone/attribution)
+- [@wener/utils](https://www.npmjs.com/package/@wener/utils) / [文档](https://apis.wener.me/docs/@wener/utils/index.html)
+  - 常用的工具函数
+  - 外部一些实用工具迁移为 ts，统一打包减少依赖
+- [@wener/tinyrpc](https://www.npmjs.com/package/@wener/tinyrpc) / [文档](https://apis.wener.me/docs/@wener/tinyrpc/index.html)
+  - 基于 ES6 代理的简洁的 RPC 实现
+- [rjsf-antd-theme](https://www.npmjs.com/package/rjsf-antd-theme)
+  - 基于 jsonschema 生成 antd 主题 form 表单
 
 ## 开发
-* 使用 Node 12 LTS 版本
+
+- 使用 Node 12 LTS 版本
 
 ```bash
 # 如果使用 nvm
@@ -41,7 +45,7 @@ yarn build
 pkg -t node12-macos-x64 . --out-dir dist
 
 # 执行服务端生成脚本
-TS_NODE_PROJECT=$PWD/tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/prebuild.ts 
+TS_NODE_PROJECT=$PWD/tsconfig.ts-node.json node -r ts-node/register -r tsconfig-paths/register server/prebuild.ts
 ```
 
 ## SCEL
@@ -54,19 +58,29 @@ ipfs files write -etp /scel/index.full.json scel/index.full.json
 ipfs files stat /scel
 ```
 
+<!-- LINK:BEGIN -->
 
 # Links
 
-* Site
-  * [wener.me](https://wener.me)
-    * Github [wenerme/wener](https://github.com/wenerme/wener)
-  * [apis.wener.me](https://apis.wener.me/)
-    * Github [wenerme/apis](https://github.com/wenerme/apis)
-* Library
-  * [@wener/utils](https://www.npmjs.com/package/@wener/utils) - ![VERSION](https://img.shields.io/npm/v/@wener/utils) - ![LICENSE](https://img.shields.io/npm/l/@wener/utils)
-    * [Document](https://apis.wener.me/docs/@wener/utils/)
-  * [@wener/ui](https://www.npmjs.com/package/@wener/ui) - ![VERSION](https://img.shields.io/npm/v/@wener/ui) - ![LICENSE](https://img.shields.io/npm/l/@wener/ui)
-    * [Storybook](https://apis.wener.me/storybook/)
-    * [Document](https://apis.wener.me/docs/@wener/ui/)
-  * [@wener/tinyrpc](https://www.npmjs.com/package/@wener/tinyrpc) - ![VERSION](https://img.shields.io/npm/v/@wener/tinyrpc) - ![LICENSE](https://img.shields.io/npm/l/@wener/tinyrpc)
-    * [Document](https://apis.wener.me/docs/@wener/tinyrpc/)
+- Site
+  - [wener.me](https://wener.me)
+    - Blog
+    - Github [wenerme/wener](https://github.com/wenerme/wener)
+  - [apis.wener.me](https://apis.wener.me/)
+    - APIs playground with docs & stories
+    - Github [wenerme/apis](https://github.com/wenerme/apis)
+- Library
+  - [@wener/utils](https://www.npmjs.com/package/@wener/utils) - ![VERSION](https://img.shields.io/npm/v/@wener/utils) - ![LICENSE](https://img.shields.io/npm/l/@wener/utils)
+    - utils for daily use
+    - [Document](https://apis.wener.me/docs/@wener/utils/)
+  - [@wener/ui](https://www.npmjs.com/package/@wener/ui) - ![VERSION](https://img.shields.io/npm/v/@wener/ui) - ![LICENSE](https://img.shields.io/npm/l/@wener/ui)
+    - [Storybook](https://apis.wener.me/storybook/@wener/ui)
+    - [Document](https://apis.wener.me/docs/@wener/ui/)
+  - [@wener/tinyrpc](https://www.npmjs.com/package/@wener/tinyrpc) - ![VERSION](https://img.shields.io/npm/v/@wener/tinyrpc) - ![LICENSE](https://img.shields.io/npm/l/@wener/tinyrpc)
+    - [Document](https://apis.wener.me/docs/@wener/tinyrpc/)
+  - [rjsf-antd-theme](https://www.npmjs.com/package/rjsf-antd-theme) - ![VERSION](https://img.shields.io/npm/v/rjsf-antd-theme) - ![LICENSE](https://img.shields.io/npm/l/rjsf-antd-theme)
+    - Ant Design Theme for React Json Schema Form
+    - [Storybook](https://apis.wener.me/storybook/rjsf-antd-theme)
+    - [Document](https://apis.wener.me/docs/rjsf-antd-theme/)
+
+<!-- LINK:END -->
