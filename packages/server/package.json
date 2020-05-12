@@ -154,7 +154,7 @@
     "urijs": "^1.19.2",
     "url-loader": "^4.0.0",
     "use-immer": "^0.4.0",
-    "webtorrent": "^0",
+    "webtorrent": ">=0.107.6",
     "winston": "^3.2.1",
     "xmldom": "^0.3.0",
     "zxcvbn": "^4.4.2"
