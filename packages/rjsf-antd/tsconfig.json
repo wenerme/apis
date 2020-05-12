@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "declaration": true,
+    "target": "es2017",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "outDir": "lib",
+    "baseUrl": ".",
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["src", "stories", "scripts"]
+}

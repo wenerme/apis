@@ -1,4 +1,9 @@
-function load(el: HTMLScriptElement | HTMLLinkElement, resolve: (v: any) => void, reject: Function, options: { attributes: Record<string, string> } | undefined) {
+function load(
+  el: HTMLScriptElement | HTMLLinkElement,
+  resolve: (v: any) => void,
+  reject: Function,
+  options: { attributes: Record<string, string> } | undefined,
+) {
   el.onload = resolve;
   el.onerror = (e) => {
     el.remove();
@@ -23,7 +28,7 @@ export function loadScripts(src: string, options?: { attributes: Record<string, 
 }
 
 export function loadStyles(href: string, options?: { attributes: Record<string, string> }) {
-  if (document.querySelector(`link[link="${href}"]`)) {
+  if (document.querySelector(`link[href="${href}"]`)) {
     return Promise.resolve();
   }
 

@@ -71,5 +71,37 @@
         "ui:emptyValue": "Empty Value"
       }
     }
+  },
+  "SimpleDatetime": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "datetime": {
+          "title": "DateTime",
+          "type": "string",
+          "format": "date-time"
+        },
+        "date": {
+          "title": "Date",
+          "type": "string",
+          "format": "date"
+        },
+        "dateUseDateTimedFormat": {
+          "title": "Date use DateTime",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uiSchema": {
+      "dateUseDateTimedFormat": {
+        "ui:widget": "date"
+      }
+    },
+    "formData": {
+      "dateUseDateTimedFormat": "2020-04-21T10:15:35.000Z",
+      "datetime": "2020-04-21T10:15:35.000Z",
+      "date": "2020-04-22"
+    }
   }
 }

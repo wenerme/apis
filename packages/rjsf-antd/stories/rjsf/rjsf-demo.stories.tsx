@@ -1,8 +1,7 @@
 import Form, { FormProps, withTheme } from '@rjsf/core';
 import React, { useState } from 'react';
 import { JSONSchema7 } from 'json-schema';
-import { useAntdTheme } from '../../src/antds/hooks';
-import { AntdRjsfTheme } from '../../src/rjsf/antd/AntdTheme';
+import { AntdRjsfTheme } from '../../src';
 import styled from 'styled-components';
 import { Button, Card, Col, Input, message, Row } from 'antd';
 import produce from 'immer';
@@ -10,6 +9,18 @@ import produce from 'immer';
 export default {
   title: 'rjsf/demo',
 };
+
+function useAntdTheme() {
+  const href = 'https://unpkg.com/antd/dist/antd.min.css';
+  const ele = document.querySelector(`link[href="${href}"]`);
+  if (ele) {
+    return;
+  }
+  const el = document.createElement('link');
+  el.rel = 'stylesheet';
+  el.href = href;
+  document.head.appendChild(el);
+}
 
 const schema: JSONSchema7 = {
   title: 'A registration form',

@@ -3,6 +3,8 @@ import { fetchPhoneData } from '../src/libs/phonedata/source';
 import { savePhoneData } from '../src/libs/phonedata/persist';
 import { createPhoneDataConnection } from '../src/libs/phonedata/connection';
 
+require('dotenv').config();
+
 async function main() {
   const buffer = await fetchPhoneData();
   const data = parsePhoneData(buffer);
