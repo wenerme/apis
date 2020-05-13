@@ -3856,6 +3856,14 @@
   dependencies:
     "@types/node" "*"
 
+"@types/formidable@^1.0.31":
+  version "1.0.31"
+  resolved "https://registry.npm.taobao.org/@types/formidable/download/@types/formidable-1.0.31.tgz?cache=0&sync_timestamp=1588201704406&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fformidable%2Fdownload%2F%40types%2Fformidable-1.0.31.tgz#274f9dc2d0a1a9ce1feef48c24ca0859e7ec947b"
+  integrity sha1-J0+dwtChqc4f7vSMJMoIWefslHs=
+  dependencies:
+    "@types/events" "*"
+    "@types/node" "*"
+
 "@types/glob@*", "@types/glob@^7.1.1":
   version "7.1.1"
   resolved "https://registry.npm.taobao.org/@types/glob/download/@types/glob-7.1.1.tgz#aa59a1c6e3fbc421e07ccd31a944c30eba521575"
@@ -9933,6 +9941,11 @@ format@^0.2.0:
   version "0.2.2"
   resolved "https://registry.npm.taobao.org/format/download/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
+
+formidable@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npm.taobao.org/formidable/download/formidable-1.2.2.tgz#bf69aea2972982675f00865342b982986f6b8dd9"
+  integrity sha1-v2muopcpgmdfAIZTQrmCmG9rjdk=
 
 formstream@^1.1.0:
   version "1.1.0"

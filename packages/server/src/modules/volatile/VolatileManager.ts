@@ -10,7 +10,7 @@ export class VolatileManager {
     return e?.expired ? null : e;
   }
 
-  update({ key, data }) {
+  update({ key, data, format }) {
     this._check();
     const entry = this.get({ key });
     if (!entry) {
@@ -19,15 +19,17 @@ export class VolatileManager {
     return (this._entries[key] = {
       ...entry,
       data,
+      format,
       version: entry.version + 1,
     });
   }
 
-  create({ key, data }) {
+  create({ key, data, format }) {
     this._check();
     return (this._entries[key] = {
       key,
       data,
+      format,
       expireAt: addMinutes(Date.now(), 5).getTime(),
       expired: false,
       version: 1,
@@ -46,16 +48,16 @@ export class VolatileManager {
   }
   private _maintain() {
     const expired = Object.values(this._entries)
-      .map(v => this._checkEntry(v))
-      .filter(v => v.expired);
-    expired.forEach(v => {
+      .map((v) => this._checkEntry(v))
+      .filter((v) => v.expired);
+    expired.forEach((v) => {
       delete this._entries[v.key];
     });
     if (expired.length) {
       console.info(
         `[${new Date()}] Volatile Maintain: expired ${expired.length}, key samples: ${expired
           .slice(0, 50)
-          .map(v => v.key)
+          .map((v) => v.key)
           .join(', ')}`,
       );
     }
@@ -77,4 +79,5 @@ export interface VolatileEntry {
   key: string;
   expired: boolean;
   version: number;
+  format?: string;
 }

@@ -9,7 +9,7 @@ import { handleCertOfUrl } from 'src/servers/routers/api/pki/cert/url';
 import { Router } from 'src/servers/routers/interfaces';
 import { handleLinearCodeGenerate } from 'src/servers/routers/api/barcode/handleLinearCodeGenerate';
 import { handleQrCodeGenerate } from 'src/servers/routers/api/barcode/handleQrCodeGenerate';
-import { handleVolatile } from 'src/servers/routers/api/volatile/handleVolatile';
+import { routeVolatile } from 'src/servers/routers/api/volatile/routeVolatile';
 
 export function routes(r: any) {
   const route = r as Router<NextApiRequest, NextApiResponse>;
@@ -50,7 +50,7 @@ export function routes(r: any) {
   route.get('/api/hash', handleHash);
   route.get('/api/test/sse', handleTestSse);
 
-  handleVolatile(route);
+  routeVolatile(route);
 
   return route;
 }
