@@ -10,6 +10,9 @@ import { Router } from 'src/servers/routers/interfaces';
 import { handleLinearCodeGenerate } from 'src/servers/routers/api/barcode/handleLinearCodeGenerate';
 import { handleQrCodeGenerate } from 'src/servers/routers/api/barcode/handleQrCodeGenerate';
 import { routeVolatile } from 'src/servers/routers/api/volatile/routeVolatile';
+import { handleTestEcho } from 'src/servers/routers/api/test/echo';
+
+import { json, text, urlencoded } from 'body-parser';
 
 export function routes(r: any) {
   const route = r as Router<NextApiRequest, NextApiResponse>;
@@ -23,6 +26,9 @@ export function routes(r: any) {
       console.error(`ERROR Handle ${req.url}`, e);
     }
   });
+  route.use(json());
+  route.use(urlencoded());
+  route.use(text());
 
   route.get('/api/error', async () => {
     await sleep(200);
@@ -48,7 +54,9 @@ export function routes(r: any) {
   route.get('/api/ip.json', handleMyIpJson);
 
   route.get('/api/hash', handleHash);
+
   route.get('/api/test/sse', handleTestSse);
+  route.all('/api/test/echo', handleTestEcho);
 
   routeVolatile(route);
 
