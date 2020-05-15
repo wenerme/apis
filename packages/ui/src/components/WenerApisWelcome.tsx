@@ -10,7 +10,7 @@ import {
 import { Button, Col, PageHeader, Result, Row } from 'antd';
 import React from 'react';
 
-export const WenerApisWelcome: React.FC<{ title?: string; subTitle?: string; icon?: React.ReactNode }> = props => {
+export const WenerApisWelcome: React.FC<{ title?: string; subTitle?: string; icon?: React.ReactNode }> = (props) => {
   const { title = `Wener's APIs`, subTitle = '', icon = <ApiOutlined />, children } = props;
   return (
     <Result
@@ -22,7 +22,7 @@ export const WenerApisWelcome: React.FC<{ title?: string; subTitle?: string; ico
         <Button key="wener" href="https://wener.me" icon={<HomeOutlined />}>
           Home
         </Button>,
-        <Button type="primary" key="github" icon={<GithubOutlined />}>
+        <Button type="primary" key="github" href={'https://github.com/wenerme/apis'} icon={<GithubOutlined />}>
           wenerme/apis
         </Button>,
         <Button key="apis" href="https://apis.wener.me" icon={<ApiOutlined />}>
@@ -59,7 +59,7 @@ export const WenerApisWelcome: React.FC<{ title?: string; subTitle?: string; ico
                   </Button>
                   <ul>
                     <li>
-                      <Button icon={<GithubOutlined />} type="link" href={'https://github.com/wenerme/wener'}>
+                      <Button icon={<GithubOutlined />} type="link" href={'https://github.com/wenerme/apis'}>
                         wenerme/apis
                       </Button>
                     </li>
