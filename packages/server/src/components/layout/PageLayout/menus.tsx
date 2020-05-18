@@ -1,4 +1,10 @@
-import { BarcodeOutlined, BorderlessTableOutlined, EditOutlined, PartitionOutlined } from '@ant-design/icons/lib';
+import {
+  BarcodeOutlined,
+  BorderlessTableOutlined,
+  EditOutlined,
+  InteractionOutlined,
+  PartitionOutlined,
+} from '@ant-design/icons/lib';
 import {
   BarcodePrintOutlined,
   BarcodeReadOutlined,
@@ -43,6 +49,20 @@ export const menus: MenuSpec[] = [
       {
         title: 'URL',
         path: '/uri/url',
+      },
+    ],
+  },
+  {
+    title: '语言',
+    iconComponent: <InteractionOutlined />,
+    children: [
+      {
+        title: 'INI',
+        path: '/langs/ini/reader',
+      },
+      {
+        title: 'Asterisk Conf',
+        path: '/langs/asterisk-conf/reader',
       },
     ],
   },
@@ -186,7 +206,7 @@ export const menus: MenuSpec[] = [
         title: '摘要哈希',
         path: `/hash/digest`,
       },
-      ...HashingAlgorithms.map((v) => ({
+      ...HashingAlgorithms.map(v => ({
         title: v.toUpperCase(),
         route: '/hash/md/[algorithm]',
         path: `/hash/md/${v}`,

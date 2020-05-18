@@ -62,12 +62,12 @@ nvm use 12
 `);
 
   const [theme, setTheme] = useState('prism-solarizedlight');
+  usePrismTheme(theme);
 
   const [language, setLanguage] = useState('markdown');
   const [parser, setParser] = useState('markdown');
 
   const [loading, setLoading] = useState(false);
-  usePrismTheme(theme);
 
   const [formatted, setFormatted] = useState('');
   const doFormat = async () => {
@@ -105,7 +105,7 @@ nvm use 12
           style={{ width: 200 }}
           showSearch
           value={language}
-          onChange={(v) => {
+          onChange={v => {
             setLanguage(v);
             setParser(languageByLang[v].parsers[0]);
           }}
@@ -120,8 +120,8 @@ nvm use 12
         {languageByLang[language].parsers.length > 1 && (
           <React.Fragment>
             <label style={{ marginLeft: 8 }}>Parser</label>
-            <Select style={{ width: 200 }} showSearch value={parser} onChange={(v) => setParser(v)}>
-              {languageByLang[language].parsers.map((lang) => (
+            <Select style={{ width: 200 }} showSearch value={parser} onChange={v => setParser(v)}>
+              {languageByLang[language].parsers.map(lang => (
                 <Select.Option key={lang} value={lang}>
                   {lang}
                 </Select.Option>
@@ -131,7 +131,7 @@ nvm use 12
         )}
 
         <label style={{ marginLeft: 8 }}>Theme</label>
-        <Select style={{ width: 200 }} showSearch value={theme} onChange={(v) => setTheme(v)}>
+        <Select style={{ width: 200 }} showSearch value={theme} onChange={v => setTheme(v)}>
           {Object.entries(components.themes)
             .filter(([id]) => id !== 'meta')
             .map(([id, v]: [string, any]) => (
