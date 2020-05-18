@@ -1,4 +1,4 @@
-import { parseRequestUrl } from '../utils/requests';
+import { parseRequestUrl } from '../../http/parseRequestUrl';
 
 const DEFAULT_ALLOW_METHODS = ['POST', 'GET', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
 

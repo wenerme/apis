@@ -1,5 +1,5 @@
-import { getClientAddress } from 'src/libs/nexts/utils/requests';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getClientAddress } from 'src/libs/http/getClientAddress';
 
 export function handleMyIpText(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Content-Type', 'text/plain');

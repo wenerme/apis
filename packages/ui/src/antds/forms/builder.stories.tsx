@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Button, Divider, Form } from 'antd';
 import { buildInitialValues, FormFieldProps, FormFieldsBuilder } from './builder';
-import centered from '@storybook/addon-centered/react';
 import { action } from '@storybook/addon-actions';
 import { useAntdTheme } from '../hooks';
 import { FormFieldBuilder } from '@wener/apis-server/src/libs/antds/form/builder';
@@ -20,7 +19,6 @@ export default {
         </div>
       );
     },
-    centered,
   ],
 };
 

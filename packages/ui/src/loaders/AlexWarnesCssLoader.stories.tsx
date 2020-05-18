@@ -1,5 +1,4 @@
 import React from 'react';
-import centered from '@storybook/addon-centered/react';
 import { GradientSpinner, PlantRotating, PulseBubble, SolarSystemSpinner } from './AlexWarnesCssLoader';
 
 export default {
@@ -17,7 +16,6 @@ export default {
         </div>
       </div>
     ),
-    centered,
   ],
 };
 

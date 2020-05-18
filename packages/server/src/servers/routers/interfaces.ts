@@ -20,5 +20,5 @@ export interface Router<REQ extends IncomingMessage, RES extends ServerResponse>
 }
 
 export interface RouterMethod<REQ, RES> {
-  (path: string, handler: (req: REQ, res: RES) => any);
+  (path: string, ...handler: Array<(req: REQ, res: RES, next?) => any>);
 }

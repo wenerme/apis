@@ -1,7 +1,6 @@
-import centered from '@storybook/addon-centered/react';
 import React from 'react';
 import { BoxShuffle } from './BoxShuffle';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { text } from '@storybook/addon-knobs';
 
 export default {
   title: 'loader/spinner/BoxShuffle',
@@ -17,8 +16,6 @@ export default {
         <div>{storyFn()}</div>
       </div>
     ),
-    centered,
-    withKnobs,
   ],
 };
 

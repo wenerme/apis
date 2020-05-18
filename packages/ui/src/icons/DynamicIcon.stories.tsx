@@ -1,5 +1,4 @@
 import React from 'react';
-import centered from '@storybook/addon-centered/react';
 import { boolean, color, number, select, withKnobs } from '@storybook/addon-knobs';
 import { DynamicIcon } from './DynamicIcon';
 import LazyLoad from 'react-lazyload';
