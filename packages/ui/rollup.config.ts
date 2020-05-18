@@ -7,7 +7,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 // yarn add -D rollup @rollup/plugin-{commonjs,node-resolve,typescript,json} tslib typescript
 const pkg = require('./package.json');
 
-const libraryName = 'ui';
+const libraryName = pkg.name.replace('@', '').replace('/', '-');
 
 export default {
   // ts not working
@@ -15,11 +15,8 @@ export default {
   // input: `src/${libraryName}.ts`,
   input: `lib/index.js`,
   output: [
-    // {
-
-    // },
     {
-      file: pkg['umd:main'],
+      file: `dist/${libraryName}.umd.js`,
       name: camelCase(libraryName),
       format: 'umd',
       sourcemap: true,
@@ -32,7 +29,7 @@ export default {
       },
     },
     // https://github.com/rollup/rollup-plugin-commonjs/issues/290
-    { file: pkg.module, format: 'es', sourcemap: true },
+    { file: `dist/${libraryName}.esm.js`, format: 'es', sourcemap: true },
   ],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external: ['react', 'react-is', 'styled-components', 'lodash', 'react-dom', 'prop-types'],
