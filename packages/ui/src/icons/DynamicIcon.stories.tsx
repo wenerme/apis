@@ -1,10 +1,10 @@
 import React from 'react';
-import { boolean, color, number, select, withKnobs } from '@storybook/addon-knobs';
+import { boolean, color, number, select } from '@storybook/addon-knobs';
 import { DynamicIcon } from './DynamicIcon';
 import LazyLoad from 'react-lazyload';
 
 import styled from 'styled-components';
-import { antdIconsResolver } from './antdIconsResolver';
+import { antdIconsDynamicResolver } from './antdIconsDynamicResolver';
 import { antdIconsResolverTypes } from './antdIconsResolverTypes';
 import { iconsResolverTypes } from './iconsResolverTypes';
 import { iconsResolver } from './iconsResolver';
@@ -12,15 +12,10 @@ import { iconsResolver } from './iconsResolver';
 export default {
   title: 'icons/DynamicIcon',
   component: DynamicIcon,
-  decorators: [
-    withKnobs,
-    (storyFn) => <div style={{ backgroundColor: 'white', padding: 100 }}>{storyFn()}</div>,
-    centered,
-    withKnobs,
-  ],
+  decorators: [(storyFn) => <div style={{ backgroundColor: 'white', padding: 100 }}>{storyFn()}</div>],
 };
 
-DynamicIcon.resolvers.push(iconsResolver, antdIconsResolver);
+DynamicIcon.resolvers.push(iconsResolver, antdIconsDynamicResolver);
 
 export const dynamicLoadWithSpin = () => <DynamicIcon style={{ fontSize: 32 }} type={'BarcodePrintOutlined'} spin />;
 export const dynamicLoadManifest = () => {
