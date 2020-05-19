@@ -51,8 +51,8 @@ export function routes(r: any) {
   route.get('/api/password/zxcvbn', handleZxcvbnStrength);
 
   const corsOrigin = cors({ origin: true });
-  route.get('/api/ip', corsOrigin, handleMyIpText);
-  route.get('/api/ip.json', corsOrigin, handleMyIpJson);
+  route.get('/api/ip', corsOrigin as any, handleMyIpText);
+  route.get('/api/ip.json', corsOrigin as any, handleMyIpJson);
 
   route.get('/api/hash', handleHash);
 

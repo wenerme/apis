@@ -58,11 +58,15 @@ export const menus: MenuSpec[] = [
     children: [
       {
         title: 'INI',
-        path: '/langs/ini/reader',
+        path: '/langs/ini/play',
       },
       {
         title: 'Asterisk Conf',
-        path: '/langs/asterisk-conf/reader',
+        path: '/langs/asterisk-conf/play',
+      },
+      {
+        title: 'HTML Entities',
+        path: '/langs/html-entities/play',
       },
     ],
   },

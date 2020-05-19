@@ -19,7 +19,7 @@ function useCounter({
   const onExtraChange = () => updateState(s => (s.extra = Math.random()));
   subscribe(v => {
     if (v.count === 5) {
-      setTimeout(() => updateState(s => (s.count = 0)), 0);
+      updateState(s => (s.count = 0));
     }
   });
   subscribe(v => {

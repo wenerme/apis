@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { skip } from 'rxjs/operators';
-import { useConstant } from '@wener/ui';
+import { useConstant } from './useConstant';
 import produce from 'immer';
 
 /// https://github.com/jamiebuilds/unstated-next/blob/master/src/unstated-next.tsx
@@ -50,7 +50,7 @@ export function createSubscriptionContainer<Value, State = void>(
       return new BehaviorSubject(typeof initialState === 'function' ? (initialState as any)() : initialState);
     });
     const container = useConstant(() => {
-      const setState = state => {
+      const setStateReal = state => {
         let next;
         if (typeof state === 'function') {
           next = (state as any)(subject.getValue());
@@ -59,10 +59,26 @@ export function createSubscriptionContainer<Value, State = void>(
         }
         subject.next(next);
       };
+
+      // handle change state when subscribe
+      let changing = false;
+      const setState = state => {
+        if (changing) {
+          setTimeout(() => setState(state), 0);
+          return;
+        }
+        changing = true;
+        try {
+          setStateReal(state);
+        } finally {
+          changing = false;
+        }
+      };
       const options: SubscriptioHookOptions<State> = {
         getState: () => subject.getValue(),
         setState,
         updateState(fn) {
+          // todo produced is immutable
           setState(
             produce(v => {
               fn(v);
