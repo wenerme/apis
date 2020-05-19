@@ -68,6 +68,10 @@ export const menus: MenuSpec[] = [
         title: 'HTML Entities',
         path: '/langs/html-entities/play',
       },
+      {
+        title: 'XML',
+        path: '/langs/xml/play',
+      },
     ],
   },
   {
