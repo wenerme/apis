@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useForceUpdate } from '@wener/ui';
+import { useForceRender } from '@wener/ui';
 import { Dropdown, Menu } from 'antd';
 import { DownOutlined, TranslationOutlined } from '@ant-design/icons/lib';
 
 export const I18nLanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
-  const forceUpdate = useForceUpdate();
+  const forceUpdate = useForceRender();
   const lang = i18n.language;
   return (
     <Dropdown
