@@ -55,6 +55,7 @@ export function routes(r: any) {
   route.get('/api/ip.json', corsOrigin as any, handleMyIpJson);
 
   route.get('/api/hash', handleHash);
+  route.get('/api/hash/md/:algorithm/:encoding/:format/:content', handleHash);
 
   route.get('/api/test/sse', handleTestSse);
   route.all('/api/test/echo', handleTestEcho);

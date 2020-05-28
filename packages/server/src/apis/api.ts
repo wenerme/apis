@@ -6,7 +6,7 @@ import { isDev } from '@wener/utils/src/envs/isDev';
 export const API = {
   get origin(): string {
     if (typeof window === 'undefined') {
-      return isDev() ? 'http://localhost:3000' : 'https://apis.wener.me';
+      return isDev() ? `http://localhost:${process.env.PORT || '3000'}` : 'https://apis.wener.me';
     }
     return window.location.origin;
   },
