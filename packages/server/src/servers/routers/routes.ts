@@ -13,13 +13,14 @@ import { routeVolatile } from 'src/servers/routers/api/volatile/routeVolatile';
 import { handleTestEcho } from 'src/servers/routers/api/test/echo';
 import cors from 'cors';
 import { json, text, urlencoded } from 'body-parser';
+import { handlePhoneAttribution } from './api/phone/attribution/handlePhoneAttribution';
 
 export function routes(r: any) {
   const route = r as Router<NextApiRequest, NextApiResponse>;
   // handle error
   route.use(async (req, res, next) => {
     try {
-      await next();
+      return await next();
     } catch (e) {
       const detail = normalizeError(e);
       res.status(detail.status).json(detail);
@@ -30,6 +31,9 @@ export function routes(r: any) {
   route.use(urlencoded({ extended: true }));
   route.use(text());
 
+  const corsOrigin = cors({ origin: true });
+
+  // testing
   route.get('/api/error', async () => {
     await sleep(200);
     throw new Error('error request');
@@ -42,24 +46,33 @@ export function routes(r: any) {
     });
   });
 
+  // barcode
   route.get('/api/barcode/qrcode', handleQrCodeGenerate);
   route.get('/api/barcode/linear', handleLinearCodeGenerate);
 
+  // pki
   route.post('/api/pki/cert/url', handleCertOfUrl);
 
+  // password
   route.get('/api/password/zxcvbn/:password', handleZxcvbnStrength);
   route.get('/api/password/zxcvbn', handleZxcvbnStrength);
 
-  const corsOrigin = cors({ origin: true });
+  // ip
   route.get('/api/ip', corsOrigin as any, handleMyIpText);
   route.get('/api/ip.json', corsOrigin as any, handleMyIpJson);
 
+  // hashing
   route.get('/api/hash', handleHash);
   route.get('/api/hash/md/:algorithm/:encoding/:format/:content', handleHash);
 
+  // phone number
+  route.get('/api/phone/attribution/:num', handlePhoneAttribution);
+
+  // testing
   route.get('/api/test/sse', handleTestSse);
   route.all('/api/test/echo', handleTestEcho);
 
+  // volatile apis
   routeVolatile(route);
 
   return route;

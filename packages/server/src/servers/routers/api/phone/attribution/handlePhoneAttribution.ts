@@ -13,7 +13,7 @@ async function buildPhoneData(): Promise<PhoneData> {
   return (_phoneData = parsePhoneData(buffer));
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export const handlePhoneAttribution = async (req: NextApiRequest, res: NextApiResponse) => {
   const { num } = req.query;
 
   res.setHeader('Cache-Control', 'public, max-age=86400');
