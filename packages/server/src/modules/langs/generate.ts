@@ -14,6 +14,6 @@ const config = {
 `,
   },
 };
-const lang = 'asterisk-conf';
+const lang = 'cron';
 const parser = pegjs.generate(fs.readFileSync(`${__dirname}/${lang}/${lang}.pegjs`).toString(), config as any);
 fs.writeFileSync(`${__dirname}/${lang}/parse.ts`, parser as any);
