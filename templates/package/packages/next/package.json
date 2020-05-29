@@ -1,0 +1,38 @@
+{
+  "name": "@package/next-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "next:build": "next build",
+    "next:dev": "next dev -p ${PORT:-3000}",
+    "next:start": "next start -p ${PORT:-3000}"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "next": "^9.4.4",
+    "polka": "^0.5.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "styled-jsx": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.6",
+    "@types/node": "^12",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-jsx": "^2.2.8",
+    "typescript": "^3.9.3"
+  },
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ],
+  "engines": {
+    "node": "12"
+  }
+}
