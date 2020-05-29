@@ -33,18 +33,23 @@
   ],
   "scripts": {
     "prebuild": "rm -rf ./lib ./dist",
-    "build:js": "tsc",
-    "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "build:bundle": "rollup -c rollup.config.ts",
     "build": "yarn build:js && yarn build:bundle && yarn build:docs",
+    "build:bundle": "rollup -c rollup.config.ts",
+    "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build:js": "tsc",
     "doc": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest"
   },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "ts-jest": "^26.0.0",
+    "tslib": "^2.0.0"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-typescript": "^4.0.0",
     "@types/jest": "latest",
     "@types/lodash.camelcase": "^4.3.6",

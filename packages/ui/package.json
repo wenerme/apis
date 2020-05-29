@@ -40,8 +40,8 @@
     "format": "yarn prettier --write src stories .storybook ./*.json ./*.js",
     "icons": "yarn run icons:svgo && yarn run icons:svgr && yarn run icons:gen && git add src/icons",
     "icons:gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/icons.ts",
-    "icons:svgr": "svgr -d ./src/icons/svgr/ ./src/icons/svgs/ --typescript --icon",
     "icons:svgo": "svgo -f src/icons/svgs --config svgo.config.json",
+    "icons:svgr": "svgr -d ./src/icons/svgr/ ./src/icons/svgs/ --typescript --icon",
     "lint": "eslint --fix --ext .ts,.tsx src",
     "storybook": "start-storybook -p ${PORT:-6006}",
     "storybook:build": "build-storybook -c .storybook -o storybook --quiet",
@@ -50,10 +50,13 @@
     "type-check:watch": "yarn type-check --watch"
   },
   "dependencies": {
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
     "@wener/utils": "^1.0.0-alpha.16",
     "polished": "^3.5.1",
     "react-fast-compare": "^3.0.1",
-    "styled-components": ">= 5"
+    "styled-components": ">= 5",
+    "ts-jest": "^26.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -116,7 +119,7 @@
     "react-markdown": "^4.3.1",
     "react-resizable": "^1.10.1",
     "react-test-renderer": "^16.13.1",
-    "react-tinacms-inline": "^0.4.4",
+    "react-tinacms-inline": "^0.5.0",
     "rollup": "^2.3.2",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "styled-components": "^5.1.0",
@@ -135,6 +138,9 @@
     "react-i18next": "^11.3.4",
     "styled-components": "^5.1.0"
   },
+  "optionalDependencies": {
+    "immer": "^6.0.3"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -144,8 +150,5 @@
       "safari >= 7"
     ],
     "node": "12"
-  },
-  "optionalDependencies": {
-    "immer": "^6.0.3"
   }
 }

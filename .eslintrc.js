@@ -35,8 +35,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     // 允许直接使用 any
     '@typescript-eslint/no-explicit-any': 0,
-    // 不一定都是驼峰 - 取决于场景
-    '@typescript-eslint/camelcase': [1],
     // 方法可以先用后定义
     '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: false }],
   },

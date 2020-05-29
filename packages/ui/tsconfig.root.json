@@ -6,9 +6,5 @@
     "noEmit": false
   },
   "extends": "./tsconfig.json",
-  "include": [
-    "antds.ts",
-    "icons.ts",
-    "index.ts"
-  ]
+  "include": ["antds.ts", "icons.ts", "index.ts"]
 }
