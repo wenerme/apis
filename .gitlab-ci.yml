@@ -14,6 +14,10 @@ Build Image:
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
+    - mkdir /etc/apk/cache
+    # canvas
+    # https://github.com/Automattic/node-canvas/issues/1065#issuecomment-445548120
+    - apk add cairo-dev pango-dev jpeg-dev pixman-dev
     - yarn
     - yarn build
     - echo Building image "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
@@ -27,3 +31,4 @@ cache:
     - node_modules/
     - .yarn/
     - packages/server/.next/cache/
+    - /etc/apk/cache
