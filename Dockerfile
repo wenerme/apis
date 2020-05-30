@@ -3,8 +3,8 @@ FROM node:12-alpine
 RUN mkdir -p /app
 WORKDIR /app
 
-#COPY .yarn/cache /app/.yarn/cache
-#COPY packages/server/.next/cache /app/packages/server/.next/cache
+COPY node_modules /app
+COPY packages/server/.next/cache /app/packages/server/.next/cache
 COPY . /app
 RUN yarn && yarn build
 
