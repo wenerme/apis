@@ -9,8 +9,7 @@ import { Torrent } from 'webtorrent';
 import { TorrentDetailPanel } from './TorrentDetailPanel';
 
 export const TorrentDetailDrawer: React.FC = () => {
-  // fixme
-  const torrentId = useRootSelector((v) => v.webtorrent['showTorrentDetail']);
+  const torrentId = useRootSelector((v) => v.webtorrent.showTorrentDetail);
   const dispatch = useDispatch();
 
   const [torrent, setTorrent] = useState<Torrent>();

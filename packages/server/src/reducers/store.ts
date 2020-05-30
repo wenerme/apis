@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 // @ts-ignore fixme
-import { webtorrentReducer } from './webtorrent';
-import { kongReducer } from '../modules/kong/reducers/kong';
+import { webtorrentReducer, WebTorrentState } from './webtorrent';
+import { kongReducer, KongState } from '../modules/kong/reducers/kong';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import logger from 'redux-logger';
@@ -26,11 +26,11 @@ export const rootStore = configRootStore();
 export interface TypedUseSelectorHook<TState> {
   <TSelected>(
     selector: (state: TState) => TSelected,
-    equalityFn?: (left: TSelected, right: TSelected) => boolean
+    equalityFn?: (left: TSelected, right: TSelected) => boolean,
   ): TSelected;
 }
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = { webtorrent: WebTorrentState; kong: KongState };
 export type RootDispatch = typeof rootStore.dispatch;
 export const useRootSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useRootDispatch: () => RootDispatch = useDispatch;

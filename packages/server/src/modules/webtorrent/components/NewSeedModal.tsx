@@ -9,8 +9,7 @@ import { hideDialog } from 'src/reducers/webtorrent';
 import { doCreateSeed } from 'src/reducers/webtorrent/actions';
 
 export const NewSeedModal: React.FC = () => {
-  // fixme typing
-  const visible = useRootSelector((v) => v.webtorrent['showDialog'] === 'new-seed');
+  const visible = useRootSelector((v) => v.webtorrent.showDialog === 'new-seed');
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();

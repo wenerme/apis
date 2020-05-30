@@ -15,8 +15,7 @@ import { useRootSelector } from 'src/reducers/store';
 import { doDeleteSelections, doPauseSelections, doResumeSelections } from 'src/reducers/webtorrent/actions';
 
 export const WebTorrentToolbar: React.FC<{ client: Instance }> = ({ client }) => {
-  // fixme
-  const hasSelection = useRootSelector((v) => Boolean(v.webtorrent['selections']?.length));
+  const hasSelection = useRootSelector((v) => Boolean(v.webtorrent.selections?.length));
   const dispatch = useDispatch();
 
   return (

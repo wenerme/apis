@@ -9,8 +9,7 @@ import { TorrentDetailDrawer } from './TorrentDetailDrawer';
 import { WebTorrentToolbar } from './WebTorrentToolbar';
 
 export const WebTorrentClient: React.FC<{ client: Instance }> = ({ client }) => {
-  // fixme
-  const showConsole = useRootSelector((v) => v.webtorrent['showConsole']);
+  const showConsole = useRootSelector((v) => v.webtorrent.showConsole);
 
   return (
     <div style={{ display: 'flex', flexFlow: 'column', flex: 1 }}>

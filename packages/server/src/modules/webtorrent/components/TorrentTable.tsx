@@ -148,8 +148,7 @@ export const TorrentTable: React.FC<{ client: Instance }> = ({ client }) => {
     return columns;
   }, []);
 
-  // fixme
-  const selections = useRootSelector((v) => v.webtorrent['selections']);
+  const selections = useRootSelector((v) => v.webtorrent.selections);
 
   return (
     <Table
