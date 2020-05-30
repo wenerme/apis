@@ -1,5 +1,9 @@
 FROM node:12-alpine
 
+RUN apk add --no-cache curl nano \
+      # https://www.npmjs.com/package/node-gyp
+      python make gcc g++
+
 RUN mkdir -p /app
 WORKDIR /app
 
