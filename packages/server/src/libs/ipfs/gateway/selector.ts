@@ -1,5 +1,5 @@
 import { fetchGatewayChecker } from './checker';
-import { getGlobalThis } from '@wener/utils/lib/isomorphics/getGlobalThis';
+import { getGlobalThis } from '@wener/utils';
 import { urljoin } from '@wener/utils';
 import { isDev } from '@wener/utils';
 
