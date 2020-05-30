@@ -1,0 +1,5 @@
+node_modules
+.next/
+!.next/cache/
+# 包含了宿主机上的内容
+.yarn/unplugged
