@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import objectHash from 'object-hash';
-import { firstOfMaybeArray } from '@wener/utils/src';
+import { firstOfMaybeArray } from '@wener/utils';
 import { BarcodeOptions, renderBarcode } from 'src/libs/barcodes/renders';
 
 const mime = require('mime');

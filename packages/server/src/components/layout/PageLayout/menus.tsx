@@ -20,7 +20,8 @@ import { HashingAlgorithms } from 'src/modules/hash/types';
 import React from 'react';
 
 import { EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';
-import { MenuSpec } from '@wener/ui/src/antds/layouts/LayoutFrame/types';
+//@ts-ignore
+import type { MenuSpec } from '@wener/ui/antd';
 
 export const menus: MenuSpec[] = [
   {

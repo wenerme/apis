@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type DialogType = 'new-seed' | 'new-download';
+export type DialogType = 'new-seed' | 'new-download';
 
 export interface WebTorrentState {
   showConsole: boolean;

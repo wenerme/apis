@@ -1,6 +1,6 @@
 export function timeout<T = any>(v: Promise<T>, ms: number): Promise<T> {
   const error = new TimeoutError();
-  let timeout: number;
+  let timeout: any;
   return Promise.race([
     v,
     new Promise((resolve, reject) => {

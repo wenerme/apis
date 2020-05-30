@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageLayout } from '../components/layout/PageLayout/PageLayout';
-import { WenerApisWelcome } from '@wener/ui/src/components/WenerApisWelcome';
+import { WenerApisWelcome } from '@wener/ui/lib/components/WenerApisWelcome';
 
 const IndexPage: React.FC = () => {
   return (

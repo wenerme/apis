@@ -2,9 +2,10 @@ import React from 'react';
 import { PageLayout } from '../components/layout/PageLayout/PageLayout';
 import { PageContent } from '../components/layout/PageLayout/PageContent';
 import { PageHeader } from 'antd';
-import { WenerApisWelcome } from '@wener/ui/src/components/WenerApisWelcome';
+import { WenerApisWelcome } from '@wener/ui/lib/components/WenerApisWelcome';
 
 const DemoPageContent: React.FC = () => {
+  console.log('WenerApisWelcome',WenerApisWelcome)
   return (
     <div>
       <WenerApisWelcome />

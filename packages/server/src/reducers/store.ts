@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+// @ts-ignore fixme
 import { webtorrentReducer } from './webtorrent';
 import { kongReducer } from '../modules/kong/reducers/kong';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import logger from 'redux-logger';
-import { isDev } from '@wener/utils/src/envs/isDev';
+import { isDev } from '@wener/utils';
 
 export const rootReducer = combineReducers({
   // layout: layoutReducer,
@@ -22,6 +23,12 @@ export function configRootStore() {
 }
 
 export const rootStore = configRootStore();
+export interface TypedUseSelectorHook<TState> {
+  <TSelected>(
+    selector: (state: TState) => TSelected,
+    equalityFn?: (left: TSelected, right: TSelected) => boolean
+  ): TSelected;
+}
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type RootDispatch = typeof rootStore.dispatch;

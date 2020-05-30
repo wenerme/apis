@@ -1,7 +1,7 @@
 import { HashPage } from 'src/modules/hash/components/HashPage';
 import { NextPage } from 'next';
 import { fetchHashing } from 'src/modules/hash/apis/fetchs';
-import { firstOfMaybeArray } from '@wener/utils/src';
+import { firstOfMaybeArray } from '@wener/utils';
 
 const Page: NextPage<{ algorithm; content?; initialData? }> = HashPage;
 Page.getInitialProps = async ({ query: { algorithm, content } }) => {

@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { isDev } from '@wener/utils/src/envs/isDev';
+import { isDev } from '@wener/utils';
 
 export async function resultOf<T = any>(r: Promise<AxiosResponse<T>>): Promise<T> {
   try {

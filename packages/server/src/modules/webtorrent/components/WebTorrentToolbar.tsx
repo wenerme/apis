@@ -2,6 +2,7 @@ import React from 'react';
 import { Instance } from 'webtorrent';
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd';
+//@ts-ignore fixme
 import { showDialog } from 'src/reducers/webtorrent';
 import {
   DeleteOutlined,
@@ -14,7 +15,8 @@ import { useRootSelector } from 'src/reducers/store';
 import { doDeleteSelections, doPauseSelections, doResumeSelections } from 'src/reducers/webtorrent/actions';
 
 export const WebTorrentToolbar: React.FC<{ client: Instance }> = ({ client }) => {
-  const hasSelection = useRootSelector((v) => Boolean(v.webtorrent.selections?.length));
+  // fixme
+  const hasSelection = useRootSelector((v) => Boolean(v.webtorrent['selections']?.length));
   const dispatch = useDispatch();
 
   return (

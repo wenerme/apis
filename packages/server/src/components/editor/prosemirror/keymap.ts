@@ -90,7 +90,7 @@ export function buildKeymap(schema, mapKeys) {
   if ((type = schema.nodes.hard_break)) {
     const br = type,
       cmd = chainCommands(exitCode, (state, dispatch) => {
-        dispatch(state.tr.replaceSelectionWith(br.create()).scrollIntoView());
+        dispatch?.(state.tr.replaceSelectionWith(br.create()).scrollIntoView());
         return true;
       });
     bind('Mod-Enter', cmd);

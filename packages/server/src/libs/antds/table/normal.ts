@@ -1,6 +1,6 @@
-import { ColumnProps } from 'antd/lib/table';
+import type { ColumnProps } from 'antd/lib/table';
 import React from 'react';
-import { RenderedCell } from 'rc-table/lib/interface';
+import type { RenderedCell } from 'rc-table/lib/interface';
 
 export type ColumnRender<T> = (value: any, record: T, index: number) => React.ReactNode | RenderedCell<T>;
 

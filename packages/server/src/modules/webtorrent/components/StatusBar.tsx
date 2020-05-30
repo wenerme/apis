@@ -9,6 +9,7 @@ import {
   SettingFilled,
 } from '@ant-design/icons/lib';
 import { useDispatch } from 'react-redux';
+// @ts-ignore - fixme
 import { toggleConsole } from 'src/reducers/webtorrent';
 
 export const StatusBar: React.FC<{ client: Instance }> = ({ client }) => {

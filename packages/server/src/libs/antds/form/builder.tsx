@@ -1,7 +1,7 @@
 import { normalizeOptions, OptionLike } from './options';
 import { Form, Input, InputNumber, Select, Slider, Switch } from 'antd';
 import React, { useMemo } from 'react';
-import { Rule } from 'rc-field-form/lib/interface';
+// import { Rule } from 'rc-field-form/lib/interface';
 import set from 'lodash/set';
 import { Trans } from 'react-i18next';
 
@@ -35,7 +35,7 @@ export interface FormFieldProps {
 
   options?: OptionLike;
 
-  rules?: Rule[];
+  rules?: any[];
 
   /// 跳过构建逻辑 - 直接渲染
   render?: (props: { field: FormFieldProps }) => any;

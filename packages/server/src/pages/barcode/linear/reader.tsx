@@ -22,7 +22,8 @@ const LinearBarCodeReaderPageContent: React.FC = () => {
     setLoading(true);
 
     import('@zxing/library')
-      .then(async ({ BrowserBarcodeReader }) => {
+      // fixme typing
+      .then(async ({ BrowserBarcodeReader }: any) => {
         const reader = new BrowserBarcodeReader();
         const result = await reader.decodeFromImageElement(image);
         setResult(result);

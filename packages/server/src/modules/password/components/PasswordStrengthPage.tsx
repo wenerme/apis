@@ -3,7 +3,7 @@ import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Descriptions, Input, PageHeader } from 'antd';
 import Link from 'next/link';
-import { createRandom } from '@wener/utils/src/maths/random';
+import { createRandom } from '@wener/utils';
 import { createPasswordGenerator } from '../libs/generates';
 import zxcvbn from 'zxcvbn';
 import { KeyOutlined } from '@ant-design/icons';

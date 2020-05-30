@@ -1,4 +1,5 @@
-import fetch from 'node-fetch';
+// next 会添加 fetch
+// import fetch from 'node-fetch';
 import fs from 'fs';
 import blobToBuffer from 'blob-to-buffer';
 import winston from 'winston';
@@ -51,7 +52,8 @@ export async function fetchPhoneData({ checkUpdate = true } = {}) {
     return fs.readFileSync(path);
   } else {
     logger.info('info', `downloading phonedata ${downloadUrl} to ${path}`);
-    const buf = await fetch(downloadUrl).then((v) => v.buffer());
+    // node-fetch 有 buffer
+    const buf = await fetch(downloadUrl).then((v) => v['buffer']());
     logger.info('info', `downloaded phonedata ${path}`);
     fs.writeFileSync(path, buf);
     return buf;

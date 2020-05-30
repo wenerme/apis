@@ -9,7 +9,7 @@ import sanitizeHtml from 'sanitize-html';
 import { useRouter } from 'next/router';
 import pick from 'lodash/pick';
 import { LinkOutlined } from '@ant-design/icons';
-import { firstOfMaybeArray } from '@wener/utils/src';
+import { firstOfMaybeArray } from '@wener/utils';
 
 const UriPageContent: React.FC = () => {
   const router = useRouter();

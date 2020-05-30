@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 import { QRCode } from 'jsqr';
 import { ImageReceiver } from 'src/components/ImageReceiver';
-import { sleep } from '@wener/utils/src/asyncs/sleep';
+import { sleep } from '@wener/utils';
 
 const ChunkInfo: React.FC<{ chunk }> = ({ chunk }) => {
   const { type, text, bytes } = chunk;

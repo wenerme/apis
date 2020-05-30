@@ -1,4 +1,3 @@
-import { TypedUseSelectorHook } from 'react-redux';
 import React, { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import { MenuSpec } from './types';
 import { LayoutFrameState } from './state';
@@ -27,6 +26,13 @@ const LayoutFrameContext = React.createContext<{
   layout: LayoutFrameInstance;
   options: LayoutFrameOptions;
 }>(null as any);
+
+interface TypedUseSelectorHook<TState> {
+  <TSelected>(
+      selector: (state: TState) => TSelected,
+      equalityFn?: (left: TSelected, right: TSelected) => boolean
+  ): TSelected;
+}
 
 export const useLayoutFrameSelector: TypedUseSelectorHook<LayoutFrameState> = (selector, eq?) => {
   const layout = useLayoutFrame();

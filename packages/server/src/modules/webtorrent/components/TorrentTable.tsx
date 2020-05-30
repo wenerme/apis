@@ -6,8 +6,9 @@ import { useInterval } from '@wener/ui';
 import { InfoCircleOutlined, MoreOutlined } from '@ant-design/icons/lib';
 // import styles from './TorrentTable.module.css'
 import './TorrentTable.module.css';
-import { copy } from '@wener/utils/src/browsers/clipboard';
+import { copy } from '@wener/utils';
 import { useDispatch } from 'react-redux';
+//@ts-ignore - fixme
 import { showTorrentDetail, updateSelection } from 'src/reducers/webtorrent';
 import { useRootSelector } from 'src/reducers/store';
 
@@ -147,7 +148,8 @@ export const TorrentTable: React.FC<{ client: Instance }> = ({ client }) => {
     return columns;
   }, []);
 
-  const selections = useRootSelector((v) => v.webtorrent.selections);
+  // fixme
+  const selections = useRootSelector((v) => v.webtorrent['selections']);
 
   return (
     <Table

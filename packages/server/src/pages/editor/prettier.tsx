@@ -6,7 +6,7 @@ import { QrcodeOutlined } from '@ant-design/icons/lib';
 import { SimpleCodeEditor } from 'src/components/editor/SimpleCodeEditor';
 import { usePrismTheme } from 'src/hooks/prism';
 import components from 'prismjs/components';
-import { loadScripts } from '@wener/utils/src/browsers/loaders';
+import { loadScripts } from '@wener/utils';
 import { PrismHighlight } from 'src/components/PrismHighlight';
 
 // https://prettier.io/docs/en/options.html#parser

@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { createLazyPromise } from '@wener/utils/src/asyncs/LazyPromise';
+import { createLazyPromise } from '@wener/utils';
 
 export async function promiseOfSubject<T>(target: Subject<T>, s: (state: T) => boolean): Promise<T> {
   const promise = createLazyPromise();

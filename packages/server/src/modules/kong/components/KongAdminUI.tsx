@@ -33,11 +33,11 @@ import { HeaderInput } from './HeaderInput';
 import { FormListField } from './FormListField';
 import { headersFromArray } from '../libs/headers';
 import { i18nextInflection } from 'src/libs/i18nexts/plugins/inflection-postprocessor';
-import { isDev } from '@wener/utils/src/envs/isDev';
+import { isDev } from '@wener/utils';
 import { CaCertificateOutlined } from '@wener/ui/icons';
-import { MenuSpec } from '@wener/ui/src/antds/layouts/LayoutFrame/types';
-import { LayoutFrame } from '@wener/ui/src/antds/layouts/LayoutFrame/LayoutFrame';
-import { LayoutFrameContent } from '@wener/ui/src/antds/layouts/LayoutFrame';
+// import { MenuSpec } from '@wener/ui/antd';
+import * as anx from '@wener/ui';
+// import { LayoutFrameContent } from '@wener/ui/antd';
 
 i18next
   .use(i18nextInflection)
@@ -338,7 +338,7 @@ export const KongAdmin: React.FC = () => {
 
   console.log(`KongAdmin Render`, i18n.language, t('基础'));
 
-  const menus: Array<MenuSpec & RouteSpec> = [
+  const menus: Array<any & RouteSpec> = [
     {
       title: t('信息'),
       path: '/',
@@ -440,18 +440,19 @@ export const KongAdmin: React.FC = () => {
       ),
     },
   ];
-
+  console.log('LayoutFrame',anx)
   return (
     <Router>
       {!init && <KongConfigPanel />}
       {init && (
-        <LayoutFrame name="kong" header={<KongAdminHeader />} menus={menus} link={ReactRouterLink}>
-          <LayoutFrameContent>
-            <KongAdminSetupModal />
-            <KongAdminConfigShareModal />
-            <RouteFrameContent routes={menus as any} />
-          </LayoutFrameContent>
-        </LayoutFrame>
+        // <LayoutFrame name="kong" header={<KongAdminHeader />} menus={menus} link={ReactRouterLink}>
+        //   <LayoutFrameContent>
+        //     <KongAdminSetupModal />
+        //     <KongAdminConfigShareModal />
+        //     <RouteFrameContent routes={menus as any} />
+        //   </LayoutFrameContent>
+        // </LayoutFrame>
+        null
       )}
     </Router>
   );

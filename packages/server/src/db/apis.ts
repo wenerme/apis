@@ -3,7 +3,7 @@ import { createConnection } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { BaseConnectionOptions } from 'typeorm/connection/BaseConnectionOptions';
 import { format } from 'date-fns';
-import { isDev } from '@wener/utils/src/envs/isDev';
+import { isDev } from '@wener/utils';
 
 export function createApisConnectionFactory(
   options: { name } & Partial<BaseConnectionOptions>,

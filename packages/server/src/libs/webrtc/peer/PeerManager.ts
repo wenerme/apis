@@ -1,5 +1,5 @@
 import { PeerData, PeerService, PeerSessionData } from './PeerService';
-import { clearAsyncInterval, setAsyncInterval } from '@wener/utils/src/asyncs/AsyncInterval';
+import { clearAsyncInterval, setAsyncInterval } from '@wener/utils';
 import { PeerSession } from './PeerSession';
 import { BehaviorSubject } from 'rxjs';
 

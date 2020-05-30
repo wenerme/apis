@@ -1,3 +1,3 @@
-import { LayoutFrameContent } from '@wener/ui/src/antds/layouts/LayoutFrame';
+import { LayoutFrameContent } from '@wener/ui/antds';
 
 export const PageContent = LayoutFrameContent;

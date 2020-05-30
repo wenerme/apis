@@ -8,7 +8,7 @@ import { useFetchEffect } from '@wener/ui';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { API } from 'src/apis/api';
-import { createRandom } from '@wener/utils/src/maths/random';
+import { createRandom } from '@wener/utils';
 import { PhoneOutlined } from '@ant-design/icons';
 
 function suggestNumbers(seed) {

@@ -1,7 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 // import sourceMaps from 'rollup-plugin-sourcemaps';
-import camelCase from 'lodash.camelcase';
+import {camelCase} from '@wener/utils';
 import json from '@rollup/plugin-json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 // yarn add -D rollup @rollup/plugin-{commonjs,node-resolve,typescript,json} tslib typescript

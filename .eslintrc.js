@@ -35,6 +35,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     // 允许直接使用 any
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/ban-ts-ignore': "off",
     // 方法可以先用后定义
     '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: false }],
   },

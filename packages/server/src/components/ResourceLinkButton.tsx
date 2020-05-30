@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { copy } from '@wener/utils/src/browsers/clipboard';
+import { copy } from '@wener/utils';
 import { Button, Dropdown, Menu, message } from 'antd';
 
 

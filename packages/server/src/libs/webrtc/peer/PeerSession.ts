@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { PeerSessionData } from './PeerService';
 import { getCandidates, getPeerConnectionState } from '../rtcs';
-import { clearAsyncInterval, setAsyncInterval } from '@wener/utils/src/asyncs/AsyncInterval';
+import { clearAsyncInterval, setAsyncInterval } from '@wener/utils';
 import produce from 'immer';
 import { isFunction } from 'lodash';
 import { promiseOfSubject } from 'src/utils/rxjsx';
@@ -9,7 +9,7 @@ import { PeerManager } from './PeerManager';
 import { RTCPeerConnection } from 'isomorphic-webrtc';
 import moment from 'moment';
 import { PeerConnectionState } from '../types';
-import { createLazyPromise } from '@wener/utils/src/asyncs/LazyPromise';
+import { createLazyPromise } from '@wener/utils';
 
 export interface PeerSessionInitialState {
   state: string;

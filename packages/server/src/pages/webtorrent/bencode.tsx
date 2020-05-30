@@ -12,7 +12,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import { JsonEditor } from 'src/components/JsonEditor/JsonEditor';
 import { readFileAsBuffer } from 'src/utils/io';
 import { FileReceiver } from 'src/components/FileReceiver';
-import { download } from '@wener/utils/src/browsers/download';
+import { download } from '@wener/utils';
 
 const JsonEditorDyn: any = dynamic(
   () => import('../../components/JsonEditor/JsonEditor').then(({ JsonEditor }) => JsonEditor),

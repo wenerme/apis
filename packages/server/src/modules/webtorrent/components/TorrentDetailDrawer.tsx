@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Drawer } from 'antd';
 import { useRootSelector } from 'src/reducers/store';
 import { useDispatch } from 'react-redux';
+//@ts-ignore - fixme
 import { hideTorrentDetail } from 'src/reducers/webtorrent';
 import { getCurrentWebTorrentClient } from '../client';
 import { Torrent } from 'webtorrent';
 import { TorrentDetailPanel } from './TorrentDetailPanel';
 
 export const TorrentDetailDrawer: React.FC = () => {
-  const torrentId = useRootSelector((v) => v.webtorrent.showTorrentDetail);
+  // fixme
+  const torrentId = useRootSelector((v) => v.webtorrent['showTorrentDetail']);
   const dispatch = useDispatch();
 
   const [torrent, setTorrent] = useState<Torrent>();

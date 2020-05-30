@@ -3,7 +3,7 @@ import { Button, Divider, Form } from 'antd';
 import { buildInitialValues, FormFieldProps, FormFieldsBuilder } from './builder';
 import { action } from '@storybook/addon-actions';
 import { useAntdTheme } from '../hooks';
-import { FormFieldBuilder } from '@wener/apis-server/src/libs/antds/form/builder';
+import { FormFieldBuilder } from './builder';
 import { FormInstance } from 'antd/lib/form';
 import { withProps } from '../../hocs';
 import _ from 'lodash';

@@ -4,11 +4,13 @@ import { FormFieldBuilder, FormFieldsBuilder } from 'src/libs/antds/form/builder
 import { MagnetOutlined, TorrentFileFilled } from '@wener/ui/icons';
 import { useRootSelector } from 'src/reducers/store';
 import { useDispatch } from 'react-redux';
+//@ts-ignore - Cannot find module or its corresponding type declarations.
 import { hideDialog } from 'src/reducers/webtorrent';
 import { doCreateDownload } from 'src/reducers/webtorrent/actions';
 
 export const NewDownloadModal: React.FC = () => {
-  const visible = useRootSelector((v) => v.webtorrent.showDialog === 'new-download');
+  // todo fixing type
+  const visible = useRootSelector((v) => v.webtorrent['showDialog'] === 'new-download');
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();

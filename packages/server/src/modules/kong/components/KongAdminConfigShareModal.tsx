@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Descriptions, message, Modal, Switch } from 'antd';
 import { useAsyncEffect } from '@wener/ui';
 import produce from 'immer';
-import { copy } from '@wener/utils/src/browsers/clipboard';
+import { copy } from '@wener/utils';
 import { CopyOutlined, LockOutlined, ReloadOutlined, UnlockOutlined } from '@ant-design/icons/lib';
 import { encrypt } from '../libs/encryption';
 
