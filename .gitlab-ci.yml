@@ -19,7 +19,7 @@ Build Image:
     # https://github.com/Automattic/node-canvas/issues/1065#issuecomment-445548120
     - apk add cairo-dev pango-dev jpeg-dev pixman-dev
     - apk add rsync jq
-#    - ./build/build-apis.sh
+    - ./build/build-apis.sh
     - echo Building image "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
