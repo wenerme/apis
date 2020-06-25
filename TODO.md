@@ -11,6 +11,9 @@
   - [ ] errorSchema 行为不一致
   - [ ] 数组枚举渲染为 select，但没有 title - 因为 root/array
   - [ ] AltDateWidget 格式不一致 - 没有自定义 - 但不需要
+- [ ] p3 storybook bundle 过大 - 28MB
+- [ ] p3 gitlab ci 发布 npm
+- [ ] p3 guthub action 发布 npm
 
 ## 20200625
 - [x] yarn2
