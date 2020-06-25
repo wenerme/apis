@@ -72,9 +72,10 @@ async function gen({ svg, comp, name, svgImport, force = false }) {
     `
 import React, {ForwardRefRenderFunction} from 'react';
 import ${name}Svg from '${svgImport.replace(/[.]tsx$/, '')}'
-import Icon, {IconComponentProps} from '@ant-design/icons/lib/components/Icon';
+import {IconProps} from '../types'
+import Icon from '@ant-design/icons/lib/components/Icon';
 
-const ${name}: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
+const ${name}: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
   return React.createElement(Icon, Object.assign({}, props, {
     ref,
     component: ${name}Svg

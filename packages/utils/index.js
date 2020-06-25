@@ -2,9 +2,9 @@
 
 exports.__esModule = true;
 
-var _src = require("./src");
+var _lib = require("./lib");
 
-Object.keys(_src).forEach(function (key) {
+Object.keys(_lib).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
-  exports[key] = _src[key];
+  exports[key] = _lib[key];
 });

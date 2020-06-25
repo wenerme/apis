@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { loadStyles, MaybePromise } from '@wener/utils';
 
 interface LoadThemeOption {
@@ -57,17 +57,22 @@ export function loadAntdTheme(options?: { theme; src? }): MaybePromise<boolean> 
 
 export function useAntdTheme(options?: { theme; src? }) {
   const { theme = 'light', src } = options || {};
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const url = src || urls[theme];
     if (!url) {
       console.error(`Theme not found: ${theme}`);
       return;
     }
-    loadTheme({
-      theme,
-      type: 'antd',
-      url,
-    });
+
+    setLoading(true);
+    Promise.resolve(
+      loadTheme({
+        theme,
+        type: 'antd',
+        url,
+      }),
+    ).finally(() => setLoading(false));
   }, [theme, src]);
+  return loading;
 }

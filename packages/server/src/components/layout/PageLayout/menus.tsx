@@ -15,12 +15,12 @@ import {
   QrcodeReadOutlined,
   RtcOutlined,
   WebTorrentFilled,
-} from '@wener/ui/icons';
+} from '@wener/ui/lib/icons';
 import { HashingAlgorithms } from 'src/modules/hash/types';
 import React from 'react';
 
 import { EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';
-//@ts-ignore
+//@ts-ignore - missing type
 import type { MenuSpec } from '@wener/ui/antd';
 
 export const menus: MenuSpec[] = [

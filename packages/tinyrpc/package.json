@@ -42,28 +42,25 @@
     "test": "jest"
   },
   "dependencies": {
-    "@rollup/plugin-commonjs": "^12.0.0",
-    "ts-jest": "^26.0.0",
-    "tslib": "^2.0.0"
+    "tslib": "*"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-json": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^8.0.0",
-    "@rollup/plugin-typescript": "^4.0.0",
+    "@rollup/plugin-commonjs": "latest",
+    "@rollup/plugin-json": "latest",
+    "@rollup/plugin-node-resolve": "latest",
+    "@rollup/plugin-typescript": "latest",
     "@types/jest": "latest",
-    "@types/lodash.camelcase": "^4.3.6",
-    "@types/rollup-plugin-json": "^3.0.2",
+    "@types/rollup-plugin-json": "latest",
+    "dotenv": "^8",
     "jest": "^26",
-    "lodash.camelcase": "^4.3.0",
     "rollup": "^2.3.2",
     "ts-jest": "^25.2.1",
-    "tslib": "^1.11.1",
-    "typedoc": "^0.17.3",
-    "typescript": "^3.8.3"
+    "tslib": "*",
+    "typedoc": "^0",
+    "typescript": "^3"
   },
   "optionalDependencies": {
-    "isomorphic-unfetch": "^3.0.0"
+    "isomorphic-unfetch": "*"
   },
   "publishConfig": {
     "access": "public"
