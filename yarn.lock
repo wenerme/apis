@@ -91,7 +91,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ant-design/icons@npm:^4.0.2, @ant-design/icons@npm:^4.0.3, @ant-design/icons@npm:^4.2.1":
+"@ant-design/icons@npm:^4, @ant-design/icons@npm:^4.0.2, @ant-design/icons@npm:^4.0.3, @ant-design/icons@npm:^4.2.1":
   version: 4.2.1
   resolution: "@ant-design/icons@npm:4.2.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons%2Fdownload%2F%40ant-design%2Ficons-4.2.1.tgz"
   dependencies:
@@ -3887,7 +3887,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rjsf/core@npm:^2.0.0-alpha.6, @rjsf/core@npm:^2.1.0":
+"@rjsf/core@npm:^2, @rjsf/core@npm:^2.0.0-alpha.6":
   version: 2.1.0
   resolution: "@rjsf/core@npm:2.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rjsf%2Fcore%2Fdownload%2F%40rjsf%2Fcore-2.1.0.tgz"
   dependencies:
@@ -3925,7 +3925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-commonjs@npm:^12.0.0":
+"@rollup/plugin-commonjs@npm:^12":
   version: 12.0.0
   resolution: "@rollup/plugin-commonjs@npm:12.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-commonjs%2Fdownload%2F%40rollup%2Fplugin-commonjs-12.0.0.tgz"
   dependencies:
@@ -3942,7 +3942,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-json@npm:^4.0.2":
+"@rollup/plugin-json@npm:^4, @rollup/plugin-json@npm:^4.0.2":
   version: 4.1.0
   resolution: "@rollup/plugin-json@npm:4.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-json%2Fdownload%2F%40rollup%2Fplugin-json-4.1.0.tgz"
   dependencies:
@@ -3968,7 +3968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-node-resolve@npm:^8.0.0":
+"@rollup/plugin-node-resolve@npm:^8, @rollup/plugin-node-resolve@npm:^8.0.0":
   version: 8.1.0
   resolution: "@rollup/plugin-node-resolve@npm:8.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-node-resolve%2Fdownload%2F%40rollup%2Fplugin-node-resolve-8.1.0.tgz"
   dependencies:
@@ -3997,7 +3997,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-typescript@npm:^4.0.0":
+"@rollup/plugin-typescript@npm:^4, @rollup/plugin-typescript@npm:^4.0.0":
   version: 4.1.2
   resolution: "@rollup/plugin-typescript@npm:4.1.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-typescript%2Fdownload%2F%40rollup%2Fplugin-typescript-4.1.2.tgz"
   dependencies:
@@ -6441,6 +6441,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.14.157
+  resolution: "@types/lodash@npm:4.14.157::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Flodash%2Fdownload%2F%40types%2Flodash-4.14.157.tgz"
+  checksum: ea8d890a4d78f4690f9d8e5cb03f3581e8ea59047696e2c2114087ec471e891b3ce683e5344c9c15ea7bd9730b79e5fd808b3eff80a01741503ea59922c2bb83
+  languageName: node
+  linkType: hard
+
 "@types/magnet-uri@npm:*":
   version: 5.1.2
   resolution: "@types/magnet-uri@npm:5.1.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fmagnet-uri%2Fdownload%2F%40types%2Fmagnet-uri-5.1.2.tgz"
@@ -8087,21 +8094,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@wener/utils@workspace:packages/utils"
   dependencies:
-    "@rollup/plugin-commonjs": ^12.0.0
-    "@rollup/plugin-json": ^4.0.2
-    "@rollup/plugin-node-resolve": ^8.0.0
-    "@rollup/plugin-typescript": ^4.0.0
-    "@types/jest": ^25.1.4
-    "@types/lodash": ^4.14.149
-    "@types/node": "*"
-    isomorphic-unfetch: ^3.0.0
+    "@rollup/plugin-commonjs": ^12
+    "@rollup/plugin-json": ^4
+    "@rollup/plugin-node-resolve": ^8
+    "@rollup/plugin-typescript": ^4
+    "@types/jest": ^25
+    "@types/lodash": ^4
+    "@types/node": ^12
+    dotenv: ^8
+    isomorphic-unfetch: ^3
     jest: ^26
-    lodash: ^4.17.15
-    rollup: ^2.3.2
-    ts-jest: ^26.0.0
-    tslib: ^2.0.0
-    typedoc: ^0.17.3
-    typescript: ^3.8.3
+    lodash: ^4
+    rollup: ^2
+    ts-jest: ^26
+    tslib: ^2
+    typedoc: ^0
+    typescript: ^3
   dependenciesMeta:
     isomorphic-unfetch:
       optional: true
@@ -8595,7 +8603,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^4, antd@npm:^4.0.4, antd@npm:^4.3.5":
+"antd@npm:^4, antd@npm:^4.0.4":
   version: 4.3.5
   resolution: "antd@npm:4.3.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-4.3.5.tgz"
   dependencies:
@@ -11017,7 +11025,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.2.6, classnames@npm:2.x, classnames@npm:^2.2.0, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6":
+"classnames@npm:2.2.6, classnames@npm:2.x, classnames@npm:^2, classnames@npm:^2.2.0, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6":
   version: 2.2.6
   resolution: "classnames@npm:2.2.6::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fclassnames%2Fdownload%2Fclassnames-2.2.6.tgz"
   checksum: 490eaeca5931846737ffd33e472a701d268d5b8bc5717dd4cf108a127b06e86e05350e06799abbbe763a0e4c945b4217f6700b7ae00ddc703505682c370e5cf2
@@ -16372,7 +16380,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"immer@npm:^7.0.3, immer@npm:^7.0.5":
+"immer@npm:^7, immer@npm:^7.0.3":
   version: 7.0.5
   resolution: "immer@npm:7.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fimmer%2Fdownload%2Fimmer-7.0.5.tgz"
   checksum: 04e23e07250069be3a1cf1f3aa43b52d99db5c264645020b44610d45db16484bf5f3097efe37628535eacfe4553d83c8a053fb802c1cc139b4ddb3b97f9f3d69
@@ -17435,7 +17443,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"isomorphic-unfetch@npm:^3.0.0":
+"isomorphic-unfetch@npm:^3, isomorphic-unfetch@npm:^3.0.0":
   version: 3.0.0
   resolution: "isomorphic-unfetch@npm:3.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fisomorphic-unfetch%2Fdownload%2Fisomorphic-unfetch-3.0.0.tgz"
   dependencies:
@@ -19304,7 +19312,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.0.1, lodash@npm:^4.15.0, lodash@npm:^4.17.11, lodash@npm:^4.17.12, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.4, lodash@npm:^4.2.1, lodash@npm:^4.5.0":
+"lodash@npm:^4, lodash@npm:^4.0.1, lodash@npm:^4.15.0, lodash@npm:^4.17.11, lodash@npm:^4.17.12, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.4, lodash@npm:^4.2.1, lodash@npm:^4.5.0":
   version: 4.17.15
   resolution: "lodash@npm:4.17.15::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.15.tgz"
   checksum: aec3fbb7570aa67bda500b8299b1b1821d60646bede87f76a74dfcc7666ab3445267d734ec71424d70809d52ad67a1356fab5ab694a3faa1908d68e9d48f00f5
@@ -20376,7 +20384,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"moment@npm:>= 2.9.0, moment@npm:>=2 <=3, moment@npm:>=2.14.0, moment@npm:^2.24.0, moment@npm:^2.25.3, moment@npm:^2.27.0":
+"moment@npm:>= 2.9.0, moment@npm:>=2 <=3, moment@npm:>=2.14.0, moment@npm:^2, moment@npm:^2.24.0, moment@npm:^2.25.3":
   version: 2.27.0
   resolution: "moment@npm:2.27.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fmoment%2Fdownload%2Fmoment-2.27.0.tgz"
   checksum: 72d9a7d8dba59e3d538440cdc0b59fa895b123361e370be231896478aaf157a484355ce32bd8daf6f731d6d1636d3a67ecb67531e536e093ca18b43e0cbae194
@@ -24638,7 +24646,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^16.13.0, react-dom@npm:^16.13.1, react-dom@npm:^16.8.3":
+"react-dom@npm:^16, react-dom@npm:^16.13.0, react-dom@npm:^16.13.1, react-dom@npm:^16.8.3":
   version: 16.13.1
   resolution: "react-dom@npm:16.13.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-dom%2Fdownload%2Freact-dom-16.13.1.tgz"
   dependencies:
@@ -25200,7 +25208,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react@npm:^16.13.0, react@npm:^16.13.1, react@npm:^16.8.3, react@npm:^16.9.17":
+"react@npm:^16, react@npm:^16.13.0, react@npm:^16.13.1, react@npm:^16.8.3, react@npm:^16.9.17":
   version: 16.13.1
   resolution: "react@npm:16.13.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-16.13.1.tgz"
   dependencies:
@@ -26239,8 +26247,8 @@ resolve@1.1.7:
   version: 0.0.0-use.local
   resolution: "rjsf-antd-theme@workspace:packages/rjsf-antd-theme"
   dependencies:
-    "@ant-design/icons": ^4.2.1
-    "@rjsf/core": ^2.1.0
+    "@ant-design/icons": ^4
+    "@rjsf/core": ^2
     "@storybook/addon-actions": next
     "@storybook/addon-centered": next
     "@storybook/addon-docs": next
@@ -26251,19 +26259,19 @@ resolve@1.1.7:
     "@types/jest": ^25
     "@types/node": ^12
     "@types/react-test-renderer": ^16
-    antd: ^4.3.5
-    classnames: ^2.2.6
+    antd: ^4
+    classnames: ^2
     dotenv: ^8
-    immer: ^7.0.5
+    immer: ^7
     jest: ^25
     json-schema: ^0.2.5
-    lodash: ^4.17.15
-    moment: ^2.27.0
-    react: ^16.13.1
+    lodash: ^4
+    moment: ^2
+    react: ^16
     react-docgen-typescript-loader: ^3
-    react-dom: ^16.13.1
+    react-dom: ^16
     react-test-renderer: ^16
-    styled-components: ^5.1.1
+    styled-components: ^5
     ts-jest: ^26
     tsconfig-paths-webpack-plugin: ^3
     typedoc: ^0.17
@@ -26275,8 +26283,8 @@ resolve@1.1.7:
     classnames: "*"
     lodash: "*"
     moment: "*"
-    react: ^16
-    react-dom: ^16
+    react: "*"
+    react-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -26351,7 +26359,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.3.2":
+"rollup@npm:^2, rollup@npm:^2.3.2":
   version: 2.18.0
   resolution: "rollup@npm:2.18.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Frollup%2Fdownload%2Frollup-2.18.0.tgz"
   dependencies:
@@ -28938,7 +28946,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^26, ts-jest@npm:^26.0.0":
+"ts-jest@npm:^26":
   version: 26.1.1
   resolution: "ts-jest@npm:26.1.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-jest%2Fdownload%2Fts-jest-26.1.1.tgz"
   dependencies:
@@ -29078,7 +29086,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0":
+"tslib@npm:^2, tslib@npm:^2.0.0":
   version: 2.0.0
   resolution: "tslib@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-2.0.0.tgz"
   checksum: a7369a224f12e223fb42f2a720389601a24a1e1c96c55bf0d8d4b60c131e574c175ae23578b8d1bd3f4ec790c7e0a82b43733f022f866d48a23aeadd3910755d
@@ -29249,7 +29257,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.17, typedoc@npm:^0.17.3":
+"typedoc@npm:^0, typedoc@npm:^0.17, typedoc@npm:^0.17.3":
   version: 0.17.7
   resolution: "typedoc@npm:0.17.7::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypedoc%2Fdownload%2Ftypedoc-0.17.7.tgz"
   dependencies:
