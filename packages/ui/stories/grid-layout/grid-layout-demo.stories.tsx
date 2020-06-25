@@ -12,7 +12,7 @@ export default {
 const ReactGridLayout = WidthProvider<ReactGridLayoutProps>(RGL);
 
 function stringifyLayout(layout) {
-  return layout.map(function(l) {
+  return layout.map(function (l) {
     const name = l.i === '__dropping-elem__' ? 'drop' : l.i;
     return (
       <div className="layoutItem" key={l.i}>
@@ -56,7 +56,7 @@ export const ControlledLayoutGrid = () => {
     <div>
       <div>
         <Placeholder
-          onDragStart={e => e.dataTransfer.setData('text/plain', '' + ids)}
+          onDragStart={(e) => e.dataTransfer.setData('text/plain', '' + ids)}
           draggable={true}
           unselectable="on"
         >
@@ -95,12 +95,12 @@ export const ControlledLayoutGrid = () => {
         useCSSTransforms
         measureBeforeMount={false}
         droppingItem={{ i: 'DROPING' + ids, w: 2, h: 2 }}
-        onDrop={event => {
+        onDrop={(event) => {
           console.log(`DROP`, event, event.e);
           const { x, y } = event;
-          setLayout(layout => {
-            console.log(layout.map(v => v.i));
-            return [...layout.filter(v => !v.i.startsWith('DROPING')), { i: 'DROP' + ids, x, y, w: 2, h: 2 }];
+          setLayout((layout) => {
+            console.log(layout.map((v) => v.i));
+            return [...layout.filter((v) => !v.i.startsWith('DROPING')), { i: 'DROP' + ids, x, y, w: 2, h: 2 }];
           });
           ids += 2;
         }}

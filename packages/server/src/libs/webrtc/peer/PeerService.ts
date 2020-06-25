@@ -70,7 +70,7 @@ export abstract class AbstractPeerService implements PeerService {
       { callerId, calleeId, state: 'new', data: {} },
       {
         expireAt: addMinutes(new Date(), 5),
-      }
+      },
     ) as PeerSessionData;
     return this.saveSession(session);
   }

@@ -59,7 +59,7 @@ async function watchPosition(options: {
 
   if (!('geolocation' in navigator)) {
     console.error('无 geolocation 支持');
-    return ;
+    return;
   }
 
   await new Promise((resolve, reject) => {

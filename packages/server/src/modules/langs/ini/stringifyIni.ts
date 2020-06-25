@@ -15,7 +15,7 @@ function stringifyIniObject(o: any) {
   const s = [];
   for (const [k, v] of Object.entries(o)) {
     if (Array.isArray(v)) {
-      v.forEach(i => s.push(`${k}=${i}`));
+      v.forEach((i) => s.push(`${k}=${i}`));
     } else {
       s.push(`${k}=${v ?? ''}`);
     }

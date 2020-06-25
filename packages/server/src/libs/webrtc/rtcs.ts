@@ -54,9 +54,9 @@ export function addConnectionEventLogger({ name, connection, excludes = [] }) {
           sctpState,
         },
         e.target,
-        e
+        e,
       );
-    })
+    }),
   );
 }
 
@@ -87,9 +87,9 @@ export function addChannelEventLogger({ name, channel, excludes = [] }) {
           maxRetransmits,
         },
         e.target,
-        e
+        e,
       );
-    })
+    }),
   );
 }
 
@@ -118,7 +118,7 @@ export function getPeerConnectionState(conn: RTCPeerConnection): PeerConnectionS
 
 export function addPeerConnectionStateListener(
   conn: RTCPeerConnection,
-  onStateChange: (s: PeerConnectionState) => void
+  onStateChange: (s: PeerConnectionState) => void,
 ): () => void {
   let state = getPeerConnectionState(conn);
   const handler = (e) => {

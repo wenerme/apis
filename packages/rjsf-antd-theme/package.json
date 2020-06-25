@@ -2,8 +2,8 @@
   "name": "rjsf-antd-theme",
   "version": "1.0.0-alpha.15",
   "description": "Ant Design Theme for React Json Schema Form / RJSF",
-  "license": "MIT",
   "repository": "https://github.com/wenerme/apis",
+  "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -14,12 +14,12 @@
   ],
   "scripts": {
     "build": "tsc",
+    "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build:storybook": "build-storybook -c .storybook -o storybook",
     "dev": "yarn storybook",
-    "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "format": "yarn prettier --write src stories .storybook ./*.json ./*.js",
     "lint": "eslint --fix --ext .ts,.tsx src",
     "storybook": "start-storybook -p ${PORT:-6006}",
-    "storybook:build": "build-storybook -c .storybook -o storybook",
     "test": "jest"
   },
   "devDependencies": {

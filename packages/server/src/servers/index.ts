@@ -13,18 +13,18 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(async () => {
   const server = createServer((req, res) => {
-    const parsedUrl = parse(req.url!, true)
-    const { pathname, query } = parsedUrl
+    const parsedUrl = parse(req.url!, true);
+    const { pathname, query } = parsedUrl;
 
     if (pathname === '/a') {
-      app.render(req, res, '/a', query)
+      app.render(req, res, '/a', query);
     } else if (pathname === '/b') {
-      app.render(req, res, '/b', query)
+      app.render(req, res, '/b', query);
     } else {
-      handle(req, res, parsedUrl)
+      handle(req, res, parsedUrl);
     }
   });
-  server.listen(port)
+  server.listen(port);
 
   console.log('Next Options', options);
   console.log(`> Server Ready on http://localhost:${port}`);

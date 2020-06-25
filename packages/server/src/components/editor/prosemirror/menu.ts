@@ -65,7 +65,7 @@ function insertImageItem(nodeType) {
           },
         });
       },
-    } as any /* FIXME */
+    } as any /* FIXME */,
   );
 }
 
@@ -133,7 +133,7 @@ function linkItem(markType) {
           },
         });
       },
-    } as any /* FIXME */
+    } as any /* FIXME */,
   );
 }
 
@@ -275,7 +275,7 @@ export function buildMenuItems(schema) {
         run(state, dispatch) {
           dispatch(state.tr.replaceSelectionWith(hr.create()));
         },
-      } as any /* FIXME */
+      } as any /* FIXME */,
     );
   }
 
@@ -292,7 +292,7 @@ export function buildMenuItems(schema) {
           label: 'Heading',
         }),
     ]),
-    { label: 'Type...' }
+    { label: 'Type...' },
   );
 
   r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])];

@@ -215,7 +215,7 @@ export const menus: MenuSpec[] = [
         title: '摘要哈希',
         path: `/hash/digest`,
       },
-      ...HashingAlgorithms.map(v => ({
+      ...HashingAlgorithms.map((v) => ({
         title: v.toUpperCase(),
         route: '/hash/md/[algorithm]',
         path: `/hash/md/${v}`,

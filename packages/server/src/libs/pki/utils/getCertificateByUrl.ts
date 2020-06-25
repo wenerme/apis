@@ -63,7 +63,7 @@ function handleRequest(options, detailed = false, resolve, reject) {
 
 export function getCertificateByUrl(
   url,
-  opts: { timeout?; detailed? } = {}
+  opts: { timeout?; detailed? } = {},
 ): Promise<Certificate & { pemEncoded: string }> {
   validateUrl(url);
 

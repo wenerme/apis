@@ -43,7 +43,7 @@ no=101
             <Card title={'Asterisk Conf'}>
               <SimpleCodeEditor
                 value={value}
-                onChange={v => {
+                onChange={(v) => {
                   try {
                     setValue(v);
                     const o = Lang.parse(v);

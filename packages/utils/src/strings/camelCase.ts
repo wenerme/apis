@@ -41,8 +41,8 @@ export function pascalCase(input: string | string[]) {
 export function camelCase(
   input: string | string[],
   options: { pascalCase: boolean } = {
-    pascalCase: false
-  }
+    pascalCase: false,
+  },
 ) {
   if (!(typeof input === 'string' || Array.isArray(input))) {
     throw new TypeError('Expected the input to be `string | string[]`');

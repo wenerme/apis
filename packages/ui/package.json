@@ -28,16 +28,14 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "clean": "rm -rf ./lib ./dist ./docs ./storybook",
     "antd-icons:gen": "ts-node --project ./tsconfig.ts-node.json ./scripts/antd-icons.ts",
-    "prebuild": "rm -rf ./lib ./dist",
-    "build": "npm-run-all -p build:types build:js build:docs && yarn build:bundle",
+    "build": "npm-run-all -p build:types build:js && yarn build:bundle",
     "build:bundle": "rollup -c rollup.config.ts",
     "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "build:js": "babel src -d lib -x .ts,.tsx -s true",
     "build:types": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf ./lib ./dist ./docs ./storybook",
     "dev": "yarn run storybook --ci",
-    "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "icons": "yarn run icons:svgo && yarn run icons:svgr && yarn run icons:gen && git add src/icons",
     "icons:gen": "TS_NODE_PROJECT=tsconfig.ts-node.json yarn node -r ts-node/register ./scripts/icons.ts",
     "icons:svgo": "svgo -f src/icons/svgs --config svgo.config.json",

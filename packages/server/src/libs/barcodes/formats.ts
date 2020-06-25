@@ -101,7 +101,7 @@ const zxingMapping: Record<number, string> = Object.fromEntries(
     UPC_A: 14,
     UPC_E: 15,
     UPC_EAN_EXTENSION: 16,
-  }).map(([k, v]) => [v, k])
+  }).map(([k, v]) => [v, k]),
 );
 
 export function getZxingFormat(v: number): BarcodeFormat {

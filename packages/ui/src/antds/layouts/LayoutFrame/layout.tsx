@@ -29,8 +29,8 @@ const LayoutFrameContext = React.createContext<{
 
 interface TypedUseSelectorHook<TState> {
   <TSelected>(
-      selector: (state: TState) => TSelected,
-      equalityFn?: (left: TSelected, right: TSelected) => boolean
+    selector: (state: TState) => TSelected,
+    equalityFn?: (left: TSelected, right: TSelected) => boolean,
   ): TSelected;
 }
 

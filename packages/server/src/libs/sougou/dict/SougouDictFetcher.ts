@@ -63,10 +63,10 @@ export class SougouDictFetcher {
           v
             .split('：')
             .map((v) => v.trim())
-            .filter((s) => s)
+            .filter((s) => s),
         )
         .filter((s) => s.length)
-        .map(([k, v]) => [k.replace(/\s/g, ''), v])
+        .map(([k, v]) => [k.replace(/\s/g, ''), v]),
     );
 
     return {
@@ -164,7 +164,7 @@ export class SougouDictFetcher {
       where name like 'cache/scel/html/%'
       order by id desc
       limit 1
-    `
+    `,
       )
       .then((v) => v[0]?.id ?? 1);
   }
@@ -182,7 +182,7 @@ export class SougouDictFetcher {
       select cast(substr(name, 0, instr(name, '/')) as integer) as id
       from names
       order by id desc
-    `
+    `,
       )
       .then((v) => v[0]?.id ?? 1);
   }

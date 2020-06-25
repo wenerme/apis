@@ -94,6 +94,6 @@ export function useMentionState({ editor }) {
         }
       }
     },
-    [index, search, target]
+    [index, search, target],
   );
 }

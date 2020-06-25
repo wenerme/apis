@@ -36,7 +36,7 @@ url=https://apis.wener.me
             <Card title={'INI'}>
               <SimpleCodeEditor
                 value={ini}
-                onChange={v => {
+                onChange={(v) => {
                   try {
                     setIni(v);
                     const o = INI.parse(v);

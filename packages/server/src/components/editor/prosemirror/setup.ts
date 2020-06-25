@@ -59,7 +59,7 @@ export function proseMirrorSetup(options: ProseMirrorSetupOptions): Plugin[] {
       menuBar({
         floating: options.floatingMenu !== false,
         content: options.menuContent || buildMenuItems(options.schema).fullMenu,
-      })
+      }),
     );
   }
   if (options.history !== false) {
@@ -71,7 +71,7 @@ export function proseMirrorSetup(options: ProseMirrorSetupOptions): Plugin[] {
       props: {
         attributes: { class: 'ProseMirror-setup-style' },
       },
-    })
+    }),
   );
   return plugins;
 }

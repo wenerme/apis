@@ -158,7 +158,7 @@ export const Base32 = {
     return parse(
       opts.loose ? string.toUpperCase().replace(/0/g, 'O').replace(/1/g, 'L').replace(/8/g, 'B') : string,
       base32Encoding,
-      opts
+      opts,
     );
   },
 

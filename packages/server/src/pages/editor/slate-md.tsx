@@ -10,7 +10,7 @@ const SlateMarkdownEditor = dynamic(
     import('src/components/editor/slate/SlateMarkdownEditor').then(({ SlateMarkdownEditor }) => SlateMarkdownEditor),
   {
     loading: () => <div>Loading...</div>,
-  }
+  },
 );
 const Page = () => {
   return (

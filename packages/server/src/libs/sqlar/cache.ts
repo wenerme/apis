@@ -4,7 +4,7 @@ import { SqlArEntity } from './schema';
 export async function getCache(
   name,
   repo: Repository<SqlArEntity>,
-  fetcher: (name) => PromiseLike<Partial<SqlArEntity>>
+  fetcher: (name) => PromiseLike<Partial<SqlArEntity>>,
 ): Promise<SqlArEntity> {
   let entity = await repo.findOne(name);
   if (entity) {

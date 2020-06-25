@@ -5,7 +5,7 @@ import { PageHeader } from 'antd';
 import { WenerApisWelcome } from '@wener/ui/lib/components/WenerApisWelcome';
 
 const DemoPageContent: React.FC = () => {
-  console.log('WenerApisWelcome',WenerApisWelcome)
+  console.log('WenerApisWelcome', WenerApisWelcome);
   return (
     <div>
       <WenerApisWelcome />

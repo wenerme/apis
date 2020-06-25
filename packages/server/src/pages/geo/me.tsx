@@ -8,10 +8,13 @@ import { EnvironmentOutlined } from '@ant-design/icons';
 import { BoxShuffle } from '@wener/ui';
 
 const LocationMePageContent = dynamic<any>(
-  () => import('../../modules/geo/components/LocationMePageContent').then(({LocationMePageContent})=> LocationMePageContent),
+  () =>
+    import('../../modules/geo/components/LocationMePageContent').then(
+      ({ LocationMePageContent }) => LocationMePageContent,
+    ),
   {
     ssr: false,
-    loading: () => <BoxShuffle title="Loading page..."/>,
+    loading: () => <BoxShuffle title="Loading page..." />,
   },
 );
 

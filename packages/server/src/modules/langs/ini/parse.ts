@@ -74,10 +74,7 @@ export class SyntaxError extends Error {
 
   public static buildMessage(expected: Expectation[], found: string | null) {
     function hex(ch: string): string {
-      return ch
-        .charCodeAt(0)
-        .toString(16)
-        .toUpperCase();
+      return ch.charCodeAt(0).toString(16).toUpperCase();
     }
 
     function literalEscape(s: string): string {
@@ -88,8 +85,8 @@ export class SyntaxError extends Error {
         .replace(/\t/g, '\\t')
         .replace(/\n/g, '\\n')
         .replace(/\r/g, '\\r')
-        .replace(/[\x00-\x0F]/g, ch => '\\x0' + hex(ch))
-        .replace(/[\x10-\x1F\x7F-\x9F]/g, ch => '\\x' + hex(ch));
+        .replace(/[\x00-\x0F]/g, (ch) => '\\x0' + hex(ch))
+        .replace(/[\x10-\x1F\x7F-\x9F]/g, (ch) => '\\x' + hex(ch));
     }
 
     function classEscape(s: string): string {
@@ -102,8 +99,8 @@ export class SyntaxError extends Error {
         .replace(/\t/g, '\\t')
         .replace(/\n/g, '\\n')
         .replace(/\r/g, '\\r')
-        .replace(/[\x00-\x0F]/g, ch => '\\x0' + hex(ch))
-        .replace(/[\x10-\x1F\x7F-\x9F]/g, ch => '\\x' + hex(ch));
+        .replace(/[\x00-\x0F]/g, (ch) => '\\x0' + hex(ch))
+        .replace(/[\x10-\x1F\x7F-\x9F]/g, (ch) => '\\x' + hex(ch));
     }
 
     function describeExpectation(expectation: Expectation) {
@@ -111,7 +108,7 @@ export class SyntaxError extends Error {
         case 'literal':
           return '"' + literalEscape(expectation.text) + '"';
         case 'class':
-          const escapedParts = expectation.parts.map(part => {
+          const escapedParts = expectation.parts.map((part) => {
             return Array.isArray(part)
               ? classEscape(part[0] as string) + '-' + classEscape(part[1] as string)
               : classEscape(part);
@@ -179,16 +176,16 @@ function peg$parse(input: string, options?: IParseOptions) {
 
   const peg$c0 = /^[\n]/;
   const peg$c1 = peg$classExpectation(['\n'], false, false);
-  const peg$c2 = function(first: any, line: any): any {
+  const peg$c2 = function (first: any, line: any): any {
     return line;
   };
-  const peg$c3 = function(first: any, tail: any): any {
-    return [first, ...(tail || [])].filter(v => v.type);
+  const peg$c3 = function (first: any, tail: any): any {
+    return [first, ...(tail || [])].filter((v) => v.type);
   };
-  const peg$c4 = function(): any {
+  const peg$c4 = function (): any {
     return {};
   };
-  const peg$c5 = function(e: any, c: any): any {
+  const peg$c5 = function (e: any, c: any): any {
     return { ...c, ...e, location: location() };
   };
   const peg$c6 = '[';
@@ -197,14 +194,14 @@ function peg$parse(input: string, options?: IParseOptions) {
   const peg$c9 = peg$classExpectation(['\n', ']'], true, false);
   const peg$c10 = ']';
   const peg$c11 = peg$literalExpectation(']', false);
-  const peg$c12 = function(name: any): any {
+  const peg$c12 = function (name: any): any {
     return { type: 'section', name: name.join('').trim() };
   };
   const peg$c13 = /^[#;]/;
   const peg$c14 = peg$classExpectation(['#', ';'], false, false);
   const peg$c15 = /^[^\n]/;
   const peg$c16 = peg$classExpectation(['\n'], true, false);
-  const peg$c17 = function(comment: any): any {
+  const peg$c17 = function (comment: any): any {
     return { type: 'comment', comment: comment.join('').trim() };
   };
   const peg$c18 = /^[^ \t\r\n#;=]/;
@@ -213,10 +210,10 @@ function peg$parse(input: string, options?: IParseOptions) {
   const peg$c21 = peg$literalExpectation('=', false);
   const peg$c22 = /^[^\n#;]/;
   const peg$c23 = peg$classExpectation(['\n', '#', ';'], true, false);
-  const peg$c24 = function(key: any, v: any): any {
+  const peg$c24 = function (key: any, v: any): any {
     return v;
   };
-  const peg$c25 = function(key: any, value: any): any {
+  const peg$c25 = function (key: any, value: any): any {
     return { type: 'entry', key: key.join('').trim(), value: value?.join('').trim() };
   };
   const peg$c26 = peg$otherExpectation('whitespacing');

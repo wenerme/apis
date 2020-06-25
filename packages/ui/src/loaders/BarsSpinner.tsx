@@ -17,16 +17,16 @@ const BarsSpinnerBox = styled.div<{ bars: number }>`
   }
 
   ${({ bars }) =>
-  Array(bars)
-    .fill(null)
-    .map(
-      (_, i) => `
+    Array(bars)
+      .fill(null)
+      .map(
+        (_, i) => `
   & > div:nth-child(${i + 1}) {
     transform: rotate(${((360 / bars) * i).toFixed(2)}deg) translate(0, -12px);
     animation-delay:${((0.8 / bars) * (i + 1)).toFixed(2)}s;
   }
-  `
-    )}
+  `,
+      )}
 
   @keyframes fadeit {
     0% {

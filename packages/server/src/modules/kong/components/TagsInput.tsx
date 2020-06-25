@@ -19,7 +19,7 @@ export const TagsInput: React.FC<{ value; onChange }> = ({ value, onChange }) =>
         s.tags = state.tags.filter((vv) => vv !== v);
         s.inputVisible = true;
         s.inputValue = v;
-      })
+      }),
     );
   };
   const onConfirm = () => {
@@ -33,7 +33,7 @@ export const TagsInput: React.FC<{ value; onChange }> = ({ value, onChange }) =>
         state.tags = tags;
         state.inputVisible = false;
         state.inputValue = '';
-      })
+      }),
     );
   };
 
@@ -41,7 +41,7 @@ export const TagsInput: React.FC<{ value; onChange }> = ({ value, onChange }) =>
     setState(
       produce((state) => {
         state.tags = state.tags.filter((vv) => vv !== v);
-      })
+      }),
     );
   };
 
@@ -49,7 +49,7 @@ export const TagsInput: React.FC<{ value; onChange }> = ({ value, onChange }) =>
     setState(
       produce((s) => {
         s.inputVisible = true;
-      })
+      }),
     );
   };
 
@@ -102,7 +102,7 @@ export const TagsInput: React.FC<{ value; onChange }> = ({ value, onChange }) =>
             setState(
               produce((s) => {
                 s.inputValue = value;
-              })
+              }),
             );
           }}
           onBlur={onConfirm}

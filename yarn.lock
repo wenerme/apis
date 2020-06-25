@@ -7341,7 +7341,7 @@ __metadata:
     "@types/react-test-renderer": ^16.9.2
     "@types/rollup-plugin-peer-deps-external": ^2.2.0
     "@types/styled-components": ">= 5"
-    "@wener/utils": ^1.0.0-alpha.16
+    "@wener/utils": "workspace:packages/utils"
     antd: ^4
     babel-plugin-inline-react-svg: ^1.1.1
     babel-plugin-styled-components: ^1
@@ -7396,7 +7396,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@wener/utils@^1.0.0-alpha.16, @wener/utils@workspace:packages/utils":
+"@wener/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@wener/utils@workspace:packages/utils"
   dependencies:

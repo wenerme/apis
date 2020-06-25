@@ -8,7 +8,7 @@ export function parseApkIndexRecord(s: string) {
     s.split('\n').map((v) => {
       const idx = v.indexOf(':');
       return [v.substring(0, idx), v.substring(idx + 1)];
-    })
+    }),
     // .sort(([a], [b]) => a > b ? 1 : -1)
   );
 }

@@ -23,7 +23,7 @@ const cookie = (res, name, value, options: CookieSerializeOptions = {}) => {
  * Adds `cookie` function on `res.cookie` to set cookies for response
  */
 export function cookies<Req = NextApiRequest, Res = NextApiResponse>(
-  handler: ApiHandler<Req, Res & { cookie: (name, value, options?: CookieSerializeOptions) => void }>
+  handler: ApiHandler<Req, Res & { cookie: (name, value, options?: CookieSerializeOptions) => void }>,
 ) {
   return (req, res) => {
     res.cookie = (name, value, options) => cookie(res, name, value, options);

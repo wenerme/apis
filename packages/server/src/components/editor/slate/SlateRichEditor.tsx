@@ -279,9 +279,9 @@ export const SlateRichEditor: React.FC = () => {
   const editor: RichEditor = useMemo(
     () =>
       flow([withReact, withHistory, withRender(), withChecklists(), withMentions(), withMarkdownShortcuts()])(
-        createEditor()
+        createEditor(),
       ),
-    []
+    [],
   );
   useMentionState({ editor });
   useEffect(() => {
@@ -370,7 +370,7 @@ export const SlateRichEditor: React.FC = () => {
         }
       }
     },
-    [index, search, target]
+    [index, search, target],
   );
   useEffect(() => {
     if (target && chars.length > 0 && ref.current) {
@@ -466,7 +466,7 @@ export const SlateRichEditor: React.FC = () => {
             Transforms.setNodes(
               editor,
               { type: match ? 'paragraph' : 'code' },
-              { match: (n) => Editor.isBlock(editor, n) }
+              { match: (n) => Editor.isBlock(editor, n) },
             );
           }
         }}

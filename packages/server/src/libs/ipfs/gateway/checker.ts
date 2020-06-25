@@ -207,7 +207,7 @@ export function compareCheckState(a: GatewayCheckNodeState, b: GatewayCheckNodeS
 export async function checkGateways(
   gateways: string[],
   onStateChange: (s: GatewayCheckNodeState[]) => void,
-  { signal = null } = {}
+  { signal = null } = {},
 ) {
   let state = new Array(gateways.length);
 
@@ -218,8 +218,8 @@ export async function checkGateways(
           base[i] = s;
         });
         onStateChange(state);
-      })
-    )
+      }),
+    ),
   );
   return state;
 }

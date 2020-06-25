@@ -1,1 +1,1 @@
-export * from './useAntdTheme'
+export * from './useAntdTheme';

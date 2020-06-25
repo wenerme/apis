@@ -50,7 +50,7 @@ export function createSubscriptionContainer<Value, State = void>(
       return new BehaviorSubject(typeof initialState === 'function' ? (initialState as any)() : initialState);
     });
     const container = useConstant(() => {
-      const setStateReal = state => {
+      const setStateReal = (state) => {
         let next;
         if (typeof state === 'function') {
           next = (state as any)(subject.getValue());
@@ -62,7 +62,7 @@ export function createSubscriptionContainer<Value, State = void>(
 
       // handle change state when subscribe
       let changing = false;
-      const setState = state => {
+      const setState = (state) => {
         if (changing) {
           setTimeout(() => setState(state), 0);
           return;
@@ -80,7 +80,7 @@ export function createSubscriptionContainer<Value, State = void>(
         updateState(fn) {
           // todo produced is immutable
           setState(
-            produce(v => {
+            produce((v) => {
               fn(v);
               // ensure return void
             }),
@@ -115,8 +115,8 @@ export function createSubscriptionContainer<Value, State = void>(
     const subject = context.subject;
     const [state, setState] = React.useState(() => selector(subject.getValue()));
     useEffect(() => {
-      const subscription = subject.pipe(skip(1)).subscribe(s => {
-        setState(old => {
+      const subscription = subject.pipe(skip(1)).subscribe((s) => {
+        setState((old) => {
           const next = selector(s);
           if (eq(old, next)) {
             return old;
@@ -130,7 +130,7 @@ export function createSubscriptionContainer<Value, State = void>(
   }
 
   function useState() {
-    return useSelector(v => v);
+    return useSelector((v) => v);
   }
 
   function useWhenValueChange(selector, cb, eq = isEqual) {
@@ -143,7 +143,7 @@ export function createSubscriptionContainer<Value, State = void>(
     useEffect(() => {
       ref.current = selector(subject.getValue());
 
-      const subscription = subject.subscribe(s => {
+      const subscription = subject.subscribe((s) => {
         const old = ref.current;
         const next = selector(s);
         if (!eq(old, next)) {

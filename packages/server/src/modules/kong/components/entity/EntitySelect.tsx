@@ -21,7 +21,7 @@ export const EntitySelect: React.FC<{ entityName; value?; onChange? }> = ({
     setState(
       produce((s) => {
         s.loading = true;
-      })
+      }),
     );
     getKongService()
       ?.[`list${entityName}`]()
@@ -30,14 +30,14 @@ export const EntitySelect: React.FC<{ entityName; value?; onChange? }> = ({
           produce((s) => {
             s.data = s.total = v.data;
             s.loading = false;
-          })
+          }),
         );
       })
       .finally(() => {
         setState(
           produce((s) => {
             s.loading = false;
-          })
+          }),
         );
       });
   }, []);
@@ -46,13 +46,13 @@ export const EntitySelect: React.FC<{ entityName; value?; onChange? }> = ({
       setState(
         produce((s) => {
           s.data = s.total;
-        })
+        }),
       );
     } else {
       setState(
         produce((s) => {
           s.data = s.total.filter((vv) => vv.id.includes(v) || vv.name?.includes(v));
-        })
+        }),
       );
     }
   };

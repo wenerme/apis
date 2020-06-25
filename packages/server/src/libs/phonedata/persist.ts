@@ -21,7 +21,7 @@ const debug = require('debug')('phonedata');
 
 export async function findByPhoneNumber(
   em: EntityManager,
-  num: string | number
+  num: string | number,
 ): Promise<{ index?: PhoneDataIndexEntity; record?: PhoneDataRecordEntity }> {
   // tslint:disable-next-line:ban
   const prefix = parseInt((num + '').substr(0, 7), 10);
@@ -61,7 +61,7 @@ export async function savePhoneData(em: EntityManager, data: PhoneData) {
       zip: v.zip,
       code: v.code,
       offset: v.offset,
-    }))
+    })),
   );
 
   logger.log('info', 'Saving index');
@@ -74,7 +74,7 @@ export async function savePhoneData(em: EntityManager, data: PhoneData) {
       recordOffset: v.recordOffset,
       vendor: v.vendor,
       vendorType: v.vendorType,
-    }))
+    })),
   );
   logger.log('info', 'Saved');
 }
@@ -83,7 +83,7 @@ async function saveChunks<T>(
   em: EntityManager,
   entityTarget: ObjectType<T> | EntitySchema<T> | string,
   all: Array<QueryDeepPartialEntity<T>>,
-  { size = 100 } = {}
+  { size = 100 } = {},
 ) {
   const chunks = chunk(all, size);
 

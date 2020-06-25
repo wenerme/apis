@@ -56,7 +56,7 @@ export class PeerManager {
       await service.registerPeer({
         id: store['peerId'],
         name: store['peerName'],
-      })
+      }),
     );
     store['peerId'] = this.id;
     store['peerName'] = this.name;
@@ -76,7 +76,7 @@ export class PeerManager {
         all.forEach((v) => this.handleSession(v));
       },
       8000,
-      1000
+      1000,
     );
 
     return this;

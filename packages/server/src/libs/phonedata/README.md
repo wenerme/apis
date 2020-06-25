@@ -1,7 +1,6 @@
 # 电话归属地
 
-* 数据源 [xluohome/phonedata](https://github.com/xluohome/phonedata)
-
+- 数据源 [xluohome/phonedata](https://github.com/xluohome/phonedata)
 
 ```postgresql
 --- function to find phonedata

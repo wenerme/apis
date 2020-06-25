@@ -14,15 +14,15 @@ function useCounter({
   subscribe,
 }: SubscriptioHookOptions<{ count: number; extra?: number }>) {
   console.log(`Call useCounter`, getState());
-  const decrement = () => updateState(s => s.count--);
-  const increment = () => updateState(s => s.count++);
-  const onExtraChange = () => updateState(s => (s.extra = Math.random()));
-  subscribe(v => {
+  const decrement = () => updateState((s) => s.count--);
+  const increment = () => updateState((s) => s.count++);
+  const onExtraChange = () => updateState((s) => (s.extra = Math.random()));
+  subscribe((v) => {
     if (v.count === 5) {
-      updateState(s => (s.count = 0));
+      updateState((s) => (s.count = 0));
     }
   });
-  subscribe(v => {
+  subscribe((v) => {
     console.log(`State`, v);
   });
   return { decrement, increment, onExtraChange };
@@ -31,7 +31,7 @@ function useCounter({
 const Counter = createSubscriptionContainer(useCounter);
 
 function CounterValue() {
-  const count = Counter.useSelector(v => v.count);
+  const count = Counter.useSelector((v) => v.count);
   const rc = useRenderCount();
   return (
     <span>
@@ -55,7 +55,7 @@ function CounterDisplay() {
 
 function Actions() {
   const { onExtraChange } = Counter.useContainer();
-  const extra = Counter.useSelector(v => v.extra);
+  const extra = Counter.useSelector((v) => v.extra);
   return <button onClick={onExtraChange}>Extra Change - {extra || ''}</button>;
 }
 

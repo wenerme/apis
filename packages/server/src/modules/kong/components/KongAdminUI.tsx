@@ -440,11 +440,11 @@ export const KongAdmin: React.FC = () => {
       ),
     },
   ];
-  console.log('LayoutFrame',anx)
+  console.log('LayoutFrame', anx);
   return (
     <Router>
       {!init && <KongConfigPanel />}
-      {init && (
+      {init &&
         // <LayoutFrame name="kong" header={<KongAdminHeader />} menus={menus} link={ReactRouterLink}>
         //   <LayoutFrameContent>
         //     <KongAdminSetupModal />
@@ -452,8 +452,7 @@ export const KongAdmin: React.FC = () => {
         //     <RouteFrameContent routes={menus as any} />
         //   </LayoutFrameContent>
         // </LayoutFrame>
-        null
-      )}
+        null}
     </Router>
   );
 };

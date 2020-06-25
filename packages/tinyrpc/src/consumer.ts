@@ -61,7 +61,7 @@ function createInvoker(context: { consumer: ServiceInvocationHandler; service: s
 // fixme typing
 
 export function createServiceConsumer(
-  opts: Partial<ConsumeOptions> & { consumer: ServiceInvocationHandler }
+  opts: Partial<ConsumeOptions> & { consumer: ServiceInvocationHandler },
 ): (options: Partial<ConsumeOptions> & { service: string }) => any {
   const services: any = {};
   return (options) => {

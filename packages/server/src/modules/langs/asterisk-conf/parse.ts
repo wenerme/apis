@@ -74,10 +74,7 @@ export class SyntaxError extends Error {
 
   public static buildMessage(expected: Expectation[], found: string | null) {
     function hex(ch: string): string {
-      return ch
-        .charCodeAt(0)
-        .toString(16)
-        .toUpperCase();
+      return ch.charCodeAt(0).toString(16).toUpperCase();
     }
 
     function literalEscape(s: string): string {
@@ -88,8 +85,8 @@ export class SyntaxError extends Error {
         .replace(/\t/g, '\\t')
         .replace(/\n/g, '\\n')
         .replace(/\r/g, '\\r')
-        .replace(/[\x00-\x0F]/g, ch => '\\x0' + hex(ch))
-        .replace(/[\x10-\x1F\x7F-\x9F]/g, ch => '\\x' + hex(ch));
+        .replace(/[\x00-\x0F]/g, (ch) => '\\x0' + hex(ch))
+        .replace(/[\x10-\x1F\x7F-\x9F]/g, (ch) => '\\x' + hex(ch));
     }
 
     function classEscape(s: string): string {
@@ -102,8 +99,8 @@ export class SyntaxError extends Error {
         .replace(/\t/g, '\\t')
         .replace(/\n/g, '\\n')
         .replace(/\r/g, '\\r')
-        .replace(/[\x00-\x0F]/g, ch => '\\x0' + hex(ch))
-        .replace(/[\x10-\x1F\x7F-\x9F]/g, ch => '\\x' + hex(ch));
+        .replace(/[\x00-\x0F]/g, (ch) => '\\x0' + hex(ch))
+        .replace(/[\x10-\x1F\x7F-\x9F]/g, (ch) => '\\x' + hex(ch));
     }
 
     function describeExpectation(expectation: Expectation) {
@@ -111,7 +108,7 @@ export class SyntaxError extends Error {
         case 'literal':
           return '"' + literalEscape(expectation.text) + '"';
         case 'class':
-          const escapedParts = expectation.parts.map(part => {
+          const escapedParts = expectation.parts.map((part) => {
             return Array.isArray(part)
               ? classEscape(part[0] as string) + '-' + classEscape(part[1] as string)
               : classEscape(part);
@@ -179,16 +176,16 @@ function peg$parse(input: string, options?: IParseOptions) {
 
   const peg$c0 = /^[\n]/;
   const peg$c1 = peg$classExpectation(['\n'], false, false);
-  const peg$c2 = function(first: any, line: any): any {
+  const peg$c2 = function (first: any, line: any): any {
     return line;
   };
-  const peg$c3 = function(first: any, tail: any): any {
-    return [first, ...(tail || [])].filter(v => v.type);
+  const peg$c3 = function (first: any, tail: any): any {
+    return [first, ...(tail || [])].filter((v) => v.type);
   };
-  const peg$c4 = function(): any {
+  const peg$c4 = function (): any {
     return {};
   };
-  const peg$c5 = function(e: any, c: any): any {
+  const peg$c5 = function (e: any, c: any): any {
     return { ...c, ...e, location: location() };
   };
   const peg$c6 = '[';
@@ -197,14 +194,14 @@ function peg$parse(input: string, options?: IParseOptions) {
   const peg$c9 = peg$classExpectation(['\n', ']'], true, false);
   const peg$c10 = ']';
   const peg$c11 = peg$literalExpectation(']', false);
-  const peg$c12 = function(name: any): any {
+  const peg$c12 = function (name: any): any {
     return { type: 'section', name: name.join('').trim() };
   };
   const peg$c13 = /^[#;]/;
   const peg$c14 = peg$classExpectation(['#', ';'], false, false);
   const peg$c15 = /^[^\n]/;
   const peg$c16 = peg$classExpectation(['\n'], true, false);
-  const peg$c17 = function(comment: any): any {
+  const peg$c17 = function (comment: any): any {
     return { type: 'comment', comment: comment.join('').trim() };
   };
   const peg$c18 = /^[^ \t\r\n#;=]/;
@@ -213,61 +210,61 @@ function peg$parse(input: string, options?: IParseOptions) {
   const peg$c21 = peg$literalExpectation('=', false);
   const peg$c22 = /^[^\n#;]/;
   const peg$c23 = peg$classExpectation(['\n', '#', ';'], true, false);
-  const peg$c24 = function(key: any, v: any): any {
+  const peg$c24 = function (key: any, v: any): any {
     return v;
   };
-  const peg$c25 = function(key: any, value: any): any {
+  const peg$c25 = function (key: any, value: any): any {
     return { type: 'entry', key: key.join('').trim(), value: value?.join('').trim() };
   };
   const peg$c26 = '(';
   const peg$c27 = peg$literalExpectation('(', false);
   const peg$c28 = ',';
   const peg$c29 = peg$literalExpectation(',', false);
-  const peg$c30 = function(name: any, first: any, v: any): any {
+  const peg$c30 = function (name: any, first: any, v: any): any {
     return v;
   };
   const peg$c31 = ')';
   const peg$c32 = peg$literalExpectation(')', false);
-  const peg$c33 = function(name: any, first: any, trail: any): any {
+  const peg$c33 = function (name: any, first: any, trail: any): any {
     return [].concat(first, trail || []);
   };
-  const peg$c34 = function(name: any, names: any): any {
+  const peg$c34 = function (name: any, names: any): any {
     return {
       type: 'template-section',
       name: name.join('').trim(),
       templateOnly: names.includes('!'),
-      extends: names.filter(v => v !== '!'),
+      extends: names.filter((v) => v !== '!'),
     };
   };
   const peg$c35 = '!';
   const peg$c36 = peg$literalExpectation('!', false);
   const peg$c37 = /^[-a-z0-9A-Z]/;
   const peg$c38 = peg$classExpectation(['-', ['a', 'z'], ['0', '9'], ['A', 'Z']], false, false);
-  const peg$c39 = function(): any {
+  const peg$c39 = function (): any {
     return text();
   };
   const peg$c40 = '=>';
   const peg$c41 = peg$literalExpectation('=>', false);
   const peg$c42 = '+';
   const peg$c43 = peg$literalExpectation('+', false);
-  const peg$c44 = function(name: any, conditions: any): any {
+  const peg$c44 = function (name: any, conditions: any): any {
     return {
       type: 'append-section',
       name: name.join('').trim(),
       conditions,
     };
   };
-  const peg$c45 = function(first: any, v: any): any {
+  const peg$c45 = function (first: any, v: any): any {
     return v;
   };
-  const peg$c46 = function(first: any, trail: any): any {
+  const peg$c46 = function (first: any, trail: any): any {
     return [].concat(first, trail || []);
   };
   const peg$c47 = /^[^=\n]/;
   const peg$c48 = peg$classExpectation(['=', '\n'], true, false);
   const peg$c49 = /^[^\n#;,)]/;
   const peg$c50 = peg$classExpectation(['\n', '#', ';', ',', ')'], true, false);
-  const peg$c51 = function(k: any, v: any): any {
+  const peg$c51 = function (k: any, v: any): any {
     return { key: k.join('').trim(), value: v.join('').trim() };
   };
   const peg$c52 = '#';
@@ -278,7 +275,7 @@ function peg$parse(input: string, options?: IParseOptions) {
   const peg$c57 = peg$literalExpectation('exec', false);
   const peg$c58 = 'tryinclude';
   const peg$c59 = peg$literalExpectation('tryinclude', false);
-  const peg$c60 = function(action: any, params: any): any {
+  const peg$c60 = function (action: any, params: any): any {
     return {
       type: 'action-comment',
       action,
@@ -290,7 +287,7 @@ function peg$parse(input: string, options?: IParseOptions) {
   const peg$c63 = '--;';
   const peg$c64 = peg$literalExpectation('--;', false);
   const peg$c65 = peg$anyExpectation();
-  const peg$c66 = function(): any {
+  const peg$c66 = function (): any {
     return {
       type: 'comment',
       comment: text()

@@ -81,7 +81,7 @@ export function usePrismLanguage(language) {
           s.loading = false;
           s.grammar = Prism.languages[language];
           s.error = undefined;
-        })
+        }),
       );
       return;
     }
@@ -90,7 +90,7 @@ export function usePrismLanguage(language) {
       produce((s) => {
         s.loading = true;
         s.error = undefined;
-      })
+      }),
     );
     getLoader(components, [language], loaded)
       .load(
@@ -117,7 +117,7 @@ export function usePrismLanguage(language) {
           parallel: async (values) => {
             await Promise.all(values);
           },
-        }
+        },
       )
       .then(() => {
         setState(
@@ -125,7 +125,7 @@ export function usePrismLanguage(language) {
             s.loading = false;
             s.grammar = Prism.languages[language];
             s.error = undefined;
-          })
+          }),
         );
       })
       .catch((e) => {
@@ -133,7 +133,7 @@ export function usePrismLanguage(language) {
           produce((s) => {
             s.loading = false;
             s.error = e;
-          })
+          }),
         );
       });
   }, [language]);

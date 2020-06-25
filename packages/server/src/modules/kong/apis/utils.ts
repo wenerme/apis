@@ -5,7 +5,7 @@ import { mapValues } from 'lodash';
 export function buildSubEntityService<T extends KongEntity = any>(
   getKongService: () => KongService,
   entityName: string,
-  parentId
+  parentId,
 ): KongEntityService<T> {
   return buildEntityService(getKongService, entityName, (...args) => (next) => next(parentId, ...args));
 }
@@ -13,7 +13,7 @@ export function buildSubEntityService<T extends KongEntity = any>(
 export function buildEntityService<T extends KongEntity = any>(
   getKongService: () => KongService,
   entityName: string,
-  plugin?: (...args) => (next) => any
+  plugin?: (...args) => (next) => any,
 ): KongEntityService<T> {
   let v = {
     list: (...args) => getKongService()[`list${entityName}`](...args),

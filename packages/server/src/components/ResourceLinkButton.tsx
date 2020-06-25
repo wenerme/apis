@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { copy } from '@wener/utils';
 import { Button, Dropdown, Menu, message } from 'antd';
 
-
 export const ResourceLinkButton: React.FC<{
   formats?: string[];
   nameProvider?: (o: { format: string }) => string;
@@ -34,7 +33,7 @@ export const ResourceLinkButton: React.FC<{
           ))}
         </Menu>
       ),
-    formats
+    formats,
   );
   return (
     <div style={{ display: 'flex', justifyContent: 'space-around' }}>

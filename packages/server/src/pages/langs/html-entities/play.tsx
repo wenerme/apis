@@ -10,30 +10,30 @@ function useContainer({
   getState,
   subscribe,
 }: SubscriptioHookOptions<ReturnType<typeof createInitialState>>) {
-  const onEncodedChange = v => {
-    updateState(s => {
+  const onEncodedChange = (v) => {
+    updateState((s) => {
       s.encoded = v;
       s.decoded = decode(v, s.decodeOptions);
     });
   };
-  const onDecodedChange = v => {
-    updateState(s => {
+  const onDecodedChange = (v) => {
+    updateState((s) => {
       s.decoded = v;
       s.encoded = encode(v, s.encodeOptions);
     });
   };
-  const onEncodeOptionChange = v => {
-    updateState(s => {
+  const onEncodeOptionChange = (v) => {
+    updateState((s) => {
       Object.assign(s.encodeOptions, v);
     });
   };
 
   {
     let last = getState().encodeOptions;
-    subscribe(s => {
+    subscribe((s) => {
       if (last !== s.encodeOptions) {
         last = s.encodeOptions;
-        updateState(s => (s.encoded = encode(s.decoded, last)));
+        updateState((s) => (s.encoded = encode(s.decoded, last)));
       }
     });
   }
@@ -74,7 +74,7 @@ const DemoPageContent: React.FC = () => {
             <Input.TextArea
               rows={10}
               value={decoded}
-              onChange={v => {
+              onChange={(v) => {
                 onDecodedChange(v.target.value);
               }}
             />
@@ -83,7 +83,7 @@ const DemoPageContent: React.FC = () => {
         </Col>
         <Col span={12}>
           <Card title={'Encoded'}>
-            <Input.TextArea rows={10} value={encoded} onChange={v => onEncodedChange(v.target.value)} />
+            <Input.TextArea rows={10} value={encoded} onChange={(v) => onEncodedChange(v.target.value)} />
           </Card>
         </Col>
       </Row>
@@ -106,7 +106,7 @@ const EncodeOption: React.FC = () => {
         <label>
           <Checkbox
             checked={encodeEverything}
-            onChange={v => onEncodeOptionChange({ encodeEverything: v.target.checked })}
+            onChange={(v) => onEncodeOptionChange({ encodeEverything: v.target.checked })}
           />
           编码所有字符 - 即便是安全的非 ASCII 字符
         </label>
@@ -115,7 +115,7 @@ const EncodeOption: React.FC = () => {
         <label>
           <Checkbox
             checked={allowUnsafeSymbols}
-            onChange={v => onEncodeOptionChange({ allowUnsafeSymbols: v.target.checked })}
+            onChange={(v) => onEncodeOptionChange({ allowUnsafeSymbols: v.target.checked })}
           />
           允许不安全字符
         </label>
@@ -124,7 +124,7 @@ const EncodeOption: React.FC = () => {
         <label>
           <Checkbox
             checked={useNamedReferences}
-            onChange={v => onEncodeOptionChange({ useNamedReferences: v.target.checked })}
+            onChange={(v) => onEncodeOptionChange({ useNamedReferences: v.target.checked })}
           />
           允许使用命名的字符引用
         </label>

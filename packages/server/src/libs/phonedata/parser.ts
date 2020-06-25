@@ -112,7 +112,7 @@ export function parsePhoneData(buffer: Buffer) {
 
 export function searchByPhoneNumber(
   data: PhoneData,
-  num: number | string
+  num: number | string,
 ): { index?: PhoneDataIndex; record?: PhoneDataRecord } {
   const prefix = normalizePrefix(num);
   const idx = sortedIndexBy<Partial<PhoneDataIndex>>(data.indexes, { prefix }, (o) => o.prefix);
@@ -123,7 +123,7 @@ export function searchByPhoneNumber(
   const recordIndex = sortedIndexBy<Partial<PhoneDataRecord>>(
     data.records,
     { offset: phoneDataIndex.recordOffset },
-    (o) => o.offset
+    (o) => o.offset,
   );
   const phoneDataRecord = data.records[recordIndex];
   if (!phoneDataRecord) {
