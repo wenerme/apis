@@ -3,7 +3,7 @@ import { FieldTemplateProps } from '@rjsf/core';
 import { Button, Col, Form, Input, Row } from 'antd';
 import { AntdThemeFormContext } from './layouts';
 import { ADDITIONAL_PROPERTY_FLAG } from '@rjsf/core/lib/utils';
-import { CloseOutlined } from '@ant-design/icons/lib';
+import { CloseOutlined } from '@ant-design/icons';
 
 export const FieldTemplate: React.FC<FieldTemplateProps & any> = ({
   children,

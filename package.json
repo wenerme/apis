@@ -1,6 +1,7 @@
 {
   "name": "@wener/apis",
   "private": true,
+  "repository": "https://github.com/wenerme/apis",
   "workspaces": [
     "packages/*"
   ],
@@ -17,39 +18,39 @@
     "build:ui": "yarn --cwd packages/ui run build",
     "build:utils": "yarn --cwd packages/utils run build",
     "dev": "yarn --cwd packages/server run dev",
-    "format": "yarn workspaces foreach run format",
+    "format": "yarn prettier --write packages/*/src packages/*/stories",
+    "lint": "yarn eslint --fix --ext .ts,.tsx packages/*/src",
     "pub": "yarn pub:build && yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
     "pub:build": "yarn build:utils && run-p build:tinyrpc build:ui build:rjsf-antd && yarn --cwd packages/server run tsc --noEmit",
-    "sort": "npx sort-package-json package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json && prettier --write package.json tsconfig*.json packages/*/package.json packages/*/tsconfig*.json",
+    "sort": "yarn dlx sort-package-json package.json packages/*/package.json packages/*/tsconfig*.json && prettier --write package.json packages/*/package.json packages/*/tsconfig*.json",
     "start": "yarn --cwd packages/server run start",
     "start:server": "yarn --cwd packages/server run start",
-    "test": "yarn --cwd packages/server run test"
+    "test": "yarn --cwd packages/server run test",
+    "typesync": "yarn workspaces foreach dlx typesync"
   },
   "resolutions": {
     "babel-jest": "*",
     "jest": "*",
-    "prettier": "^2.0.0",
+    "prettier": "^2",
     "styled-components": ">= 5",
     "svgo": "^1.3.2",
     "tinacms": "*"
   },
-  "dependencies": {
-    "styled-components": ">= 5",
-    "tinacms": "*"
-  },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.0.2",
-    "@typescript-eslint/parser": "^3.0.2",
-    "eslint": "^7.0.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-jest": "*",
-    "eslint-plugin-react": "*",
-    "eslint-plugin-react-hooks": "*",
-    "husky": "^4.2.3",
+    "@types/eslint": "^7",
+    "@types/prettier": "^2",
+    "@typescript-eslint/eslint-plugin": "^3",
+    "@typescript-eslint/parser": "^3",
+    "eslint": "^7",
+    "eslint-config-prettier": "^6",
+    "eslint-plugin-jest": "^23",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-react-hooks": "^4",
+    "husky": "^4",
     "lerna": "^3.20.2",
-    "lint-staged": "^10.0.8",
+    "lint-staged": "^10",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.0"
+    "prettier": "^2"
   },
   "engines": {
     "node": "12"
