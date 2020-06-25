@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "sourceMap": true,
-    "jsx": "react"
-  },
-  "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx", "__tests__", "stories"]
-}

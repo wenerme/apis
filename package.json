@@ -13,7 +13,7 @@
     "pub": "yarn pub:build && yarn lerna publish prerelease --registry https://registry.npmjs.org/  --no-push",
     "pub:build": "yarn build:utils && run-p build:tinyrpc build:ui build:rjsf-antd && yarn --cwd packages/server run tsc --noEmit",
     "sort": "yarn dlx sort-package-json package.json packages/*/package.json packages/*/tsconfig*.json && prettier --write package.json packages/*/package.json packages/*/tsconfig*.json",
-    "start": "yarn --cwd packages/server run start",
+    "start": "yarn workspace @wener/apis-server run start",
     "start:server": "yarn --cwd packages/server run start",
     "test": "yarn workspaces foreach -pt run test",
     "typesync": "yarn workspaces foreach -pt dlx typesync"

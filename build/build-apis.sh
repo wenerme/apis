@@ -2,6 +2,8 @@
 set -ex
 
 BASEDIR=$(realpath "$(dirname "$0")"/..)
+cd "$BASEDIR"
+
 echo Building apis - "$BASEDIR"
 
 yarn

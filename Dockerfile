@@ -7,7 +7,7 @@ RUN apk add --no-cache curl nano \
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY node_modules /app
+COPY .yarn /app
 COPY packages/server/.next/cache /app/packages/server/.next/cache
 COPY . /app
 RUN yarn && yarn build
