@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "build:storybook": "build-storybook -c .storybook -o storybook",
+    "build:storybook": "build-storybook -c .storybook -o storybook --quiet",
     "dev": "yarn storybook",
     "storybook": "start-storybook -p ${PORT:-6006}",
     "test": "jest"
