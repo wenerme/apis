@@ -2,7 +2,10 @@ FROM node:12-alpine
 
 RUN apk add --no-cache curl nano \
       # https://www.npmjs.com/package/node-gyp
-      python make gcc g++
+      python make gcc g++ \
+      # canvas
+      # https://github.com/Automattic/node-canvas/issues/1065#issuecomment-445548120
+      cairo-dev pango-dev jpeg-dev pixman-dev
 
 #RUN mkdir -p /app
 #WORKDIR /app
@@ -23,7 +26,7 @@ COPY .yarnrc.yml /app
 COPY yarn.lock /app
 COPY package.json /app
 COPY packages /app/packages
-RUN yarn install --immutable --immutable-cache && yarn build
+RUN yarn install --immutable --immutable-cache --inline-builds && yarn build
 
 CMD [ "yarn", "start"]
 
