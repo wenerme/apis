@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# set -ex
+set -ex
 
 BASEDIR=$(realpath "$(dirname "$0")"/..)
 cd "$BASEDIR"
 
 echo Building apis - "$BASEDIR"
 
-yarn
+yarn install
 
 yarn build
 yarn workspaces foreach -p run build:docs
