@@ -1,3 +1,4 @@
+## TODO
 - [ ] p3 kong return null for array config - select widget not handle correctly
 - [ ] p4 选择 cert 的 时候 有 tag 更方便
 - [ ] p5 select tag 模式不能编辑内容
@@ -14,6 +15,13 @@
 - [ ] p3 storybook bundle 过大 - 28MB
 - [ ] p3 gitlab ci 发布 npm
 - [ ] p3 guthub action 发布 npm
+- [ ] p1 项目重构
+  - 现在问题
+    - 构建非常慢
+    - 单个项目过大，依赖内容过多
+    - 前端很多内容是无关的，但是还是需要一起编译更新
+  - [ ] 前后端拆分
+  - [ ] 微前端结构
 
 ## 20200625
 - [x] yarn2
