@@ -1,6 +1,6 @@
 /// see https://github.com/jfromaniello/url-join
 export function urljoin(...strArray: string[]) {
-  const resultArray = [];
+  const resultArray: string[] = [];
   if (strArray.length === 0) {
     return '';
   }

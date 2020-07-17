@@ -1,22 +1,19 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "ES2019",
+    "target": "es2019",
     "module": "commonjs",
-    "lib": ["ES2019", "dom"],
-    "skipLibCheck": true,
+    "lib": ["esnext", "dom"],
     "strict": true,
     "sourceMap": true,
+    "skipLibCheck": true,
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "lib",
-    "baseUrl": ".",
-    "paths": {
-      "src/*": ["src/*"]
-    }
+    "noImplicitAny": false,
+    "outDir": "lib"
   },
   "exclude": ["node_modules", "**/__tests__/*"],
-  "include": ["src/**/*.ts"]
+  "include": ["src"]
 }

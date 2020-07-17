@@ -1,1 +1,1 @@
-export * from './src/tinyrpc';
+export * from './src';

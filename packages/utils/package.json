@@ -16,10 +16,18 @@
   "main": "lib/index.js",
   "source": "src/index.ts",
   "typings": "lib/index.d.ts",
+  "module": "es/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/wener-utils.js",
+      "require": "./dist/cjs/wener-utils.cjs"
+    }
+  },
   "files": [
     "index.js",
     "index.d.ts",
     "lib",
+    "es",
     "dist",
     "src",
     "README.md",
@@ -31,33 +39,29 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "build": "yarn build:js && yarn build:bundle",
-    "build:bundle": "echo rollup -c rollup.config.ts",
-    "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "build:js": "tsc",
-    "clean": "rm -rf ./lib ./dist",
+    "build": "make build",
+    "clean": "make clean",
     "test": "jest"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^12",
-    "@rollup/plugin-json": "^4",
-    "@rollup/plugin-node-resolve": "^8",
-    "@rollup/plugin-typescript": "^4",
+    "@babel/core": "^7",
+    "@rollup/plugin-babel": "^5",
+    "@rollup/plugin-typescript": "^5",
+    "@types/babel__core": "^7",
     "@types/jest": "^25",
     "@types/lodash": "^4",
     "@types/node": "^12",
     "dotenv": "^8",
-    "isomorphic-unfetch": "^3",
     "jest": "^26",
     "lodash": "^4",
     "rollup": "^2",
+    "rollup-plugin-terser": "^6",
     "ts-jest": "^26",
     "tslib": "^2",
     "typedoc": "^0",
     "typescript": "^3"
   },
-  "optionalDependencies": {
-    "isomorphic-unfetch": "*",
+  "peerDependencies": {
     "lodash": "*"
   },
   "publishConfig": {

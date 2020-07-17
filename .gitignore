@@ -140,6 +140,7 @@ dist
 .idea
 ignored
 data
+packages/*/es
 packages/*/lib
 packages/*/docs
 packages/*/storybook

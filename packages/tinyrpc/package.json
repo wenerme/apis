@@ -7,20 +7,27 @@
   ],
   "repository": {
     "type": "git",
+    "directory": "packages/tinyrpc",
     "url": "git+https://github.com/wener/apis.git"
   },
   "license": "MIT",
   "author": "wener",
-  "main": "lib/tinyrpc.js",
-  "umd:main": "dist/tinyrpc.umd.js",
-  "module": "dist/tinyrpc.es5.js",
-  "source": "src/tinyrpc.ts",
-  "browser": "dist/tinyrpc.umd.js",
-  "typings": "lib/tinyrpc.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "source": "src/index.ts",
+  "browser": "dist/umd/wener-tinyrpc.js",
+  "typings": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/wener-tinyrpc.js",
+      "require": "./dist/cjs/wener-tinyrpc.cjs"
+    }
+  },
   "files": [
     "index.js",
     "index.d.ts",
     "lib",
+    "es",
     "dist",
     "src",
     "README.md",
@@ -32,34 +39,23 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "build": "yarn build:js && yarn build:bundle",
-    "build:bundle": "rollup -c rollup.config.ts",
-    "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "build:js": "tsc",
-    "clean": "rm -rf ./lib ./dist",
+    "build": "make build",
+    "clean": "make clean",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest"
   },
-  "dependencies": {
-    "tslib": "*"
-  },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "latest",
-    "@rollup/plugin-json": "latest",
-    "@rollup/plugin-node-resolve": "latest",
-    "@rollup/plugin-typescript": "latest",
+    "@babel/core": "^7",
+    "@rollup/plugin-babel": "^5",
+    "@types/babel__core": "^7",
     "@types/jest": "latest",
-    "@types/rollup-plugin-json": "latest",
     "dotenv": "^8",
     "jest": "^26",
     "rollup": "^2.3.2",
-    "ts-jest": "^25.2.1",
-    "tslib": "*",
+    "rollup-plugin-terser": "^6",
+    "ts-jest": "^25",
     "typedoc": "^0",
     "typescript": "^3"
-  },
-  "optionalDependencies": {
-    "isomorphic-unfetch": "*"
   },
   "publishConfig": {
     "access": "public"

@@ -1,1 +1,1 @@
-export * from './lib/tinyrpc';
+export * from './lib';
