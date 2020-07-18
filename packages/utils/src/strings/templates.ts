@@ -1,4 +1,4 @@
-import get from 'lodash/get';
+import { get } from 'lodash';
 
 /**
  * 替换类似于 JS 的模板字符串

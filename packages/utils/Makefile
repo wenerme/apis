@@ -1,4 +1,4 @@
-.PHONY: es lib build bundle docs clean
+.PHONY: build bundle clean
 
 build: es lib bundle docs
 

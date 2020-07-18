@@ -47,10 +47,13 @@
   "devDependencies": {
     "@babel/core": "^7",
     "@rollup/plugin-babel": "^5",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@types/babel__core": "^7",
     "@types/jest": "latest",
+    "@types/lodash": "^4",
     "dotenv": "^8",
     "jest": "^26",
+    "lodash": "^4",
     "rollup": "^2.3.2",
     "rollup-plugin-terser": "^6",
     "ts-jest": "^25",

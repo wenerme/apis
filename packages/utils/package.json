@@ -46,6 +46,7 @@
   "devDependencies": {
     "@babel/core": "^7",
     "@rollup/plugin-babel": "^5",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5",
     "@types/babel__core": "^7",
     "@types/jest": "^25",

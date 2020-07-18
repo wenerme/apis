@@ -41,7 +41,7 @@
     "core-js": "^3.6.5",
     "dotenv": "^8",
     "immer": "^7",
-    "jest": "^25",
+    "jest": "^26",
     "json-schema": "^0.2.5",
     "lodash": "^4",
     "moment": "^2",

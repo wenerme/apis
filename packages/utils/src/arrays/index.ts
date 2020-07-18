@@ -1,1 +1,1 @@
-export { MaybeArray, arrayOfMaybeArray, firstOfMaybeArray, lastOfMaybeArray, objectOfMaybeArray } from './MaybeArray';
+export * from './MaybeArray';
