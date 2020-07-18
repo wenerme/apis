@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "es2020",
+    "outDir": "es"
+  },
+  "extends": "./tsconfig.build.json"
+}

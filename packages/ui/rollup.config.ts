@@ -1,49 +1,73 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-// import sourceMaps from 'rollup-plugin-sourcemaps';
-import {camelCase} from '@wener/utils';
-import json from '@rollup/plugin-json';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import { camelCase } from '@wener/utils';
+import babel from '@rollup/plugin-babel';
+import { terser } from 'rollup-plugin-terser';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+
+function onwarn(warning) {
+  if (warning.code === 'THIS_IS_UNDEFINED') {
+    return;
+  }
+  console.warn('THIS_IS_UNDEFINED', warning.message);
+}
+
 // yarn add -D rollup @rollup/plugin-{commonjs,node-resolve,typescript,json} tslib typescript
 const pkg = require('./package.json');
 
 const libraryName = pkg.name.replace('@', '').replace('/', '-');
 
-export default {
-  // ts not working
-  // https://github.com/rollup/plugins/issues?q=is%3Aissue+is%3Aopen+label%3A%22%F0%9F%94%8C+plugin-typescript%22+
-  // input: `src/${libraryName}.ts`,
-  input: `lib/index.js`,
-  output: [
-    {
-      file: `dist/${libraryName}.umd.js`,
-      name: camelCase(libraryName),
-      format: 'umd',
-      sourcemap: true,
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'prop-types': 'PropTypes',
-        'styled-components': 'styled',
-        lodash: '_',
+export default [
+  {
+    input: `es/index.js`,
+    onwarn,
+    external: Object.keys(require('./package.json').peerDependencies),
+    plugins: [
+      nodeResolve(),
+      babel({
+        babelHelpers: 'bundled',
+        babelrc: false,
+        // presets: [
+        //   ['@babel/env', { 'modules': false }],
+        // ],
+      }),
+      terser(),
+    ],
+    output: [
+      {
+        file: `dist/${libraryName}.umd.js`,
+        name: camelCase(libraryName),
+        format: 'umd',
+        sourcemap: true,
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          rxjs: 'Rx',
+          immer: 'immer',
+          'prop-types': 'PropTypes',
+          'styled-components': 'styled',
+          lodash: '_',
+        },
       },
-    },
-    // https://github.com/rollup/rollup-plugin-commonjs/issues/290
-    { file: `dist/${libraryName}.esm.js`, format: 'es', sourcemap: true },
-  ],
-  // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: ['react', 'react-is', 'styled-components', 'lodash', 'react-dom', 'prop-types'],
-
-  watch: {
-    include: 'lib/**',
+      { file: `dist/${libraryName}.cjs`, format: 'cjs', sourcemap: true },
+    ],
   },
-  plugins: [
-    peerDepsExternal(),
-    json(),
-    // typescript({ tsconfig: 'tsconfig.rollup.json'}),
-    commonjs({ extensions: ['.js', '.ts', '.tsx'] }),
-    resolve({
-      dedupe: ['react', 'react-dom'],
-    }),
-  ],
-};
+  {
+    input: `es/index.js`,
+    onwarn,
+    external: Object.keys(require('./package.json').peerDependencies),
+    plugins: [
+      nodeResolve(),
+      babel({
+        babelHelpers: 'bundled',
+        babelrc: false,
+      }),
+      terser({ ecma: 6, module: true }),
+    ],
+    output: [
+      {
+        file: `dist/${libraryName}.esm.js`,
+        format: 'esm',
+        sourcemap: true,
+      },
+    ],
+  },
+];

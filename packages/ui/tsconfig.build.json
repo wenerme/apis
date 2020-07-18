@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "emitDeclarationOnly": true
+    "target": "ES2019"
   },
-  "exclude": ["node_modules", "./lib/**/*"],
   "extends": "./tsconfig.json",
   "include": ["src"]
 }
