@@ -6,7 +6,7 @@ lib:
 	yarn tsc --build tsconfig.json .
 es:
 	yarn tsc --build tsconfig.es.json .
-bundle: es lib
+bundle:
 	yarn rollup -c rollup.config.ts
 docs:
 	yarn typedoc --out docs --target es6 --theme minimal --mode file src

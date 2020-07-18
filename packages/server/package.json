@@ -175,7 +175,12 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7",
+    "@babel/preset-react": "^7",
+    "@babel/preset-typescript": "^7",
+    "@rollup/plugin-babel": "^5",
+    "@rollup/plugin-node-resolve": "^8",
+    "@rollup/plugin-typescript": "^5",
     "@storybook/addon-actions": "next",
     "@storybook/addon-docs": "next",
     "@storybook/addon-links": "next",
@@ -275,11 +280,14 @@
     "lerna": "^3.20.2",
     "prettier": "^2.0.1",
     "rc-table": "^7.7.2",
+    "rollup": "^2.22.0",
+    "rollup-plugin-terser": "^6.1.0",
     "sql.js": "^1.2.1",
     "svgo": "^1.3.2",
     "ts-jest": "latest",
     "ts-loader": "latest",
     "ts-node": "latest",
+    "tslib": "^2.0.0",
     "typescript": "latest",
     "webpack": "^4.43.0"
   },

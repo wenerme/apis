@@ -9,6 +9,7 @@ const globals = {
 };
 const globalName = startCase(camelCase(libraryName)).replace(/\W/g, '');
 const external = Object.keys(require('./package.json').peerDependencies || {});
+const input = 'src/index.ts';
 
 /* Common Rollup Script
  * =====================
@@ -41,8 +42,20 @@ function addMini() {
 
 export default [
   {
-    input: 'es/index.js',
-    plugins: [nodeResolve({ browser: true }), babel({ babelHelpers: 'bundled' })],
+    input,
+    plugins: [
+      nodeResolve({
+        browser: true,
+        extensions: ['.js', '.ts'],
+      }),
+
+      babel({
+        babelHelpers: 'bundled',
+        presets: ['@babel/preset-env', '@babel/preset-typescript'],
+        plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
+        extensions: ['.js', '.ts'],
+      }),
+    ],
     external,
     onwarn,
     output: [
@@ -66,8 +79,20 @@ export default [
     ],
   },
   {
-    input: 'es/index.js',
-    plugins: [nodeResolve({ browser: true }), babel({ babelHelpers: 'bundled' })],
+    input,
+    plugins: [
+      nodeResolve({
+        browser: true,
+        extensions: ['.js', '.ts'],
+      }),
+
+      babel({
+        babelHelpers: 'bundled',
+        presets: ['@babel/preset-env', '@babel/preset-typescript'],
+        plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
+        extensions: ['.js', '.ts'],
+      }),
+    ],
     external,
     onwarn,
     output: [

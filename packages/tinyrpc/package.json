@@ -19,8 +19,8 @@
   "typings": "lib/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/wener-tinyrpc.js",
-      "require": "./dist/cjs/wener-tinyrpc.cjs"
+      "import": "./dist/wener-tinyrpc.esm.min.js",
+      "require": "./dist/wener-tinyrpc.min.cjs"
     }
   },
   "files": [
@@ -46,9 +46,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
     "@rollup/plugin-babel": "^5",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@types/babel__core": "^7",
+    "@types/babel__preset-env": "^7",
     "@types/jest": "latest",
     "@types/lodash": "^4",
     "dotenv": "^8",

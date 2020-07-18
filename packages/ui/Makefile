@@ -14,4 +14,5 @@ clean:
 	rm -rf ./lib ./dist ./es ./docs
 
 prepare:
-	yarn add -D @babel/core @rollup/plugin-babel rollup-plugin-terser
+	yarn add -D rollup @babel/core @rollup/plugin-babel rollup-plugin-terser @rollup/plugin-node-resolve
+	yarn add -D typescript tslib @rollup/plugin-typescript
