@@ -9,8 +9,25 @@ if (!mod) {
 const libraryName = `wener-apis-${mod}`;
 const input = `src/modules/${mod}/index.ts`;
 
-const external = ['react', 'react-dom', 'immer', 'lodash', '@wener/ui', '@wener/utils'];
+const external = [
+  //
+  'react',
+  'react-dom',
+  'immer',
+  //
+  'lodash',
+  //
+  'antd',
+  //
+  '@wener/ui',
+  '@wener/utils',
+  //
+  'single-spa',
+  // 'single-spa-react',
+];
 
+const dev = process.env.NODE_ENV !== 'production';
+const dir = `public/modules`;
 /* Common Rollup Script
  * =====================
  */
@@ -24,6 +41,10 @@ function onwarn(warning) {
 
 function addMini() {
   return (src) => {
+    if (dev) {
+      return src;
+    }
+
     let opt = {};
     if (src.output.find((v) => v.format === 'esm')) {
       opt = {
@@ -60,7 +81,7 @@ export default [
     onwarn,
     output: [
       {
-        file: `dist/${libraryName}.system.js`,
+        file: `${dir}/${libraryName}.system.js`,
         format: 'system',
         sourcemap: true,
       },

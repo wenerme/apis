@@ -1,10 +1,10 @@
-.PHONY: es lib build bundle docs clean
+.PHONY: build bundle docs clean
 
 build: es lib bundle docs
 
-lib:
+lib: tsconfig.build.json
 	yarn tsc --build tsconfig.build.json .
-es:
+es: tsconfig.es.json
 	yarn tsc --build tsconfig.es.json .
 bundle: es lib
 	yarn rollup -c rollup.config.ts

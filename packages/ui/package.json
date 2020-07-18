@@ -128,6 +128,7 @@
     "rollup-plugin-peer-deps-external": "^2",
     "rollup-plugin-terser": "^6.1.0",
     "rxjs": "^6",
+    "single-spa-react": "^3.0.0",
     "styled-components": "next",
     "svgo": "^1.3.2",
     "tinacms": "^0",
