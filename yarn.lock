@@ -4956,6 +4956,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-commonjs@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@rollup/plugin-commonjs@npm:14.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-commonjs%2Fdownload%2F%40rollup%2Fplugin-commonjs-14.0.0.tgz"
+  dependencies:
+    "@rollup/pluginutils": ^3.0.8
+    commondir: ^1.0.1
+    estree-walker: ^1.0.1
+    glob: ^7.1.2
+    is-reference: ^1.1.2
+    magic-string: ^0.25.2
+    resolve: ^1.11.0
+  peerDependencies:
+    rollup: ^2.3.4
+  checksum: f8c733dee53be98576bd9c739a876635407792944abcc1eba2cd9444ce673092582b863be9a1d29c2dde56a654761b1df1ba5301686e94359bca114d1c05c893
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-json@npm:^4.0.2":
   version: 4.1.0
   resolution: "@rollup/plugin-json@npm:4.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-json%2Fdownload%2F%40rollup%2Fplugin-json-4.1.0.tgz"
@@ -7156,6 +7173,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/parse5@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "@types/parse5@npm:5.0.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fparse5%2Fdownload%2F%40types%2Fparse5-5.0.3.tgz"
+  checksum: 62b6ad696aeee22dc26bba2039bfb55773caf7cd705cb1b226a7107c187422782e6759ca6de54f9d1a299f335c2b99973774c9436a378f57927f36619570dc1d
+  languageName: node
+  linkType: hard
+
 "@types/pegjs@npm:^0.10.2":
   version: 0.10.2
   resolution: "@types/pegjs@npm:0.10.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fpegjs%2Fdownload%2F%40types%2Fpegjs-0.10.2.tgz"
@@ -7460,6 +7484,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-helmet@npm:^6":
+  version: 6.0.0
+  resolution: "@types/react-helmet@npm:6.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-helmet%2Fdownload%2F%40types%2Freact-helmet-6.0.0.tgz"
+  dependencies:
+    "@types/react": "*"
+  checksum: f53121736d0821a98c85ec8384f48796849ea4b16759ebe299d61ba30d3ee3e702f5269cab21675c4676f377a480666910c0837ad058f24a8e4a5b0e522a37cf
+  languageName: node
+  linkType: hard
+
 "@types/react-icon-base@npm:^2.1.3":
   version: 2.1.3
   resolution: "@types/react-icon-base@npm:2.1.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-icon-base%2Fdownload%2F%40types%2Freact-icon-base-2.1.3.tgz"
@@ -7469,12 +7502,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-is@npm:^16":
+  version: 16.7.1
+  resolution: "@types/react-is@npm:16.7.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-is%2Fdownload%2F%40types%2Freact-is-16.7.1.tgz"
+  dependencies:
+    "@types/react": "*"
+  checksum: 8f1cf3ef9fcb2f4079d87121b6c2051e46f3bd798eacd3bc5d0335ffd6dadce19e3ea2b4d870e4ec857ec64ca2f14c1bf1e5695a9f1ea7b68f1af81086fb6603
+  languageName: node
+  linkType: hard
+
 "@types/react-lazyload@npm:^2.6.0":
   version: 2.6.0
   resolution: "@types/react-lazyload@npm:2.6.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-lazyload%2Fdownload%2F%40types%2Freact-lazyload-2.6.0.tgz"
   dependencies:
     "@types/react": "*"
   checksum: 85a2013ca9c6ba64153eb050d2135bed7f614d73f72cb23cb4d6bcd43f0eda58d4f195a38d0ec3af0ee790e1bfa5e97d359566818cfe7ed91d5405e5ca36cf90
+  languageName: node
+  linkType: hard
+
+"@types/react-loadable@npm:^5":
+  version: 5.5.3
+  resolution: "@types/react-loadable@npm:5.5.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-loadable%2Fdownload%2F%40types%2Freact-loadable-5.5.3.tgz"
+  dependencies:
+    "@types/react": "*"
+    "@types/webpack": "*"
+  checksum: e1cef28401debe77152b76f8c8eb0bec726c14804b016baeefac2729bbc14a1a54fe900272d378dbd03a0c1baf2368ed3ae51ecacd197a4ae2c4eb11cb4da9af
   languageName: node
   linkType: hard
 
@@ -7795,6 +7847,20 @@ __metadata:
     "@types/source-list-map": "*"
     source-map: ^0.7.3
   checksum: fc237a6e8b04351329da179024b6fba4841ecc02374215f41b83693576ed553462c9c0cb3da59d044a3c7caa1153e40222843da073d8198f9eb20a5ce3e686e0
+  languageName: node
+  linkType: hard
+
+"@types/webpack@npm:*":
+  version: 4.41.21
+  resolution: "@types/webpack@npm:4.41.21::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fwebpack%2Fdownload%2F%40types%2Fwebpack-4.41.21.tgz"
+  dependencies:
+    "@types/anymatch": "*"
+    "@types/node": "*"
+    "@types/tapable": "*"
+    "@types/uglify-js": "*"
+    "@types/webpack-sources": "*"
+    source-map: ^0.6.0
+  checksum: 3a02667221be2d8ecdb2da8d78e74dbc6ef216a4f0c636017e9dbe243198ed80a258e0c9f9e0613eea76efe77b5293f6f052dee4d26adc3dd54e56f38a2031f2
   languageName: node
   linkType: hard
 
@@ -8189,6 +8255,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wener/apis-client@link:./src/modules/client/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
+  version: 0.0.0-use.local
+  resolution: "@wener/apis-client@link:./src/modules/client/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
+  languageName: node
+  linkType: soft
+
+"@wener/apis-dash@link:./src/modules/dash/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
+  version: 0.0.0-use.local
+  resolution: "@wener/apis-dash@link:./src/modules/dash/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
+  languageName: node
+  linkType: soft
+
+"@wener/apis-geo@link:./src/modules/geo/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
+  version: 0.0.0-use.local
+  resolution: "@wener/apis-geo@link:./src/modules/geo/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
+  languageName: node
+  linkType: soft
+
 "@wener/apis-server@workspace:packages/server":
   version: 0.0.0-use.local
   resolution: "@wener/apis-server@workspace:packages/server"
@@ -8206,6 +8290,7 @@ __metadata:
     "@now/node": ^1.3.5
     "@reduxjs/toolkit": ^1.2.3
     "@rollup/plugin-babel": ^5
+    "@rollup/plugin-commonjs": ^14.0.0
     "@rollup/plugin-node-resolve": ^8
     "@rollup/plugin-typescript": ^5
     "@storybook/addon-actions": next
@@ -8276,7 +8361,10 @@ __metadata:
     "@types/react": ^16.9.19
     "@types/react-color": ^3.0.1
     "@types/react-dom": ^16.9.8
+    "@types/react-helmet": ^6
     "@types/react-icon-base": ^2.1.3
+    "@types/react-is": ^16
+    "@types/react-loadable": ^5
     "@types/react-redux": ^7.1.7
     "@types/react-router": ^5.1.7
     "@types/react-router-dom": ^5.1.3
@@ -8294,6 +8382,10 @@ __metadata:
     "@types/webtorrent": ^0.107.1
     "@types/xmldom": ^0.1.29
     "@types/zxcvbn": ^4.4.0
+    "@wener/apis-client": "link:./src/modules/client/"
+    "@wener/apis-dash": "link:./src/modules/dash/"
+    "@wener/apis-geo": "link:./src/modules/geo/"
+    "@wener/apis-test": "link:./src/modules/test/"
     "@wener/tinyrpc": ^1.0.0-alpha.14
     "@wener/ui": "workspace:packages/ui"
     "@wener/utils": "workspace:packages/utils"
@@ -8408,9 +8500,12 @@ __metadata:
     react-dom: latest
     react-fast-compare: ^3.0.1
     react-ga: ^2.7.0
+    react-helmet: ^6.1.0
     react-i18next: ^11.3.3
     react-icon-base: ^2.1.2
     react-icons: ^3.9.0
+    react-is: ^16.13.1
+    react-loadable: ^5.5.0
     react-redux: ^7.1.3
     react-router: ^5.2.0
     react-router-dom: ^5.1.2
@@ -8426,6 +8521,7 @@ __metadata:
     sanitize-html: ^1.22.0
     shelljs: ^0
     single-spa: ^5.5.5
+    single-spa-layout: ^1.0.0
     single-spa-react: ^3.0.0
     slate: "*"
     slate-history: "*"
@@ -8458,6 +8554,12 @@ __metadata:
   bin:
     apis-server: dist/servers/index.js
   languageName: unknown
+  linkType: soft
+
+"@wener/apis-test@link:./src/modules/test/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
+  version: 0.0.0-use.local
+  resolution: "@wener/apis-test@link:./src/modules/test/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
+  languageName: node
   linkType: soft
 
 "@wener/apis@workspace:.":
@@ -23616,7 +23718,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prop-types@npm:15.7.2, prop-types@npm:15.x, prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.7, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.1, prop-types@npm:^15.7.2":
+"prop-types@npm:15.7.2, prop-types@npm:15.x, prop-types@npm:^15.0.0, prop-types@npm:^15.5.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.7, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.1, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fprop-types%2Fdownload%2Fprop-types-15.7.2.tgz"
   dependencies:
@@ -24986,7 +25088,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-fast-compare@npm:*, react-fast-compare@npm:^3.0.1":
+"react-fast-compare@npm:*, react-fast-compare@npm:^3.0.1, react-fast-compare@npm:^3.1.1":
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-fast-compare%2Fdownload%2Freact-fast-compare-3.2.0.tgz"
   checksum: 6fe65c889eb4f326e97769135f97b3d63ac68737866f9c37f9625c9de4f5eaa9abed6f748eb3fd6a66808392118842916309cab7cfa99c67991f0c837433d6d2
@@ -25043,6 +25145,20 @@ fsevents@^1.2.7:
     react: ^16.6.0
     react-dom: ^16.6.0
   checksum: 7b30fad33a212df5e61734b21c8a816e00d5516172c0e74e481f93c2724f673d08f8c1381a015085fbadaa8f9981aae1d9f8aab11c923bd650e70af90fee595a
+  languageName: node
+  linkType: hard
+
+"react-helmet@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "react-helmet@npm:6.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-helmet%2Fdownload%2Freact-helmet-6.1.0.tgz"
+  dependencies:
+    object-assign: ^4.1.1
+    prop-types: ^15.7.2
+    react-fast-compare: ^3.1.1
+    react-side-effect: ^2.1.0
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: 56fd795b0aecc89bac8d2733268751f0ef463bf6764090f8a801778741d4a6eaf135234cdaa50188bbda29c8e2d3ec43e9a42d1ec06b60092645c8754c7bad81
   languageName: node
   linkType: hard
 
@@ -25128,7 +25244,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-is@npm:16.13.1, react-is@npm:^16.12.0, react-is@npm:^16.6.0, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
+"react-is@npm:16.13.1, react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.6.0, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-is%2Fdownload%2Freact-is-16.13.1.tgz"
   checksum: 11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
@@ -25149,6 +25265,17 @@ fsevents@^1.2.7:
   version: 3.0.4
   resolution: "react-lifecycles-compat@npm:3.0.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-lifecycles-compat%2Fdownload%2Freact-lifecycles-compat-3.0.4.tgz"
   checksum: 82176a55ef7526414d770d5e07dc1d28b4c7f20281f22c6f53f3a98df9dbbb5d70c94bebee57b4ea8ccc2eee430b907ca7b564a42fbdd0ed21e7c43bfee35404
+  languageName: node
+  linkType: hard
+
+"react-loadable@npm:^5.5.0":
+  version: 5.5.0
+  resolution: "react-loadable@npm:5.5.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-loadable%2Fdownload%2Freact-loadable-5.5.0.tgz"
+  dependencies:
+    prop-types: ^15.5.0
+  peerDependencies:
+    react: "*"
+  checksum: fb14650fe86f20c2554e3645482ed67eb4ce0e46d72e06f91a7f57739e90b1b42c31e8597d7d415ee69bc16f85211bafec7b24ddadd7f3fe72c176f45931158d
   languageName: node
   linkType: hard
 
@@ -25317,6 +25444,15 @@ fsevents@^1.2.7:
     react: ^16.8.0
     react-dom: ^16.8.0
   checksum: 95881de591b4b11f434ac0310d9e1f84e0794e6e485d8e131003e298ded230852799962a267e5513b3bdf598e6a9869a38cfcc946bfb5fe649eb5cf41b0c0731
+  languageName: node
+  linkType: hard
+
+"react-side-effect@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-side-effect@npm:2.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-side-effect%2Fdownload%2Freact-side-effect-2.1.0.tgz"
+  peerDependencies:
+    react: ^16.3.0
+  checksum: 643a9898953776783515df3510a438f262f6dff059c3f880b7bbc180957cd0f9a0c4d7b3ae72c347d0f7c56bbd16466e850c5d9e213abad024df3b6c3a430564
   languageName: node
   linkType: hard
 
@@ -27223,6 +27359,15 @@ resolve@1.1.7:
     readable-stream: ^3.1.1
     ws: ^7.0.0
   checksum: 00c3d99146c44192bd3d7d5363e0313bf95da688105de7b87d7e77e3fb1d9736c0df0e1fb7129c57e875d673080ca465dfade1029bc56a08c05de3ea109f6121
+  languageName: node
+  linkType: hard
+
+"single-spa-layout@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "single-spa-layout@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsingle-spa-layout%2Fdownload%2Fsingle-spa-layout-1.0.0.tgz"
+  dependencies:
+    "@types/parse5": ^5.0.3
+  checksum: 7395efcc11859fa5580d0348ab6118572ebb18530cf7d1817257b0a1d8786e3023354ea58686c84c415f928846db051ccfa6d4bb68639472702342e51bcfd5ab
   languageName: node
   linkType: hard
 

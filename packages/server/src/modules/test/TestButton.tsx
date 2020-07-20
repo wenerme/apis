@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 
 export const TestButton: React.FC = () => {
-  return <Button>TestButton</Button>;
+  return <Button onClick={() => notification.info({ message: 'Hi' })}>TestButton</Button>;
 };

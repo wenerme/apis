@@ -1,7 +1,7 @@
-import { camelCase } from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import singleSpaReact from 'single-spa-react';
+import { camelCase } from 'lodash';
 import { TestPanel } from './TestPanel';
 
 export interface TestService {

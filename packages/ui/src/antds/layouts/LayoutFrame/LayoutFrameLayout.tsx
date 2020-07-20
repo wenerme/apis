@@ -26,7 +26,7 @@ export const LayoutFrameLayout: React.FC<LayoutFrameLayoutProps> = (props) => {
   const [theme] = useNamedTheme();
   // height: '100%' 确保布局不变
   return (
-    <Layout style={{ height: '100%' }} data-layout-frame-name={layout.name}>
+    <Layout style={{ height: '100%', minHeight: '100vh' }} data-layout-frame-name={layout.name}>
       {header && showHeader && (
         <Layout.Header style={theme === 'light' ? { backgroundColor: '#fff' } : {}}>{header}</Layout.Header>
       )}

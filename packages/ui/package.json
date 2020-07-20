@@ -5,6 +5,16 @@
   "main": "lib/index.js",
   "source": "src/index.ts",
   "typings": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/wener-ui.esm.min.js",
+      "require": "./dist/wener-ui.min.cjs"
+    },
+    "./antds": {
+      "import": "./dist/wener-ui-antds.esm.min.js",
+      "require": "./dist/wener-ui-antds.min.cjs"
+    }
+  },
   "files": [
     "antds.js",
     "antds.d.ts",

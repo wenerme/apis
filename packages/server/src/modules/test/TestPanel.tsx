@@ -1,14 +1,17 @@
 import React from 'react';
 import { PageHeader } from 'antd';
 import { TestButton } from './TestButton';
+import { DashLayout } from '@wener/apis-dash';
 
 export const TestPanel: React.FC = () => {
   return (
-    <div>
-      <PageHeader title={'Test APP'} subTitle={'for test only'} />
+    <DashLayout>
       <div>
-        <TestButton />
+        <PageHeader title={'Test APP'} subTitle={'for test only'} />
+        <div>
+          <TestButton />
+        </div>
       </div>
-    </div>
+    </DashLayout>
   );
 };

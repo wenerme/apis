@@ -15,7 +15,7 @@ import {
   QrcodeReadOutlined,
   RtcOutlined,
   WebTorrentFilled,
-} from '@wener/ui/lib/icons';
+} from '@wener/ui/icons';
 import { HashingAlgorithms } from 'src/modules/hash/types';
 import React from 'react';
 

@@ -1,15 +1,38 @@
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import React, { useEffect, useState } from 'react';
-import { Descriptions, Input, PageHeader } from 'antd';
+import { Input, PageHeader } from 'antd';
 import url from 'url';
-import ContentEditable from 'react-contenteditable';
-import produce from 'immer';
-import sanitizeHtml from 'sanitize-html';
 import { useRouter } from 'next/router';
-import pick from 'lodash/pick';
+import { pick } from 'lodash';
 import { LinkOutlined } from '@ant-design/icons';
 import { firstOfMaybeArray } from '@wener/utils';
+import { UrEditablePart } from 'src/modules/url/components/UrlEditablePart';
+
+function parseUrl(current: string) {
+  let o: URL;
+  try {
+    o = new URL(current);
+    o = pick(o, [
+      'href',
+      'origin',
+      'protocol',
+      'username',
+      'password',
+      'host',
+      'hostname',
+      'port',
+      'pathname',
+      'search',
+      'searchParams',
+      'hash',
+    ]) as URL;
+  } catch (e) {
+    console.warn(`invalid url ${current}`);
+    o = url.parse(current, true) as any;
+  }
+  return o;
+}
 
 const UriPageContent: React.FC = () => {
   const router = useRouter();
@@ -20,29 +43,7 @@ const UriPageContent: React.FC = () => {
   const [parsed, setParsed] = useState<URL>(null);
 
   useEffect(() => {
-    let o: URL;
-    try {
-      o = new URL(current);
-      o = pick(o, [
-        'href',
-        'origin',
-        'protocol',
-        'username',
-        'password',
-        'host',
-        'hostname',
-        'port',
-        'pathname',
-        'search',
-        'searchParams',
-        'hash',
-      ]) as URL;
-    } catch (e) {
-      console.warn(`invalid url ${current}`);
-      o = url.parse(current, true) as any;
-    }
-    console.log(`do parse ${current}`, o);
-
+    const o = parseUrl(current);
     setParsed(o);
     // sync url param
     if (firstOfMaybeArray(router.query['url']) !== current) {
@@ -65,74 +66,15 @@ const UriPageContent: React.FC = () => {
     }
     setValue(v);
   }, [parsed]);
-  const fields = [
-    { label: '来源', field: 'origin', editable: false },
-    {
-      label: '协议',
-      field: 'protocol',
-      from: (v) => v?.replace(/:*$/, ''),
-      to: (v) => (v || 'http:').replace(/:*$/, '') + ':',
-    },
-    { label: '账号', field: 'username' },
-    { label: '密码', field: 'password' },
-    { label: '主机', field: 'hostname' },
-    { label: '端口', field: 'port' },
-    { label: '路径', field: 'pathname' },
-    { label: '搜索', field: 'search' },
-    { label: '哈希', field: 'hash' },
-  ];
 
-  const onBlur = () => null;
   return (
     <div>
       <Input.Search value={value} onChange={(v) => setValue(v.target.value)} enterButton="解析" onSearch={setCurrent} />
 
       <div style={{ marginTop: 16 }}>
         <h2>URI 信息</h2>
-        <Descriptions>
-          {fields.map(({ label, field, from, to, editable = true }) => (
-            <Descriptions.Item label={label} key={label}>
-              <div>
-                <ContentEditable
-                  className="editable"
-                  disabled={!editable}
-                  html={(from?.(parsed?.[field]) ?? parsed?.[field]) || ''}
-                  onBlur={onBlur}
-                  onKeyDown={(e) => {
-                    if (e.keyCode === 13) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      e.currentTarget.blur();
-                    }
-                  }}
-                  onChange={(v) => {
-                    let t = sanitizeHtml(v.target.value, { allowedTags: [] });
-                    setParsed(
-                      produce((s) => {
-                        t = to?.(t) ?? t;
-                        t = t.replace(/[\r\n]/g, '');
-                        // console.log(`Change`, v.target.value, t);
-                        s[field] = t;
-                      }),
-                    );
-                  }}
-                />
-              </div>
-            </Descriptions.Item>
-          ))}
-        </Descriptions>
+        <UrEditablePart value={parsed} onChanged={setParsed} />
       </div>
-      <style jsx global>{`
-        .editable:not([disabled]) {
-          border-bottom: 1px cornflowerblue solid;
-          padding: 4px 8px;
-        }
-        .editable:not([disabled]):focus {
-          border-bottom: 2px cornflowerblue solid;
-          outline: none;
-          padding-bottom: 3px;
-        }
-      `}</style>
     </div>
   );
 };

@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Zxcvbn 密码强度检测",
+    "icon": {
+      "module": "@ant-design/icons",
+      "name": "KeyOutlined"
+    }
+  }
+]

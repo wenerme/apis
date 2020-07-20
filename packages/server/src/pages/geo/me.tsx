@@ -9,8 +9,8 @@ import { BoxShuffle } from '@wener/ui';
 
 const LocationMePageContent = dynamic<any>(
   () =>
-    import('../../modules/geo/components/LocationMePageContent').then(
-      ({ LocationMePageContent }) => LocationMePageContent,
+    import('../../modules/geo/components/LocationMe').then(
+      ({ LocationMe }) => LocationMe,
     ),
   {
     ssr: false,

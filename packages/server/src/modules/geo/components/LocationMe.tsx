@@ -2,9 +2,9 @@ import React, { useRef, useState } from 'react';
 import { Console as ConsoleFeed, Hook, Unhook } from 'console-feed';
 import { useAsyncEffect } from '@wener/ui';
 import { Descriptions } from 'antd';
-import { HookedConsole } from 'console-feed/lib/definitions/Console';
+import type { HookedConsole } from 'console-feed/lib/definitions/Console';
 
-export const LocationMePageContent: React.FC = () => {
+export const LocationMe: React.FC = () => {
   const [logs, setLogs] = useState<any[]>([]);
   const [position, setPosition] = useState<any>(null);
   const [init, setInit] = useState(false);

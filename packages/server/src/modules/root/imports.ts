@@ -65,15 +65,6 @@ export const imports = new ImportManager();
 
 imports.add([
   {
-    name: 'single-spa',
-    vendor: 'jsdelivr',
-    version: '5.5.4',
-    path: '/lib/system/single-spa.min.js',
-    paths: {
-      dev: '/lib/system/single-spa.dev.js',
-    },
-  },
-  {
     name: 'react',
     vendor: 'jsdelivr',
     version: '16.13.1',
@@ -113,10 +104,30 @@ imports.add([
     path: '/min/moment.min.js',
   },
   {
-    // https://unpkg.com/browse/moment@2.27.0/dist/moment.js
     name: 'lodash',
     vendor: 'unpkg',
     version: '4.17.19',
     path: '/lodash.min.js',
+  },
+  {
+    name: 'single-spa',
+    vendor: 'jsdelivr',
+    version: '^5',
+    path: '/lib/system/single-spa.min.js',
+    paths: {
+      dev: '/lib/system/single-spa.dev.js',
+    },
+  },
+  {
+    name: 'single-spa-layout',
+    vendor: 'unpkg',
+    version: '1.0.0-beta.5',
+    path: '/dist/system/single-spa-layout.min.js',
+  },
+  {
+    name: 'rxjs',
+    vendor: 'jsdelivr',
+    version: '6.6.0',
+    path: '/bundles/rxjs.umd.min.js',
   },
 ]);
