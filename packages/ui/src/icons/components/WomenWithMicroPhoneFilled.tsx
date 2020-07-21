@@ -1,7 +1,6 @@
 import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
 import WomenWithMicroPhoneFilledSvg from './../svgr/WomenWithMicroPhoneFilled'
 import {IconProps,IconComponent} from '../types'
-import Icon from '@ant-design/icons';
 
 const WomenWithMicroPhoneFilled: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
   return createElement(IconComponent, Object.assign({}, props, {

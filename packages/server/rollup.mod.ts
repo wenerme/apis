@@ -38,6 +38,9 @@ function buildMod(mod) {
     'tslib',
     //
     // /^@babel[/]runtime/,
+
+    // geo
+    // 'console-feed',
   ];
 
   /* Common Rollup Script

@@ -1,2 +1,2 @@
-export * from './components/LocationMe';
+export * from './components/LocationMeLite';
 

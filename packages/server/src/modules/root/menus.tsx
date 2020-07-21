@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon, {
+import {
   BarcodeOutlined,
   BorderlessTableOutlined,
   EditOutlined,
@@ -23,7 +23,6 @@ import {
   RtcOutlined,
   WebTorrentFilled,
 } from '@wener/ui/icons';
-import * as RI from 'react-is';
 // import HomeOutlined from '@ant-design/icons/HomeOutlined';
 // import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
 // import HomeOutlined from '@ant-design/icons/HomeOutlined';
@@ -36,18 +35,6 @@ import * as RI from 'react-is';
 //   loader: () => import('./my-component'),
 //   loading: Loading,
 // });
-
-console.log({ WebTorrentFilled, type: RI.typeOf(WebTorrentFilled) });
-const test = {
-  WebTorrentFilled: <WebTorrentFilled />,
-  BarcodeOutlined: <BarcodeOutlined />,
-  RI,
-  React,
-  Icon,
-  antType: RI.typeOf(<BarcodeOutlined />),
-  wenerType: RI.typeOf(<WebTorrentFilled />),
-};
-window['test'] = test;
 
 export const menus: any[] = [
   {
