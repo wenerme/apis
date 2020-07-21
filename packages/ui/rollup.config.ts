@@ -107,11 +107,8 @@ function buildRollup({
           globals,
         },
         { file: `dist/${libraryName}.cjs`, format: 'cjs', sourcemap: true },
-        {
-          file: `dist/${libraryName}.esm.js`,
-          format: 'esm',
-          sourcemap: true,
-        },
+        { file: `dist/${libraryName}.system.js`, format: 'system', sourcemap: true },
+        { file: `dist/${libraryName}.esm.js`, format: 'esm', sourcemap: true },
       ],
     },
   ].flatMap(dev ? (v) => v : addMini());

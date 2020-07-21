@@ -62,7 +62,7 @@ export class ServiceMetadata {
 }
 
 export class ServiceProviderManager implements ServiceProvider {
-  private _services = {};
+  private _services: Record<string, ServiceMetadata> = {};
 
   registryInstance(target, iface = target.constructor) {
     const meta = getServiceMetadataOfType(iface);
@@ -87,7 +87,11 @@ export class ServiceProviderManager implements ServiceProvider {
     this._services[key] = svc;
   }
 
-  findService(query: ServiceCoordinate): ServiceRegistration {
+  findRegistry(query: ServiceCoordinate): ServiceRegistration {
     return this._services[getServicePathOfCoordinate(query)]?.registration;
+  }
+
+  findService(query: ServiceCoordinate): ServiceMetadata {
+    return this._services[getServicePathOfCoordinate(query)];
   }
 }

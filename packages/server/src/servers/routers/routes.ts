@@ -13,11 +13,12 @@ import { routeVolatile } from 'src/servers/routers/api/volatile/routeVolatile';
 import { handleTestEcho } from 'src/servers/routers/api/test/echo';
 import cors from 'cors';
 import { json, text, urlencoded } from 'body-parser';
-import { handlePhoneAttribution } from './api/phone/attribution/handlePhoneAttribution';
+import { handlePhoneAttribution } from '../../modules/phone/handlers/handlePhoneAttribution';
 import { createRequestHandler } from 'src/modules/service/provider/createRequestHandler';
 import { ServerProviders } from 'src/servers/routers/services';
 import { PasswordStrengthServiceImpl } from 'src/modules/password/services/PasswordStrengthServiceImpl';
-import { PasswordStrengthService } from 'src/modules/client';
+import { PasswordStrengthService, PhoneAttributionService } from 'src/modules/client';
+import { PhoneAttributionServiceImpl } from 'src/modules/phone/services/PhoneAttributionServiceImpl';
 
 export function routes(r: any) {
   const route = r as Router<NextApiRequest, NextApiResponse>;
@@ -81,6 +82,7 @@ export function routes(r: any) {
 
   //
   ServerProviders.registryInstance(new PasswordStrengthServiceImpl(), PasswordStrengthService);
+  ServerProviders.registryInstance(new PhoneAttributionServiceImpl(), PhoneAttributionService);
   route.all('/api/service/:group/:service/:version/invoke/:method', createRequestHandler(ServerProviders));
   route.all('/api/service/:group/:service/:version/invoke', createRequestHandler(ServerProviders));
 

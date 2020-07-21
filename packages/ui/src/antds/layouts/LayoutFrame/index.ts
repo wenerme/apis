@@ -5,3 +5,4 @@ export * from './LayoutFrameLayout';
 export * from './LayoutFrameMenu';
 export * from './LayoutFrameSider';
 export * from './state';
+export * from './types';

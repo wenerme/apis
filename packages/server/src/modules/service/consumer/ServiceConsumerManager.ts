@@ -36,7 +36,7 @@ export class ServiceConsumerManager implements ServiceConsumer {
     }
 
     if (this._provider) {
-      const target = this._provider.findService(options)?.target;
+      const target = this._provider.findRegistry(options)?.target;
       if (target) {
         return target;
       }

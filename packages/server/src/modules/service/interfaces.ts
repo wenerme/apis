@@ -45,7 +45,7 @@ export interface ServiceProvider {
   registry(meta: ServiceRegistration);
 
   // resolveService(query: ServiceCoordinate): Promise<ServiceRegistration>;
-  findService(query: ServiceCoordinate): ServiceRegistration | undefined;
+  findRegistry(query: ServiceCoordinate): ServiceRegistration | undefined;
 }
 
 export interface ServiceConsumeOptions<T = any> extends ServiceCoordinate {

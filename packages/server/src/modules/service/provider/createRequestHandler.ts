@@ -4,7 +4,13 @@ import { InvocationResponse, ServiceProviderManager } from './ServiceProviderMan
 
 const nanoid = (t = 21) => {
   let e = '';
-  const r = crypto.getRandomValues(new Uint8Array(t));
+  const getRandomValues =
+    typeof crypto !== 'undefined'
+      ? crypto.getRandomValues
+      : typeof require !== 'undefined'
+      ? require('crypto').randomFillSync
+      : undefined;
+  const r = getRandomValues(new Uint8Array(t));
   for (; t--; ) {
     const n = 63 & r[t];
     e += n < 36 ? n.toString(36) : n < 62 ? (n - 26).toString(36).toUpperCase() : n < 63 ? '_' : '-';
@@ -22,10 +28,12 @@ export const createRequestHandler = (
     invoke.method = invoke.method || req.query.method;
 
     let resp: InvocationResponse;
-    const path = getServicePathOfCoordinate(req.query as any);
 
+    let path: string;
     try {
-      const svc = provider.findService(req.query);
+      path = getServicePathOfCoordinate(req.query as any);
+
+      const svc = provider.findService(req.query as any);
       if (!svc) {
         resp = {
           id: invoke.id,
