@@ -1,16 +1,14 @@
-import React, { ForwardRefRenderFunction } from 'react';
-import LightModeFilledSvg from './../svgr/LightModeFilled';
-import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
+import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
+import LightModeFilledSvg from './../svgr/LightModeFilled'
+import {IconProps,IconComponent} from '../types'
+import Icon from '@ant-design/icons';
 
-const LightModeFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(
-    Icon,
-    Object.assign({}, props, {
-      ref,
-      component: LightModeFilledSvg,
-    }),
-  );
+const LightModeFilled: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
+  return createElement(IconComponent, Object.assign({}, props, {
+    ref,
+    component: LightModeFilledSvg
+  }));
 };
 
 LightModeFilled.displayName = 'LightModeFilled';
-export default React.forwardRef(LightModeFilled);
+export default forwardRef(LightModeFilled);

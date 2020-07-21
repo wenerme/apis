@@ -1,16 +1,14 @@
-import React, { ForwardRefRenderFunction } from 'react';
-import IpfsOutlinedSvg from './../svgr/IpfsOutlined';
-import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
+import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
+import IpfsOutlinedSvg from './../svgr/IpfsOutlined'
+import {IconProps,IconComponent} from '../types'
+import Icon from '@ant-design/icons';
 
-const IpfsOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(
-    Icon,
-    Object.assign({}, props, {
-      ref,
-      component: IpfsOutlinedSvg,
-    }),
-  );
+const IpfsOutlined: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
+  return createElement(IconComponent, Object.assign({}, props, {
+    ref,
+    component: IpfsOutlinedSvg
+  }));
 };
 
 IpfsOutlined.displayName = 'IpfsOutlined';
-export default React.forwardRef(IpfsOutlined);
+export default forwardRef(IpfsOutlined);

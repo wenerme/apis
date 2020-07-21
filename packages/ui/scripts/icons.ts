@@ -1,7 +1,7 @@
 import glob from 'glob';
 import fs from 'fs';
 import path from 'path';
-import { pascalCase } from '@wener/utils/src/strings/camelCase';
+import { pascalCase } from '@wener/utils';
 import { processFileContent, replaceGenerated } from './utils';
 
 /*
@@ -45,8 +45,12 @@ async function generate(svgPath, compPath, utilPath) {
   names.sort();
   fs.writeFileSync(
     path.join(utilPath, 'index.ts'),
-    names.map((v) => `export { default as ${v} } from './${path.relative(utilPath, compPath)}/${v}';`).join('\n') +
-      '\n',
+    names
+      .flatMap((v) => [
+        `export { default as ${v} } from './${path.relative(utilPath, compPath)}/${v}';`,
+        `export { default as Svg${v} } from './svgr/${v}';`,
+      ])
+      .join('\n') + '\n',
   );
 
   const resolveCase = names
@@ -62,7 +66,7 @@ async function generate(svgPath, compPath, utilPath) {
   fs.writeFileSync(resolver, rel);
 }
 
-async function gen({ svg, comp, name, svgImport, force = false }) {
+async function gen({ svg, comp, name, svgImport, force = Boolean(process.env.FORCE) }) {
   if (fs.existsSync(comp) && !force) {
     return;
   }
@@ -70,22 +74,40 @@ async function gen({ svg, comp, name, svgImport, force = false }) {
   fs.writeFileSync(
     comp,
     `
-import React, {ForwardRefRenderFunction} from 'react';
+import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
 import ${name}Svg from '${svgImport.replace(/[.]tsx$/, '')}'
-import {IconProps} from '../types'
-import Icon from '@ant-design/icons/lib/components/Icon';
+import {IconProps,IconComponent} from '../types'
 
 const ${name}: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
-  return React.createElement(Icon, Object.assign({}, props, {
+  return createElement(IconComponent, Object.assign({}, props, {
     ref,
     component: ${name}Svg
   }));
 };
 
 ${name}.displayName = '${name}';
-export default React.forwardRef(${name});
+export default forwardRef(${name});
 `.trimLeft(),
   );
+
+  //   fs.writeFileSync(
+  //     comp,
+  //     `
+  // import React,{ForwardRefRenderFunction,forwardRef,createElement} from 'react';
+  // import ${name}Svg from '${svgImport.replace(/[.]tsx$/, '')}'
+  // import {IconProps} from '../types'
+  // import Icon from '@ant-design/icons';
+  //
+  // const ${name}: React.FC<IconProps> = (props) => {
+  //   return createElement(Icon, Object.assign({}, props, {
+  //     component: ${name}Svg
+  //   }));
+  // };
+  //
+  // ${name}.displayName = '${name}';
+  // export default ${name};
+  // `.trimLeft(),
+  //   );
 }
 
 async function main() {

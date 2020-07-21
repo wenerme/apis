@@ -1,16 +1,14 @@
-import React, { ForwardRefRenderFunction } from 'react';
-import KongLogoSvg from './../svgr/KongLogo';
-import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
+import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
+import KongLogoSvg from './../svgr/KongLogo'
+import {IconProps,IconComponent} from '../types'
+import Icon from '@ant-design/icons';
 
-const KongLogo: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(
-    Icon,
-    Object.assign({}, props, {
-      ref,
-      component: KongLogoSvg,
-    }),
-  );
+const KongLogo: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
+  return createElement(IconComponent, Object.assign({}, props, {
+    ref,
+    component: KongLogoSvg
+  }));
 };
 
 KongLogo.displayName = 'KongLogo';
-export default React.forwardRef(KongLogo);
+export default forwardRef(KongLogo);

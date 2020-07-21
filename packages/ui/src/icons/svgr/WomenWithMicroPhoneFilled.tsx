@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-function SvgWomenWithMicroPhoneFIlled(props: React.SVGProps<SVGSVGElement>) {
+function SvgWomenWithMicroPhoneFilled(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width="1em" height="1em" viewBox="0 0 1024 1024" {...props}>
       <defs>
@@ -11,4 +11,4 @@ function SvgWomenWithMicroPhoneFIlled(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default SvgWomenWithMicroPhoneFIlled;
+export default SvgWomenWithMicroPhoneFilled;

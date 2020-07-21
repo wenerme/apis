@@ -1,16 +1,14 @@
-import React, { ForwardRefRenderFunction } from 'react';
-import ExternalLinkOutlinedSvg from './../svgr/ExternalLinkOutlined';
-import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
+import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
+import ExternalLinkOutlinedSvg from './../svgr/ExternalLinkOutlined'
+import {IconProps,IconComponent} from '../types'
+import Icon from '@ant-design/icons';
 
-const ExternalLinkOutlined: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(
-    Icon,
-    Object.assign({}, props, {
-      ref,
-      component: ExternalLinkOutlinedSvg,
-    }),
-  );
+const ExternalLinkOutlined: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
+  return createElement(IconComponent, Object.assign({}, props, {
+    ref,
+    component: ExternalLinkOutlinedSvg
+  }));
 };
 
 ExternalLinkOutlined.displayName = 'ExternalLinkOutlined';
-export default React.forwardRef(ExternalLinkOutlined);
+export default forwardRef(ExternalLinkOutlined);

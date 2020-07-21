@@ -1,2 +1,1 @@
-import './autoload';
 import './bootstrap';

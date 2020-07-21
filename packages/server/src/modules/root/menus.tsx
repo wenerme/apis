@@ -1,10 +1,17 @@
-import {
+import React from 'react';
+import Icon, {
   BarcodeOutlined,
   BorderlessTableOutlined,
   EditOutlined,
+  EnvironmentOutlined,
+  HomeOutlined,
   InteractionOutlined,
+  KeyOutlined,
+  LinkOutlined,
   PartitionOutlined,
+  PhoneOutlined,
 } from '@ant-design/icons';
+import { HashingAlgorithms } from 'src/modules/hash/types';
 import {
   BarcodePrintOutlined,
   BarcodeReadOutlined,
@@ -16,14 +23,33 @@ import {
   RtcOutlined,
   WebTorrentFilled,
 } from '@wener/ui/icons';
-import { HashingAlgorithms } from 'src/modules/hash/types';
-import React from 'react';
+import * as RI from 'react-is';
+// import HomeOutlined from '@ant-design/icons/HomeOutlined';
+// import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
+// import HomeOutlined from '@ant-design/icons/HomeOutlined';
+// import { LocationMe } from '@wener/apis-geo';
 
-import { EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';
-//@ts-ignore - missing type
-import type { MenuSpec } from '@wener/ui/antd';
+// import Loadable from 'react-loadable';
+// import Loading from './my-loading-component';
+//
+// const LoadableComponent = Loadable({
+//   loader: () => import('./my-component'),
+//   loading: Loading,
+// });
 
-export const menus: MenuSpec[] = [
+console.log({ WebTorrentFilled, type: RI.typeOf(WebTorrentFilled) });
+const test = {
+  WebTorrentFilled: <WebTorrentFilled />,
+  BarcodeOutlined: <BarcodeOutlined />,
+  RI,
+  React,
+  Icon,
+  antType: RI.typeOf(<BarcodeOutlined />),
+  wenerType: RI.typeOf(<WebTorrentFilled />),
+};
+window['test'] = test;
+
+export const menus: any[] = [
   {
     title: '首页',
     iconComponent: <HomeOutlined />,

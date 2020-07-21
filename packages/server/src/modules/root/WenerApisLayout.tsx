@@ -1,17 +1,18 @@
-import React from 'react';
+import * as React from 'react';
 import { NamedThemeProvider } from '@wener/ui';
 import { menus } from 'src/components/layout/PageLayout/menus';
 import { PageContext } from 'src/components/layout/PageLayout/PageContext';
 import { LayoutFrame } from '@wener/ui/antds';
 import { Helmet } from 'react-helmet';
 
-export const WenerApisLayout: React.FC<{ showFooter?; title?; description?; keywords?: string | string[] }> = ({
-  showFooter,
-  children,
-  title,
-  description,
-  keywords,
-}) => {
+export const WenerApisLayout: React.FC<{
+  Link;
+  menus?;
+  showFooter?;
+  title?;
+  description?;
+  keywords?: string | string[];
+}> = ({ menus, showFooter, children, title, description, keywords, Link }) => {
   title = title || `Wener's APIs`;
 
   return (
@@ -37,10 +38,10 @@ export const WenerApisLayout: React.FC<{ showFooter?; title?; description?; keyw
 
         {keywords && <meta name="keywords" content={Array.isArray(keywords) ? keywords.join(',') : keywords} />}
 
-        <link rel="preload" as="style" href="https://unpkg.com/antd/dist/antd.dark.min.css" />
-        <link href="https://unpkg.com/antd/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />
+        {/*<link rel="preload" as="style" href="https://unpkg.com/antd/dist/antd.dark.min.css" />*/}
+        {/*<link href="https://unpkg.com/antd/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />*/}
       </Helmet>
-      <LayoutFrame menus={[]} showFooter={showFooter}>
+      <LayoutFrame menus={menus} showFooter={showFooter} link={Link}>
         <React.Fragment>
           {children}
           {/*<PageAction />*/}

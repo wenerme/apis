@@ -30,7 +30,7 @@ export function iconsResolver({ type }) {
     case 'UTorrentFilled':c = import('./components/UTorrentFilled');break;
     case 'WebTorrentFilled':c = import('./components/WebTorrentFilled');break;
     case 'WikipediaOutlined':c = import('./components/WikipediaOutlined');break;
-    case 'WomenWithMicroPhoneFIlled':c = import('./components/WomenWithMicroPhoneFIlled');break;
+    case 'WomenWithMicroPhoneFilled':c = import('./components/WomenWithMicroPhoneFilled');break;
 // generated:end
     // @formatter:on
     default:

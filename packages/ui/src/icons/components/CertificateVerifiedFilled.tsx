@@ -1,16 +1,14 @@
-import React, { ForwardRefRenderFunction } from 'react';
-import CertificateVerifiedFilledSvg from './../svgr/CertificateVerifiedFilled';
-import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
+import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
+import CertificateVerifiedFilledSvg from './../svgr/CertificateVerifiedFilled'
+import {IconProps,IconComponent} from '../types'
+import Icon from '@ant-design/icons';
 
-const CertificateVerifiedFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(
-    Icon,
-    Object.assign({}, props, {
-      ref,
-      component: CertificateVerifiedFilledSvg,
-    }),
-  );
+const CertificateVerifiedFilled: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
+  return createElement(IconComponent, Object.assign({}, props, {
+    ref,
+    component: CertificateVerifiedFilledSvg
+  }));
 };
 
 CertificateVerifiedFilled.displayName = 'CertificateVerifiedFilled';
-export default React.forwardRef(CertificateVerifiedFilled);
+export default forwardRef(CertificateVerifiedFilled);

@@ -4,7 +4,8 @@ import { GetServerSideProps } from 'next';
 import { buildImportMap, imports } from 'src/modules/root/imports';
 
 const Page = ({ title = `Wener's APIs` }) => {
-  const isDev = process.env.NODE_ENV !== 'production';
+  // const isDev = process.env.NODE_ENV !== 'production';
+  const isDev = true;
 
   return (
     <>
@@ -33,7 +34,7 @@ const Page = ({ title = `Wener's APIs` }) => {
                 'rxjs',
               ]),
               {
-                dev: false,
+                dev: isDev,
               },
             ),
           ),
@@ -54,10 +55,14 @@ const Page = ({ title = `Wener's APIs` }) => {
               immer: 'https://cdn.jsdelivr.net/npm/immer/dist/immer.umd.production.min.js',
               tslib: 'https://cdn.jsdelivr.net/npm/tslib/tslib.js',
 
-              '@wener/utils': '/modules/wener-utils.system.min.js',
-              '@wener/ui': '/modules/wener-ui.umd.js',
-              '@wener/ui/antds': '/modules/wener-ui-antds.umd.js',
+              '@ant-design/icons': 'https://cdn.jsdelivr.net/npm/@ant-design/icons@4.2.1/dist/index.umd.min.js',
 
+              '@wener/utils': '/modules/wener-utils.system.min.js',
+              '@wener/ui': '/modules/wener-ui.system.js',
+              '@wener/ui/antds': '/modules/wener-ui-antds.system.js',
+              '@wener/ui/icons': '/modules/wener-ui-icons.system.js',
+
+              '@wener/apis-boot': '/modules/wener-apis-boot.system.js',
               '@wener/apis-root': '/modules/wener-apis-root.system.js',
               '@wener/apis-geo': '/modules/wener-apis-geo.system.js',
               '@wener/apis-test': '/modules/wener-apis-test.system.js',
@@ -76,6 +81,7 @@ const Page = ({ title = `Wener's APIs` }) => {
       {isDev && (
         <>
           <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js" />
+          <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/use-default.js" />
           <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js" />
           <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.js" />
         </>
@@ -83,6 +89,7 @@ const Page = ({ title = `Wener's APIs` }) => {
       {!isDev && (
         <>
           <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.min.js" />
+          <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/use-default.min.js" />
           <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.min.js" />
           <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.min.js" />
         </>
@@ -96,8 +103,8 @@ const Page = ({ title = `Wener's APIs` }) => {
       <script
         dangerouslySetInnerHTML={{
           __html: `
-          System.import('@wener/apis-root');
           window.process = {env:{NODE_ENV:'development'}}
+          System.import('@wener/apis-boot');
           `,
         }}
       />

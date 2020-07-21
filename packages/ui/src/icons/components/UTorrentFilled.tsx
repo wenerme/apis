@@ -1,16 +1,14 @@
-import React, { ForwardRefRenderFunction } from 'react';
-import UTorrentFilledSvg from './../svgr/UTorrentFilled';
-import Icon, { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
+import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
+import UTorrentFilledSvg from './../svgr/UTorrentFilled'
+import {IconProps,IconComponent} from '../types'
+import Icon from '@ant-design/icons';
 
-const UTorrentFilled: ForwardRefRenderFunction<any, IconComponentProps> = (props, ref) => {
-  return React.createElement(
-    Icon,
-    Object.assign({}, props, {
-      ref,
-      component: UTorrentFilledSvg,
-    }),
-  );
+const UTorrentFilled: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
+  return createElement(IconComponent, Object.assign({}, props, {
+    ref,
+    component: UTorrentFilledSvg
+  }));
 };
 
 UTorrentFilled.displayName = 'UTorrentFilled';
-export default React.forwardRef(UTorrentFilled);
+export default forwardRef(UTorrentFilled);

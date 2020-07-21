@@ -2352,6 +2352,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-runtime@npm:^7.10.5":
+  version: 7.10.5
+  resolution: "@babel/plugin-transform-runtime@npm:7.10.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-runtime%2Fdownload%2F%40babel%2Fplugin-transform-runtime-7.10.5.tgz"
+  dependencies:
+    "@babel/helper-module-imports": ^7.10.4
+    "@babel/helper-plugin-utils": ^7.10.4
+    resolve: ^1.8.1
+    semver: ^5.5.1
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: e77530cf2cb201ce143cf7f2a674f4c866f8ac99eafa81ee8505f61b3bf2e5457d4c0dde50167a2efa9fc41d669d5f3c8456df5238af92ca470401a95507bfae
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-shorthand-properties@npm:^7.10.1, @babel/plugin-transform-shorthand-properties@npm:^7.8.3":
   version: 7.10.1
   resolution: "@babel/plugin-transform-shorthand-properties@npm:7.10.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-shorthand-properties%2Fdownload%2F%40babel%2Fplugin-transform-shorthand-properties-7.10.1.tgz"
@@ -3014,6 +3028,15 @@ __metadata:
   dependencies:
     regenerator-runtime: ^0.13.4
   checksum: 19dc20d10dab2c4fc31c0fb3ba0615d685cc4d7cde38a427c5f0aec8b9efdd4d9c282caf4c67bd264ffe324a48e9a95d0c1f0109c31ae47297b9d87ff912eab6
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.10.5":
+  version: 7.10.5
+  resolution: "@babel/runtime@npm:7.10.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.10.5.tgz"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 222bc7c75b83f73802c8c93c59281085d36ff4efebf58a81fb631af587ebaa0d0eaa187e30587448e65e8f50a4b8719fc13aa5214c02c2562e95be4c8230627e
   languageName: node
   linkType: hard
 
@@ -6511,6 +6534,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/babel__plugin-transform-runtime@npm:^7":
+  version: 7.9.0
+  resolution: "@types/babel__plugin-transform-runtime@npm:7.9.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbabel__plugin-transform-runtime%2Fdownload%2F%40types%2Fbabel__plugin-transform-runtime-7.9.0.tgz"
+  checksum: 029411aa862b104f17d21945924e7c51aad1941d087380277c3724a64090260780b174dee6053bd1143705dc935b27ac193c0f7e26fa0d55145796850a1813b2
+  languageName: node
+  linkType: hard
+
 "@types/babel__preset-env@npm:^7, @types/babel__preset-env@npm:^7.9.0":
   version: 7.9.0
   resolution: "@types/babel__preset-env@npm:7.9.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbabel__preset-env%2Fdownload%2F%40types%2Fbabel__preset-env-7.9.0.tgz"
@@ -8281,8 +8311,10 @@ __metadata:
     "@babel/core": ^7
     "@babel/plugin-proposal-class-properties": ^7.8.3
     "@babel/plugin-proposal-decorators": ^7.8.3
+    "@babel/plugin-transform-runtime": ^7.10.5
     "@babel/preset-react": ^7
     "@babel/preset-typescript": ^7
+    "@babel/runtime": ^7.10.5
     "@mdx-js/loader": ^1.5.5
     "@mdx-js/react": ^1.6.5
     "@next/bundle-analyzer": ^9.2.1
@@ -8304,6 +8336,7 @@ __metadata:
     "@types/ali-oss": ^6.0.4
     "@types/asn1js": ^0.0.2
     "@types/babel__core": ^7.1.7
+    "@types/babel__plugin-transform-runtime": ^7
     "@types/bencode": ^2.0.0
     "@types/blob-to-buffer": ^1.2.0
     "@types/body-parser": ^1.19.0

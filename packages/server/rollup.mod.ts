@@ -14,22 +14,30 @@ function buildMod(mod) {
   const dir = `public/modules`;
 
   const external = [
-    /@wener[/]apis-/,
+    /^@wener[/]apis-/,
     //
     'react',
     'react-dom',
+    'react-is',
     'immer',
     //
     'lodash',
     //
     'antd',
+    '@ant-design/icons',
     //
     '@wener/ui',
+    '@wener/ui/icons',
+    '@wener/ui/antds',
     '@wener/utils',
     //
     'single-spa',
     'single-spa-layout',
     // 'single-spa-react',
+    //
+    'tslib',
+    //
+    // /^@babel[/]runtime/,
   ];
 
   /* Common Rollup Script
@@ -50,11 +58,18 @@ function buildMod(mod) {
         nodeResolve({ browser: true, extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
         babel({
           babelHelpers: 'bundled',
+          // babelHelpers: 'runtime',
+          // babelHelpers: 'inline',
           babelrc: false,
           presets: ['@babel/preset-typescript', '@babel/preset-react'],
           plugins: [
             ['@babel/plugin-proposal-decorators', { legacy: true }],
             ['@babel/plugin-proposal-class-properties', { loose: true }],
+            // ['@babel/plugin-transform-runtime',{
+            // // absoluteRuntime:true,
+            // //   corejs: 3,
+            //   helper: false
+            // }],
           ],
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         }),
