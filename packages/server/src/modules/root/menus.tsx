@@ -23,6 +23,7 @@ import {
   RtcOutlined,
   WebTorrentFilled,
 } from '@wener/ui/icons';
+import type { MenuSpec } from '@wener/ui/antds';
 // import HomeOutlined from '@ant-design/icons/HomeOutlined';
 // import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
 // import HomeOutlined from '@ant-design/icons/HomeOutlined';
@@ -36,7 +37,24 @@ import {
 //   loading: Loading,
 // });
 
-export const menus: any[] = [
+export interface LoadableComponentSpec {
+  module;
+  name;
+  props?;
+}
+
+export interface ContentedMenuSpec extends MenuSpec {
+  content?: LoadableComponentSpec;
+}
+
+export interface RouteSpec {
+  title;
+  iconComponent;
+  path;
+  content: LoadableComponentSpec;
+}
+
+export const menus: ContentedMenuSpec[] = [
   {
     title: '首页',
     iconComponent: <HomeOutlined />,
@@ -48,6 +66,10 @@ export const menus: any[] = [
     iconComponent: <EnvironmentOutlined />,
     iconType: 'environment',
     path: '/geo/me',
+    content: {
+      module: '@wener/apis-geo',
+      name: 'LocationMeLite',
+    },
   },
   {
     title: '电话归属地',
@@ -234,5 +256,36 @@ export const menus: any[] = [
         path: `/hash/md/${v}`,
       })),
     ],
+  },
+];
+
+function flatMenus(menus: MenuSpec[]): MenuSpec[] {
+  const reducer = (all: MenuSpec[], cur: MenuSpec): MenuSpec[] => {
+    all.push(cur);
+    if (cur.children) {
+      cur.children
+        .map((v) => ({ ...cur, children: [], path: undefined, content: undefined, ...v }))
+        .reduce(reducer, all);
+    }
+    return all;
+  };
+  return menus.reduce(reducer, [] as MenuSpec[]);
+}
+
+function buildRoutes(menus: MenuSpec[]) {
+  const routes: RouteSpec[] = [];
+  const all = flatMenus(menus);
+  return all.filter((v) => v.content);
+}
+
+export const routes: RouteSpec[] = [
+  ...buildRoutes(menus),
+  {
+    title: 'PingServiceTest',
+    path: '/test/ping',
+    content: {
+      module: '@wener/apis-test',
+      name: 'PingServiceTest',
+    },
   },
 ];

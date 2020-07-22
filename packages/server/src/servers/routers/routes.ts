@@ -17,7 +17,7 @@ import { handlePhoneAttribution } from '../../modules/phone/handlers/handlePhone
 import { createRequestHandler } from 'src/modules/service/provider/createRequestHandler';
 import { ServerProviders } from 'src/servers/routers/services';
 import { PasswordStrengthServiceImpl } from 'src/modules/password/services/PasswordStrengthServiceImpl';
-import { PasswordStrengthService, PhoneAttributionService } from 'src/modules/client';
+import { PasswordStrengthService, PhoneAttributionService, PingService } from 'src/modules/client';
 import { PhoneAttributionServiceImpl } from 'src/modules/phone/services/PhoneAttributionServiceImpl';
 
 export function routes(r: any) {
@@ -83,6 +83,7 @@ export function routes(r: any) {
   //
   ServerProviders.registryInstance(new PasswordStrengthServiceImpl(), PasswordStrengthService);
   ServerProviders.registryInstance(new PhoneAttributionServiceImpl(), PhoneAttributionService);
+  ServerProviders.registryInstance(PingService.instance);
   route.all('/api/service/:group/:service/:version/invoke/:method', createRequestHandler(ServerProviders));
   route.all('/api/service/:group/:service/:version/invoke', createRequestHandler(ServerProviders));
 

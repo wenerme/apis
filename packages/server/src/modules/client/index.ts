@@ -19,8 +19,7 @@ export function overrideClientService(s: ServiceRegistration) {
 }
 
 // ========== SERVICES
+export * from './password';
+export * from './phone';
 
-export abstract class PasswordStrengthService {
-  static service = 'me.wener.apis.password.PasswordStrengthService';
-  abstract zxcvbn(password: string): Promise<any>;
-}
+export * from './PingService';

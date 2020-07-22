@@ -8607,6 +8607,7 @@ __metadata:
     react-icons: ^3.9.0
     react-is: ^16.13.1
     react-loadable: ^5.5.0
+    react-query: ^2.5.5
     react-redux: ^7.1.3
     react-router: ^5.2.0
     react-router-dom: ^5.1.2
@@ -25586,6 +25587,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-query@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "react-query@npm:2.5.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-query%2Fdownload%2Freact-query-2.5.5.tgz"
+  dependencies:
+    ts-toolbelt: ^6.9.4
+  peerDependencies:
+    react: ^16.8.0
+  checksum: 5511ccccc68520e4e11b22f98df3cbbead8c9e9b963afe951fa7d8748c77f0c171eed4183f6f11ed827fa0240c9694011370d85371a950a255a7ea63e1521407
+  languageName: node
+  linkType: hard
+
 "react-redux@npm:^7.0.3, react-redux@npm:^7.1.3":
   version: 7.2.0
   resolution: "react-redux@npm:7.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-redux%2Fdownload%2Freact-redux-7.2.0.tgz"
@@ -29613,6 +29625,13 @@ resolve@1.1.7:
     typescript:
       optional: true
   checksum: 78341a27939de565e2754ff65ebb689743c16e3295528089d143c08d91842cf9029c3d6b3c95a9a20854a114a7904329d02c710d63f7ce4dbf671b8a3e560ac1
+  languageName: node
+  linkType: hard
+
+"ts-toolbelt@npm:^6.9.4":
+  version: 6.13.21
+  resolution: "ts-toolbelt@npm:6.13.21::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-toolbelt%2Fdownload%2Fts-toolbelt-6.13.21.tgz"
+  checksum: 36fd9970bb7fb2b513823497c7a4da648a337d59b889484e4f423ec0188064f1bd2bbaa7af42abbc595c59b38efa27e8a41239346d529fb68a6ab3e0b729d11e
   languageName: node
   linkType: hard
 
