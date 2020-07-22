@@ -9,55 +9,54 @@ const NextLink: React.FC<{ href }> = ({ href, children }) => {
   return <Link to={href}>{children}</Link>;
 };
 
-const NotFound = ({ detail }) => (
+const NotFoundSimple = ({ detail }) => (
   <div>
     Not Found <br />
     {detail}
   </div>
 );
-const loaders = {};
-const LoadableContent: React.FC<{ content: LoadableComponentSpec }> = ({ content: { module, name }, children }) => {
-  // const Comp = useConstant(() =>
-  //   Loadable({
-  //     loader: () => import(module).then((v) => v[name]),
-  //     loading: (props) => {
-  //       if (props.error) {
-  //         console.error(`Error`, props.error);
-  //         return (
-  //           <div>
-  //             Failed loading - {module}/{name}
-  //           </div>
-  //         );
-  //       }
-  //       return (
-  //         <div>
-  //           Loading - {module}/{name}
-  //         </div>
-  //       );
-  //     },
-  //   }),
-  // );
-  const key = `${module}/${name}`;
-  const Comp = (loaders[key] =
-    loaders[key] ||
-    Loadable({
-      loader: () => import(module).then((v) => (loaders[key] = v[name] || NotFound)),
-      loading: (props) => {
-        if (props.error) {
-          console.error(`Error`, props.error);
-          return (
-            <div>
-              Failed loading - {module}/{name}
-            </div>
-          );
-        }
+
+function ContentLoadable(
+  { module, name }: LoadableComponentSpec,
+  { onLoad = undefined, NotFound = NotFoundSimple } = {},
+) {
+  return Loadable({
+    loader: () => import(module).then((v) => onLoad?.(v[name] || NotFound)),
+    loading: (props) => {
+      if (props.error) {
+        console.error(`Error`, props.error);
+        return (
+          <div>
+            Failed loading - {module}/{name}
+            <br />
+            {String(props.error)}
+          </div>
+        );
+      }
+      if (props.timedOut) {
+        return (
+          <div>
+            Timeout loading - {module}/{name} ... <button onClick={props.retry}>Retry</button>
+          </div>
+        );
+      }
+      if (props.pastDelay) {
         return (
           <div>
             Loading - {module}/{name}
           </div>
         );
-      },
-    }));
+      }
+      return null;
+    },
+  });
+}
+
+const loaders = {};
+const LoadableContent: React.FC<{ content: LoadableComponentSpec }> = ({ content, children }) => {
+  const { module, name } = content;
+  const key = `${module}/${name}`;
+  const Comp = (loaders[key] = loaders[key] || ContentLoadable(content, { onLoad: (v) => (loaders[key] = v) }));
   return <Comp>{children}</Comp>;
 };
 

@@ -4,9 +4,12 @@ import { PhoneAttributionDetail } from 'src/modules/phone/components/PhoneAttrib
 import { consumeClientService, PhoneAttributionResponse, PhoneAttributionService } from 'src/modules/client';
 import { useQuery } from 'react-query';
 
-export const PhoneAttributionContent: React.FC<{ initialData?: PhoneAttributionResponse }> = ({ initialData }) => {
+export const PhoneAttributionContent: React.FC<{ initialData?: PhoneAttributionResponse; number? }> = ({
+  initialData,
+  number: initialNumber,
+}) => {
   const svc = consumeClientService(PhoneAttributionService);
-  const [number, setNumber] = useState(initialData?.number || '13000000000');
+  const [number, setNumber] = useState(initialData?.number || initialNumber || '13000000000');
   const { isLoading, data, refetch } = useQuery(
     ['phoneAttribution', number],
     (_, number) => svc.getAttribution({ number }),
@@ -16,7 +19,7 @@ export const PhoneAttributionContent: React.FC<{ initialData?: PhoneAttributionR
     },
   );
   useEffect(() => {
-    if (!initialData) {
+    if (!initialData && number) {
       refetch();
     }
   }, []);

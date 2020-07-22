@@ -1,2 +1,2 @@
-export * from './components/PasswordStrengthPageContent';
+export * from './components/PasswordStrengthContent';
 export * from './components/ZxcvbnDescription';

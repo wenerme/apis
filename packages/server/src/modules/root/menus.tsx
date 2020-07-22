@@ -45,11 +45,12 @@ export interface LoadableComponentSpec {
 
 export interface ContentedMenuSpec extends MenuSpec {
   content?: LoadableComponentSpec;
+  extraPaths?: string[];
 }
 
 export interface RouteSpec {
   title;
-  iconComponent;
+  iconComponent?;
   path;
   content: LoadableComponentSpec;
 }
@@ -76,6 +77,7 @@ export const menus: ContentedMenuSpec[] = [
     iconComponent: <PhoneOutlined />,
     iconType: 'phone',
     path: '/phone/attribution',
+    extraPaths: ['/phone/attribution/:number'],
     routes: ['/phone/attribution/[num]'],
     content: {
       module: '@wener/apis-phone',
@@ -119,6 +121,11 @@ export const menus: ContentedMenuSpec[] = [
     iconComponent: <KeyOutlined />,
     iconType: 'key',
     path: '/password/strength',
+    extraPaths: ['/password/strength/:password'],
+    content: {
+      module: '@wener/apis-password',
+      name: 'PasswordStrengthContent',
+    },
   },
   {
     title: '条形码',
@@ -263,12 +270,12 @@ export const menus: ContentedMenuSpec[] = [
   },
 ];
 
-function flatMenus(menus: MenuSpec[]): MenuSpec[] {
-  const reducer = (all: MenuSpec[], cur: MenuSpec): MenuSpec[] => {
+function flatMenus(menus: ContentedMenuSpec[]): ContentedMenuSpec[] {
+  const reducer = (all: ContentedMenuSpec[], cur: ContentedMenuSpec): ContentedMenuSpec[] => {
     all.push(cur);
     if (cur.children) {
       cur.children
-        .map((v) => ({ ...cur, children: [], path: undefined, content: undefined, ...v }))
+        .map((v) => ({ ...cur, children: [], path: undefined, extraPaths: undefined, content: undefined, ...v }))
         .reduce(reducer, all);
     }
     return all;
@@ -276,10 +283,18 @@ function flatMenus(menus: MenuSpec[]): MenuSpec[] {
   return menus.reduce(reducer, [] as MenuSpec[]);
 }
 
-function buildRoutes(menus: MenuSpec[]) {
-  const routes: RouteSpec[] = [];
+function buildRoutes(menus: ContentedMenuSpec[]): RouteSpec[] {
   const all = flatMenus(menus);
-  return all.filter((v) => v.content);
+  return all
+    .filter((v) => v.content)
+    .filter((v) => v.path)
+    .map((v) => {
+      return {
+        ...v,
+        path: [v.path, ...(v.extraPaths || [])],
+      };
+    })
+    .map((v) => v as RouteSpec);
 }
 
 export const routes: RouteSpec[] = [

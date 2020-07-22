@@ -1,7 +1,7 @@
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import React from 'react';
-import { Alert, PageHeader } from 'antd';
+import { PageHeader } from 'antd';
 import { KeyOutlined } from '@ant-design/icons';
 import { PasswordStrengthPageContent } from './PasswordStrengthPageContent';
 
