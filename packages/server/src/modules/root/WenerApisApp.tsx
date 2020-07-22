@@ -4,25 +4,10 @@ import { WenerApisLayout } from 'src/modules/root/WenerApisLayout';
 import { LoadableComponentSpec, menus, routes } from 'src/modules/root/menus';
 import Loadable from 'react-loadable';
 import { WenerApisContent } from 'src/modules/root/WenerApisContent';
-import { EnvironmentOutlined } from '@ant-design/icons';
-import { useConstant } from '../../../../ui/src/hooks';
-
-const LoadableComponent = Loadable({
-  loader: () => import('@wener/apis-geo').then(({ LocationMeLite }) => LocationMeLite),
-  loading: (props) => {
-    if (props.error) {
-      console.error(`Error`, props.error);
-      return <div>Failed loading</div>;
-    }
-    return <div>Loading</div>;
-  },
-});
 
 const NextLink: React.FC<{ href }> = ({ href, children }) => {
   return <Link to={href}>{children}</Link>;
 };
-
-console.log(`Routes`, routes);
 
 const NotFound = ({ detail }) => (
   <div>

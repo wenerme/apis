@@ -4945,6 +4945,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-alias@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@rollup/plugin-alias@npm:3.1.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-alias%2Fdownload%2F%40rollup%2Fplugin-alias-3.1.1.tgz"
+  dependencies:
+    slash: ^3.0.0
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0
+  checksum: 785d8a4283e59bbd76447e2ea5128e34c9ebf59b626841a82d5c8366687439c2fe7d0690be04e73e51ada5264d1efdfd4de8ec2528f4f9428f9541040311262c
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-babel@npm:^5, @rollup/plugin-babel@npm:^5.1.0":
   version: 5.1.0
   resolution: "@rollup/plugin-babel@npm:5.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-babel%2Fdownload%2F%40rollup%2Fplugin-babel-5.1.0.tgz"
@@ -8387,6 +8398,7 @@ __metadata:
     "@next/mdx": ^9.2.1
     "@now/node": ^1.3.5
     "@reduxjs/toolkit": ^1.2.3
+    "@rollup/plugin-alias": ^3.1.1
     "@rollup/plugin-babel": ^5
     "@rollup/plugin-commonjs": ^14.0.0
     "@rollup/plugin-node-resolve": ^8

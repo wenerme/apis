@@ -77,6 +77,10 @@ export const menus: ContentedMenuSpec[] = [
     iconType: 'phone',
     path: '/phone/attribution',
     routes: ['/phone/attribution/[num]'],
+    content: {
+      module: '@wener/apis-phone',
+      name: 'PhoneAttributionContent',
+    },
   },
   {
     title: 'URI',

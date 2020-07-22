@@ -2,6 +2,7 @@ import babel from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
+import alias from '@rollup/plugin-alias';
 
 function buildMod(mod) {
   if (!mod) {
@@ -15,27 +16,33 @@ function buildMod(mod) {
 
   const external = [
     /^@wener[/]apis-/,
-    //
+    // react
     'react',
     'react-dom',
     'react-is',
     'immer',
-    //
+    'react-query',
+    'react-router-dom',
+    'prop-types',
+    // load failed - cjs
+    // 'react-helmet',
+    // 'react-loadable',
+    // utils
     'lodash',
-    //
+    'tslib',
+    // ui
     'antd',
     '@ant-design/icons',
-    //
+    // wener
     '@wener/ui',
     '@wener/ui/icons',
     '@wener/ui/antds',
     '@wener/utils',
-    //
+    // spa
     'single-spa',
     'single-spa-layout',
     // 'single-spa-react',
-    //
-    'tslib',
+
     //
     // /^@babel[/]runtime/,
 
@@ -51,13 +58,21 @@ function buildMod(mod) {
     if (warning.code === 'THIS_IS_UNDEFINED') {
       return;
     }
-    console.warn('THIS_IS_UNDEFINED', warning.message);
+    console.warn(warning.code, warning.message);
   }
 
   return [
     {
       input,
       plugins: [
+        alias({
+          entries: [
+            {
+              find: new RegExp(`^src[/]modules[/](\\w+(?!${mod}))$`),
+              replacement: '@wener/apis-$1',
+            },
+          ],
+        }),
         nodeResolve({ browser: true, extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
         babel({
           babelHelpers: 'bundled',

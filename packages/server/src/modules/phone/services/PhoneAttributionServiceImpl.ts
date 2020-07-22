@@ -3,6 +3,7 @@ import { PhoneData } from 'src/libs/phonedata/types';
 import { fetchPhoneData } from 'src/libs/phonedata/source';
 import { parsePhoneData, searchByPhoneNumber } from 'src/libs/phonedata/parser';
 import { RequestError } from 'src/libs/nexts/middlewares/errors';
+import { isDev } from '@wener/utils';
 
 export class PhoneAttributionServiceImpl extends PhoneAttributionService {
   _phoneData: PhoneData;
@@ -11,7 +12,7 @@ export class PhoneAttributionServiceImpl extends PhoneAttributionService {
     if (this._phoneData) {
       return this._phoneData;
     }
-    const buffer = await fetchPhoneData();
+    const buffer = await fetchPhoneData({ checkUpdate: !isDev() });
     return (this._phoneData = parsePhoneData(buffer));
   }
 

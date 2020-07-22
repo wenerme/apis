@@ -11,6 +11,11 @@ const maps = {
   'insert-css': 'https://cdn.jsdelivr.net/npm/insert-css',
   //
   // 'console-feed': '/modules/console-feed.system.js',
+  'react-query': 'https://cdn.jsdelivr.net/npm/react-query@2.5.5/dist/react-query.production.min.js',
+  'react-router-dom': 'https://cdn.jsdelivr.net/npm/react-router-dom@5.2.0/umd/react-router-dom.min.js',
+  // 'react-helmet': 'https://cdn.jsdelivr.net/npm/react-helmet@6.1.0/lib/Helmet.js',
+  // 'react-loadable': 'https://cdn.jsdelivr.net/npm/react-loadable@5.5.0/lib/index.js',
+  'prop-types': 'https://cdn.jsdelivr.net/npm/prop-types@15.7.2/prop-types.min.js',
 };
 const internal = /@wener[/]apis-(.+)/;
 System.constructor.prototype.resolve = function (...args) {

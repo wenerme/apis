@@ -87,21 +87,7 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({ initialData = 
 
           <PhoneAttributionPageContent initialData={initialData} />
 
-          <div style={{ marginTop: 18 }}>
-            <Alert
-              type="info"
-              showIcon
-              message={
-                <div>
-                  数据来源于{' '}
-                  <a href="https://github.com/xluohome/phonedata" target="_blank" rel="noopener noreferrer">
-                    xluohome/phonedata
-                  </a>
-                  。
-                </div>
-              }
-            />
-          </div>
+
         </PageContent>
       </PageLayout>
     </React.Fragment>

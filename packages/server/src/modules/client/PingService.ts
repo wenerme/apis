@@ -1,4 +1,4 @@
-import { ServiceNameAttribute } from './index';
+import { ServiceNameAttribute } from 'src/modules/service/interfaces';
 
 export class PingService {
   static [ServiceNameAttribute] = 'me.wener.test.PingService';

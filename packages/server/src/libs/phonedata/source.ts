@@ -36,6 +36,7 @@ export async function fetchPhoneData({ checkUpdate = true } = {}) {
     meta = JSON.parse(fs.readFileSync(metaCacheFile).toString());
   } catch (e) {
     //
+    logger.info('PhoneData meta not found');
   }
   if (checkUpdate || !meta) {
     meta = await fetch('https://api.github.com/repos/xluohome/phonedata/contents/')
