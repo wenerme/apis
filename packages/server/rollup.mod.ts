@@ -76,6 +76,7 @@ function buildMod(mod) {
             { find: 'react-loadable', replacement: 'src/externals/react-loadable/index.js' },
             { find: 'react-fast-compare', replacement: 'src/externals/react-fast-compare/index.js' },
             { find: 'react-simple-code-editor', replacement: 'src/externals/react-simple-code-editor/index.js' },
+            { find: 'fast-xml-parser', replacement: 'src/externals/fast-xml-parser/index.js' },
             //
             { find: 'react-side-effect', replacement: 'react-side-effect/lib/index.es.js' },
             { find: 'react-helmet', replacement: 'react-helmet/es/Helmet.js' },
@@ -92,7 +93,7 @@ function buildMod(mod) {
             ['@babel/preset-env', { modules: false }],
             '@babel/preset-flow',
             '@babel/preset-typescript',
-            '@babel/preset-react'
+            '@babel/preset-react',
           ],
           plugins: [
             ['babel-plugin-add-module-exports'],

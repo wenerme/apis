@@ -17,6 +17,10 @@
   "source": "src/index.ts",
   "typings": "lib/index.d.ts",
   "module": "es/index.js",
+  "umd:main": "dist/wener-utils.umd.min.js",
+  "unpkg": "dist/wener-utils.umd.min.js",
+  "jsdelivr": "dist/wener-utils.umd.min.js",
+  "jsnext:main": "dist/wener-utils.esm.js",
   "exports": {
     ".": {
       "import": "./dist/wener-utils.esm.min.js",

@@ -13,6 +13,7 @@ const maps = {
   // 'console-feed': '/modules/console-feed.system.js',
   'react-query': 'https://cdn.jsdelivr.net/npm/react-query@2.5.5/dist/react-query.production.min.js',
   'react-router-dom': 'https://cdn.jsdelivr.net/npm/react-router-dom@5.2.0/umd/react-router-dom.min.js',
+  "immer": "https://cdn.jsdelivr.net/npm/immer/dist/immer.umd.production.min.js",
   // 'react-helmet': 'https://cdn.jsdelivr.net/npm/react-helmet@6.1.0/lib/Helmet.js',
   // 'react-loadable': 'https://cdn.jsdelivr.net/npm/react-loadable@5.5.0/lib/index.js',
   'prop-types': 'https://cdn.jsdelivr.net/npm/prop-types@15.7.2/prop-types.min.js',
@@ -30,13 +31,14 @@ System.constructor.prototype.resolve = function (...args) {
   if (id === 'rc-util/lib/warning') {
     return 'https://cdn.jsdelivr.net/npm/rc-util/lib/warning.js';
   }
-  // const m = id.match(internal);
-  // if (m) {
-  //   // FIXME will hang
-  //   const url = `/modules/wener-apis-${m[1]}.system.js`;
-  //   console.log(`Load internal ${id} - `, url, args);
-  //   return url;
-  // }
+  const m = id.match(internal);
+  if (m) {
+    // const url = `${location.origin}/modules/wener-apis-${m[1]}.system.js`;
+    const name = id.replace('@', '').replace('/', '-');
+    const url = `${location.origin}/modules/${name}.system.js`;
+    console.log(`Load internal ${id} - `, url, args);
+    return url;
+  }
 
   try {
     const r = originalResolve.apply(this, args);

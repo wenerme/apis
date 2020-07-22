@@ -110,14 +110,26 @@ export const menus: ContentedMenuSpec[] = [
       {
         title: 'Asterisk Conf',
         path: '/langs/asterisk-conf/play',
+        content: {
+          module: '@wener/apis-langs',
+          name: 'AsteriskConfPlayground',
+        },
       },
       {
         title: 'HTML Entities',
         path: '/langs/html-entities/play',
+        content: {
+          module: '@wener/apis-langs',
+          name: 'HtmlEntitiesPlayground',
+        },
       },
       {
         title: 'XML',
         path: '/langs/xml/play',
+        content: {
+          module: '@wener/apis-lang-xml',
+          name: 'XmlPlayground',
+        },
       },
     ],
   },

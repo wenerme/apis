@@ -15,21 +15,25 @@ const globals = {
   lodash: '_',
   '@wener/utils': 'WenerUtils',
 };
+const external = Object.keys(require('./package.json').peerDependencies || {}).filter((v) => !['immer'].includes(v));
 export default [
   ...buildRollup({
     libraryName,
     input: 'src/index.ts',
     globals,
+    external,
   }),
   ...buildRollup({
     libraryName: libraryName + '-antds',
     input: 'src/antds/index.ts',
     globals,
+    external,
   }),
   ...buildRollup({
     libraryName: libraryName + '-icons',
     input: 'src/icons/index.ts',
     globals,
+    external,
   }),
 ].map(report);
 function report(v) {
@@ -88,6 +92,7 @@ function buildRollup({
       plugins: [
         nodeResolve({
           browser: true,
+          mainFields: ['module', 'main'],
           extensions: ['.js', '.ts', '.jsx', '.tsx'],
         }),
         babel({
