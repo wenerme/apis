@@ -30,19 +30,21 @@ System.constructor.prototype.resolve = function (...args) {
   if (id === 'rc-util/lib/warning') {
     return 'https://cdn.jsdelivr.net/npm/rc-util/lib/warning.js';
   }
+  // const m = id.match(internal);
+  // if (m) {
+  //   // FIXME will hang
+  //   const url = `/modules/wener-apis-${m[1]}.system.js`;
+  //   console.log(`Load internal ${id} - `, url, args);
+  //   return url;
+  // }
+
   try {
     const r = originalResolve.apply(this, args);
     console.log(`Load ${id} - `, r, args);
     return r;
   } catch (err) {
-    const m = id.match(internal);
-    if (m) {
-      // FIXME will hang
-      const url = `/modules/wener-apis-${m[1]}.system.js`;
-      console.log(`Load internal ${id} - `, url, args);
-      return url;
-    }
-    console.log(`Failed to load - `, err);
-    throw err;
+    console.error(`Failed to load - `, id, err);
+    return `https://cdn.jsdelivr.net/npm/${id}`;
+    // throw err;
   }
 };

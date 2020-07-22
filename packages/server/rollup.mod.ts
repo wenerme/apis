@@ -20,11 +20,13 @@ function buildMod(mod) {
     'react',
     'react-dom',
     'react-is',
-    'immer',
     'react-query',
     'react-router-dom',
     'prop-types',
+
     // load failed - cjs
+    // 'react-simple-code-editor',
+    // 'immer',
     // 'react-helmet',
     // 'react-loadable',
     // utils
@@ -71,16 +73,29 @@ function buildMod(mod) {
               find: new RegExp(`^src[/]modules[/](\\w+(?!${mod}))$`),
               replacement: '@wener/apis-$1',
             },
+            { find: 'react-loadable', replacement: 'src/externals/react-loadable/index.js' },
+            { find: 'react-fast-compare', replacement: 'src/externals/react-fast-compare/index.js' },
+            { find: 'react-simple-code-editor', replacement: 'src/externals/react-simple-code-editor/index.js' },
+            //
+            { find: 'react-side-effect', replacement: 'react-side-effect/lib/index.es.js' },
+            { find: 'react-helmet', replacement: 'react-helmet/es/Helmet.js' },
           ],
         }),
         nodeResolve({ browser: true, extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
         babel({
+          // exclude: /[.]yarn/,
           babelHelpers: 'bundled',
           // babelHelpers: 'runtime',
           // babelHelpers: 'inline',
           babelrc: false,
-          presets: ['@babel/preset-typescript', '@babel/preset-react'],
+          presets: [
+            ['@babel/preset-env', { modules: false }],
+            '@babel/preset-flow',
+            '@babel/preset-typescript',
+            '@babel/preset-react'
+          ],
           plugins: [
+            ['babel-plugin-add-module-exports'],
             ['@babel/plugin-proposal-decorators', { legacy: true }],
             ['@babel/plugin-proposal-class-properties', { loose: true }],
             // ['@babel/plugin-transform-runtime',{
@@ -91,7 +106,9 @@ function buildMod(mod) {
           ],
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         }),
-        commonjs({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
+        commonjs({
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        }),
       ],
       external,
       onwarn,

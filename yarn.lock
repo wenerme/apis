@@ -1343,6 +1343,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-syntax-flow@npm:^7.10.4":
+  version: 7.10.4
+  resolution: "@babel/plugin-syntax-flow@npm:7.10.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-syntax-flow%2Fdownload%2F%40babel%2Fplugin-syntax-flow-7.10.4.tgz"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.10.4
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 96d32d0411ac94429714f0bfda399b26b1ecee0757b645105cc3ffbb85cdef0d7f9959529d38ee44d1c17e989876b3f86f8a61f41430667ddea6d176e78d52cb
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-syntax-import-meta@npm:^7.8.3":
   version: 7.10.1
   resolution: "@babel/plugin-syntax-import-meta@npm:7.10.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-syntax-import-meta%2Fdownload%2F%40babel%2Fplugin-syntax-import-meta-7.10.1.tgz"
@@ -1783,6 +1794,18 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 6b9843bd1459526931cc641410b7b50677088c72dcb6f230d7a7995369bb54c30d5aa7b0ec9fcb1275c0c1323d708048d5ddee63c90abb88a685f11ae0a8d914
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-transform-flow-strip-types@npm:^7.10.4":
+  version: 7.10.4
+  resolution: "@babel/plugin-transform-flow-strip-types@npm:7.10.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-flow-strip-types%2Fdownload%2F%40babel%2Fplugin-transform-flow-strip-types-7.10.4.tgz"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.10.4
+    "@babel/plugin-syntax-flow": ^7.10.4
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 704d4c8a80e017b642e8d531bec124929da84f1cc6e226fb57a3c3084d30f08f922a5fed7a9d2b1728ba45f20d87f89a438a4f630c578756715cc732703f0d7f
   languageName: node
   linkType: hard
 
@@ -2849,6 +2872,18 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: bc30712ca38dd87488e32856b56951a6589033a8d1b4aa88f9cb6d10b643aaec922fe2cb33715a006d2b65514fb7de8c1ff10a2b6ca27bd7ae86fed1902847bb
+  languageName: node
+  linkType: hard
+
+"@babel/preset-flow@npm:^7.10.4":
+  version: 7.10.4
+  resolution: "@babel/preset-flow@npm:7.10.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fpreset-flow%2Fdownload%2F%40babel%2Fpreset-flow-7.10.4.tgz"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.10.4
+    "@babel/plugin-transform-flow-strip-types": ^7.10.4
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: bc28862a09cb0fd58bb36b08f2f9390cc977945784cd1d3b47e62db92c9ee65a442799392d0c9be22041d9c1b530655bc22633bffed9ee723fa400aaeea75274
   languageName: node
   linkType: hard
 
@@ -8388,7 +8423,10 @@ __metadata:
     "@babel/core": ^7
     "@babel/plugin-proposal-class-properties": ^7.8.3
     "@babel/plugin-proposal-decorators": ^7.8.3
+    "@babel/plugin-transform-modules-commonjs": ^7.10.4
     "@babel/plugin-transform-runtime": ^7.10.5
+    "@babel/preset-env": ^7.10.4
+    "@babel/preset-flow": ^7.10.4
     "@babel/preset-react": ^7
     "@babel/preset-typescript": ^7
     "@babel/runtime": ^7.10.5
@@ -8415,6 +8453,7 @@ __metadata:
     "@types/asn1js": ^0.0.2
     "@types/babel__core": ^7.1.7
     "@types/babel__plugin-transform-runtime": ^7
+    "@types/babel__preset-env": ^7
     "@types/bencode": ^2.0.0
     "@types/blob-to-buffer": ^1.2.0
     "@types/body-parser": ^1.19.0
@@ -8511,6 +8550,7 @@ __metadata:
     babel-core: ^6.26.3
     babel-jest: ^26
     babel-loader: ^8.1.0
+    babel-plugin-add-module-exports: ^1.0.2
     babel-plugin-import: ^1.13.0
     babel-plugin-inline-react-svg: ^1.1.1
     babel-plugin-styled-components: ^1.10.7
@@ -8611,7 +8651,7 @@ __metadata:
     react-color: ^2.18.0
     react-contenteditable: ^3.3.3
     react-dom: latest
-    react-fast-compare: ^3.0.1
+    react-fast-compare: ^3.2.0
     react-ga: ^2.7.0
     react-helmet: ^6.1.0
     react-i18next: ^11.3.3
@@ -10060,6 +10100,18 @@ __metadata:
   dependencies:
     babel-runtime: ^6.22.0
   checksum: 9a04e1b86bf68f0469efc7d09d04dbcd69d386ae0347d71c67b8867d6763f0b46616856ca3669b982e9e000642b0546271ecda51c1e1a321fc8cf179ad6d65ad
+  languageName: node
+  linkType: hard
+
+"babel-plugin-add-module-exports@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "babel-plugin-add-module-exports@npm:1.0.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-plugin-add-module-exports%2Fdownload%2Fbabel-plugin-add-module-exports-1.0.2.tgz"
+  dependencies:
+    chokidar: ^2.0.4
+  dependenciesMeta:
+    chokidar:
+      optional: true
+  checksum: 6fa030061bbae10ff4a15d8a6daadeef1719893f425e6bb97f0e49a04b988d8ece4c71ba1aaa2bad85fcf6ff2ab22d6c388050143dd8343a841fed910b1ed3ba
   languageName: node
   linkType: hard
 
@@ -11709,7 +11761,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:2.1.8, chokidar@npm:^2.1.8":
+"chokidar@npm:2.1.8, chokidar@npm:^2.0.4, chokidar@npm:^2.1.8":
   version: 2.1.8
   resolution: "chokidar@npm:2.1.8::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fchokidar%2Fdownload%2Fchokidar-2.1.8.tgz"
   dependencies:
@@ -25339,7 +25391,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-fast-compare@npm:*, react-fast-compare@npm:^3.0.1, react-fast-compare@npm:^3.1.1":
+"react-fast-compare@npm:*, react-fast-compare@npm:^3.0.1, react-fast-compare@npm:^3.1.1, react-fast-compare@npm:^3.2.0":
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-fast-compare%2Fdownload%2Freact-fast-compare-3.2.0.tgz"
   checksum: 6fe65c889eb4f326e97769135f97b3d63ac68737866f9c37f9625c9de4f5eaa9abed6f748eb3fd6a66808392118842916309cab7cfa99c67991f0c837433d6d2

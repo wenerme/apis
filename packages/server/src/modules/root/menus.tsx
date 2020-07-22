@@ -46,6 +46,7 @@ export interface LoadableComponentSpec {
 export interface ContentedMenuSpec extends MenuSpec {
   content?: LoadableComponentSpec;
   extraPaths?: string[];
+  children?: ContentedMenuSpec[];
 }
 
 export interface RouteSpec {
@@ -101,6 +102,10 @@ export const menus: ContentedMenuSpec[] = [
       {
         title: 'INI',
         path: '/langs/ini/play',
+        content: {
+          module: '@wener/apis-langs',
+          name: 'IniPlayground',
+        },
       },
       {
         title: 'Asterisk Conf',

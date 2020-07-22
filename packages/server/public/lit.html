@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Root Config</title>
     <!--
-  This CSP allows any SSL-enabled host, but you should limit these directives further to increase your app's security.
-  Learn more about CSP policies at https://content-security-policy.com/#directive
+This CSP allows any SSL-enabled host, but you should limit these directives further to increase your app's security.
+Learn more about CSP policies at https://content-security-policy.com/#directive
 -->
     <!--  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: localhost:*; script-src 'unsafe-inline' https: localhost:*; connect-src https: localhost:* ws://localhost:*; style-src 'unsafe-inline' https:; object-src 'none';">-->
     <meta name="importmap-type" content="systemjs-importmap" />
@@ -16,11 +16,11 @@
 
     <!-- Shared dependencies go into this import map. Your shared dependencies must be of one of the following formats:
 
-  1. System.register (preferred when possible) - https://github.com/systemjs/systemjs/blob/master/docs/system-register.md
-  2. UMD - https://github.com/umdjs/umd
-  3. Global variable
+1. System.register (preferred when possible) - https://github.com/systemjs/systemjs/blob/master/docs/system-register.md
+2. UMD - https://github.com/umdjs/umd
+3. Global variable
 
-  More information about shared dependencies can be found at https://single-spa.js.org/docs/recommended-setup#sharing-with-import-maps.
+More information about shared dependencies can be found at https://single-spa.js.org/docs/recommended-setup#sharing-with-import-maps.
 -->
     <script type="systemjs-importmap">
       {
@@ -56,6 +56,7 @@
           "@wener/apis-test": "/modules/wener-apis-test.system.js",
           "@wener/apis-phone": "/modules/wener-apis-phone.system.js",
           "@wener/apis-password": "/modules/wener-apis-password.system.js",
+          "@wener/apis-langs": "/modules/wener-apis-langs.system.js",
           "@wener/apis-dash": "/modules/wener-apis-dash.system.js"
         }
       }
@@ -65,8 +66,8 @@
     <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
 
     <!--
-  If you need to support Angular applications, uncomment the script tag below to ensure only one instance of ZoneJS is loaded
-  Learn more about why at https://single-spa.js.org/docs/ecosystem-angular/#zonejs
+If you need to support Angular applications, uncomment the script tag below to ensure only one instance of ZoneJS is loaded
+Learn more about why at https://single-spa.js.org/docs/ecosystem-angular/#zonejs
 -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/zone.js@0.10.3/dist/zone.min.js"></script> -->
 
