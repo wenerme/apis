@@ -75,6 +75,8 @@ function buildMod(mod) {
   return [
     {
       input,
+      // like qrcode module - imports alot
+      inlineDynamicImports: true,
       plugins: [
         json(),
         alias({

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import { Descriptions, notification, PageHeader, Spin } from 'antd';
-import { BarcodeOutlined } from '@ant-design/icons/lib';
+import { BarcodeOutlined } from '@ant-design/icons';
 import { ImageReceiver } from 'src/components/ImageReceiver';
 import { Result } from '@zxing/library';
 import { getZxingFormat } from 'src/libs/barcodes/formats';

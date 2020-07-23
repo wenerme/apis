@@ -51,6 +51,10 @@ export const menus: ContentedMenuSpec[] = [
     iconComponent: <HomeOutlined />,
     iconType: 'home',
     path: '/',
+    content: {
+      module: '@wener/ui/wener',
+      name: 'WenerApisWelcome',
+    },
   },
   {
     title: '我的定位',
@@ -146,6 +150,10 @@ export const menus: ContentedMenuSpec[] = [
         title: '二维码生成',
         path: '/barcode/qrcode/builder',
         iconComponent: <QrcodePrintOutlined />,
+        content: {
+          module: '@wener/apis-qrcode',
+          name: 'QrCodeBuilderPlayground',
+        },
       },
       {
         title: '二维码解析',

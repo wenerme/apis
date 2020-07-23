@@ -20,4 +20,8 @@ server: ui utils
 
 ci:
 	yarn install
-	$(MAKE) server
+	# server is too hard to build - build static first
+	make -C packages/ui lib bundle server-modules
+	make -C packages/utils lib bundle server-modules
+	make -C packages/server modules
+	cp -r packages/server/public .
