@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { message, notification, Spin, Upload } from 'antd';
-import { InboxOutlined } from '@ant-design/icons/lib';
+import { InboxOutlined } from '@ant-design/icons';
 import { usePasteFileEffect } from '../hooks/usePasteFileEffect';
 
 const decoders = {

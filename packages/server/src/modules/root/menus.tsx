@@ -159,6 +159,10 @@ export const menus: ContentedMenuSpec[] = [
         title: '二维码解析',
         path: '/barcode/qrcode/reader',
         iconComponent: <QrcodeReadOutlined />,
+        content: {
+          module: '@wener/apis-qrcode',
+          name: 'QrCodeReaderPlayground',
+        },
       },
       {
         title: '条形码生成',

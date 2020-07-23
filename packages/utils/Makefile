@@ -1,5 +1,7 @@
 .PHONY: build bundle clean
 
+SHELL:=/bin/bash
+
 build: es lib bundle docs
 
 lib:

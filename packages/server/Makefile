@@ -4,6 +4,8 @@
 .SECONDEXPANSION:
 .PHONEY: always
 
+SHELL:=/bin/bash
+
 # all modules
 # ls src/modules/*/index.ts | egrep -o '[^/]*/index' | egrep -o '^[^/]*'
 # ls src/modules/*/index.ts | egrep -o '[^/]*/index' | egrep -o '^[^/]*' | paste -sd ',' -

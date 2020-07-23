@@ -1,5 +1,7 @@
 .PHONY: build bundle docs clean
 
+SHELL:=/bin/bash
+
 SVGS:=$(wildcard src/icons/svgs/*.svg)
 SVGRS=$(SVGS:src/icons/svgs/%.svg=src/icons/svgr/%.tsx)
 AntdIcons=$(SVGRS:src/icons/svgr/%.tsx=src/icons/components/%.tsx)

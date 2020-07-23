@@ -1,4 +1,7 @@
 {
   "title": "二维码",
-  "description": "二维码生成、二维码照片识别"
+  "description": "二维码生成、二维码照片识别",
+  "externals": {
+    "pngjs": "https://cdn.jsdelivr.net/npm/pngjs@5.0.0/browser.min.js"
+  }
 }

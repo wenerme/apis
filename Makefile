@@ -1,5 +1,6 @@
 .SECONDEXPANSION:
 
+SHELL:=/bin/bash
 
 love:
 	@exit Run which task ?

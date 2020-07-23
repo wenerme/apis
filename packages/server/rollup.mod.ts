@@ -92,6 +92,9 @@ function buildMod(mod) {
             //
             { find: 'react-side-effect', replacement: 'react-side-effect/lib/index.es.js' },
             { find: 'react-helmet', replacement: 'react-helmet/es/Helmet.js' },
+
+            // default use not binding zlib
+            { find: 'pngjs', replacement: 'pngjs/browser.js' },
           ],
         }),
         nodeResolve({ browser: true, preferBuiltins: false, extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
@@ -111,7 +114,12 @@ function buildMod(mod) {
             '@babel/preset-react',
           ],
           plugins: [
-            ['babel-plugin-add-module-exports'],
+            [
+              'babel-plugin-add-module-exports',
+              {
+                addDefaultProperty: true,
+              },
+            ],
             ['@babel/plugin-proposal-decorators', { legacy: true }],
             ['@babel/plugin-proposal-class-properties', { loose: true }],
             // ['@babel/plugin-transform-runtime', {
@@ -159,9 +167,6 @@ function addMini({ dev }) {
   };
 }
 
-const devMod = 'boot,root,test,dash,client,mgmt';
+const devMod = 'boot,root,test,dash,client,mgmt,qrcode';
 const mod = process.env.MOD_NAME || devMod;
-export default mod
-  .split(',')
-  .flatMap((v) => buildMod(v))
-;
+export default mod.split(',').flatMap((v) => buildMod(v));
