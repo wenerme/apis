@@ -1,8 +1,8 @@
 export class ModuleService {
-  internals = [];
-  readonly overrides = {};
-  readonly imports = {};
-  readonly dynamics = {};
+  internals: RegExp[] = [];
+  readonly overrides: Record<string, string> = {};
+  readonly imports: Record<string, string> = {};
+  readonly resolved: Record<string, string> = {};
   readonly dependencies: Record<string, string[]> = {};
 
   isInternal(id) {
@@ -24,7 +24,6 @@ export class ModuleService {
         console.error(`fallback to jsdelivr resolve - `, id);
         resolved = `https://cdn.jsdelivr.net/npm/${id}`;
       }
-      this.dynamics[id] = resolved;
     }
     if (parentUrl) {
       const parentName = this.resolveName(parentUrl);
@@ -35,6 +34,7 @@ export class ModuleService {
         deps.includes(id) || deps.push(id);
       }
     }
+    this.resolved[id] = resolved;
     return resolved;
   }
 
@@ -52,6 +52,14 @@ export class ModuleService {
   }
 
   resolveName(url: string): string | undefined {
+    {
+      const e = Object.entries(this.resolved).find(([_, v]) => v === url);
+      if (e) {
+        return e[0];
+      }
+      console.warn(`Not found for `, url);
+    }
+
     const local = `${location.origin}/modules/`;
     if (url.startsWith(local)) {
       const m = url.substr(local.length).match(/(\w+)-([^.]+)/);
@@ -70,7 +78,7 @@ export class ModuleService {
     if (found) {
       return found;
     }
-    found = Object.entries(this.dynamics).find(([_, v]) => v === url)?.[0];
+    found = Object.entries(this.resolved).find(([_, v]) => v === url)?.[0];
     return found;
   }
 }
@@ -83,6 +91,6 @@ export function normalizeModuleUrl(url) {
 }
 
 function normalizePackageName(id, { format = 'system' } = {}) {
-  const name = id.replace('@', '').replace('/', '-');
+  const name = id.replace('@', '').replace(/[/]/g, '-');
   return `${location.origin}/modules/${name}.${format}.js`;
 }

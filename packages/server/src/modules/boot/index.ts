@@ -4,4 +4,4 @@ import 'regenerator-runtime/runtime';
 
 export * from './boot';
 export { default as metadata } from './metadata.json';
-export { normalizeModuleUrl } from './ModuleService';
+export * from './ModuleService';

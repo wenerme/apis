@@ -15,6 +15,9 @@ export async function boot() {
 
   const modules = bootService.modules;
   modules.internals.push(/^@wener[/]apis-(.+)/);
+  modules.internals.push(/^@wener[/]ui([/]\w+)?/);
+  modules.internals.push(/^@wener[/]utils/);
+
   Object.assign(modules.imports, imports);
 
   console.info(`Injecting system resolve`);

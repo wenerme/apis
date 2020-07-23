@@ -34,4 +34,4 @@ $(SVGS):
 	yarn svgo -f src/icons/svgs --config svgo.config.json
 
 server-modules:
-	cp dist/wener-ui{,-antds,-icons}.system.js ../server/public/modules/
+	cp -v dist/wener-ui{,-antds,-icons,-wener}.system{,.min}.js{,.map} ../server/public/modules/

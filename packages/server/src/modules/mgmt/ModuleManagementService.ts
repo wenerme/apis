@@ -1,4 +1,4 @@
-import { getBootService, normalizeModuleUrl } from 'src/modules/boot';
+import { getBootService, ModuleService, normalizeModuleUrl } from 'src/modules/boot';
 import ModuleMetas from './modules.json';
 
 export interface ModuleInfo {
@@ -53,7 +53,7 @@ export function getSourceFromResolvedUrl(url) {
 
 export class ModuleManagementService {
   private _boot = getBootService();
-  private _modules = this._boot.modules;
+  private _modules: ModuleService = this._boot.modules;
   private System = this._boot.System;
 
   getModules(): ModuleInfo[] {
@@ -65,11 +65,6 @@ export class ModuleManagementService {
         name,
         resolved: normalizeModuleUrl(resolved),
         predefined: true,
-      })),
-      Object.entries(_modules.dynamics).map(([name, resolved]) => ({
-        name,
-        resolved: normalizeModuleUrl(resolved),
-        predefined: false,
       })),
     );
     {

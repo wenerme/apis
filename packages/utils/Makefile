@@ -12,3 +12,6 @@ docs:
 	yarn typedoc --out docs --target es6 --theme minimal --mode file src
 clean:
 	rm -rf ./lib ./dist ./es ./docs
+
+server-modules:
+	cp -v dist/wener-utils.system{,.min}.js{,.map} ../server/public/modules/
