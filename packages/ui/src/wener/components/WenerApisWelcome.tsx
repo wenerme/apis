@@ -6,7 +6,7 @@ import {
   HomeOutlined,
   RetweetOutlined,
   ToolOutlined,
-} from '@ant-design/icons/lib';
+} from '@ant-design/icons';
 import { Button, Col, PageHeader, Result, Row } from 'antd';
 import React from 'react';
 

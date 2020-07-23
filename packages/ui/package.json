@@ -13,6 +13,10 @@
     "./antds": {
       "import": "./dist/wener-ui-antds.esm.min.js",
       "require": "./dist/wener-ui-antds.min.cjs"
+    },
+    "./icons": {
+      "import": "./dist/wener-ui-icons.esm.min.js",
+      "require": "./dist/wener-ui-icons.min.cjs"
     }
   },
   "files": [

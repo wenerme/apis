@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAntdTheme } from '@wener/ui/src/antds';
 import { FormatPainterOutlined } from '@ant-design/icons/lib';
-import { WenerApisWelcome } from '@wener/ui/src/components/WenerApisWelcome';
+import { WenerApisWelcome } from '@wener/ui/wener';
 
 export default { title: 'Welcome' };
 

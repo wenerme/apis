@@ -8,3 +8,8 @@ declare module '*.svg'
 declare module '*.gif'
 declare module '*.md'
 declare module '*.mdx'
+
+declare module "*.json" {
+  const value: any;
+  export default value;
+}

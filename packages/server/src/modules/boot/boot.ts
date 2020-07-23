@@ -21,7 +21,7 @@ export async function boot() {
 
   const System = window['System'];
   const originalResolve = System.constructor.prototype.resolve;
-  System.constructor.prototype.resolve = function(id, parentUrl) {
+  System.constructor.prototype.resolve = function (id, parentUrl) {
     const resolved = modules.resolve({
       id,
       parentUrl,

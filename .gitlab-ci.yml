@@ -1,4 +1,4 @@
-image: wener/node:docker
+image: wener/apis:builder
 stages:
   - build
 
@@ -15,11 +15,7 @@ Build Image:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - mkdir /etc/apk/cache
-    # canvas
-    # https://github.com/Automattic/node-canvas/issues/1065#issuecomment-445548120
-    - apk add cairo-dev pango-dev jpeg-dev pixman-dev
-    - apk add rsync jq bash
-    - ./build/build-apis.sh
+    - make ci
     - echo Building image "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"

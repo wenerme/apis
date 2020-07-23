@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageHeader } from 'antd';
 import { TestButton } from './TestButton';
-import { DashLayout } from '@wener/apis-dash';
+import { DashLayout } from 'src/modules/dash';
 
 export const TestPanel: React.FC = () => {
   return (

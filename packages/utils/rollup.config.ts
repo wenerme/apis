@@ -19,7 +19,7 @@ function onwarn(warning) {
   if (warning.code === 'THIS_IS_UNDEFINED') {
     return;
   }
-  console.warn('THIS_IS_UNDEFINED', warning.message);
+  console.warn(warning.code, warning.message);
 }
 
 function addMini() {

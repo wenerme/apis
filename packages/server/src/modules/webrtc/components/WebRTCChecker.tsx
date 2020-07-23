@@ -207,7 +207,7 @@ export const WebRTCChecker: React.FC = () => {
           {emojiOfBoolean(globalThis.navigator?.mediaDevices?.getUserMedia)}
         </Descriptions.Item>
         <Descriptions.Item label="getDisplayMedia">
-          {emojiOfBoolean(globalThis.navigator?.mediaDevices?.getDisplayMedia)}
+          {emojiOfBoolean(globalThis.navigator?.mediaDevices?.['getDisplayMedia'])}
         </Descriptions.Item>
       </Descriptions>
 

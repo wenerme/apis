@@ -35,6 +35,12 @@ export default [
     globals,
     external,
   }),
+  ...buildRollup({
+    libraryName: libraryName + '-wener',
+    input: 'src/wener/index.ts',
+    globals,
+    external,
+  }),
 ].map(report);
 function report(v) {
   console.log(`${v.input} -> ${v.output.map((v) => v.file).join(', ')}`);

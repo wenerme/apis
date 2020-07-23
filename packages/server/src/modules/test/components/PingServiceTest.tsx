@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { consumeClientService, PingService } from '@wener/apis-client';
+import { consumeClientService, PingService } from 'src/modules/client';
 import { Button, Input, notification } from 'antd';
 import { useMutation, useQuery } from 'react-query';
 
