@@ -6,6 +6,7 @@ export interface ModuleInfo {
   resolved?;
   internal?: boolean;
   predefined?: boolean;
+  override?: boolean;
   loaded?;
   metadata?;
   hasMetadata?: boolean;
@@ -72,6 +73,7 @@ export class ModuleManagementService {
       })),
     );
     {
+      // 使用预先有的元数据覆盖
       const byName = keyBy(all, 'name');
       for (const v of ModuleMetas) {
         let m = byName[v.name];
@@ -81,6 +83,10 @@ export class ModuleManagementService {
         } else {
           Object.assign(m, v);
         }
+      }
+      // 添加 override 信息
+      for (const [name, resolved] of Object.entries(_modules.overrides)) {
+        byName[name] = Object.assign(byName[name] || {}, { name, resolved, override: true });
       }
     }
     const byResolved = keyBy(all, 'resolved');
@@ -101,7 +107,7 @@ export class ModuleManagementService {
       v.hasMetadata = Boolean(Object.keys(v.metadata || {}).length);
       v.source = getSourceFromResolvedUrl(v.resolved);
       v.version = getVersionFromResolvedUrl(v.resolved);
-      v.dependencies = _modules.dependencies[v.name] || [];
+      v.dependencies = Array.from(_modules.dependencies[v.name] || []);
     });
 
     const dependents = {};

@@ -32,7 +32,7 @@ export class ModuleService {
         console.warn('can not get name from parent url', parentUrl);
       } else {
         const deps = (this.dependencies[parentName] = this.dependencies[parentName] || []);
-        deps.push(id);
+        deps.includes(id) || deps.push(id);
       }
     }
     return resolved;

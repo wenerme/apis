@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { checkGateways, compareCheckState, OnScriptloaded } from 'src/libs/ipfs/gateway/checker';
 import { getPreferIpfsGateway, setPreferIpfsGateway } from 'src/libs/ipfs/gateway/selector';
 import { Button } from 'antd';
+import { PublicGateways } from 'src/libs/ipfs/gateway/gateways';
 
-export const GatewayChecker: React.FC<{ gateways: string[] }> = ({ gateways }) => {
+export const GatewayChecker: React.FC<{ gateways: string[] }> = ({ gateways = PublicGateways }) => {
   const abortRef = useRef<AbortController>();
   const [checks, setChecks] = useState([]);
   const [prefer, setPrefer] = useState(getPreferIpfsGateway);

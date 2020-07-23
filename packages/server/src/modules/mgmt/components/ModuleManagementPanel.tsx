@@ -27,6 +27,15 @@ export const ModuleManagementPanel: React.FC = () => {
         const m = modules.find((v) => v.name === name);
         m.loading = false;
         m.loaded = true;
+        //
+        m.dependencies = Array.from(getBootService().modules.dependencies[name] || []);
+
+        for (const depName of m.dependencies) {
+          const dep = modules.find((v) => v.name === depName);
+          if (dep && !dep.dependents.includes(name)) {
+            dep.dependents = [...dep.dependents, name];
+          }
+        }
       });
     } catch (e) {
       notification.error({ message: String(e) });
@@ -100,6 +109,7 @@ const ModuleList: React.FC<{ loading?; modules: ModuleInfo[]; onModuleLoad?; onM
                       {item.predefined && <Tag color="green">预定义</Tag>}
                       {item.internal && <Tag color="lime">内部模块</Tag>}
                       {item.hasMetadata && <Tag color="gold">含元数据</Tag>}
+                      {item.override && <Tag color="geekblue">覆盖</Tag>}
                     </span>
                   </div>
                 }

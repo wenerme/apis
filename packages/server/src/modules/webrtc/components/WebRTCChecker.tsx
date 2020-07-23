@@ -5,8 +5,7 @@ import { PeerConnectionState } from 'src/libs/webrtc/types';
 import { useAsyncEffect } from '@wener/ui';
 import produce from 'immer';
 import { LoadingOutlined } from '@ant-design/icons';
-import { getGlobalThis } from '@wener/utils';
-import { createLazyPromise } from '@wener/utils';
+import { createLazyPromise, getGlobalThis } from '@wener/utils';
 
 const CandidateErrorLine: React.FC<{ candidate }> = ({ candidate }) => {
   const { url, errorCode, errorText, hostCandidate } = candidate;
@@ -40,7 +39,7 @@ export const WebRTCChecker: React.FC = () => {
   const remoteRef = useRef<RTCPeerConnection>();
   const metaRef = useRef<RTCDataChannel>();
 
-  const globalThis = require('globalthis')();
+  const globalThis = getGlobalThis();
 
   useAsyncEffect(async () => {
     if (navigator.mediaDevices?.enumerateDevices) {

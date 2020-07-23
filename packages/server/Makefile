@@ -1,3 +1,8 @@
+# Keep file
+.PRECIOUS: public/modules/wener-apis-%.system.js
+# eval $$
+.SECONDEXPANSION:
+.PHONEY: always
 
 # all modules
 # ls src/modules/*/index.ts | egrep -o '[^/]*/index' | egrep -o '^[^/]*'
@@ -14,6 +19,12 @@ mod-dev:
 # pre build
 make-%: always
 	-$(MAKE) -f src/modules/$*/Makefile build
+## 如果文件存在才执行
+#ifneq (,$(wildcard src/modules/$*/Makefile))
+#	$(MAKE) -f src/modules/$*/Makefile build
+#else
+#	@echo Skip - no makefile $(wildcard src/modules/$*/Makefile)
+#endif
 
 modules-pre: $(addprefix make-,$(MODULES))
 
@@ -29,8 +40,3 @@ public/modules/wener-apis-%.system.js: $$(shell find src/modules/% -type f  -nam
 
 always:
 
-# Keep file
-.PRECIOUS: public/modules/wener-apis-%.system.js
-# eval $$
-.SECONDEXPANSION:
-.PHONEY: always

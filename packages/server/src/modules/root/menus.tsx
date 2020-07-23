@@ -209,6 +209,10 @@ export const menus: ContentedMenuSpec[] = [
       {
         title: '浏览器检测',
         path: '/webrtc/checker',
+        content: {
+          module: '@wener/apis-webrtc',
+          name: 'WebRTCChecker',
+        },
       },
     ],
   },
@@ -258,6 +262,10 @@ export const menus: ContentedMenuSpec[] = [
       {
         title: '网关检测',
         path: '/ipfs/gateway/checker',
+        content: {
+          module: '@wener/apis-ipfs',
+          name: 'GatewayChecker',
+        },
       },
     ],
   },
