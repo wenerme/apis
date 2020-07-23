@@ -5042,7 +5042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-json@npm:^4.0.2":
+"@rollup/plugin-json@npm:^4.0.2, @rollup/plugin-json@npm:^4.1.0":
   version: 4.1.0
   resolution: "@rollup/plugin-json@npm:4.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40rollup%2Fplugin-json%2Fdownload%2F%40rollup%2Fplugin-json-4.1.0.tgz"
   dependencies:
@@ -7934,6 +7934,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/systemjs@npm:^6":
+  version: 6.1.0
+  resolution: "@types/systemjs@npm:6.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fsystemjs%2Fdownload%2F%40types%2Fsystemjs-6.1.0.tgz"
+  checksum: 9277767d48e0fe78a09822a0f4e27745e561254f19147aafaf0d208d77dcdd7113b8bcee21193363051bcbbe21f7fa7afc399f3cce224489e0c09675fe7235c8
+  languageName: node
+  linkType: hard
+
 "@types/tapable@npm:*, @types/tapable@npm:^1.0.5":
   version: 1.0.6
   resolution: "@types/tapable@npm:1.0.6::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Ftapable%2Fdownload%2F%40types%2Ftapable-1.0.6.tgz"
@@ -8397,24 +8404,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wener/apis-client@link:./src/modules/client/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
-  version: 0.0.0-use.local
-  resolution: "@wener/apis-client@link:./src/modules/client/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
-  languageName: node
-  linkType: soft
-
-"@wener/apis-dash@link:./src/modules/dash/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
-  version: 0.0.0-use.local
-  resolution: "@wener/apis-dash@link:./src/modules/dash/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
-  languageName: node
-  linkType: soft
-
-"@wener/apis-geo@link:./src/modules/geo/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
-  version: 0.0.0-use.local
-  resolution: "@wener/apis-geo@link:./src/modules/geo/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
-  languageName: node
-  linkType: soft
-
 "@wener/apis-server@workspace:packages/server":
   version: 0.0.0-use.local
   resolution: "@wener/apis-server@workspace:packages/server"
@@ -8439,6 +8428,7 @@ __metadata:
     "@rollup/plugin-alias": ^3.1.1
     "@rollup/plugin-babel": ^5
     "@rollup/plugin-commonjs": ^14.0.0
+    "@rollup/plugin-json": ^4.1.0
     "@rollup/plugin-node-resolve": ^8
     "@rollup/plugin-typescript": ^5
     "@storybook/addon-actions": next
@@ -8528,15 +8518,12 @@ __metadata:
     "@types/styled-components": ^5.1.0
     "@types/styled-jsx": ^2.2.8
     "@types/svgo": ^1.3.2
+    "@types/systemjs": ^6
     "@types/tar": ^4.0.3
     "@types/urijs": ^1.19.6
     "@types/webtorrent": ^0.107.1
     "@types/xmldom": ^0.1.29
     "@types/zxcvbn": ^4.4.0
-    "@wener/apis-client": "link:./src/modules/client/"
-    "@wener/apis-dash": "link:./src/modules/dash/"
-    "@wener/apis-geo": "link:./src/modules/geo/"
-    "@wener/apis-test": "link:./src/modules/test/"
     "@wener/tinyrpc": ^1.0.0-alpha.14
     "@wener/ui": "workspace:packages/ui"
     "@wener/utils": "workspace:packages/utils"
@@ -8566,6 +8553,7 @@ __metadata:
     commander: ^5.1.0
     console-feed: ^3.0.0
     cookie: ^0.4.1
+    core-js: ^3.6.5
     cors: ^2.8.5
     cross-env: ^7.0.0
     date-fns: ^2.9.0
@@ -8667,6 +8655,7 @@ __metadata:
     react-virtualized: ^9.21.2
     redux: ^4.0.5
     redux-logger: ^3.0.6
+    regenerator-runtime: ^0.13.7
     remark: ^12.0.0
     rollup: ^2.22.0
     rollup-plugin-terser: ^6.1.0
@@ -8686,6 +8675,7 @@ __metadata:
     styled-components: ^5.0.1
     styled-jsx: ^3.3.0
     svgo: ^1.3.2
+    systemjs: ^6.3.3
     tar: ^6.0.1
     ts-jest: latest
     ts-loader: latest
@@ -8709,12 +8699,6 @@ __metadata:
   bin:
     apis-server: dist/servers/index.js
   languageName: unknown
-  linkType: soft
-
-"@wener/apis-test@link:./src/modules/test/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver":
-  version: 0.0.0-use.local
-  resolution: "@wener/apis-test@link:./src/modules/test/::locator=%40wener%2Fapis-server%40workspace%3Apackages%2Fserver"
-  languageName: node
   linkType: soft
 
 "@wener/apis@workspace:.":
@@ -26273,6 +26257,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"regenerator-runtime@npm:^0.13.7":
+  version: 0.13.7
+  resolution: "regenerator-runtime@npm:0.13.7::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fregenerator-runtime%2Fdownload%2Fregenerator-runtime-0.13.7.tgz"
+  checksum: 6ef567c662088b1b292214920cbd72443059298d477f72e1a37e0a113bafbfac9057cbfe35ae617284effc4b423493326a78561bbff7b04162c7949bdb9624e8
+  languageName: node
+  linkType: hard
+
 "regenerator-transform@npm:^0.14.2":
   version: 0.14.4
   resolution: "regenerator-transform@npm:0.14.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fregenerator-transform%2Fdownload%2Fregenerator-transform-0.14.4.tgz"
@@ -28843,6 +28834,13 @@ resolve@1.1.7:
     es-abstract: ^1.17.0-next.1
     has-symbols: ^1.0.1
   checksum: 6f3edf4676c4bb0454e86bcefcddc1609b41f954e688bd92dbacd77b0564f90fec3d8876a724329fb8d9695e4d077971adde6cf17e3bc356562c056e24ee985e
+  languageName: node
+  linkType: hard
+
+"systemjs@npm:^6.3.3":
+  version: 6.3.3
+  resolution: "systemjs@npm:6.3.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsystemjs%2Fdownload%2Fsystemjs-6.3.3.tgz"
+  checksum: 2848b811c801e07747837c5b3ee2411857a8b80656530c3427c0e544597f3d6d39a785881c69851f2c57bccf4490fe7624ed7512fabd00e332216d300cc52c5e
   languageName: node
   linkType: hard
 

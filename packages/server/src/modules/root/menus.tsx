@@ -4,6 +4,7 @@ import {
   BorderlessTableOutlined,
   EditOutlined,
   EnvironmentOutlined,
+  ExperimentOutlined,
   HomeOutlined,
   InteractionOutlined,
   KeyOutlined,
@@ -275,6 +276,29 @@ export const menus: ContentedMenuSpec[] = [
         route: '/hash/md/[algorithm]',
         path: `/hash/md/${v}`,
       })),
+    ],
+  },
+
+  {
+    title: '实验',
+    iconComponent: <ExperimentOutlined />,
+    children: [
+      {
+        title: '模块管理',
+        path: '/lab/modules',
+        content: {
+          module: '@wener/apis-mgmt',
+          name: 'ModuleManagementPanel',
+        },
+      },
+      {
+        title: '测试 PingService',
+        path: '/lab/ping',
+        content: {
+          module: '@wener/apis-test',
+          name: 'PingServiceTest',
+        },
+      },
     ],
   },
 ];

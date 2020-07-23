@@ -1,4 +1,7 @@
-import './autoload';
+// https://babeljs.io/docs/en/babel-polyfill
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
-const System = window['System'];
-System.import('@wener/apis-root');
+export * from './boot';
+export { default as metadata } from './metadata.json';
+export { normalizeModuleUrl } from './ModuleService';

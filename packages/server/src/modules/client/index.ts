@@ -2,6 +2,8 @@ import { ServiceConsumerManager } from 'src/modules/service/consumer/ServiceCons
 import { ServiceConsumeType, ServiceRegistration } from 'src/modules/service/interfaces';
 import { ServiceProviderManager } from 'src/modules/service/provider/ServiceProviderManager';
 
+export { default as metadata } from './metadata.json';
+
 /// reexport service
 export * from 'src/modules/service/interfaces';
 
@@ -14,6 +16,7 @@ export const ClientConsumers = client;
 export function consumeClientService<T>(coord: ServiceConsumeType<T>): T {
   return client.consume(coord);
 }
+
 export function overrideClientService(s: ServiceRegistration) {
   provider.registry(s);
 }

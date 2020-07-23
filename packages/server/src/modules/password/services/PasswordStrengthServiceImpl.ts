@@ -1,4 +1,4 @@
-import { PasswordStrengthService } from '@wener/apis-client';
+import { PasswordStrengthService } from 'src/modules/client';
 
 export class PasswordStrengthServiceImpl implements PasswordStrengthService {
   _getZxcnbn() {

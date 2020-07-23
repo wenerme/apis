@@ -64,7 +64,9 @@ Learn more about why at https://single-spa.js.org/docs/ecosystem-angular/#zonejs
     <div id="single-spa-application:@wener/apis-test"></div>
     <script>
       window.process = { env: { NODE_ENV: 'development' } };
-      System.import('@wener/apis-boot');
+      System.import('@wener/apis-boot')
+        .then(({ boot }) => boot())
+        .then(() => System.import('@wener/apis-root'));
     </script>
     <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
   </body>

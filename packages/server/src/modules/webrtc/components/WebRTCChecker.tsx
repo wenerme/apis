@@ -5,7 +5,7 @@ import { PeerConnectionState } from 'src/libs/webrtc/types';
 import { useAsyncEffect } from '@wener/ui';
 import produce from 'immer';
 import { LoadingOutlined } from '@ant-design/icons';
-import { getGlobalThis } from '@wener/utils/lib/isomorphics/getGlobalThis';
+import { getGlobalThis } from '@wener/utils';
 import { createLazyPromise } from '@wener/utils';
 
 const CandidateErrorLine: React.FC<{ candidate }> = ({ candidate }) => {

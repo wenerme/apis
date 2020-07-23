@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import singleSpaReact from 'single-spa-react';
 import { camelCase } from 'lodash';
-import { TestPanel } from './TestPanel';
+import { TestPanel } from './components/TestPanel';
+
+export { default as metadata } from './metadata.json';
 
 export interface TestService {
   camel(s: string): string;
@@ -24,4 +26,4 @@ const lifecycles = singleSpaReact({
 
 export const { bootstrap, mount, unmount } = lifecycles;
 
-export * from './PingServiceTest';
+export * from './components/PingServiceTest';

@@ -3,6 +3,12 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import alias from '@rollup/plugin-alias';
+import json from '@rollup/plugin-json';
+
+function report(v) {
+  console.log(`${v.input} -> ${v.output.map((v) => v.file).join(', ')}`);
+  return v;
+}
 
 function buildMod(mod) {
   if (!mod) {
@@ -70,6 +76,7 @@ function buildMod(mod) {
     {
       input,
       plugins: [
+        json(),
         alias({
           entries: [
             {
@@ -105,10 +112,11 @@ function buildMod(mod) {
             ['babel-plugin-add-module-exports'],
             ['@babel/plugin-proposal-decorators', { legacy: true }],
             ['@babel/plugin-proposal-class-properties', { loose: true }],
-            // ['@babel/plugin-transform-runtime',{
-            // // absoluteRuntime:true,
-            // //   corejs: 3,
-            //   helper: false
+            // ['@babel/plugin-transform-runtime', {
+            //   // absoluteRuntime:true,
+            //   // corejs: 3,
+            //   // helper: false,
+            //   'regenerator': true,
             // }],
           ],
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -149,5 +157,9 @@ function addMini({ dev }) {
   };
 }
 
-const mod = process.env.MOD_NAME || '';
-export default mod.split(',').flatMap((v) => buildMod(v));
+const devMod = 'boot,root,test,dash,client,mgmt';
+const mod = process.env.MOD_NAME || devMod;
+export default mod
+  .split(',')
+  .flatMap((v) => buildMod(v))
+;
