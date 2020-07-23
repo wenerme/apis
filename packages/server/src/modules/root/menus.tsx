@@ -24,18 +24,6 @@ import {
   WebTorrentFilled,
 } from '@wener/ui/icons';
 import type { MenuSpec } from '@wener/ui/antds';
-// import HomeOutlined from '@ant-design/icons/HomeOutlined';
-// import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
-// import HomeOutlined from '@ant-design/icons/HomeOutlined';
-// import { LocationMe } from '@wener/apis-geo';
-
-// import Loadable from 'react-loadable';
-// import Loading from './my-loading-component';
-//
-// const LoadableComponent = Loadable({
-//   loader: () => import('./my-component'),
-//   loading: Loading,
-// });
 
 export interface LoadableComponentSpec {
   module;
@@ -92,6 +80,10 @@ export const menus: ContentedMenuSpec[] = [
       {
         title: 'URL',
         path: '/uri/url',
+        content: {
+          module: '@wener/apis-uri',
+          name: 'UrlPlayground',
+        },
       },
     ],
   },

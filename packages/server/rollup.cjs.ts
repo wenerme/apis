@@ -2,8 +2,9 @@ import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import { camelCase, startCase } from 'lodash';
+import alias from '@rollup/plugin-alias';
 
-function createConfig({ name, format = 'esm', extensions = ['.js'] }) {
+function createConfig({ name, format = 'esm', extensions = ['.js'], plugins = [] }) {
   return {
     input: require.resolve(name),
     output: {
@@ -15,6 +16,7 @@ function createConfig({ name, format = 'esm', extensions = ['.js'] }) {
     },
     // external: ['react'],
     plugins: [
+      ...plugins,
       nodeResolve({ browser: true, extensions }),
       babel({
         babelHelpers: 'bundled',
@@ -36,4 +38,6 @@ function createConfig({ name, format = 'esm', extensions = ['.js'] }) {
   };
 }
 
-export default [createConfig({ name: 'fast-xml-parser' })];
+export default [
+  createConfig({ name: 'fast-xml-parser' }),
+];

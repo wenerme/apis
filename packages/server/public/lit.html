@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Root Config</title>
+    <title>Wener's APIs server</title>
     <!--
 This CSP allows any SSL-enabled host, but you should limit these directives further to increase your app's security.
 Learn more about CSP policies at https://content-security-policy.com/#directive
@@ -26,31 +26,13 @@ More information about shared dependencies can be found at https://single-spa.js
       {
         "imports": {
           "react": "https://cdn.jsdelivr.net/npm/react@16.13.1/umd/react.development.js",
-          "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@16.13.1/umd/react-dom.development.js",
-          "antd": "https://unpkg.com/antd@4.4.2/dist/antd-with-locales.js",
-          "moment": "https://unpkg.com/moment@2.27.0/min/moment.min.js",
-          "lodash": "https://unpkg.com/lodash@4.17.19/lodash.min.js",
-          "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@^5/lib/system/single-spa.dev.js",
-          "single-spa-layout": "https://unpkg.com/single-spa-layout@1.0.0-beta.5/dist/system/single-spa-layout.min.js",
-          "rxjs": "https://cdn.jsdelivr.net/npm/rxjs@6.6.0/bundles/rxjs.umd.min.js"
+          "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@16.13.1/umd/react-dom.development.js"
         }
       }
     </script>
     <script type="systemjs-importmap">
       {
         "imports": {
-          "console-feed": "/modules/console-feed.system.js",
-
-          "react-is": "https://cdn.jsdelivr.net/npm/react-is/umd/react-is.production.min.js",
-          "styled-components": "https://cdn.jsdelivr.net/npm/@esm-bundle/styled-components/system/styled-components.min.js",
-          "immer": "https://cdn.jsdelivr.net/npm/immer/dist/immer.umd.production.min.js",
-          "tslib": "https://cdn.jsdelivr.net/npm/tslib/tslib.js",
-          "@ant-design/icons": "https://cdn.jsdelivr.net/npm/@ant-design/icons@4.2.1/dist/index.umd.min.js",
-          "@wener/utils": "/modules/wener-utils.system.min.js",
-          "@wener/ui": "/modules/wener-ui.system.js",
-          "@wener/ui/antds": "/modules/wener-ui-antds.system.js",
-          "@wener/ui/icons": "/modules/wener-ui-icons.system.js",
-
           "@wener/apis-boot": "/modules/wener-apis-boot.system.js"
         }
       }

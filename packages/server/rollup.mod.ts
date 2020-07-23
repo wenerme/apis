@@ -50,6 +50,9 @@ function buildMod(mod) {
 
     // geo
     // 'console-feed',
+
+    // langs
+    'he',
   ];
 
   /* Common Rollup Script
@@ -73,16 +76,19 @@ function buildMod(mod) {
               find: new RegExp(`^src[/]modules[/](\\w+(?!${mod}))$`),
               replacement: '@wener/apis-$1',
             },
-            { find: 'react-loadable', replacement: 'src/externals/react-loadable/index.js' },
-            { find: 'react-fast-compare', replacement: 'src/externals/react-fast-compare/index.js' },
-            { find: 'react-simple-code-editor', replacement: 'src/externals/react-simple-code-editor/index.js' },
-            { find: 'fast-xml-parser', replacement: 'src/externals/fast-xml-parser/index.js' },
+            // { find: 'react-loadable', replacement: 'src/externals/react-loadable/index.js' },
+            // { find: 'react-fast-compare', replacement: 'src/externals/react-fast-compare/index.js' },
+            // { find: 'react-simple-code-editor', replacement: 'src/externals/react-simple-code-editor/index.js' },
+            // { find: 'fast-xml-parser', replacement: 'src/externals/fast-xml-parser/index.js' },
             //
             { find: 'react-side-effect', replacement: 'react-side-effect/lib/index.es.js' },
             { find: 'react-helmet', replacement: 'react-helmet/es/Helmet.js' },
           ],
         }),
-        nodeResolve({ browser: true, extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
+        nodeResolve({ browser: true, preferBuiltins: false, extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
+        commonjs({
+          extensions: ['.js', '.jsx'],
+        }),
         babel({
           // exclude: /[.]yarn/,
           babelHelpers: 'bundled',
@@ -105,9 +111,6 @@ function buildMod(mod) {
             //   helper: false
             // }],
           ],
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        }),
-        commonjs({
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         }),
       ],

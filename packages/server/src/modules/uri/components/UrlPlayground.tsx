@@ -1,11 +1,9 @@
-import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
-import { PageContent } from 'src/components/layout/PageLayout/PageContent';
 import React, { useEffect, useState } from 'react';
-import { Input, PageHeader } from 'antd';
+import { Input } from 'antd';
+// import url from 'url/';
 import url from 'url';
 import { useRouter } from 'next/router';
 import { pick } from 'lodash';
-import { LinkOutlined } from '@ant-design/icons';
 import { firstOfMaybeArray } from '@wener/utils';
 import { UrEditablePart } from 'src/modules/uri/components/UrlEditablePart';
 
@@ -28,16 +26,17 @@ function parseUrl(current: string) {
       'hash',
     ]) as URL;
   } catch (e) {
-    console.warn(`invalid url ${current}`);
+    console.warn(`invalid url ${current}`, e);
     o = url.parse(current, true) as any;
   }
   return o;
 }
 
-const UriPageContent: React.FC = () => {
-  const router = useRouter();
+export const UrlPlayground: React.FC = () => {
+  // const router = useRouter();
   const [current, setCurrent] = useState(
-    firstOfMaybeArray(router.query['url']) ?? 'https://admin:pass@wener.me:8443/notes/java/java/?name=wener#hero',
+    // firstOfMaybeArray(router.query['url']) ??
+    'https://admin:pass@wener.me:8443/notes/java/java/?name=wener#hero',
   );
   const [value, setValue] = useState(current);
   const [parsed, setParsed] = useState<URL>(null);
@@ -46,9 +45,9 @@ const UriPageContent: React.FC = () => {
     const o = parseUrl(current);
     setParsed(o);
     // sync url param
-    if (firstOfMaybeArray(router.query['url']) !== current) {
-      router.push({ pathname: location.pathname, query: { url: current } });
-    }
+    // if (firstOfMaybeArray(router.query['url']) !== current) {
+    //   router.push({ pathname: location.pathname, query: { url: current } });
+    // }
   }, [current]);
 
   useEffect(() => {
@@ -78,25 +77,3 @@ const UriPageContent: React.FC = () => {
     </div>
   );
 };
-
-const Page = () => {
-  return (
-    <PageLayout title="URI 解析格式化">
-      <PageContent>
-        <PageHeader
-          title={
-            <div>
-              <LinkOutlined style={{ marginRight: 8 }} />
-              URI 解析格式化
-            </div>
-          }
-          backIcon={false}
-        />
-
-        <UriPageContent />
-      </PageContent>
-    </PageLayout>
-  );
-};
-
-export default Page;

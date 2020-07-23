@@ -8611,7 +8611,7 @@ __metadata:
     moment: ^2.24.0
     moment-timezone: ^0.5.27
     multihashes: ^0.4.15
-    next: ^9
+    next: ^9.4.4
     next-pwa: ^2.2.0
     next-transpile-modules: ^3.0.2
     node-fetch: ^2.6.0
@@ -8698,6 +8698,7 @@ __metadata:
     typeorm-naming-strategies: ^1.1.0
     typescript: latest
     urijs: ^1.19.2
+    url: ^0.11.0
     url-loader: ^4.0.0
     use-immer: ^0.4.0
     webpack: ^4.43.0
@@ -21458,7 +21459,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"next@npm:^9":
+"next@npm:^9.4.4":
   version: 9.4.4
   resolution: "next@npm:9.4.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fnext%2Fdownload%2Fnext-9.4.4.tgz"
   dependencies:
