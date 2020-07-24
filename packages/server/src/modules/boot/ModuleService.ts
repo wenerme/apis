@@ -1,7 +1,17 @@
-import { resolvePath } from 'src/modules/boot/base';
+export interface ModuleResolveOptions {
+  /// @wener/ui/icons
+  name: string;
+  parentName?: string;
+  parentUrl?: string;
+  dev?: boolean;
+}
+
+export type ModuleResolver = (opts: ModuleResolveOptions) => string;
 
 export class ModuleService {
   internals: RegExp[] = [];
+  resolver: ModuleResolver;
+  dev = false;
   readonly overrides: Record<string, string> = {};
   readonly imports: Record<string, string> = {};
   readonly resolved: Record<string, string> = {};
@@ -40,26 +50,31 @@ export class ModuleService {
     return resolved;
   }
 
-  tryResolve(id: string, parent?): string | undefined {
+  tryResolve(id: string, parentUrl?): string | undefined {
     const { overrides, imports } = this;
     // existing
     const r = overrides[id] || imports[id];
     if (r) {
-      return normalizeModuleUrl(r);
+      return this.normalizeModuleUrl(r);
     }
     // internals
-    if (this.isInternal(id)) {
-      return normalizePackageName(id);
+    if (this.resolver && this.isInternal(id)) {
+      return this.resolver({ dev: this.dev, name: id, parentUrl, parentName: this.resolveName(parentUrl) });
     }
   }
 
+  /**
+   * url to module name
+   */
   resolveName(url: string): string | undefined {
+    if (!url) {
+      return;
+    }
     {
       const e = Object.entries(this.resolved).find(([_, v]) => v === url);
       if (e) {
         return e[0];
       }
-      console.warn(`Not found for `, url);
     }
 
     const local = location.origin;
@@ -84,13 +99,10 @@ export class ModuleService {
     found = Object.entries(this.resolved).find(([_, v]) => v === url)?.[0];
     return found;
   }
-}
 
-export function normalizeModuleUrl(url) {
-  return resolvePath(url);
-}
-
-function normalizePackageName(id, { format = 'system' } = {}) {
-  const name = id.replace('@', '').replace(/[/]/g, '-');
-  return resolvePath(`./modules/${name}.${format}.js`);
+  private normalizeModuleUrl(v) {
+    // placeholder
+    // /modules/test.js -> ${baseUrl}/modules/test.js
+    return v;
+  }
 }

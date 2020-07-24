@@ -1,4 +1,6 @@
 {
+  "react": "https://cdn.jsdelivr.net/npm/react@16.13.1/umd/react.production.min.js",
+  "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@16.13.1/umd/react-dom.production.min.js",
   "classnames": "https://cdn.jsdelivr.net/npm/classnames",
   "@ant-design/colors": "https://cdn.jsdelivr.net/npm/@ant-design/colors",
   "react-query": "https://cdn.jsdelivr.net/npm/react-query@2.5.5/dist/react-query.production.min.js",

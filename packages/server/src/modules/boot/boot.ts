@@ -1,5 +1,6 @@
 import { BootService } from 'src/modules/boot/BootService';
 import imports from './imports.json';
+import { ModuleResolver } from 'src/modules/boot/ModuleService';
 
 let _bootService;
 
@@ -7,17 +8,26 @@ export function getBootService() {
   return _bootService;
 }
 
-export async function boot() {
+export interface BootstrapOptions {
+  dev?: boolean;
+  internals?: RegExp[];
+  baselUrl?: string;
+  resolver: ModuleResolver;
+}
+
+export async function boot(opts: BootstrapOptions) {
   console.info(`Bootstrapping system`);
 
-  const bootService = new BootService();
+  const bootService = new BootService(opts);
   _bootService = bootService;
 
   const modules = bootService.modules;
-  modules.internals.push(/^@wener[/]apis-(.+)/);
-  modules.internals.push(/^@wener[/]ui([/]\w+)?/);
-  modules.internals.push(/^@wener[/]utils/);
-
+  modules.resolver = opts.resolver;
+  modules.dev = opts.dev;
+  if (opts.internals) {
+    modules.internals.push(...opts.internals);
+  }
+  // preset imports
   Object.assign(modules.imports, imports);
 
   console.info(`Injecting system resolve`);

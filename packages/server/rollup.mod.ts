@@ -10,14 +10,13 @@ function report(v) {
   return v;
 }
 
-function buildMod(mod) {
-  if (!mod) {
-    throw new Error('no MOD_NAME');
+function buildMod({ name, minify = process.env.NODE_ENV === 'production' }) {
+  if (!name) {
+    throw new Error('no module name');
   }
-  const libraryName = `wener-apis-${mod}`;
-  const input = `src/modules/${mod}/index.ts`;
+  const libraryName = `wener-apis-${name}`;
+  const input = `src/modules/${name}/index.ts`;
 
-  const dev = process.env.NODE_ENV !== 'production';
   const dir = `public/modules`;
 
   const external = [
@@ -82,7 +81,7 @@ function buildMod(mod) {
         alias({
           entries: [
             {
-              find: new RegExp(`^src[/]modules[/](\\w+(?!${mod}))$`),
+              find: new RegExp(`^src[/]modules[/](\\w+(?!${name}))$`),
               replacement: '@wener/apis-$1',
             },
             // { find: 'react-loadable', replacement: 'src/externals/react-loadable/index.js' },
@@ -142,12 +141,17 @@ function buildMod(mod) {
         },
       ],
     },
-  ].flatMap(addMini({ dev }));
+  ].flatMap(addMini({ skip: !minify, inline: false }));
 }
 
-function addMini({ dev }) {
+function addMini({ skip, inline = false }) {
   return (src) => {
-    if (dev) {
+    if (skip) {
+      return src;
+    }
+
+    if (inline) {
+      src.plugins.push(terser());
       return src;
     }
 
@@ -167,6 +171,6 @@ function addMini({ dev }) {
   };
 }
 
-const devMod = 'boot,root,test,dash,client,mgmt,qrcode';
+const devMod = 'boot,root,mgmt,lite';
 const mod = process.env.MOD_NAME || devMod;
-export default mod.split(',').flatMap((v) => buildMod(v));
+export default mod.split(',').flatMap((v) => buildMod({ name: v, minify: true }));

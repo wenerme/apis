@@ -63,7 +63,7 @@ export class ModuleManagementService {
     all = all.concat(
       Object.entries(_modules.imports).map(([name, resolved]) => ({
         name,
-        resolved: normalizeModuleUrl(resolved),
+        resolved,
         predefined: true,
       })),
     );
