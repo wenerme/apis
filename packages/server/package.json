@@ -323,6 +323,9 @@
   "engines": {
     "node": "12"
   },
+  "browserslist": [
+    "since 2020-01"
+  ],
   "pkg": {
     "assets": [
       ".next/**/*"

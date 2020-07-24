@@ -1,0 +1,4 @@
+{
+  "title": "浏览器兼容",
+  "description": "添加 babel 需要的 runtime - corejs、regenerator"
+}

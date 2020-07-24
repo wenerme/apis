@@ -8,8 +8,18 @@ if (!window['process']) {
   window['process'] = { env: { NODE_ENV: isDev() ? 'development' : 'production' } } as any;
 }
 const System = window['System'];
-System.import(resolveModule({ name: '@wener/apis-boot', dev: isDev() }))
+
+const start = Date.now();
+let chain: Promise<any> = Promise.resolve();
+if (!isGeneratorSupported()) {
+  // FIXME this is kinda useless, need multi bundle
+  chain = chain
+    .then(System.import(resolveModule({ name: '@wener/apis-polyfill', dev: isDev() })))
+    .then(({ load }) => load());
+}
+chain = chain
   // import('src/modules/boot')
+  .then(() => System.import(resolveModule({ name: '@wener/apis-boot', dev: isDev() })))
   .then(({ boot }) =>
     boot({
       dev: isDev(),
@@ -18,8 +28,12 @@ System.import(resolveModule({ name: '@wener/apis-boot', dev: isDev() }))
       resolver: resolveModule,
       System,
     }),
-  )
-  .then(() => import('src/modules/root'));
+  );
+chain = chain.then(() => import('src/modules/root'));
+chain.then(() => console.log(`Started in ${Date.now() - start}ms`));
+chain.catch((e) => {
+  console.error(`Failed to setup application`, e);
+});
 
 function isDev(): boolean {
   if (localStorage['devtools']) {
@@ -36,4 +50,14 @@ function resolveModule({ name, dev }) {
 function getBaseUrl() {
   // allowed override base url
   return localStorage['BASE_URL'] || location.href;
+}
+
+function isGeneratorSupported() {
+  let supported = true;
+  try {
+    eval('(function *() {})');
+  } catch (e) {
+    supported = false;
+  }
+  return supported;
 }
