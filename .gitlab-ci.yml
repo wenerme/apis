@@ -1,6 +1,7 @@
 image: wener/apis:builder
 stages:
   - build
+  - deploy
 
 Build Image:
   stage: build
@@ -16,9 +17,22 @@ Build Image:
   script:
     - mkdir /etc/apk/cache
     - make ci
-    - echo Building image "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+#    - echo Building image "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+#    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+#    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+  artifacts:
+    paths:
+      - packages/server/public
+
+pages:
+  stage: deploy
+  script:
+    - cp -r packages/server/public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
 
 cache:
   untracked: true
