@@ -1,4 +1,4 @@
-import { getBootService, ModuleService, normalizeModuleUrl } from 'src/modules/boot';
+import { getBootService, ModuleService } from 'src/modules/boot';
 import ModuleMetas from './modules.json';
 
 export interface ModuleInfo {

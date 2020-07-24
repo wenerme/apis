@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { isValidRequest } from 'src/modules/hash/types';
-import { hashing } from 'src/modules/hash/libs/hasings';
+import { isValidRequest } from 'src/modules/crypto/types';
+import { hashing } from 'src/modules/crypto/libs/hasings';
 
 export async function handleHash(req: NextApiRequest, res: NextApiResponse) {
   const { algorithm, alg, encoding = 'base64', format = 'txt', content } = req.query;

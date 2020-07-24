@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@wener/utils": "workspace:packages/utils",
+    "crypto-js": "^4.0.0",
     "polished": "*",
     "react-fast-compare": "*",
     "styled-components": "*"

@@ -171,6 +171,6 @@ function addMini({ skip, inline = false }) {
   };
 }
 
-const devMod = 'boot,root,mgmt,lite';
+const devMod = 'boot,root,mgmt,hash';
 const mod = process.env.MOD_NAME || devMod;
 export default mod.split(',').flatMap((v) => buildMod({ name: v, minify: true }));

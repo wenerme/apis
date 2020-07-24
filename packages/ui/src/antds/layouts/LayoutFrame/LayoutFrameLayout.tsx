@@ -3,7 +3,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { LayoutFrameSider } from './LayoutFrameSider';
 import { useLayoutFrame } from './layout';
-import { useNamedTheme } from '../../../hooks/useNamedTheme';
+import { useNamedTheme } from '../../../hooks';
 
 export interface LayoutFrameLayoutProps {
   showHeader?: boolean;

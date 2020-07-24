@@ -16,7 +16,7 @@ import {
   RtcOutlined,
   WebTorrentFilled,
 } from '@wener/ui/icons';
-import { HashingAlgorithms } from 'src/modules/hash/types';
+import { HashingAlgorithms } from 'src/modules/crypto/types';
 import React from 'react';
 
 import { EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';

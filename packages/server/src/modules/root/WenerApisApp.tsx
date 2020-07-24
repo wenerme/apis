@@ -5,6 +5,7 @@ import { LoadableComponentSpec, menus, routes } from 'src/modules/root/menus';
 import Loadable from 'react-loadable';
 import { WenerApisContent } from 'src/modules/root/WenerApisContent';
 import { Alert } from 'antd';
+import { Helmet } from 'react-helmet';
 
 const NextLink: React.FC<{ href }> = ({ href, children }) => {
   return <Link to={href}>{children}</Link>;
@@ -69,6 +70,13 @@ export const WenerApisApp: React.FC = () => {
           {routes.map(({ iconComponent, title, content, path }) => (
             <Route exact path={path} key={path}>
               <WenerApisContent title={title} icon={iconComponent}>
+                <Helmet>
+                  <title>
+                    {title}
+                    {title !== `Wener's APIs` ? ` - Wener's APIs` : ''}
+                  </title>
+                  <meta name="og:title" property="og:title" content={title} />
+                </Helmet>
                 <Alert.ErrorBoundary>
                   <LoadableContent content={content} />
                 </Alert.ErrorBoundary>

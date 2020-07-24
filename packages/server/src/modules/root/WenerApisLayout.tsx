@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { NamedThemeProvider } from '@wener/ui';
-import { menus } from 'src/components/layout/PageLayout/menus';
-import { PageContext } from 'src/components/layout/PageLayout/PageContext';
 import { LayoutFrame } from '@wener/ui/antds';
 import { Helmet } from 'react-helmet';
 
@@ -41,7 +39,7 @@ export const WenerApisLayout: React.FC<{
         {/*<link rel="preload" as="style" href="https://unpkg.com/antd/dist/antd.dark.min.css" />*/}
         {/*<link href="https://unpkg.com/antd/dist/antd.min.css" rel="stylesheet" data-antd-theme="light" />*/}
       </Helmet>
-      <LayoutFrame menus={menus} showFooter={showFooter} link={Link}>
+      <LayoutFrame menuProps={{ mode: 'vertical' }} menus={menus} showFooter={showFooter} link={Link}>
         <React.Fragment>
           {children}
           {/*<PageAction />*/}

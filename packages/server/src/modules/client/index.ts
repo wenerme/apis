@@ -24,5 +24,6 @@ export function overrideClientService(s: ServiceRegistration) {
 // ========== SERVICES
 export * from './password';
 export * from './phone';
+export * from './hash';
 
 export * from './PingService';

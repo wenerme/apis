@@ -12,7 +12,6 @@ import {
   PartitionOutlined,
   PhoneOutlined,
 } from '@ant-design/icons';
-import { HashingAlgorithms } from 'src/modules/hash/types';
 import {
   BarcodePrintOutlined,
   BarcodeReadOutlined,
@@ -282,20 +281,19 @@ export const menus: ContentedMenuSpec[] = [
     ],
   },
   {
-    title: '摘要哈希计算',
+    title: '加密',
     // iconComponent: <LockOutlined />,
     iconComponent: <BorderlessTableOutlined />,
     iconType: 'lock',
     children: [
       {
-        title: '摘要哈希',
-        path: `/hash/digest`,
+        title: '哈希',
+        path: `/crypto/hash`,
+        content: {
+          module: '@wener/apis-crypto',
+          name: 'HashPlayground',
+        },
       },
-      ...HashingAlgorithms.map((v) => ({
-        title: v.toUpperCase(),
-        route: '/hash/md/[algorithm]',
-        path: `/hash/md/${v}`,
-      })),
     ],
   },
 

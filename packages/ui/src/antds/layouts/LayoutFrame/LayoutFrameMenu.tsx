@@ -1,26 +1,19 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { MenuSpec } from './types';
 import { Menu } from 'antd';
 import { useLayoutFrameOptions } from './layout';
 import { useNamedTheme } from '../../../hooks/useNamedTheme';
+import type { MenuProps } from 'antd/lib/menu';
 
 interface RenderOptions {
   link: React.FunctionComponent<{ href }> | React.ComponentClass<{ href }> | string;
 }
 
-export const LayoutFrameMenu: React.FC<{ style?: CSSProperties }> = ({ style }) => {
-  const { menus, link = 'a' } = useLayoutFrameOptions();
+export const LayoutFrameMenu: React.FC<Partial<MenuProps>> = ({ children, ...props }) => {
+  const { menus, link = 'a', menuProps = {} } = useLayoutFrameOptions();
   const [theme] = useNamedTheme();
   return (
-    <Menu
-      theme={theme === 'dark' ? 'dark' : 'light'}
-      mode="inline"
-      style={style}
-      // style={{minHeight: '100%', paddingBottom: 48}}
-      // openKeys={menuOpenKeys}
-      // onOpenChange={v => dispatch(setMenuOpenKeys(v))}
-      // selectedKeys={[selected]}
-    >
+    <Menu theme={theme === 'dark' ? 'dark' : 'light'} mode="inline" {...menuProps} {...props}>
       {renderMenus(menus, { link } as any)}
     </Menu>
   );

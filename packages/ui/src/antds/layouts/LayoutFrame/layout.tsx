@@ -3,6 +3,7 @@ import { MenuSpec } from './types';
 import { LayoutFrameState } from './state';
 import { BehaviorSubject } from 'rxjs';
 import produce from 'immer';
+import type { MenuProps } from 'antd/lib/menu';
 
 export interface LayoutFrameInstance {
   readonly name;
@@ -20,6 +21,8 @@ export interface LayoutFrameOptions {
   name?: string;
   menus: MenuSpec[];
   link?: ({ href }) => React.ReactNode;
+
+  menuProps?: Partial<MenuProps>;
 }
 
 const LayoutFrameContext = React.createContext<{
