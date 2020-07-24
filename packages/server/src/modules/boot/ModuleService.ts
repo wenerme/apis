@@ -1,3 +1,5 @@
+import { resolvePath } from 'src/modules/boot/base';
+
 export class ModuleService {
   internals: RegExp[] = [];
   readonly overrides: Record<string, string> = {};
@@ -60,9 +62,10 @@ export class ModuleService {
       console.warn(`Not found for `, url);
     }
 
-    const local = `${location.origin}/modules/`;
+    const local = location.origin;
     if (url.startsWith(local)) {
-      const m = url.substr(local.length).match(/(\w+)-([^.]+)/);
+      // under the modules path
+      const m = url.substr(local.length).match(/modules[/](\w+)-([^.]+)/);
       if (m) {
         return `@${m[1]}/${m[2]}`;
       }
@@ -84,13 +87,10 @@ export class ModuleService {
 }
 
 export function normalizeModuleUrl(url) {
-  if (url.startsWith('/')) {
-    return `${location.origin}${url}`;
-  }
-  return url;
+  return resolvePath(url);
 }
 
 function normalizePackageName(id, { format = 'system' } = {}) {
   const name = id.replace('@', '').replace(/[/]/g, '-');
-  return `${location.origin}/modules/${name}.${format}.js`;
+  return resolvePath(`./modules/${name}.${format}.js`);
 }
