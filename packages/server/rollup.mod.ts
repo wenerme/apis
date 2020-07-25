@@ -76,6 +76,7 @@ function buildMod({ name, minify = process.env.NODE_ENV === 'production' }) {
       input,
       // like qrcode module - imports alot
       inlineDynamicImports: true,
+      cache: true,
       plugins: [
         json(),
         alias({
@@ -84,6 +85,8 @@ function buildMod({ name, minify = process.env.NODE_ENV === 'production' }) {
               find: new RegExp(`^src[/]modules[/](\\w+(?!${name}))$`),
               replacement: '@wener/apis-$1',
             },
+            // IDE 总是补全为 lib
+            { find: '@ant-design/icons/lib', replacement: '@ant-design/icons' },
             // { find: 'react-loadable', replacement: 'src/externals/react-loadable/index.js' },
             // { find: 'react-fast-compare', replacement: 'src/externals/react-fast-compare/index.js' },
             // { find: 'react-simple-code-editor', replacement: 'src/externals/react-simple-code-editor/index.js' },
@@ -171,6 +174,6 @@ function addMini({ skip, inline = false }) {
   };
 }
 
-const devMod = 'boot,root,mgmt,hash';
+const devMod = 'boot,root,mgmt,crypto';
 const mod = process.env.MOD_NAME || devMod;
 export default mod.split(',').flatMap((v) => buildMod({ name: v, minify: true }));

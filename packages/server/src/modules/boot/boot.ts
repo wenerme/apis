@@ -4,7 +4,7 @@ import { ModuleResolver } from 'src/modules/boot/ModuleService';
 
 let _bootService;
 
-export function getBootService() {
+export function getBootService(): BootService {
   return _bootService;
 }
 

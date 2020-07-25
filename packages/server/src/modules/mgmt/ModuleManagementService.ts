@@ -18,6 +18,8 @@ export interface ModuleInfo {
 
   dependencies?: string[];
   dependents?: string[];
+
+  size?: number;
 }
 
 export function getVersionFromResolvedUrl(url) {
@@ -50,11 +52,37 @@ export function getSourceFromResolvedUrl(url) {
   }
   return 'unknown';
 }
+const key = 'ImportOverrides';
 
 export class ModuleManagementService {
   private _boot = getBootService();
   private _modules: ModuleService = this._boot.modules;
   private System = this._boot.System;
+
+  addOverrideModule({ name, resolved }) {
+    this._modules.overrides[name] = resolved;
+    this.persistImportOverrides();
+  }
+  removeOverrideModule({ name }) {
+    delete this._modules.overrides[name];
+    this.persistImportOverrides();
+  }
+  resetOverrideModules() {
+    this._modules.overrides = {};
+    this.persistImportOverrides();
+  }
+
+  async loadImportOverrides() {
+    try {
+      Object.assign(this._modules.overrides, JSON.parse(localStorage[key] || '{}'));
+    } catch (e) {
+      console.error(`failed to load overrides`, e);
+    }
+  }
+
+  async persistImportOverrides() {
+    localStorage[key] = JSON.stringify(this._modules.overrides);
+  }
 
   getModules(): ModuleInfo[] {
     const { System, _modules } = this;
@@ -87,6 +115,10 @@ export class ModuleManagementService {
     const byResolved = keyBy(all, 'resolved');
 
     for (const [url, mod] of System.entries()) {
+      // maybe deleted
+      if (!mod) {
+        continue;
+      }
       const info = (byResolved[url] = byResolved[url] || { name: _modules.resolveName(url) || url, resolved: url });
       info.loaded = true;
 

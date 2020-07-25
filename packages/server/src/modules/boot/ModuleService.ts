@@ -12,7 +12,7 @@ export class ModuleService {
   internals: RegExp[] = [];
   resolver: ModuleResolver;
   dev = false;
-  readonly overrides: Record<string, string> = {};
+  overrides: Record<string, string> = {};
   readonly imports: Record<string, string> = {};
   readonly resolved: Record<string, string> = {};
   readonly dependencies: Record<string, string[]> = {};

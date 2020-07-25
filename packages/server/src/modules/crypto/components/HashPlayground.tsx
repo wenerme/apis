@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Col, Divider, Input, List, message, Row } from 'antd';
+import { Alert, Button, Card, Col, Divider, Input, List, message, Row } from 'antd';
 import { useImmer } from 'use-immer';
 import {
   AlgorithmSelectorList,
@@ -35,6 +35,15 @@ export const HashContent: React.FC<{ selector; input?; onHashing?; loading?; res
           <Card title="设置">
             <Divider>算法</Divider>
             {selector}
+            <Divider>说明</Divider>
+            <Alert
+              type={'info'}
+              message={
+                <span>
+                  crypto 使用 <a href="https://github.com/brix/crypto-js">brix/crypto-js</a>
+                </span>
+              }
+            />
           </Card>
         </div>
       </Col>

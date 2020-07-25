@@ -1,8 +1,6 @@
 import { ModuleService } from 'src/modules/boot/ModuleService';
 import { System } from './types';
 
-const key = 'ImportOverrides';
-
 export class BootService {
   readonly modules = new ModuleService();
   readonly System: System;
@@ -15,17 +13,5 @@ export class BootService {
 
   resolvePath(v: string): string {
     return new URL(v, this.baselUrl).href;
-  }
-
-  async loadImportOverrides() {
-    try {
-      Object.assign(this.modules.overrides, JSON.parse(localStorage[key] || '{}'));
-    } catch (e) {
-      console.error(`failed to load overrides`, e);
-    }
-  }
-
-  async persistImportOverrides() {
-    localStorage[key] = JSON.stringify(this.modules.overrides);
   }
 }

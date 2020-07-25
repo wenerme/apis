@@ -23,7 +23,12 @@ function ContentLoadable(
   { onLoad = undefined, NotFound = NotFoundSimple } = {},
 ) {
   return Loadable({
-    loader: () => import(module).then((v) => onLoad?.(v[name] || NotFound)),
+    loader: () =>
+      import(module).then((v) => {
+        const c = v[name] || NotFound;
+        onLoad?.(c);
+        return c;
+      }),
     loading: (props) => {
       if (props.error) {
         console.error(`Error`, props.error);
@@ -58,7 +63,9 @@ const loaders = {};
 const LoadableContent: React.FC<{ content: LoadableComponentSpec }> = ({ content, children }) => {
   const { module, name } = content;
   const key = `${module}/${name}`;
-  const Comp = (loaders[key] = loaders[key] || ContentLoadable(content, { onLoad: (v) => (loaders[key] = v) }));
+  // reload module works - but need upper level reload
+  // const Comp = (loaders[key] = loaders[key] || ContentLoadable(content, { onLoad: (v) => (loaders[key] = v) }));
+  const Comp = (loaders[key] = loaders[key] || ContentLoadable(content));
   return <Comp>{children}</Comp>;
 };
 

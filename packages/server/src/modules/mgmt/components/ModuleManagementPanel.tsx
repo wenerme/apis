@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button, List, notification, Skeleton, Tag } from 'antd';
+import { Button, Form, Input, Modal, notification } from 'antd';
 import { ModuleInfo, ModuleManagementService } from 'src/modules/mgmt/ModuleManagementService';
 import { useImmer } from 'use-immer';
 import { getBootService } from 'src/modules/boot';
+import { ClearOutlined, PlusSquareOutlined, ReloadOutlined } from '@ant-design/icons';
+import { ModuleList } from 'src/modules/mgmt/components/ModuleList';
 
 let _svc;
 
@@ -17,6 +19,16 @@ export const ModuleManagementPanel: React.FC = () => {
   const [modules, updateModules] = useImmer<ModuleInfo[]>(() =>
     svc.getModules().sort((a, b) => a.name.localeCompare(b.name)),
   );
+  const doRefresh = () => {
+    updateModules((s) => svc.getModules().sort((a, b) => a.name.localeCompare(b.name)));
+  };
+  const doAddLocalModule = (module) => {
+    svc.addOverrideModule(module);
+  };
+  const doResetLocalModule = () => {
+    svc.resetOverrideModules();
+  };
+
   const doModuleLoad = async (name) => {
     updateModules((modules) => {
       modules.find((v) => v.name === name).loading = true;
@@ -59,87 +71,84 @@ export const ModuleManagementPanel: React.FC = () => {
   };
   return (
     <div>
+      <div>
+        <ModuleToolBar
+          onRefresh={doRefresh}
+          onResetLocalModule={doResetLocalModule}
+          onAddLocalModule={doAddLocalModule}
+        />
+      </div>
       <ModuleList modules={modules} onModuleLoad={doModuleLoad} onModuleUnload={doModuleUnload} />
     </div>
   );
 };
-
-const ModuleList: React.FC<{ loading?; modules: ModuleInfo[]; onModuleLoad?; onModuleUnload? }> = ({
-  loading,
-  modules,
-  onModuleLoad,
-  onModuleUnload,
+const ModuleEditDialog: React.FC<{ visible?; onVisibleChange?; module?; onModuleChange? }> = ({
+  visible,
+  onVisibleChange,
+  module,
+  onModuleChange,
 }) => {
+  const [form] = Form.useForm();
+  return (
+    <Modal title={'模块'} onOk={() => form.submit()} visible={visible} onCancel={() => onVisibleChange(false)}>
+      <Form
+        form={form}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 20 }}
+        initialValues={module || {}}
+        onFinish={(v) => {
+          onModuleChange(v);
+          onVisibleChange(false);
+        }}
+      >
+        <Form.Item name={'name'} label={'模块名'} required rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name={'resolved'} label={'地址'} required rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+const ModuleToolBar: React.FC<{ onRefresh?; onAddLocalModule?; onResetLocalModule? }> = ({
+  onRefresh,
+  onResetLocalModule,
+  onAddLocalModule,
+}) => {
+  const [state, update] = useImmer({ editing: false });
   return (
     <div>
-      <List
-        loading={loading}
-        itemLayout="horizontal"
-        dataSource={modules}
-        renderItem={(item) => (
-          <List.Item
-            actions={[
-              <Button
-                onClick={() => onModuleLoad(item.name)}
-                type="link"
-                key="load"
-                size="small"
-                disabled={item.loaded}
-              >
-                加载
-              </Button>,
-              <Button
-                onClick={() => onModuleUnload(item.name)}
-                type="link"
-                key="unload"
-                size="small"
-                disabled={!item.loaded}
-              >
-                卸载
-              </Button>,
-            ]}
-          >
-            <Skeleton avatar title={false} loading={item.loading} active>
-              <List.Item.Meta
-                title={
-                  <div>
-                    <span>{item.name + (item.metadata?.title ? ` / ${item.metadata?.title}` : '')}</span>
-                    <span style={{ paddingLeft: 10 }}>
-                      {item.loaded && <Tag color="magenta">已加载</Tag>}
-                      {item.predefined && <Tag color="green">预定义</Tag>}
-                      {item.internal && <Tag color="lime">内部模块</Tag>}
-                      {item.hasMetadata && <Tag color="gold">含元数据</Tag>}
-                      {item.override && <Tag color="geekblue">覆盖</Tag>}
-                    </span>
-                  </div>
-                }
-                description={item.metadata?.description}
-              />
-              <div>
-                <div>
-                  <small>{item.resolved}</small>
-                  <span style={{ paddingLeft: 8 }}>
-                    <Tag>{item.version}</Tag>
-                    <Tag>{item.source}</Tag>
-                  </span>
-                </div>
-                <div style={{ maxWidth: '30vw' }}>
-                  {Boolean(item.dependencies.length) && (
-                    <div>
-                      <small>依赖: {item.dependencies.join(',')}</small>
-                    </div>
-                  )}
-                  {Boolean(item.dependents.length) && (
-                    <div>
-                      <small>被依赖: {item.dependents.join(',')}</small>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </Skeleton>
-          </List.Item>
-        )}
+      <ModuleEditDialog
+        visible={state.editing}
+        onVisibleChange={(v) =>
+          update((s) => {
+            s.editing = v;
+          })
+        }
+        onModuleChange={onAddLocalModule}
       />
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button.Group>
+          <Button
+            type={'primary'}
+            icon={<PlusSquareOutlined />}
+            onClick={() =>
+              update((s) => {
+                s.editing = true;
+              })
+            }
+          >
+            本地
+          </Button>
+          <Button onClick={onResetLocalModule} icon={<ClearOutlined />}>
+            重置
+          </Button>
+        </Button.Group>
+        <Button onClick={onRefresh} icon={<ReloadOutlined />}>
+          刷新
+        </Button>
+      </div>
     </div>
   );
 };
