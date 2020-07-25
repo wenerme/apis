@@ -1,0 +1,1 @@
+# Scel metadata directory

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Wener's APIs</title>
+    <!--
+This CSP allows any SSL-enabled host, but you should limit these directives further to increase your app's security.
+Learn more about CSP policies at https://content-security-policy.com/#directive
+-->
+    <!--  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: localhost:*; script-src 'unsafe-inline' https: localhost:*; connect-src https: localhost:* ws://localhost:*; style-src 'unsafe-inline' https:; object-src 'none';">-->
+    <meta name="importmap-type" content="systemjs-importmap" />
+
+    <link href="https://cdn.jsdelivr.net/npm/antd/dist/antd.min.css" rel="stylesheet" />
+
+    <!-- Shared dependencies go into this import map. Your shared dependencies must be of one of the following formats:
+
+1. System.register (preferred when possible) - https://github.com/systemjs/systemjs/blob/master/docs/system-register.md
+2. UMD - https://github.com/umdjs/umd
+3. Global variable
+
+More information about shared dependencies can be found at https://single-spa.js.org/docs/recommended-setup#sharing-with-import-maps.
+-->
+    <script type="systemjs-importmap">
+      {
+        "imports": {
+          "@wener/apis-lite": "./modules/wener-apis-lite.system.js"
+        }
+      }
+    </script>
+
+    <!-- Add your organization's prod import map URL to this script's src  -->
+    <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
+
+    <!--
+If you need to support Angular applications, uncomment the script tag below to ensure only one instance of ZoneJS is loaded
+Learn more about why at https://single-spa.js.org/docs/ecosystem-angular/#zonejs
+-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/zone.js@0.10.3/dist/zone.min.js"></script> -->
+
+    <!--    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.14.6/dist/import-map-overrides.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/extras/amd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/extras/named-exports.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/extras/named-register.min.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.14.6/dist/import-map-overrides.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/system.min.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/extras/amd.min.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/extras/named-exports.min.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.3.1/dist/extras/named-register.min.js"></script>-->
+  </head>
+  <body>
+    <div id="WenerApis"></div>
+    <div id="single-spa-application:root"></div>
+    <div id="single-spa-application:@wener/apis-test"></div>
+    <script>
+      System.import('@wener/apis-lite');
+    </script>
+    <!--    <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>-->
+  </body>
+</html>
