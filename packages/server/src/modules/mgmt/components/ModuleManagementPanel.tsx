@@ -1,10 +1,11 @@
-import React from 'react';
-import { Button, Form, Input, Modal, notification } from 'antd';
+import React, { useEffect, useRef } from 'react';
+import { Button, Dropdown, Form, Input, Menu, message, Modal, notification } from 'antd';
 import { ModuleInfo, ModuleManagementService } from 'src/modules/mgmt/ModuleManagementService';
 import { useImmer } from 'use-immer';
 import { getBootService } from 'src/modules/boot';
 import { ClearOutlined, PlusSquareOutlined, ReloadOutlined } from '@ant-design/icons';
 import { ModuleList } from 'src/modules/mgmt/components/ModuleList';
+import { DownOutlined, EditOutlined, MinusSquareOutlined, UploadOutlined } from '@ant-design/icons/lib';
 
 let _svc;
 
@@ -22,11 +23,13 @@ export const ModuleManagementPanel: React.FC = () => {
   const doRefresh = () => {
     updateModules((s) => svc.getModules().sort((a, b) => a.name.localeCompare(b.name)));
   };
-  const doAddLocalModule = (module) => {
-    svc.addOverrideModule(module);
+  const doAddLocalModule = async (module) => {
+    await svc.addOverrideModule(module);
+    doRefresh();
   };
-  const doResetLocalModule = () => {
-    svc.resetOverrideModules();
+  const doResetLocalModule = async () => {
+    await svc.resetOverrideModules();
+    doRefresh();
   };
 
   const doModuleLoad = async (name) => {
@@ -69,8 +72,32 @@ export const ModuleManagementPanel: React.FC = () => {
       m.loaded = System.has(m.resolved);
     });
   };
+  const [edit, updateEdit] = useImmer({ editing: false, module: undefined });
+  const onModuleEdit = (module) => {
+    updateEdit((s) => {
+      s.editing = true;
+      s.module = module;
+    });
+  };
+  const onModulePublish = (module) => {
+    message.warn('尚未实现');
+  };
+  const onModuleReset = async (module) => {
+    await svc.removeOverrideModule(module);
+    doRefresh();
+  };
   return (
     <div>
+      <ModuleEditDialog
+        visible={edit.editing}
+        module={edit.module}
+        onModuleChange={async (v) => doAddLocalModule(v)}
+        onVisibleChange={(v) =>
+          updateEdit((s) => {
+            s.editing = v;
+          })
+        }
+      />
       <div>
         <ModuleToolBar
           onRefresh={doRefresh}
@@ -78,10 +105,60 @@ export const ModuleManagementPanel: React.FC = () => {
           onAddLocalModule={doAddLocalModule}
         />
       </div>
-      <ModuleList modules={modules} onModuleLoad={doModuleLoad} onModuleUnload={doModuleUnload} />
+      <ModuleList
+        modules={modules}
+        onModuleLoad={doModuleLoad}
+        onModuleUnload={doModuleUnload}
+        renderActions={renderModuleActions({
+          onModuleUnload: doModuleUnload,
+          onModuleLoad: doModuleLoad,
+          onModuleReset,
+          onModuleEdit,
+          onModulePublish,
+        })}
+      />
     </div>
   );
 };
+
+function renderModuleActions(opts: {
+  onModuleLoad?;
+  onModuleUnload?;
+  onModulePublish?;
+  onModuleEdit?;
+  onModuleReset?;
+}) {
+  const { onModuleLoad, onModuleUnload, onModuleEdit, onModulePublish, onModuleReset } = opts;
+  return (item: ModuleInfo) => [
+    <Button onClick={() => onModuleLoad(item.name)} type="link" key="load" size="small" disabled={item.loaded}>
+      加载
+    </Button>,
+    <Button onClick={() => onModuleUnload(item.name)} type="link" key="unload" size="small" disabled={!item.loaded}>
+      卸载
+    </Button>,
+    <Dropdown
+      key={'more'}
+      overlay={
+        <Menu>
+          <Menu.Item onClick={() => onModulePublish(item)} icon={<UploadOutlined />}>
+            发布
+          </Menu.Item>
+          <Menu.Item onClick={() => onModuleEdit(item)} icon={<EditOutlined />}>
+            编辑
+          </Menu.Item>
+          <Menu.Item onClick={() => onModuleReset(item)} disabled={!item.override} icon={<MinusSquareOutlined />}>
+            重置本地覆盖
+          </Menu.Item>
+        </Menu>
+      }
+    >
+      <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+        操作 <DownOutlined />
+      </a>
+    </Dropdown>,
+  ];
+}
+
 const ModuleEditDialog: React.FC<{ visible?; onVisibleChange?; module?; onModuleChange? }> = ({
   visible,
   onVisibleChange,
@@ -89,6 +166,13 @@ const ModuleEditDialog: React.FC<{ visible?; onVisibleChange?; module?; onModule
   onModuleChange,
 }) => {
   const [form] = Form.useForm();
+  const lastRef = useRef(module);
+  useEffect(() => {
+    if (module && lastRef.current !== module) {
+      lastRef.current = module;
+      form.setFieldsValue(module);
+    }
+  }, [module]);
   return (
     <Modal title={'模块'} onOk={() => form.submit()} visible={visible} onCancel={() => onVisibleChange(false)}>
       <Form
@@ -97,8 +181,9 @@ const ModuleEditDialog: React.FC<{ visible?; onVisibleChange?; module?; onModule
         wrapperCol={{ span: 20 }}
         initialValues={module || {}}
         onFinish={(v) => {
-          onModuleChange(v);
-          onVisibleChange(false);
+          if (onModuleChange(v) !== false) {
+            onVisibleChange(false);
+          }
         }}
       >
         <Form.Item name={'name'} label={'模块名'} required rules={[{ required: true }]}>

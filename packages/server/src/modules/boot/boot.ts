@@ -1,6 +1,7 @@
 import { BootService } from 'src/modules/boot/BootService';
 import imports from './imports.json';
 import { ModuleResolver } from 'src/modules/boot/ModuleService';
+import { loadImportOverrides } from 'src/modules/boot/overrides';
 
 let _bootService;
 
@@ -29,6 +30,8 @@ export async function boot(opts: BootstrapOptions) {
   }
   // preset imports
   Object.assign(modules.imports, imports);
+  // override works
+  Object.assign(modules.overrides, await loadImportOverrides());
 
   console.info(`Injecting system resolve`);
 

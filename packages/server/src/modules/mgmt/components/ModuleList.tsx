@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, Dropdown, List, Menu, Skeleton, Tag } from 'antd';
+import { List, Skeleton, Tag } from 'antd';
 import { ModuleInfo } from 'src/modules/mgmt/ModuleManagementService';
-import { DownOutlined, EditOutlined, MinusSquareOutlined, UploadOutlined } from '@ant-design/icons/lib';
 
 export const ModuleList: React.FC<{
   loading?;
@@ -9,7 +8,7 @@ export const ModuleList: React.FC<{
   modules: ModuleInfo[];
   onModuleLoad?;
   onModuleUnload?;
-}> = ({ loading, modules, onModuleLoad, onModuleUnload, renderActions = (v) => [] }) => {
+}> = ({ loading, modules, renderActions = (v) => [] }) => {
   return (
     <div>
       <List
@@ -17,45 +16,7 @@ export const ModuleList: React.FC<{
         itemLayout="horizontal"
         dataSource={modules}
         renderItem={(item) => (
-          <List.Item
-            actions={[
-              <Button
-                onClick={() => onModuleLoad(item.name)}
-                type="link"
-                key="load"
-                size="small"
-                disabled={item.loaded}
-              >
-                加载
-              </Button>,
-              <Button
-                onClick={() => onModuleUnload(item.name)}
-                type="link"
-                key="unload"
-                size="small"
-                disabled={!item.loaded}
-              >
-                卸载
-              </Button>,
-              <Dropdown
-                overlay={
-                  <Menu>
-                    <Menu.Item icon={<UploadOutlined />}>发布</Menu.Item>
-                    <Menu.Item icon={<EditOutlined />}>编辑</Menu.Item>
-                    <Menu.Item disabled={!item.override} icon={<MinusSquareOutlined />}>
-                      重置本地覆盖
-                    </Menu.Item>
-                  </Menu>
-                }
-                key={'more'}
-              >
-                <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-                  操作 <DownOutlined />
-                </a>
-              </Dropdown>,
-              ...renderActions(item),
-            ]}
-          >
+          <List.Item actions={[...renderActions(item)]}>
             <Skeleton avatar title={false} loading={item.loading} active>
               <List.Item.Meta
                 title={

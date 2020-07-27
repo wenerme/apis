@@ -1,4 +1,4 @@
-import { getBootService, ModuleService } from 'src/modules/boot';
+import { getBootService, loadImportOverrides, ModuleService, persistImportOverrides } from 'src/modules/boot';
 import ModuleMetas from './modules.json';
 
 export interface ModuleInfo {
@@ -52,36 +52,31 @@ export function getSourceFromResolvedUrl(url) {
   }
   return 'unknown';
 }
-const key = 'ImportOverrides';
 
 export class ModuleManagementService {
   private _boot = getBootService();
   private _modules: ModuleService = this._boot.modules;
   private System = this._boot.System;
 
-  addOverrideModule({ name, resolved }) {
+  async addOverrideModule({ name, resolved }) {
     this._modules.overrides[name] = resolved;
-    this.persistImportOverrides();
+    await this.persistImportOverrides();
   }
-  removeOverrideModule({ name }) {
+  async removeOverrideModule({ name }) {
     delete this._modules.overrides[name];
-    this.persistImportOverrides();
+    await this.persistImportOverrides();
   }
-  resetOverrideModules() {
+  async resetOverrideModules() {
     this._modules.overrides = {};
-    this.persistImportOverrides();
+    await this.persistImportOverrides();
   }
 
   async loadImportOverrides() {
-    try {
-      Object.assign(this._modules.overrides, JSON.parse(localStorage[key] || '{}'));
-    } catch (e) {
-      console.error(`failed to load overrides`, e);
-    }
+    Object.assign(this._modules.overrides, await loadImportOverrides());
   }
 
   async persistImportOverrides() {
-    localStorage[key] = JSON.stringify(this._modules.overrides);
+    return await persistImportOverrides(this._modules.overrides);
   }
 
   getModules(): ModuleInfo[] {
@@ -99,19 +94,16 @@ export class ModuleManagementService {
       // 使用预先有的元数据覆盖
       const byName = keyBy(all, 'name');
       for (const v of ModuleMetas) {
-        let m = byName[v.name];
-        if (!m) {
-          m = { ...v, resolved: _modules.tryResolve(v.name) };
-          all.push(m);
-        } else {
-          Object.assign(m, v);
-        }
+        const m = (byName[v.name] = byName[v.name] || { name: v.name, resolved: _modules.tryResolve(v.name) });
+        Object.assign(m, v);
       }
       // 添加 override 信息
       for (const [name, resolved] of Object.entries(_modules.overrides)) {
         byName[name] = Object.assign(byName[name] || {}, { name, resolved, override: true });
       }
+      all = Object.values(byName);
     }
+
     const byResolved = keyBy(all, 'resolved');
 
     for (const [url, mod] of System.entries()) {
