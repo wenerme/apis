@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, Skeleton, Tag } from 'antd';
 import { ModuleInfo } from 'src/modules/mgmt/ModuleManagementService';
+import numeral from 'numeral';
 
 export const ModuleList: React.FC<{
   loading?;
@@ -39,6 +40,7 @@ export const ModuleList: React.FC<{
                   <span style={{ paddingLeft: 8 }}>
                     <Tag>{item.version}</Tag>
                     <Tag>{item.source}</Tag>
+                    {item.size && <Tag>{numeral(item.size).format('0.00b')}</Tag>}
                   </span>
                 </div>
                 <div style={{ maxWidth: '30vw' }}>

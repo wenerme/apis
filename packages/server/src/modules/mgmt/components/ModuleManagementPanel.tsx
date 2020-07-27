@@ -13,6 +13,42 @@ function getModuleMgmtService(): ModuleManagementService {
   return (_svc = _svc || new ModuleManagementService());
 }
 
+function getContentLength(url): Promise<number> {
+  return fetch(url).then((v) => {
+    const len = v.headers.get('content-length');
+    if (len) {
+      return parseInt(len, 10);
+    }
+    return v.arrayBuffer().then((v) => v.byteLength);
+  });
+}
+async function refreshSize(modules: ModuleInfo[], updater, all = false) {
+  for (let i = 0; i < modules.length; i++) {
+    const module = modules[i];
+    if (!module.size) {
+      if (module.loaded && !all) {
+        continue;
+      }
+      const j = i;
+      updater((s) => {
+        s[j].loadingSize = true;
+      });
+      try {
+        const size = await getContentLength(module.resolved);
+        updater((s) => {
+          s[j].size = size;
+          s[j].loadingSize = false;
+        });
+      } catch (e) {
+        console.error(`failed to get size of`, module.name, module.resolved);
+        updater((s) => {
+          s[j].loadingSize = false;
+        });
+      }
+    }
+  }
+}
+
 export const ModuleManagementPanel: React.FC = () => {
   const svc = getModuleMgmtService();
   const System = getBootService().System;
@@ -20,6 +56,9 @@ export const ModuleManagementPanel: React.FC = () => {
   const [modules, updateModules] = useImmer<ModuleInfo[]>(() =>
     svc.getModules().sort((a, b) => a.name.localeCompare(b.name)),
   );
+  useEffect(() => {
+    refreshSize(modules, updateModules);
+  }, []);
   const doRefresh = () => {
     updateModules((s) => svc.getModules().sort((a, b) => a.name.localeCompare(b.name)));
   };
@@ -86,6 +125,9 @@ export const ModuleManagementPanel: React.FC = () => {
     await svc.removeOverrideModule(module);
     doRefresh();
   };
+  const onShowAllModuleSize = () => {
+    return refreshSize(modules, updateModules, true);
+  };
   return (
     <div>
       <ModuleEditDialog
@@ -103,6 +145,7 @@ export const ModuleManagementPanel: React.FC = () => {
           onRefresh={doRefresh}
           onResetLocalModule={doResetLocalModule}
           onAddLocalModule={doAddLocalModule}
+          onShowAllModuleSize={onShowAllModuleSize}
         />
       </div>
       <ModuleList
@@ -196,12 +239,25 @@ const ModuleEditDialog: React.FC<{ visible?; onVisibleChange?; module?; onModule
     </Modal>
   );
 };
-const ModuleToolBar: React.FC<{ onRefresh?; onAddLocalModule?; onResetLocalModule? }> = ({
+const ModuleToolBar: React.FC<{ onRefresh?; onAddLocalModule?; onResetLocalModule?; onShowAllModuleSize? }> = ({
   onRefresh,
   onResetLocalModule,
   onAddLocalModule,
+  onShowAllModuleSize,
 }) => {
-  const [state, update] = useImmer({ editing: false });
+  const [state, update] = useImmer({ editing: false, pendingShowAllModuleSize: false });
+  const showAll = async () => {
+    update((s) => {
+      s.pendingShowAllModuleSize = true;
+    });
+    try {
+      await onShowAllModuleSize();
+    } finally {
+      update((s) => {
+        s.pendingShowAllModuleSize = false;
+      });
+    }
+  };
   return (
     <div>
       <ModuleEditDialog
@@ -232,6 +288,9 @@ const ModuleToolBar: React.FC<{ onRefresh?; onAddLocalModule?; onResetLocalModul
         </Button.Group>
         <Button onClick={onRefresh} icon={<ReloadOutlined />}>
           刷新
+        </Button>
+        <Button loading={state.pendingShowAllModuleSize} onClick={showAll} icon={<ReloadOutlined />}>
+          显示所有模块大小
         </Button>
       </div>
     </div>

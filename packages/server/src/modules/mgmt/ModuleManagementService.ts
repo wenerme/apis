@@ -19,6 +19,7 @@ export interface ModuleInfo {
   dependencies?: string[];
   dependents?: string[];
 
+  loadingSize?: boolean;
   size?: number;
 }
 
