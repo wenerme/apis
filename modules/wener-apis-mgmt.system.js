@@ -1,6 +1,6 @@
 System.register(['react', 'antd', '@wener/apis-boot', '@ant-design/icons'], function (exports) {
   'use strict';
-  var useCallback, useState, React, useEffect, useRef, List, Skeleton, Tag, Button, Dropdown, Menu, Form, Modal, Input, notification, message, getBootService, loadImportOverrides, persistImportOverrides, UploadOutlined, EditOutlined, MinusSquareOutlined, DownOutlined, PlusSquareOutlined, ClearOutlined, ReloadOutlined;
+  var useCallback, useState, React, useEffect, useRef, List, Skeleton, Tag, Button, Dropdown, Menu, Form, Modal, Input, notification, message, getBootService, loadImportOverrides, persistImportOverrides, SyncOutlined, UploadOutlined, EditOutlined, MinusSquareOutlined, DownOutlined, PlusSquareOutlined, ClearOutlined, ReloadOutlined;
   return {
     setters: [function (module) {
       useCallback = module.useCallback;
@@ -25,6 +25,7 @@ System.register(['react', 'antd', '@wener/apis-boot', '@ant-design/icons'], func
       loadImportOverrides = module.loadImportOverrides;
       persistImportOverrides = module.persistImportOverrides;
     }, function (module) {
+      SyncOutlined = module.SyncOutlined;
       UploadOutlined = module.UploadOutlined;
       EditOutlined = module.EditOutlined;
       MinusSquareOutlined = module.MinusSquareOutlined;
@@ -1784,7 +1785,11 @@ System.register(['react', 'antd', '@wener/apis-boot', '@ant-design/icons'], func
               style: {
                 paddingLeft: 8
               }
-            }, /*#__PURE__*/React.createElement(Tag, null, item.version), /*#__PURE__*/React.createElement(Tag, null, item.source), item.size && /*#__PURE__*/React.createElement(Tag, null, numeral(item.size).format('0.00b')))), /*#__PURE__*/React.createElement("div", {
+            }, /*#__PURE__*/React.createElement(Tag, null, item.version), /*#__PURE__*/React.createElement(Tag, null, item.source), item.loadingSize && /*#__PURE__*/React.createElement(Tag, {
+              icon: /*#__PURE__*/React.createElement(SyncOutlined, {
+                spin: true
+              })
+            }), item.size && /*#__PURE__*/React.createElement(Tag, null, numeral(item.size).format('0.00b')))), /*#__PURE__*/React.createElement("div", {
               style: {
                 maxWidth: '30vw'
               }
@@ -1812,33 +1817,31 @@ System.register(['react', 'antd', '@wener/apis-boot', '@ant-design/icons'], func
       }
 
       async function refreshSize(modules, updater, all = false) {
-        for (let i = 0; i < modules.length; i++) {
-          const module = modules[i];
+        let list = modules.map((v, i) => [i, v]).filter(([_, v]) => !v.size);
 
-          if (!module.size) {
-            if (module.loaded && !all) {
-              continue;
-            }
-
-            const j = i;
-            updater(s => {
-              s[j].loadingSize = true;
-            });
-
-            try {
-              const size = await getContentLength(module.resolved);
-              updater(s => {
-                s[j].size = size;
-                s[j].loadingSize = false;
-              });
-            } catch (e) {
-              console.error(`failed to get size of`, module.name, module.resolved);
-              updater(s => {
-                s[j].loadingSize = false;
-              });
-            }
-          }
+        if (!all) {
+          list = list.filter(([_, v]) => v.loaded);
         }
+
+        const pendings = list.map(async ([i, module]) => {
+          updater(s => {
+            s[i].loadingSize = true;
+          });
+          const size = await getContentLength(module.resolved);
+
+          try {
+            updater(s => {
+              s[i].size = size;
+              s[i].loadingSize = false;
+            });
+          } catch (e) {
+            console.error(`failed to get size of`, module.name, module.resolved, e);
+            updater(s => {
+              s[i].loadingSize = false;
+            });
+          }
+        });
+        return Promise.all(pendings);
       }
 
       const ModuleManagementPanel = exports('ModuleManagementPanel', () => {
