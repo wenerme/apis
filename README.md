@@ -1,5 +1,14 @@
 # Wener's APIs
 
+- [apis.wener.me](https://apis.wener.me)
+  - Online version
+  - NextJS SSR
+  - Deployed on [Vercel](https://vercel.com)
+- [wenerme.github.io/apis/lite.html](https://wenerme.github.io/apis/lite.html)
+  - Lite version
+  - Pure JS
+  - [Module Management](https://wenerme.github.io/apis/lite.html#/lab/modules)
+
 ## 概述
 
 - [@wener/apis-server](https://apis.wener.me)
