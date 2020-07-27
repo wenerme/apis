@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Skeleton, Tag } from 'antd';
 import { ModuleInfo } from 'src/modules/mgmt/ModuleManagementService';
 import numeral from 'numeral';
+import { SyncOutlined } from '@ant-design/icons';
 
 export const ModuleList: React.FC<{
   loading?;
@@ -40,6 +41,7 @@ export const ModuleList: React.FC<{
                   <span style={{ paddingLeft: 8 }}>
                     <Tag>{item.version}</Tag>
                     <Tag>{item.source}</Tag>
+                    {item.loadingSize && <Tag icon={<SyncOutlined spin />} />}
                     {item.size && <Tag>{numeral(item.size).format('0.00b')}</Tag>}
                   </span>
                 </div>

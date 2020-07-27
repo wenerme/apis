@@ -23,30 +23,31 @@ function getContentLength(url): Promise<number> {
   });
 }
 async function refreshSize(modules: ModuleInfo[], updater, all = false) {
-  for (let i = 0; i < modules.length; i++) {
-    const module = modules[i];
-    if (!module.size) {
-      if (module.loaded && !all) {
-        continue;
-      }
-      const j = i;
-      updater((s) => {
-        s[j].loadingSize = true;
-      });
-      try {
-        const size = await getContentLength(module.resolved);
-        updater((s) => {
-          s[j].size = size;
-          s[j].loadingSize = false;
-        });
-      } catch (e) {
-        console.error(`failed to get size of`, module.name, module.resolved);
-        updater((s) => {
-          s[j].loadingSize = false;
-        });
-      }
-    }
+  let list = modules
+    .map<[number, ModuleInfo]>((v, i) => [i, v])
+    .filter(([_, v]) => !v.size);
+  if (!all) {
+    list = list.filter(([_, v]) => v.loaded);
   }
+
+  const pendings: Promise<void>[] = list.map(async ([i, module]) => {
+    updater((s) => {
+      s[i].loadingSize = true;
+    });
+    const size = await getContentLength(module.resolved);
+    try {
+      updater((s) => {
+        s[i].size = size;
+        s[i].loadingSize = false;
+      });
+    } catch (e) {
+      console.error(`failed to get size of`, module.name, module.resolved, e);
+      updater((s) => {
+        s[i].loadingSize = false;
+      });
+    }
+  });
+  return Promise.all(pendings);
 }
 
 export const ModuleManagementPanel: React.FC = () => {
