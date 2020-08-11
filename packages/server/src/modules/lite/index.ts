@@ -18,7 +18,7 @@ if (!isGeneratorSupported()) {
     .then(({ load }) => load());
 }
 chain = chain
-  // import('src/modules/boot')
+  // import('src/modules/boot') // not inject resolve yet
   .then(() => System.import(resolveModule({ name: '@wener/apis-boot', dev: isDev() })))
   .then(({ boot }) =>
     boot({

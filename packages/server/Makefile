@@ -1,5 +1,6 @@
+ModulePrefix:=wener-apis
 # Keep file
-.PRECIOUS: public/modules/wener-apis-%.system.js
+.PRECIOUS: public/modules/$(ModulePrefix)-%.system.js
 # eval $$
 .SECONDEXPANSION:
 .PHONEY: always
@@ -34,11 +35,16 @@ modules: modules-pre
 	@echo Building all modules $(MODULES)
 	NODE_ENV=production MOD_NAME="$(subst $(space),$(comma),${MODULES})" yarn rollup -c rollup.mod.ts
 
-build-%: public/modules/wener-apis-%.system.js
+build-%: public/modules/$(ModulePrefix)-%.system.js
 	@echo Done build
 
-public/modules/wener-apis-%.system.js: $$(shell find src/modules/% -type f  -name '*.ts' -o -name '*.tsx')
+public/modules/$(ModulePrefix)-%.system.js: $$(shell find src/modules/% -type f  -name '*.ts' -o -name '*.tsx')
 	MOD_NAME=$* yarn rollup -c rollup.mod.ts
+
+clean-%:
+	rm -rfv public/modules/$(ModulePrefix)-$**
+clean:
+	rm -rfv public/modules/$(ModulePrefix)*
 
 always:
 

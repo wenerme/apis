@@ -1,5 +1,5 @@
 {
-  "name": "@wneer/apis-boot",
+  "name": "@wener/apis-boot",
   "title": "启动模块",
   "description": "控制映射模块，控制模块版本。"
 }
