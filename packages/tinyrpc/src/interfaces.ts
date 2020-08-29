@@ -15,7 +15,7 @@ export interface ServiceConsumeOptions<T = any> extends ServiceCoordinate {
 export type ServiceConsumeType<T> = ServiceConsumeOptions<T> | AbstractType<T>;
 
 export interface Consumer {
-  consume<T>(coord: ServiceConsumeType<T>): T;
+  consume<T = any>(coord: ServiceConsumeType<T>): T;
 }
 
 export interface ServiceRegistration<T = any> {

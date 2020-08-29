@@ -1,6 +1,9 @@
+import { ServiceCoordinate } from './interfaces';
+
 export interface JsonInvocationRequest {
   id?: string
   method?: string
+  coordinate?: ServiceCoordinate
   params: any[]
 
   [k: string]: any
