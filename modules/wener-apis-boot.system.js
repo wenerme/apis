@@ -245,7 +245,7 @@ System.register([], function (exports) {
         };
       }
 
-      var name = "@wneer/apis-boot";
+      var name = "@wener/apis-boot";
       var title = "启动模块";
       var description = "控制映射模块，控制模块版本。";
       var metadata = exports('metadata', {

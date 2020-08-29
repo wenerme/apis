@@ -41,7 +41,7 @@ System.register(['react', 'antd', '@wener/apis-boot', '@ant-design/icons'], func
       		id: "boot",
       		name: "@wener/apis-boot",
       		metadata: {
-      			name: "@wneer/apis-boot",
+      			name: "@wener/apis-boot",
       			title: "启动模块",
       			description: "控制映射模块，控制模块版本。"
       		}

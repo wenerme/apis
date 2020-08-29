@@ -36,7 +36,7 @@ System.register([], function (exports, module) {
         }) => load());
       }
 
-      chain = chain // import('src/modules/boot')
+      chain = chain // import('src/modules/boot') // not inject resolve yet
       .then(() => System.import(resolveModule({
         name: '@wener/apis-boot',
         dev: isDev()
