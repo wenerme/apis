@@ -3,7 +3,7 @@
 
 __metadata:
   version: 4
-  cacheKey: 4
+  cacheKey: 6
 
 "@ampproject/toolbox-core@npm:^2.6.0":
   version: 2.6.0
@@ -2532,7 +2532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-typescript@npm:^7.10.1, @babel/plugin-transform-typescript@npm:^7.3.2, @babel/plugin-transform-typescript@npm:^7.9.0":
+"@babel/plugin-transform-typescript@npm:^7.10.1, @babel/plugin-transform-typescript@npm:^7.9.0":
   version: 7.10.3
   resolution: "@babel/plugin-transform-typescript@npm:7.10.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-typescript%2Fdownload%2F%40babel%2Fplugin-transform-typescript-7.10.3.tgz"
   dependencies:
@@ -3021,7 +3021,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-typescript@npm:^7.1.0, @babel/preset-typescript@npm:^7.3.3, @babel/preset-typescript@npm:^7.8.3, @babel/preset-typescript@npm:^7.9.0":
+"@babel/preset-typescript@npm:^7.1.0, @babel/preset-typescript@npm:^7.9.0":
   version: 7.10.1
   resolution: "@babel/preset-typescript@npm:7.10.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fpreset-typescript%2Fdownload%2F%40babel%2Fpreset-typescript-7.10.1.tgz"
   dependencies:
@@ -3045,6 +3045,21 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 736aa953517cc8c4198a37bd877c7c40ee5d0a1c2cb4241022f4d33dc1aa7bb28e3151806538aefb57eff285fa03630ad87dd9ad696dee833977191a860819d5
+  languageName: node
+  linkType: hard
+
+"@babel/register@npm:^7.10.5":
+  version: 7.10.5
+  resolution: "@babel/register@npm:7.10.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fregister%2Fdownload%2F%40babel%2Fregister-7.10.5.tgz"
+  dependencies:
+    find-cache-dir: ^2.0.0
+    lodash: ^4.17.19
+    make-dir: ^2.1.0
+    pirates: ^4.0.0
+    source-map-support: ^0.5.16
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 4dfa1cda59c98e696b20509eeee540de664958fc9ac5be33ee11a3f8a9e00caa1ca51506dc283d29c2f82edfa65e7841439f049fd664fddb7318d4334f71934e
   languageName: node
   linkType: hard
 
@@ -5200,6 +5215,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-actions@npm:6.0.5, @storybook/addon-actions@npm:^6":
+  version: 6.0.5
+  resolution: "@storybook/addon-actions@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-actions%2Fdownload%2F%40storybook%2Faddon-actions-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/client-api": 6.0.5
+    "@storybook/components": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/theming": 6.0.5
+    core-js: ^3.0.1
+    fast-deep-equal: ^3.1.1
+    global: ^4.3.2
+    lodash: ^4.17.15
+    polished: ^3.4.4
+    prop-types: ^15.7.2
+    react: ^16.8.3
+    react-inspector: ^5.0.1
+    regenerator-runtime: ^0.13.3
+    ts-dedent: ^1.1.1
+    util-deprecate: ^1.0.2
+    uuid: ^8.0.0
+  peerDependencies:
+    react-dom: "*"
+  checksum: fa86f2b62ca22b067738ffca84c033b049106418e1a367f5a80da12bca9137c3e13bd55f45297526e548d61de457e66fc25a857c46e1a47f461a7d6efb50506b
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-actions@npm:next":
   version: 6.0.0-beta.36
   resolution: "@storybook/addon-actions@npm:6.0.0-beta.36::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-actions%2Fdownload%2F%40storybook%2Faddon-actions-6.0.0-beta.36.tgz"
@@ -5225,6 +5268,26 @@ __metadata:
   peerDependencies:
     react-dom: "*"
   checksum: 40d2912095410fed95f0a9eeb659f6b0171efecbbf6cf1996ea81951857280c4bcd9924534e5d7b47b6d4e3161ed238e79ed48f073bb7b9922ee7c81fdc6b47a
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-backgrounds@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/addon-backgrounds@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-backgrounds%2Fdownload%2F%40storybook%2Faddon-backgrounds-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/components": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/theming": 6.0.5
+    core-js: ^3.0.1
+    memoizerific: ^1.11.3
+    react: ^16.8.3
+    regenerator-runtime: ^0.13.3
+  peerDependencies:
+    react-dom: "*"
+  checksum: 50061df7d564d4843685df66ba8064e28ae9f9b4e62dbfbd64d64f042cb8a2d433eddfb6af236a4a9603de7e697b2ae9342046b99d9fa115b336d4e98db260f1
   languageName: node
   linkType: hard
 
@@ -5255,6 +5318,90 @@ __metadata:
     react:
       optional: true
   checksum: 73412b8370e8a5bc28dd87d7ab9ef723db0dbd1619e7b26e3ee43c173f6bb9fa3ed51c37ae92d51f03f65e93bcd5f6867467c3c9e24249b2ed3838de8e310ff7
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-controls@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/addon-controls@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-controls%2Fdownload%2F%40storybook%2Faddon-controls-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/client-api": 6.0.5
+    "@storybook/components": 6.0.5
+    "@storybook/node-logger": 6.0.5
+    "@storybook/theming": 6.0.5
+    core-js: ^3.0.1
+    ts-dedent: ^1.1.1
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 98cedf0a5deebfa256c3549f83d98019902465f73d8e19efe0fe68f2205c45cac4f5ee0bfc04e67456e281397c1c92cd53d21f2d6561ac51f7e81dee6da111b8
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-docs@npm:6.0.5, @storybook/addon-docs@npm:^6":
+  version: 6.0.5
+  resolution: "@storybook/addon-docs@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-docs%2Fdownload%2F%40storybook%2Faddon-docs-6.0.5.tgz"
+  dependencies:
+    "@babel/generator": ^7.9.6
+    "@babel/parser": ^7.9.6
+    "@babel/plugin-transform-react-jsx": ^7.3.0
+    "@babel/preset-env": ^7.9.6
+    "@jest/transform": ^26.0.0
+    "@mdx-js/loader": ^1.5.1
+    "@mdx-js/mdx": ^1.5.1
+    "@mdx-js/react": ^1.5.1
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/client-api": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/components": 6.0.5
+    "@storybook/core": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/csf": 0.0.1
+    "@storybook/node-logger": 6.0.5
+    "@storybook/postinstall": 6.0.5
+    "@storybook/source-loader": 6.0.5
+    "@storybook/theming": 6.0.5
+    acorn: ^7.1.0
+    acorn-jsx: ^5.1.0
+    acorn-walk: ^7.0.0
+    core-js: ^3.0.1
+    doctrine: ^3.0.0
+    escodegen: ^1.12.0
+    fast-deep-equal: ^3.1.1
+    global: ^4.3.2
+    html-tags: ^3.1.0
+    js-string-escape: ^1.0.1
+    lodash: ^4.17.15
+    prop-types: ^15.7.2
+    react-element-to-jsx-string: ^14.3.1
+    regenerator-runtime: ^0.13.3
+    remark-external-links: ^6.0.0
+    remark-slug: ^6.0.0
+    ts-dedent: ^1.1.1
+    util-deprecate: ^1.0.2
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+    babel-loader: ^8.0.0
+    react: ">=16.3.0"
+    react-dom: "*"
+    react-is: ^16.8.0
+    vue: ^2.6.10
+    vue-docgen-api: ^4.29.1
+    vue-docgen-loader: ^1.5.0
+    webpack: ">=4"
+  peerDependenciesMeta:
+    vue:
+      optional: true
+    vue-docgen-api:
+      optional: true
+    vue-docgen-loader:
+      optional: true
+    webpack:
+      optional: true
+  checksum: afb1aed1db7447508ba404d6db5f301cd024513eca7cb794a8c6fbefb7d11261796c7518144952c3fe03b3f4c3aa9c1ce5b8ebbb3d97b109d21ce3d70d5b7074
   languageName: node
   linkType: hard
 
@@ -5319,6 +5466,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-essentials@npm:^6":
+  version: 6.0.5
+  resolution: "@storybook/addon-essentials@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-essentials%2Fdownload%2F%40storybook%2Faddon-essentials-6.0.5.tgz"
+  dependencies:
+    "@storybook/addon-actions": 6.0.5
+    "@storybook/addon-backgrounds": 6.0.5
+    "@storybook/addon-controls": 6.0.5
+    "@storybook/addon-docs": 6.0.5
+    "@storybook/addon-toolbars": 6.0.5
+    "@storybook/addon-viewport": 6.0.5
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/node-logger": 6.0.5
+    core-js: ^3.0.1
+    regenerator-runtime: ^0.13.3
+    ts-dedent: ^1.1.1
+  peerDependencies:
+    babel-loader: ^8.0.0
+    react: ^16.8.0
+    react-dom: "*"
+    react-is: ^16.8.0
+  checksum: e3fb7a8fb43b0908261f826cbf0814560cd3ded354970f801d1ff116f738a63c85cb7ba967fad3b9408329c9b2183ceb8d827661556e7e4c453d6c090a06d2e9
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-knobs@npm:next":
   version: 6.0.0-beta.36
   resolution: "@storybook/addon-knobs@npm:6.0.0-beta.36::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-knobs%2Fdownload%2F%40storybook%2Faddon-knobs-6.0.0-beta.36.tgz"
@@ -5347,6 +5519,29 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: 5614be4b423d194f1c67f7fe6ce2781c33e741121d611cbd975aab9e180ee490e9928b523db2825ba50a912b5cee4acd47cdfd685e8999755e0736247a6ec6a7
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-links@npm:^6":
+  version: 6.0.5
+  resolution: "@storybook/addon-links@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-links%2Fdownload%2F%40storybook%2Faddon-links-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/csf": 0.0.1
+    "@storybook/router": 6.0.5
+    "@types/qs": ^6.9.0
+    core-js: ^3.0.1
+    global: ^4.3.2
+    prop-types: ^15.7.2
+    qs: ^6.6.0
+    regenerator-runtime: ^0.13.3
+    ts-dedent: ^1.1.1
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 5b58550a6b7c17f2dba4646e39f6b79d53d17ec0ca8cab941c278eceec113686849641160786a0b351479705b5dafca10e2474f8ecee4c1657dfbdcf2ce65258
   languageName: node
   linkType: hard
 
@@ -5426,6 +5621,44 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-toolbars@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/addon-toolbars@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-toolbars%2Fdownload%2F%40storybook%2Faddon-toolbars-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/client-api": 6.0.5
+    "@storybook/components": 6.0.5
+    core-js: ^3.0.1
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: a8a98d920ea3d82ab5276ecd2e7659d04769731c3e1a819ee214d0fa244f747e0c90e43538b96fe2c7650fc00092ccc74caf94fed877e2e21be1dffb4e1295ed
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-viewport@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/addon-viewport@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-viewport%2Fdownload%2F%40storybook%2Faddon-viewport-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/components": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/theming": 6.0.5
+    core-js: ^3.0.1
+    global: ^4.3.2
+    memoizerific: ^1.11.3
+    prop-types: ^15.7.2
+    regenerator-runtime: ^0.13.3
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: ec8c496f736684f96323dded3d350ca4a74d0aa1cc0804438fc7706350c05851ed0c008b9b429757bbe34fc59123c255332ca5347dad0b6dc949e47f34c119fb
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-viewport@npm:next":
   version: 6.0.0-beta.36
   resolution: "@storybook/addon-viewport@npm:6.0.0-beta.36::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddon-viewport%2Fdownload%2F%40storybook%2Faddon-viewport-6.0.0-beta.36.tgz"
@@ -5500,6 +5733,26 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: 22d8266797532212c5d9ae2736c6d5c8068265bde8a05819549eba42c0447adaf65aff01189d9253ccd91f4d578283b2f86d2ab333c929c46fff3c39b4a99552
+  languageName: node
+  linkType: hard
+
+"@storybook/addons@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/addons@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Faddons%2Fdownload%2F%40storybook%2Faddons-6.0.5.tgz"
+  dependencies:
+    "@storybook/api": 6.0.5
+    "@storybook/channels": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/router": 6.0.5
+    "@storybook/theming": 6.0.5
+    core-js: ^3.0.1
+    global: ^4.3.2
+    regenerator-runtime: ^0.13.3
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 888cbc16c1f93978cc87e7f72a3cd63975687b56ffb82cb02baa9459d8c974edc134bae154eb1a796a893d9d61c9d57fdd7056c65c761f5de22d5097b2d87125
   languageName: node
   linkType: hard
 
@@ -5593,6 +5846,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/api@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/api@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fapi%2Fdownload%2F%40storybook%2Fapi-6.0.5.tgz"
+  dependencies:
+    "@reach/router": ^1.3.3
+    "@storybook/channels": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/csf": 0.0.1
+    "@storybook/router": 6.0.5
+    "@storybook/semver": ^7.3.2
+    "@storybook/theming": 6.0.5
+    "@types/reach__router": ^1.3.5
+    core-js: ^3.0.1
+    fast-deep-equal: ^3.1.1
+    global: ^4.3.2
+    lodash: ^4.17.15
+    memoizerific: ^1.11.3
+    react: ^16.8.3
+    regenerator-runtime: ^0.13.3
+    store2: ^2.7.1
+    telejson: ^5.0.2
+    ts-dedent: ^1.1.1
+    util-deprecate: ^1.0.2
+  peerDependencies:
+    react-dom: "*"
+  checksum: c6a4be0029a32c0652a0263c69ecb60b3074bb301432fa9a13b0066c772f8651cfc182023b2847f30802527014d626092d39bc902d50c47987677217e2099d0c
+  languageName: node
+  linkType: hard
+
 "@storybook/channel-postmessage@npm:6.0.0-beta.36":
   version: 6.0.0-beta.36
   resolution: "@storybook/channel-postmessage@npm:6.0.0-beta.36::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fchannel-postmessage%2Fdownload%2F%40storybook%2Fchannel-postmessage-6.0.0-beta.36.tgz"
@@ -5604,6 +5887,21 @@ __metadata:
     global: ^4.3.2
     telejson: ^4.0.0
   checksum: d55a545799836ac757244d3a8c8b6033ec348d292c4855996be2c31d0843addc0e4a5fec129e2b82921be57251b6c0cb0d3f3a46b0d6c892d3182bb8369a88da
+  languageName: node
+  linkType: hard
+
+"@storybook/channel-postmessage@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/channel-postmessage@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fchannel-postmessage%2Fdownload%2F%40storybook%2Fchannel-postmessage-6.0.5.tgz"
+  dependencies:
+    "@storybook/channels": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/core-events": 6.0.5
+    core-js: ^3.0.1
+    global: ^4.3.2
+    qs: ^6.6.0
+    telejson: ^5.0.2
+  checksum: 134017442507cc91f406bf444381d6ad040ab24f14717128fa43df29f2de1b95fffdbbe7235a38b210c4f877017ce29e01691c15983458b303ae448a66a37578
   languageName: node
   linkType: hard
 
@@ -5636,6 +5934,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/channels@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/channels@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fchannels%2Fdownload%2F%40storybook%2Fchannels-6.0.5.tgz"
+  dependencies:
+    core-js: ^3.0.1
+    ts-dedent: ^1.1.1
+    util-deprecate: ^1.0.2
+  checksum: 9adf40647757dc470473857c575023a5e12d8b46eead7730e82c4f8852921621b93d77d39478f9171eb2fa950c783248e1f02038ac6366e8c8d030a5b2cd76df
+  languageName: node
+  linkType: hard
+
 "@storybook/client-api@npm:6.0.0-beta.36":
   version: 6.0.0-beta.36
   resolution: "@storybook/client-api@npm:6.0.0-beta.36::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fclient-api%2Fdownload%2F%40storybook%2Fclient-api-6.0.0-beta.36.tgz"
@@ -5659,6 +5968,34 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: 2aa95c067bcde38cb8092268276827b72d1010e3b212ae82bb6d76ab93290a3ef53634ac556fcaf069cc8e8e262835e18b5a5e93d38ebbe0e7380045724a3616
+  languageName: node
+  linkType: hard
+
+"@storybook/client-api@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/client-api@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fclient-api%2Fdownload%2F%40storybook%2Fclient-api-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/channel-postmessage": 6.0.5
+    "@storybook/channels": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/csf": 0.0.1
+    "@types/qs": ^6.9.0
+    "@types/webpack-env": ^1.15.2
+    core-js: ^3.0.1
+    global: ^4.3.2
+    lodash: ^4.17.15
+    memoizerific: ^1.11.3
+    qs: ^6.6.0
+    stable: ^0.1.8
+    store2: ^2.7.1
+    ts-dedent: ^1.1.1
+    util-deprecate: ^1.0.2
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 56c17c59cb180aa467e5a4aee6724884275450080e2c4e343df316bcb11903274be45b2b9eb84ba5c9108972932a560d871c000640be669d2d28457137983a66
   languageName: node
   linkType: hard
 
@@ -5687,6 +6024,16 @@ __metadata:
     core-js: ^3.0.1
     global: ^4.3.2
   checksum: e5d24753b00b3816edf085168e48901377f2c9c8676ecb4ae53bf1a011bd415d4e28abd53201363a0b0a8768c6a925bff5a04ca0676ac84c7a756a49a7e27b7d
+  languageName: node
+  linkType: hard
+
+"@storybook/client-logger@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/client-logger@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fclient-logger%2Fdownload%2F%40storybook%2Fclient-logger-6.0.5.tgz"
+  dependencies:
+    core-js: ^3.0.1
+    global: ^4.3.2
+  checksum: 292a8d6e3b8434bc2c68b0d68f0405c0897b332d7da7931fdd56496cd6f85f91e60284627b35472b0903e280f10abb516686fe86979abb6e78f1186dde026010
   languageName: node
   linkType: hard
 
@@ -5722,6 +6069,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/components@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/components@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fcomponents%2Fdownload%2F%40storybook%2Fcomponents-6.0.5.tgz"
+  dependencies:
+    "@storybook/client-logger": 6.0.5
+    "@storybook/csf": 0.0.1
+    "@storybook/theming": 6.0.5
+    "@types/overlayscrollbars": ^1.9.0
+    "@types/react-color": ^3.0.1
+    "@types/react-syntax-highlighter": 11.0.4
+    core-js: ^3.0.1
+    fast-deep-equal: ^3.1.1
+    global: ^4.3.2
+    lodash: ^4.17.15
+    markdown-to-jsx: ^6.11.4
+    memoizerific: ^1.11.3
+    overlayscrollbars: ^1.10.2
+    polished: ^3.4.4
+    popper.js: ^1.14.7
+    react: ^16.8.3
+    react-color: ^2.17.0
+    react-dom: ^16.8.3
+    react-popper-tooltip: ^2.11.0
+    react-syntax-highlighter: ^12.2.1
+    react-textarea-autosize: ^8.1.1
+    ts-dedent: ^1.1.1
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 21e8c3e90e8e66802395fba3654671cc01d3298f426be04bf402624bafdc3d71174f957f5865287c1cad770e4dd4226a7beb085c8a414c100b5b0e00eecbe3fd
+  languageName: node
+  linkType: hard
+
 "@storybook/core-events@npm:5.3.19":
   version: 5.3.19
   resolution: "@storybook/core-events@npm:5.3.19::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fcore-events%2Fdownload%2F%40storybook%2Fcore-events-5.3.19.tgz"
@@ -5746,6 +6126,15 @@ __metadata:
   dependencies:
     core-js: ^3.0.1
   checksum: d49e1d2b1165b36a7791fc963dcd6ea600f166bd9998814bbbf58620d0c48c46059519f5d2fd53de414f260e391b384abd0f63a4ea7d13f35cff97c74cc1386f
+  languageName: node
+  linkType: hard
+
+"@storybook/core-events@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/core-events@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fcore-events%2Fdownload%2F%40storybook%2Fcore-events-6.0.5.tgz"
+  dependencies:
+    core-js: ^3.0.1
+  checksum: a67db7023736441a3cbc59d87a8ac169cb77dcf01cab18d816d25ac8e3f8f4a9905149133fd000a87ca9a077b31dda1ac7f41dbfa446b6fe4be139220945a595
   languageName: node
   linkType: hard
 
@@ -5857,6 +6246,115 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/core@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/core@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fcore%2Fdownload%2F%40storybook%2Fcore-6.0.5.tgz"
+  dependencies:
+    "@babel/plugin-proposal-class-properties": ^7.8.3
+    "@babel/plugin-proposal-decorators": ^7.8.3
+    "@babel/plugin-proposal-export-default-from": ^7.8.3
+    "@babel/plugin-proposal-nullish-coalescing-operator": ^7.10.1
+    "@babel/plugin-proposal-object-rest-spread": ^7.9.6
+    "@babel/plugin-proposal-optional-chaining": ^7.10.1
+    "@babel/plugin-proposal-private-methods": ^7.8.3
+    "@babel/plugin-syntax-dynamic-import": ^7.8.3
+    "@babel/plugin-transform-arrow-functions": ^7.8.3
+    "@babel/plugin-transform-block-scoping": ^7.8.3
+    "@babel/plugin-transform-classes": ^7.9.5
+    "@babel/plugin-transform-destructuring": ^7.9.5
+    "@babel/plugin-transform-for-of": ^7.9.0
+    "@babel/plugin-transform-parameters": ^7.9.5
+    "@babel/plugin-transform-shorthand-properties": ^7.8.3
+    "@babel/plugin-transform-spread": ^7.8.3
+    "@babel/plugin-transform-template-literals": ^7.8.3
+    "@babel/preset-env": ^7.9.6
+    "@babel/preset-react": ^7.8.3
+    "@babel/preset-typescript": ^7.9.0
+    "@babel/register": ^7.10.5
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/channel-postmessage": 6.0.5
+    "@storybook/channels": 6.0.5
+    "@storybook/client-api": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/components": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/csf": 0.0.1
+    "@storybook/node-logger": 6.0.5
+    "@storybook/router": 6.0.5
+    "@storybook/semver": ^7.3.2
+    "@storybook/theming": 6.0.5
+    "@storybook/ui": 6.0.5
+    "@types/glob-base": ^0.3.0
+    "@types/micromatch": ^4.0.1
+    "@types/node-fetch": ^2.5.4
+    airbnb-js-shims: ^2.2.1
+    ansi-to-html: ^0.6.11
+    autoprefixer: ^9.7.2
+    babel-loader: ^8.0.6
+    babel-plugin-emotion: ^10.0.20
+    babel-plugin-macros: ^2.8.0
+    babel-preset-minify: ^0.5.0 || 0.6.0-alpha.5
+    better-opn: ^2.0.0
+    boxen: ^4.1.0
+    case-sensitive-paths-webpack-plugin: ^2.2.0
+    chalk: ^4.0.0
+    cli-table3: 0.6.0
+    commander: ^5.0.0
+    core-js: ^3.0.1
+    css-loader: ^3.5.3
+    detect-port: ^1.3.0
+    dotenv-webpack: ^1.7.0
+    ejs: ^3.1.2
+    express: ^4.17.0
+    file-loader: ^6.0.0
+    file-system-cache: ^1.0.5
+    find-up: ^4.1.0
+    fork-ts-checker-webpack-plugin: ^4.1.4
+    fs-extra: ^9.0.0
+    glob: ^7.1.6
+    glob-base: ^0.3.0
+    glob-promise: ^3.4.0
+    global: ^4.3.2
+    html-webpack-plugin: ^4.2.1
+    inquirer: ^7.0.0
+    interpret: ^2.0.0
+    ip: ^1.1.5
+    json5: ^2.1.1
+    lazy-universal-dotenv: ^3.0.1
+    micromatch: ^4.0.2
+    node-fetch: ^2.6.0
+    pkg-dir: ^4.2.0
+    pnp-webpack-plugin: 1.6.4
+    postcss-flexbugs-fixes: ^4.1.0
+    postcss-loader: ^3.0.0
+    pretty-hrtime: ^1.0.3
+    qs: ^6.6.0
+    raw-loader: ^4.0.1
+    react-dev-utils: ^10.0.0
+    regenerator-runtime: ^0.13.3
+    resolve-from: ^5.0.0
+    serve-favicon: ^2.5.0
+    shelljs: ^0.8.3
+    stable: ^0.1.8
+    style-loader: ^1.2.1
+    terser-webpack-plugin: ^3.0.0
+    ts-dedent: ^1.1.1
+    unfetch: ^4.1.0
+    url-loader: ^4.0.0
+    util-deprecate: ^1.0.2
+    webpack: ^4.43.0
+    webpack-dev-middleware: ^3.7.0
+    webpack-hot-middleware: ^2.25.0
+    webpack-virtual-modules: ^0.2.2
+  peerDependencies:
+    "@babel/core": "*"
+    react: "*"
+    react-dom: "*"
+  checksum: d9ae615ef36afef4a53978e001ccec0cfde37793b56043a28e38f7e680b00d9526f5ee0cbb4b70e84a6ada4e4130fe4b9ec21869eecbc158aed25e7aa8be46dd
+  languageName: node
+  linkType: hard
+
 "@storybook/csf@npm:0.0.1":
   version: 0.0.1
   resolution: "@storybook/csf@npm:0.0.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fcsf%2Fdownload%2F%40storybook%2Fcsf-0.0.1.tgz"
@@ -5879,17 +6377,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/node-logger@npm:^5.3.17":
-  version: 5.3.19
-  resolution: "@storybook/node-logger@npm:5.3.19::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fnode-logger%2Fdownload%2F%40storybook%2Fnode-logger-5.3.19.tgz"
+"@storybook/node-logger@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/node-logger@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fnode-logger%2Fdownload%2F%40storybook%2Fnode-logger-6.0.5.tgz"
   dependencies:
     "@types/npmlog": ^4.1.2
-    chalk: ^3.0.0
+    chalk: ^4.0.0
     core-js: ^3.0.1
     npmlog: ^4.1.2
     pretty-hrtime: ^1.0.3
-    regenerator-runtime: ^0.13.3
-  checksum: fe04b3622f83f0176251c0fe9b3e46004b2dac4b2a4400a1630d6b7651d8930dc5ce19de33901ff83a6ccafb9562282361e1cd0708a0c40cad2fe09efa957085
+  checksum: dc5010d652965edefe7e38d93380de9d3be7099b672a17abd7244d7071077f892e1ed7633b86555427c5dfa94098018c06e7a5d7073551dd1ebcd84ed19b25dc
   languageName: node
   linkType: hard
 
@@ -5902,18 +6399,48 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/preset-typescript@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@storybook/preset-typescript@npm:3.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fpreset-typescript%2Fdownload%2F%40storybook%2Fpreset-typescript-3.0.0.tgz"
+"@storybook/postinstall@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/postinstall@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fpostinstall%2Fdownload%2F%40storybook%2Fpostinstall-6.0.5.tgz"
   dependencies:
-    "@babel/preset-typescript": ^7.8.3
-    "@storybook/node-logger": ^5.3.17
-    "@types/babel__core": ^7.1.6
-    babel-preset-typescript-vue: ^1.0.3
-    fork-ts-checker-webpack-plugin: ^4.1.0
+    core-js: ^3.0.1
+  checksum: 78ec5fe95a3a9274242af4b79574899d6dca0145b5162a42701eb3cf27b2b5b09d522d0de3be527cbf81427a391240fef89ad26774c4275bd78491d7ca3dfede
+  languageName: node
+  linkType: hard
+
+"@storybook/react@npm:^6":
+  version: 6.0.5
+  resolution: "@storybook/react@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Freact%2Fdownload%2F%40storybook%2Freact-6.0.5.tgz"
+  dependencies:
+    "@babel/preset-flow": ^7.0.0
+    "@babel/preset-react": ^7.0.0
+    "@storybook/addons": 6.0.5
+    "@storybook/core": 6.0.5
+    "@storybook/node-logger": 6.0.5
+    "@storybook/semver": ^7.3.2
+    "@svgr/webpack": ^5.4.0
+    "@types/webpack-env": ^1.15.2
+    babel-plugin-add-react-displayname: ^0.0.5
+    babel-plugin-named-asset-import: ^0.3.1
+    babel-plugin-react-docgen: ^4.1.0
+    core-js: ^3.0.1
+    global: ^4.3.2
+    lodash: ^4.17.15
+    prop-types: ^15.7.2
+    react-dev-utils: ^10.0.0
+    react-docgen-typescript-plugin: ^0.5.2
+    regenerator-runtime: ^0.13.3
+    ts-dedent: ^1.1.1
+    webpack: ^4.43.0
   peerDependencies:
-    typescript: ">=3.4"
-  checksum: f518f632f240a2fb779038cb47cc3c9165edf8cd2e2cb1318224a66ab3d61c7829d0d02f68ee04f8e9210baa926430f9a8f3befa8a35c7d352d10039fe6282aa
+    "@babel/core": ^7.0.1
+    react: "*"
+    react-dom: "*"
+  bin:
+    build-storybook: bin/build.js
+    start-storybook: bin/index.js
+    storybook-server: bin/index.js
+  checksum: 9980181f1230457569cf6b11230d6c7b82d3667711c9c326f9362c5988c6164d0161d2dc4783a6380f11476c7d39e30df46f91f573bedf2dd76e08e8b591b828
   languageName: node
   linkType: hard
 
@@ -6009,6 +6536,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/router@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/router@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Frouter%2Fdownload%2F%40storybook%2Frouter-6.0.5.tgz"
+  dependencies:
+    "@reach/router": ^1.3.3
+    "@types/reach__router": ^1.3.5
+    core-js: ^3.0.1
+    global: ^4.3.2
+    memoizerific: ^1.11.3
+    qs: ^6.6.0
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: cc01ed90b07ceb4d448db10b546598199df524b3012d1da923b70695563d7f4318f8ddeff679cfa4183bfcfe2bd2803f1381d554a5748f24c48d9f55b798694a
+  languageName: node
+  linkType: hard
+
 "@storybook/semver@npm:^7.3.2":
   version: 7.3.2
   resolution: "@storybook/semver@npm:7.3.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fsemver%2Fdownload%2F%40storybook%2Fsemver-7.3.2.tgz"
@@ -6038,6 +6582,27 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: 6004f42fb27d3d8d2550cddca499e3a177e162279d8d96b7f937c2b9aa085844452de36113839c212db444d2a0e969f56d57359faac046ce3a7c4197d4994ce4
+  languageName: node
+  linkType: hard
+
+"@storybook/source-loader@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/source-loader@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fsource-loader%2Fdownload%2F%40storybook%2Fsource-loader-6.0.5.tgz"
+  dependencies:
+    "@storybook/addons": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/csf": 0.0.1
+    core-js: ^3.0.1
+    estraverse: ^4.2.0
+    global: ^4.3.2
+    loader-utils: ^2.0.0
+    lodash: ^4.17.15
+    prettier: ^2.0.5
+    regenerator-runtime: ^0.13.3
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: ecce32ba972f516337ef9ffa4a92d25d738c1fe01a9560f4e5c3a7b4cc37dfeb69b57473da2f26d3e4ebc8727fcb1176bc35b44ce54cfb8c5723d717fded2e99
   languageName: node
   linkType: hard
 
@@ -6128,6 +6693,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/theming@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/theming@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Ftheming%2Fdownload%2F%40storybook%2Ftheming-6.0.5.tgz"
+  dependencies:
+    "@emotion/core": ^10.0.20
+    "@emotion/is-prop-valid": ^0.8.6
+    "@emotion/styled": ^10.0.17
+    "@storybook/client-logger": 6.0.5
+    core-js: ^3.0.1
+    deep-object-diff: ^1.1.0
+    emotion-theming: ^10.0.19
+    global: ^4.3.2
+    memoizerific: ^1.11.3
+    polished: ^3.4.4
+    resolve-from: ^5.0.0
+    ts-dedent: ^1.1.1
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 57e13797b603d2933aacdf0800a302ad39893832775482536ef3033e306d80d08ad9023112bb51011b54b0fdd54e078907a9cf1007515371bf56173d1cbc838f
+  languageName: node
+  linkType: hard
+
 "@storybook/ui@npm:6.0.0-beta.36":
   version: 6.0.0-beta.36
   resolution: "@storybook/ui@npm:6.0.0-beta.36::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fui%2Fdownload%2F%40storybook%2Fui-6.0.0-beta.36.tgz"
@@ -6165,6 +6753,45 @@ __metadata:
     rfdc: ^1.1.4
     store2: ^2.7.1
   checksum: 2fe44c2898d94dfab43e5a87c25125cc2dac2946e89857ce134231453a4b4ddd1d38d1ec8415df9b96ebfe0540f5bf5d06b228059d2649c198348de131f857b5
+  languageName: node
+  linkType: hard
+
+"@storybook/ui@npm:6.0.5":
+  version: 6.0.5
+  resolution: "@storybook/ui@npm:6.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40storybook%2Fui%2Fdownload%2F%40storybook%2Fui-6.0.5.tgz"
+  dependencies:
+    "@emotion/core": ^10.0.20
+    "@storybook/addons": 6.0.5
+    "@storybook/api": 6.0.5
+    "@storybook/channels": 6.0.5
+    "@storybook/client-logger": 6.0.5
+    "@storybook/components": 6.0.5
+    "@storybook/core-events": 6.0.5
+    "@storybook/router": 6.0.5
+    "@storybook/semver": ^7.3.2
+    "@storybook/theming": 6.0.5
+    "@types/markdown-to-jsx": ^6.11.0
+    copy-to-clipboard: ^3.0.8
+    core-js: ^3.0.1
+    core-js-pure: ^3.0.1
+    emotion-theming: ^10.0.19
+    fuse.js: ^3.6.1
+    global: ^4.3.2
+    lodash: ^4.17.15
+    markdown-to-jsx: ^6.11.4
+    memoizerific: ^1.11.3
+    polished: ^3.4.4
+    qs: ^6.6.0
+    react: ^16.8.3
+    react-dom: ^16.8.3
+    react-draggable: ^4.0.3
+    react-helmet-async: ^1.0.2
+    react-hotkeys: 2.0.0
+    react-sizeme: ^2.6.7
+    regenerator-runtime: ^0.13.3
+    resolve-from: ^5.0.0
+    store2: ^2.7.1
+  checksum: 86caaa88291b7605905ac74e12251b74914c9c25d3f3cef14dc1a058913162c049c6270e6983a2ebc6c0a4a0566572ed671f7ce46dd7b8d805bd9450fadef6da
   languageName: node
   linkType: hard
 
@@ -6597,7 +7224,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/babel__core@npm:^7, @types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.6, @types/babel__core@npm:^7.1.7":
+"@types/babel__core@npm:^7, @types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.7":
   version: 7.1.9
   resolution: "@types/babel__core@npm:7.1.9::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbabel__core%2Fdownload%2F%40types%2Fbabel__core-7.1.9.tgz"
   dependencies:
@@ -6781,16 +7408,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint-scope@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "@types/eslint-scope@npm:3.7.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Feslint-scope%2Fdownload%2F%40types%2Feslint-scope-3.7.0.tgz"
-  dependencies:
-    "@types/eslint": "*"
-    "@types/estree": "*"
-  checksum: 1ee912a956f6fecd26bef9517ef33473498feda4a7fc7f191b705c750dcf8bbbd78a83d8c69e66d98c23cad4dfc8769a464780a3cf395948e3f0f85146729f68
-  languageName: node
-  linkType: hard
-
 "@types/eslint-visitor-keys@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/eslint-visitor-keys@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Feslint-visitor-keys%2Fdownload%2F%40types%2Feslint-visitor-keys-1.0.0.tgz"
@@ -6798,7 +7415,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:^7":
+"@types/eslint@npm:^7":
   version: 7.2.0
   resolution: "@types/eslint@npm:7.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Feslint%2Fdownload%2F%40types%2Feslint-7.2.0.tgz"
   dependencies:
@@ -6815,7 +7432,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:*, @types/estree@npm:^0.0.45":
+"@types/estree@npm:*":
   version: 0.0.45
   resolution: "@types/estree@npm:0.0.45::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Festree%2Fdownload%2F%40types%2Festree-0.0.45.tgz"
   checksum: 9d339cbcf29a96a32e9d40efc21009c2342e93c4f653294dd1ef081ae474bca9e54707e5d4a1cff90b9e3566e8bdd71ac31e0c3d24bc2ff1d3d5aa75058b3937
@@ -7946,6 +8563,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/strip-bom@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/strip-bom@npm:3.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fstrip-bom%2Fdownload%2F%40types%2Fstrip-bom-3.0.0.tgz"
+  checksum: 4aef75266bd5f06d57b133f68ae47eb6a4b966de4c407d1b2f681165bf106e5c7c5508c755da5ae5e32b636c72b1286656157a340bbb80cf5db7f09066c72619
+  languageName: node
+  linkType: hard
+
+"@types/strip-json-comments@npm:0.0.30":
+  version: 0.0.30
+  resolution: "@types/strip-json-comments@npm:0.0.30::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fstrip-json-comments%2Fdownload%2F%40types%2Fstrip-json-comments-0.0.30.tgz"
+  checksum: 2b9eff26906f14903835a3ecd316e7df130bdfbbd0b784fba15b9ff99ac1ef041aeb7a37c9535dfc0e733211ef3cb881cc91940a52aa9076982ea0cbca50e088
+  languageName: node
+  linkType: hard
+
 "@types/styled-components@npm:>= 5, @types/styled-components@npm:^5.1.0":
   version: 5.1.0
   resolution: "@types/styled-components@npm:5.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fstyled-components%2Fdownload%2F%40types%2Fstyled-components-5.1.0.tgz"
@@ -8247,6 +8878,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/ncc@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "@vercel/ncc@npm:0.24.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vercel%2Fncc%2Fdownload%2F%40vercel%2Fncc-0.24.0.tgz"
+  dependencies:
+    node-gyp: latest
+  bin:
+    ncc: dist/ncc/cli.js
+  checksum: 46b04944fed95223d66a576240d3ee997a13827d81fbc91965af1173f705fac8f071e92d86ceaa031b7c42e4aaef2e5286a91b3a648694889336aaa130f8856e
+  languageName: node
+  linkType: hard
+
 "@webassemblyjs/ast@npm:1.9.0":
   version: 1.9.0
   resolution: "@webassemblyjs/ast@npm:1.9.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40webassemblyjs%2Fast%2Fdownload%2F%40webassemblyjs%2Fast-1.9.0.tgz"
@@ -8471,14 +9113,11 @@ __metadata:
     "@rollup/plugin-json": ^4.1.0
     "@rollup/plugin-node-resolve": ^8.4.0
     "@rollup/plugin-typescript": ^5
-    "@storybook/addon-actions": next
-    "@storybook/addon-docs": next
-    "@storybook/addon-links": next
-    "@storybook/addon-storysource": next
-    "@storybook/addon-viewport": next
-    "@storybook/addons": next
-    "@storybook/preset-typescript": ^3.0.0
-    "@storybook/react": next
+    "@storybook/addon-actions": ^6
+    "@storybook/addon-docs": ^6
+    "@storybook/addon-essentials": ^6
+    "@storybook/addon-links": ^6
+    "@storybook/react": ^6
     "@types/ali-oss": ^6.0.4
     "@types/asn1js": ^0.0.2
     "@types/babel__core": ^7.1.7
@@ -8759,6 +9398,45 @@ __metadata:
     lint-staged: ^10
     npm-run-all: ^4.1.5
     prettier: ^2
+  languageName: unknown
+  linkType: soft
+
+"@wener/ping-service@workspace:packages/ping-service":
+  version: 0.0.0-use.local
+  resolution: "@wener/ping-service@workspace:packages/ping-service"
+  dependencies:
+    "@babel/core": ^7
+    "@babel/plugin-proposal-class-properties": ^7.10.4
+    "@babel/preset-env": ^7.10.4
+    "@babel/preset-typescript": ^7.10.4
+    "@rollup/plugin-babel": ^5
+    "@rollup/plugin-node-resolve": ^8.4.0
+    "@types/babel__core": ^7
+    "@types/babel__preset-env": ^7
+    "@types/body-parser": ^1.19.0
+    "@types/jest": latest
+    "@types/lodash": ^4
+    "@types/node": ^12
+    "@types/node-fetch": ^2.5.7
+    "@vercel/ncc": ^0.24.0
+    body-parser: ^1.19.0
+    cross-fetch: ^3.0.5
+    dotenv: ^8
+    jest: ^26
+    lodash: ^4
+    node-fetch: ^2.6.0
+    polka: ^0.5.2
+    rollup: ^2.3.2
+    rollup-plugin-terser: ^6
+    ts-jest: ^25
+    ts-node-dev: ^1.0.0-pre.61
+    typedoc: ^0
+    typescript: ^3
+  dependenciesMeta:
+    body-parser:
+      optional: true
+    polka:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -9090,21 +9768,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "acorn@npm:6.4.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Facorn%2Fdownload%2Facorn-6.4.1.tgz"
+  bin:
+    acorn: bin/acorn
+  checksum: 7aa4623c6d2705e9a26057ccfdd409154f8b634973ce109a63fa2c7e679af689bb50378379610794ec9744975db7a3a3b97e2b83f87fab1b635ad19b6c0ac3be
+  languageName: node
+  linkType: hard
+
 "acorn@npm:^7.1.0, acorn@npm:^7.1.1, acorn@npm:^7.2.0":
   version: 7.3.1
   resolution: "acorn@npm:7.3.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Facorn%2Fdownload%2Facorn-7.3.1.tgz"
   bin:
     acorn: bin/acorn
   checksum: 3fa70393843c3fd4af691f449563e983e064c5c3f655fd943f5f77fb767257623f8afc0a2454b0037aa0c4dd95374c75a9e0e6c54a5f497fc63e63449ad6327c
-  languageName: node
-  linkType: hard
-
-"acorn@npm:^7.3.0":
-  version: 7.4.0
-  resolution: "acorn@npm:7.4.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Facorn%2Fdownload%2Facorn-7.4.0.tgz"
-  bin:
-    acorn: bin/acorn
-  checksum: a25b12d9e803df49593e983f05abd8084be883df23f78a3ceb49bfb9c453fdc43d51b3ce268b6acd7694c34d9cde1707acb1cdcbc5303bde47bee43ffc131491
   languageName: node
   linkType: hard
 
@@ -9779,6 +10457,16 @@ __metadata:
   dependencies:
     util: 0.10.3
   checksum: 0e5dd8f92e8de30e321141b1dd1e245c2120ff0718e07bcdce37bb36c8db7c0fb1d226393b021cfaf71fcf987bf6cf4cd50b2dcfa39fa9aeb48df22a3a602dc6
+  languageName: node
+  linkType: hard
+
+"assert@npm:^1.1.1":
+  version: 1.5.0
+  resolution: "assert@npm:1.5.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fassert%2Fdownload%2Fassert-1.5.0.tgz"
+  dependencies:
+    object-assign: ^4.1.1
+    util: 0.10.3
+  checksum: 9bd01a7a574d99656d3998b95e904c35fe41c9e18b8193a4b1bb3b1df2772f4fb03bf75897093daca9d883ed888d9be5da2a9a952da6f1da9101f4147a2f00c1
   languageName: node
   linkType: hard
 
@@ -10624,20 +11312,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-typescript-vue@npm:^1.0.3":
-  version: 1.1.1
-  resolution: "babel-preset-typescript-vue@npm:1.1.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-preset-typescript-vue%2Fdownload%2Fbabel-preset-typescript-vue-1.1.1.tgz"
-  dependencies:
-    "@babel/helper-plugin-utils": ^7.0.0
-    "@babel/plugin-transform-typescript": ^7.3.2
-    "@babel/preset-typescript": ^7.3.3
-    vue-template-compiler: ^2.6.11
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 0ba79c64ed696feeebd52724ce6fcbb960e1f7ad0c70330ae9f635cdfa52bdc57c2cef0a4e7c0514bb11c7ac2ab84b9da08549c48827fc9e176ecac851599c6c
-  languageName: node
-  linkType: hard
-
 "babel-register@npm:^6.26.0":
   version: 6.26.0
   resolution: "babel-register@npm:6.26.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-register%2Fdownload%2Fbabel-register-6.26.0.tgz"
@@ -11166,6 +11840,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browserify-zlib@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "browserify-zlib@npm:0.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbrowserify-zlib%2Fdownload%2Fbrowserify-zlib-0.2.0.tgz"
+  dependencies:
+    pako: ~1.0.5
+  checksum: 877c864e68a3f1dc9355eea71ee84c894c40f906f737bdf1e5d98d3641182099208e757356b5906160f0b2b22fa4976c4534ac1782bbdd39823b605ae2210f9a
+  languageName: node
+  linkType: hard
+
 "browserslist@npm:4.10.0":
   version: 4.10.0
   resolution: "browserslist@npm:4.10.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbrowserslist%2Fdownload%2Fbrowserslist-4.10.0.tgz"
@@ -11295,6 +11978,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"buffer@npm:^4.3.0":
+  version: 4.9.2
+  resolution: "buffer@npm:4.9.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbuffer%2Fdownload%2Fbuffer-4.9.2.tgz"
+  dependencies:
+    base64-js: ^1.0.2
+    ieee754: ^1.1.4
+    isarray: ^1.0.0
+  checksum: e29ecda22aa854008e26a8df294be1e5339a3bec8cbf537a794fecf63a024da68165743bc9afb1524909c74d8b03392e93a9c8fa5c2b064b1b2a52d4680c204e
+  languageName: node
+  linkType: hard
+
 "bufferutil@npm:^4.0.1":
   version: 4.0.1
   resolution: "bufferutil@npm:4.0.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbufferutil%2Fdownload%2Fbufferutil-4.0.1.tgz"
@@ -11380,7 +12074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cacache@npm:^12.0.0, cacache@npm:^12.0.3":
+"cacache@npm:^12.0.0, cacache@npm:^12.0.2, cacache@npm:^12.0.3":
   version: 12.0.4
   resolution: "cacache@npm:12.0.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcacache%2Fdownload%2Fcacache-12.0.4.tgz"
   dependencies:
@@ -11425,31 +12119,6 @@ __metadata:
     tar: ^6.0.2
     unique-filename: ^1.1.1
   checksum: 0f2001bc08cf04415adac047e2a1ca5389ccb00c921a0e2fb670694ec67b37b29413888eb6e24bd2cc785cfc617f58ae1432a277c0869471c1625f99e65d57d3
-  languageName: node
-  linkType: hard
-
-"cacache@npm:^15.0.5":
-  version: 15.0.5
-  resolution: "cacache@npm:15.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcacache%2Fdownload%2Fcacache-15.0.5.tgz"
-  dependencies:
-    "@npmcli/move-file": ^1.0.1
-    chownr: ^2.0.0
-    fs-minipass: ^2.0.0
-    glob: ^7.1.4
-    infer-owner: ^1.0.4
-    lru-cache: ^6.0.0
-    minipass: ^3.1.1
-    minipass-collect: ^1.0.2
-    minipass-flush: ^1.0.5
-    minipass-pipeline: ^1.2.2
-    mkdirp: ^1.0.3
-    p-map: ^4.0.0
-    promise-inflight: ^1.0.1
-    rimraf: ^3.0.2
-    ssri: ^8.0.0
-    tar: ^6.0.2
-    unique-filename: ^1.1.1
-  checksum: 8e371cbf3c5051585127e63a84c9f1e430032590e5c4ada17d57b7953e21f6d5722e7f29f80cfef26520175ea2d1705a0670897ed7fe64377c7bd2ee650be287
   languageName: node
   linkType: hard
 
@@ -11848,6 +12517,25 @@ __metadata:
     fsevents:
       optional: true
   checksum: e190168a5966b88f3b4749eed413a7e4482b8611e366f72b89d6435e1a1c58484384d91d722c9cdea64cdde0e14f190058ba36da624dce920804d3e82651431a
+  languageName: node
+  linkType: hard
+
+"chokidar@npm:^3.4.0, chokidar@npm:^3.4.1":
+  version: 3.4.2
+  resolution: "chokidar@npm:3.4.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fchokidar%2Fdownload%2Fchokidar-3.4.2.tgz"
+  dependencies:
+    anymatch: ~3.1.1
+    braces: ~3.0.2
+    fsevents: ~2.1.2
+    glob-parent: ~5.1.0
+    is-binary-path: ~2.1.0
+    is-glob: ~4.0.1
+    normalize-path: ~3.0.0
+    readdirp: ~3.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  checksum: a394c13d28f3a7df6c3d8ca80791599523c654a9e08bec2bb6d0f44a6d74c61f9b46cd871401b8694e57e909055280adad898b93f4269d53b8b0e0c02f02dc12
   languageName: node
   linkType: hard
 
@@ -12476,6 +13164,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"console-browserify@npm:^1.1.0":
+  version: 1.2.0
+  resolution: "console-browserify@npm:1.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fconsole-browserify%2Fdownload%2Fconsole-browserify-1.2.0.tgz"
+  checksum: ddc0e717a48ffa11d6b7ad08a81a706151ff7c08db313c14ae28f1dce88360b2f2d88ccd7b760243a47b67d821f1294273511af5de61f4f201855bb55e8e1d58
+  languageName: node
+  linkType: hard
+
 "console-control-strings@npm:^1.0.0, console-control-strings@npm:~1.1.0":
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fconsole-control-strings%2Fdownload%2Fconsole-control-strings-1.1.0.tgz"
@@ -12507,6 +13202,13 @@ __metadata:
     babel-types: ^6.26.0
     babylon: ^6.18.0
   checksum: 41c4c9db9c83ee3619cbeddc8ca24b232ebd2e4b6088a21cefb413cd32114b37c401be1bef141f64367e24db685e65cbaa77dc702b5bb456b0d097f199a2008c
+  languageName: node
+  linkType: hard
+
+"constants-browserify@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "constants-browserify@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fconstants-browserify%2Fdownload%2Fconstants-browserify-1.0.0.tgz"
+  checksum: 108cd8ebfaf3c7fa77c443ca89ec63e41411e341d8b066b1c68d992598f1b75891fbd5370d67a1929a7813be71605884c40c107c1e760d12ebcedf49d31b0c44
   languageName: node
   linkType: hard
 
@@ -12907,7 +13609,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:3.0.5":
+"cross-fetch@npm:3.0.5, cross-fetch@npm:^3.0.5":
   version: 3.0.5
   resolution: "cross-fetch@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcross-fetch%2Fdownload%2Fcross-fetch-3.0.5.tgz"
   dependencies:
@@ -12951,7 +13653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-browserify@npm:3.12.0":
+"crypto-browserify@npm:3.12.0, crypto-browserify@npm:^3.11.0":
   version: 3.12.0
   resolution: "crypto-browserify@npm:3.12.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcrypto-browserify%2Fdownload%2Fcrypto-browserify-3.12.0.tgz"
   dependencies:
@@ -13334,6 +14036,18 @@ __metadata:
   version: 3.0.3
   resolution: "dateformat@npm:3.0.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fdateformat%2Fdownload%2Fdateformat-3.0.3.tgz"
   checksum: 8e6b36c4d3d057b6b43a2d9eceb1373aae6a63050153449e26c71b84ecefb1bafc54ff3f7f1e2b8bee3851a2425c1052aaa7c1ed3307b8ff062f38a816d40933
+  languageName: node
+  linkType: hard
+
+"dateformat@npm:~1.0.4-1.2.3":
+  version: 1.0.12
+  resolution: "dateformat@npm:1.0.12::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fdateformat%2Fdownload%2Fdateformat-1.0.12.tgz"
+  dependencies:
+    get-stdin: ^4.0.1
+    meow: ^3.3.0
+  bin:
+    dateformat: bin/cli.js
+  checksum: 621f645716286b0c1aa7b9540e9c754dc170025575d6c7751d1d62d3afb8d85ad21caa54239ae9758ec6c633cbffdbba35e06b64d413039309f44f5a73bdb6a8
   languageName: node
   linkType: hard
 
@@ -13925,6 +14639,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"domain-browser@npm:^1.1.1":
+  version: 1.2.0
+  resolution: "domain-browser@npm:1.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fdomain-browser%2Fdownload%2Fdomain-browser-1.2.0.tgz"
+  checksum: 39a1156552d162c33e0edff62b0f9ae64609d4ffa85ecaccfad2416ee34e4b6c78aea53c30ce167a04421144963a674e8471eba2b6272b4760e020149b9bafbb
+  languageName: node
+  linkType: hard
+
 "domelementtype@npm:1, domelementtype@npm:^1.3.0, domelementtype@npm:^1.3.1":
   version: 1.3.1
   resolution: "domelementtype@npm:1.3.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fdomelementtype%2Fdownload%2Fdomelementtype-1.3.1.tgz"
@@ -14082,6 +14803,15 @@ __metadata:
     readable-stream: ^2.0.0
     stream-shift: ^1.0.0
   checksum: 9581cdb8f6304fdaacb8bbe2b8b393a8da3ece3086dd24070601b70f08ca417305b4f3a94699b984c4981dceb6eebb4c132abfe0445baacfd04f2b66a0524cda
+  languageName: node
+  linkType: hard
+
+"dynamic-dedupe@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "dynamic-dedupe@npm:0.3.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fdynamic-dedupe%2Fdownload%2Fdynamic-dedupe-0.3.0.tgz"
+  dependencies:
+    xtend: ^4.0.0
+  checksum: 7fe0adbc2d3523f31ae6e02d61ad586d3149cbea34c23044109b3cc18e7ee9fd80f09757847dfd0d225ae3d21c23faf7e975a01e97dd1d5533fe672ae4c57a15
   languageName: node
   linkType: hard
 
@@ -14295,16 +15025,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:5.0.0-beta.10":
-  version: 5.0.0-beta.10
-  resolution: "enhanced-resolve@npm:5.0.0-beta.10::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fenhanced-resolve%2Fdownload%2Fenhanced-resolve-5.0.0-beta.10.tgz"
-  dependencies:
-    graceful-fs: ^4.2.0
-    tapable: ^2.0.0-beta.10
-  checksum: 25ecaee8cc0bcd45a4c1c52984f60e8e51e039f70a7868e3d164a7bfc5f6d9d4781a2b2cbd079622eb74b793a0f6967f62d4e5253b50cb489f0e52ca4759c535
-  languageName: node
-  linkType: hard
-
 "enhanced-resolve@npm:^4.0.0":
   version: 4.2.0
   resolution: "enhanced-resolve@npm:4.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fenhanced-resolve%2Fdownload%2Fenhanced-resolve-4.2.0.tgz"
@@ -14313,6 +15033,17 @@ __metadata:
     memory-fs: ^0.5.0
     tapable: ^1.0.0
   checksum: 7af292a11b10a431a6bdb83c09f5505a4c906882be85d9f670469b875f9c7ab0d25766b7b6eacffbb7de3508c422d443be88f7b5783459a5a4a7a9f99a85aa38
+  languageName: node
+  linkType: hard
+
+"enhanced-resolve@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "enhanced-resolve@npm:4.3.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fenhanced-resolve%2Fdownload%2Fenhanced-resolve-4.3.0.tgz"
+  dependencies:
+    graceful-fs: ^4.1.2
+    memory-fs: ^0.5.0
+    tapable: ^1.0.0
+  checksum: aecdc0b2085990d84682c2ef829d0df3fe52511ac6353b2210ff138892fa36e524e117e1a534e0d5e51853cb1a9cce8941a68c81ed51a4989d2b041739aab65b
   languageName: node
   linkType: hard
 
@@ -14362,7 +15093,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"errno@npm:^0.1.1, errno@npm:^0.1.3":
+"errno@npm:^0.1.1, errno@npm:^0.1.3, errno@npm:~0.1.7":
   version: 0.1.7
   resolution: "errno@npm:0.1.7::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ferrno%2Fdownload%2Ferrno-0.1.7.tgz"
   dependencies:
@@ -14594,6 +15325,16 @@ __metadata:
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7
   checksum: 7033e1a422c1eddd7a3ef58ae1af83d142fac7fce70682facc3e37031b0fcb8509b9f91bdab1235ef47b35e0bf1c459134f906bc059c37ddc654f6fb37bcc1e0
+  languageName: node
+  linkType: hard
+
+"eslint-scope@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "eslint-scope@npm:4.0.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-scope%2Fdownload%2Feslint-scope-4.0.3.tgz"
+  dependencies:
+    esrecurse: ^4.1.0
+    estraverse: ^4.1.1
+  checksum: 49635cf9d936af317b9fa89cf98f30719ec9e287e5532c300cbab8015a1920b7ace495ffadaefd0ac86617ce85c17717f0ef1899f66536dca12aa85f1899899d
   languageName: node
   linkType: hard
 
@@ -15587,7 +16328,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fork-ts-checker-webpack-plugin@npm:^4.1.0, fork-ts-checker-webpack-plugin@npm:^4.1.4":
+"fork-ts-checker-webpack-plugin@npm:^4.1.4":
   version: 4.1.6
   resolution: "fork-ts-checker-webpack-plugin@npm:4.1.6::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ffork-ts-checker-webpack-plugin%2Fdownload%2Ffork-ts-checker-webpack-plugin-4.1.6.tgz"
   dependencies:
@@ -15817,20 +16558,20 @@ fsevents@^1.2.7:
 
 "fsevents@patch:fsevents@^1.2.7#builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ffsevents%252Fdownload%252Ffsevents-1.2.13.tgz#builtin<compat/fsevents>::version=1.2.13&hash=495457"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ffsevents%252Fdownload%252Ffsevents-1.2.13.tgz#builtin<compat/fsevents>::version=1.2.13&hash=87eb42"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
-  checksum: f36f09403fbdff434b1cf4baa03d58b69e6ba5e84070bfd5cf48ef1ade8de364e01f2fcb1dafea8897732c211983cd2a593488b59b62b64ae9df4ffc5ab3685b
+  checksum: 31c62373556f061f4b4c52ff61c91bc9080243ea074a38a81cf12c1f2c9098da731ea3d39705c805b738427e4284af6b8151efe65ce9ca6b11378d43f36db2c4
   languageName: node
   linkType: hard
 
 "fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
   version: 2.1.3
-  resolution: "fsevents@patch:fsevents@npm%3A2.1.3%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ffsevents%252Fdownload%252Ffsevents-2.1.3.tgz#builtin<compat/fsevents>::version=2.1.3&hash=495457"
+  resolution: "fsevents@patch:fsevents@npm%3A2.1.3%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ffsevents%252Fdownload%252Ffsevents-2.1.3.tgz#builtin<compat/fsevents>::version=2.1.3&hash=87eb42"
   dependencies:
     node-gyp: latest
-  checksum: b2c7c3576498b568fcc9e932d6ad10774abffb4668450de2d0afb64531f3aef35016bef0880a74f71b0fee99925301430634698d59c68781c337ba6e28ec038c
+  checksum: d8ae862048fc127cdbd00d02b2feb7c25946c3ce4cbc44e958134be87e239577a16dafafa1c270d010b8624e1b1e0372e23f7865c55c6f83e83fc9f68b0a30d2
   languageName: node
   linkType: hard
 
@@ -16969,6 +17710,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"https-browserify@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "https-browserify@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhttps-browserify%2Fdownload%2Fhttps-browserify-1.0.0.tgz"
+  checksum: 9746a4ef0283691774f207039efed38e31e86732ed15bcebf1878e2e7cf4b87e8a4e5fe3cce342caba9545ce0e7e2bcf44fe08edb52284b1b53bfe026e1e8f07
+  languageName: node
+  linkType: hard
+
 "https-proxy-agent@npm:5.0.0":
   version: 5.0.0
   resolution: "https-proxy-agent@npm:5.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fhttps-proxy-agent%2Fdownload%2Fhttps-proxy-agent-5.0.0.tgz"
@@ -18031,6 +18779,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"is-regex@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "is-regex@npm:1.1.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-regex%2Fdownload%2Fis-regex-1.1.1.tgz"
+  dependencies:
+    has-symbols: ^1.0.1
+  checksum: 0c5b9d335c125cc59a83b9446b172d419303034f3cb570e95bfb7b45fc1dfb8bedd7ecf5e8139a99b8fed66894ee516fd7ce376feb109504f64c53092c7f07ee
+  languageName: node
+  linkType: hard
+
 "is-regexp@npm:^1.0.0":
   version: 1.0.0
   resolution: "is-regexp@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-regexp%2Fdownload%2Fis-regexp-1.0.0.tgz"
@@ -18171,6 +18928,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"is-wsl@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "is-wsl@npm:1.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-wsl%2Fdownload%2Fis-wsl-1.1.0.tgz"
+  checksum: 0f15cf5d5ff025afb0ba9cb49fd425b5d533b2af700533d343b7fa9aaca2f6c8242ba1c1a4e30c925522816bf0172fec2ae7cacaae682c91ffa0cd3f88ff1e8e
+  languageName: node
+  linkType: hard
+
 "is-wsl@npm:^2.1.1":
   version: 2.2.0
   resolution: "is-wsl@npm:2.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-wsl%2Fdownload%2Fis-wsl-2.2.0.tgz"
@@ -18187,7 +18951,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"isarray@npm:1.0.0, isarray@npm:~1.0.0":
+"isarray@npm:1.0.0, isarray@npm:^1.0.0, isarray@npm:~1.0.0":
   version: 1.0.0
   resolution: "isarray@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fisarray%2Fdownload%2Fisarray-1.0.0.tgz"
   checksum: b0ff31a290e783f7b3fb73f2951ee7fc2946dc197b05f73577dc77f87dc3be2e0f66007bedf069123d4e5c4b691e7c89a241f6ca06f0c0f4765cdac5aa4b4047
@@ -19901,10 +20665,10 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"loader-runner@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "loader-runner@npm:4.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Floader-runner%2Fdownload%2Floader-runner-4.0.0.tgz"
-  checksum: cf0f276bc935bfc9e34355d3fefff640e4956634036e3e3243e281a074658ab3e215c4f32b2286920ae9fa16bb1896f40fd212cc8a7b068da7016632f3df0e6e
+"loader-runner@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "loader-runner@npm:2.4.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Floader-runner%2Fdownload%2Floader-runner-2.4.0.tgz"
+  checksum: 9173b602e82801c734d5f78fdbcb7f2de2dd8f68ef0afb9793bd2cc9eab37cd0bc99fda020f83204b5acdcf2ea23d062c49767778c6c1108f6c90face5dde225
   languageName: node
   linkType: hard
 
@@ -20201,7 +20965,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:6.0.0, lru-cache@npm:^6.0.0":
+"lru-cache@npm:6.0.0":
   version: 6.0.0
   resolution: "lru-cache@npm:6.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Flru-cache%2Fdownload%2Flru-cache-6.0.0.tgz"
   dependencies:
@@ -21621,6 +22385,37 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"node-libs-browser@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "node-libs-browser@npm:2.2.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fnode-libs-browser%2Fdownload%2Fnode-libs-browser-2.2.1.tgz"
+  dependencies:
+    assert: ^1.1.1
+    browserify-zlib: ^0.2.0
+    buffer: ^4.3.0
+    console-browserify: ^1.1.0
+    constants-browserify: ^1.0.0
+    crypto-browserify: ^3.11.0
+    domain-browser: ^1.1.1
+    events: ^3.0.0
+    https-browserify: ^1.0.0
+    os-browserify: ^0.3.0
+    path-browserify: 0.0.1
+    process: ^0.11.10
+    punycode: ^1.2.4
+    querystring-es3: ^0.2.0
+    readable-stream: ^2.3.3
+    stream-browserify: ^2.0.1
+    stream-http: ^2.7.2
+    string_decoder: ^1.0.0
+    timers-browserify: ^2.0.4
+    tty-browserify: 0.0.0
+    url: ^0.11.0
+    util: ^0.11.0
+    vm-browserify: ^1.0.1
+  checksum: 8da918a5ef93c0bfed8df90bb9d6b12ae08836963aa0b22927eedf6d3eab6e60feb9eae2d394f1eb6d5f0fdd985fb2858b698a3347606b90dfdd5047b5ea6042
+  languageName: node
+  linkType: hard
+
 "node-modules-regexp@npm:^1.0.0":
   version: 1.0.0
   resolution: "node-modules-regexp@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fnode-modules-regexp%2Fdownload%2Fnode-modules-regexp-1.0.0.tgz"
@@ -22276,6 +23071,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"os-browserify@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "os-browserify@npm:0.3.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fos-browserify%2Fdownload%2Fos-browserify-0.3.0.tgz"
+  checksum: f547c038810977579e11f35ff9aec4c6ac557369af7f4946d054da9e0dc180ffc1b5ef37c8c09b6004487c88c4a500c49ba9a109fbeab7dcb890fe1346b5f9b7
+  languageName: node
+  linkType: hard
+
 "os-homedir@npm:^1.0.0":
   version: 1.0.2
   resolution: "os-homedir@npm:1.0.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fos-homedir%2Fdownload%2Fos-homedir-1.0.2.tgz"
@@ -22389,15 +23191,6 @@ fsevents@^1.2.7:
   dependencies:
     p-try: ^2.0.0
   checksum: 54c5bf187d1532ab852b2ce6a8d600d22dc5f51780964bfe93dcc5679b4a4eeee4a0fa2d8090d93ac65eb348b2c3adf68bcc13098c8958fd22a5e5e662728df4
-  languageName: node
-  linkType: hard
-
-"p-limit@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "p-limit@npm:3.0.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fp-limit%2Fdownload%2Fp-limit-3.0.2.tgz"
-  dependencies:
-    p-try: ^2.0.0
-  checksum: 1eb23d6ea77709212bf8d7a98d36c4e8b5276ec791bf74f460c012fadf4580d136f40efafa25d4892a9327102866eafc79b441eed7be339b0da59da416ced600
   languageName: node
   linkType: hard
 
@@ -22550,6 +23343,13 @@ fsevents@^1.2.7:
   version: 1.0.0
   resolution: "packet-reader@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fpacket-reader%2Fdownload%2Fpacket-reader-1.0.0.tgz"
   checksum: fdbf006717eeb21d21398ed264de33d9bc024c78d1ae3828661f13da242d393188bbee470d48135ec6abebbc370b2642da646e43ead06837a7dff53819da4107
+  languageName: node
+  linkType: hard
+
+"pako@npm:~1.0.5":
+  version: 1.0.11
+  resolution: "pako@npm:1.0.11::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fpako%2Fdownload%2Fpako-1.0.11.tgz"
+  checksum: 71c60150b68220ec52a404f3c39a4ed38f750e42452b88fe0eb2e6b5c98e91f73f706444359b097aca1e6db83ef8fef50b5a9ec100e30a606cda6da8d45e5439
   languageName: node
   linkType: hard
 
@@ -22779,6 +23579,13 @@ fsevents@^1.2.7:
   version: 0.1.1
   resolution: "pascalcase@npm:0.1.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fpascalcase%2Fdownload%2Fpascalcase-0.1.1.tgz"
   checksum: 268a9dbf9cd934fcd0ba02733b7d6176834b13a608bbcd295550636b3c6371a6047875175b457e705b283e81ec171884c9cd86d1fd6c49f70f66fbc3783dc0c1
+  languageName: node
+  linkType: hard
+
+"path-browserify@npm:0.0.1":
+  version: 0.0.1
+  resolution: "path-browserify@npm:0.0.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fpath-browserify%2Fdownload%2Fpath-browserify-0.0.1.tgz"
+  checksum: b7be4bcc030b6cca2f2093d776af57d508a781afb7a72bb2214e93559a57d9265c23f5ded45ae74f25ffe1dfaed98281685f86e1210cd3b68b85a3a217c45922
   languageName: node
   linkType: hard
 
@@ -24082,7 +24889,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"punycode@npm:1.3.2":
+"punycode@npm:1.3.2, punycode@npm:^1.2.4":
   version: 1.3.2
   resolution: "punycode@npm:1.3.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fpunycode%2Fdownload%2Fpunycode-1.3.2.tgz"
   checksum: e67fddacd83b918ca2f4a47b1fd13858108779cdc2a3f2db3233ff82a25f9305d46e1d9891f7b9ad21ed36454adfc675d4559621fcffed2cf2067abd04e121cd
@@ -24185,6 +24992,13 @@ fsevents@^1.2.7:
     object-assign: ^4.1.0
     strict-uri-encode: ^1.0.0
   checksum: fcdbc2e76024a3afd0c5ea3addda75311d5d10402ddb5a03542dec430d36dbc44c87a11765ffa952d53e0b96e187298929561b88cc196a828f8728d2a3545ab8
+  languageName: node
+  linkType: hard
+
+"querystring-es3@npm:^0.2.0":
+  version: 0.2.1
+  resolution: "querystring-es3@npm:0.2.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fquerystring-es3%2Fdownload%2Fquerystring-es3-0.2.1.tgz"
+  checksum: 3c388906aa5644e55cdbede78f99a4d05a6e36a45b06929ad8713a2020a5cefeb6ec23adaa27584d968cf658e5d237b5e216f5e48930d040cd6b810679714741
   languageName: node
   linkType: hard
 
@@ -24927,12 +25741,37 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-docgen-typescript-plugin@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "react-docgen-typescript-plugin@npm:0.5.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-docgen-typescript-plugin%2Fdownload%2Freact-docgen-typescript-plugin-0.5.2.tgz"
+  dependencies:
+    debug: ^4.1.1
+    endent: ^2.0.1
+    micromatch: ^4.0.2
+    react-docgen-typescript: ^1.20.1
+    react-docgen-typescript-loader: ^3.7.2
+    tslib: ^2.0.0
+  peerDependencies:
+    typescript: ">= 3.x"
+  checksum: 7fe3aa1a3f5bc7aaac337eea574fd32bc8bf5eba1937ef5e58514c5ac452bcf6d2825954ce6e3bfe1d43352aa12e109ad5591fe1609a43e3a9d59b6d5c7b74dc
+  languageName: node
+  linkType: hard
+
 "react-docgen-typescript@npm:^1.15.0, react-docgen-typescript@npm:^1.16.6":
   version: 1.18.0
   resolution: "react-docgen-typescript@npm:1.18.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-docgen-typescript%2Fdownload%2Freact-docgen-typescript-1.18.0.tgz"
   peerDependencies:
     typescript: ">= 3.x"
   checksum: 5edaeb6b0513bc7954befb2fd711cac30482700ef47a6fa08e98e8a4be657b422354659a3f7f434e224e0c343beabcee412864a74059b798eeeac38a33bf65aa
+  languageName: node
+  linkType: hard
+
+"react-docgen-typescript@npm:^1.20.1":
+  version: 1.20.1
+  resolution: "react-docgen-typescript@npm:1.20.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-docgen-typescript%2Fdownload%2Freact-docgen-typescript-1.20.1.tgz"
+  peerDependencies:
+    typescript: ">= 3.x"
+  checksum: a9357c31aaee9808b6bf647fc3ad5cba65654097908097610ee387059b6bf0d6efa40a633bd0948a25225e3b25d3d0dcebb1ae0a497e01b7424f84d23db40048
   languageName: node
   linkType: hard
 
@@ -24991,7 +25830,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-element-to-jsx-string@npm:^14.1.0":
+"react-element-to-jsx-string@npm:^14.1.0, react-element-to-jsx-string@npm:^14.3.1":
   version: 14.3.1
   resolution: "react-element-to-jsx-string@npm:14.3.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-element-to-jsx-string%2Fdownload%2Freact-element-to-jsx-string-14.3.1.tgz"
   dependencies:
@@ -25457,6 +26296,19 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-textarea-autosize@npm:^8.1.1":
+  version: 8.2.0
+  resolution: "react-textarea-autosize@npm:8.2.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-textarea-autosize%2Fdownload%2Freact-textarea-autosize-8.2.0.tgz"
+  dependencies:
+    "@babel/runtime": ^7.10.2
+    use-composed-ref: ^1.0.0
+    use-latest: ^1.0.0
+  peerDependencies:
+    react: ^16.8.0
+  checksum: 27d83f57c59254366cb13255d3a7771813bf771f2f5b14c273497dbf80d26dc6c4f646feeff8b789c18a0c313ad04d9ba26a63fb5a9e4cfeaffc0569cc224643
+  languageName: node
+  linkType: hard
+
 "react-tinacms-inline@npm:^0":
   version: 0.9.0
   resolution: "react-tinacms-inline@npm:0.9.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-tinacms-inline%2Fdownload%2Freact-tinacms-inline-0.9.0.tgz"
@@ -25636,7 +26488,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:1 || 2, readable-stream@npm:2, readable-stream@npm:^2.0.0, readable-stream@npm:^2.0.1, readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.6, readable-stream@npm:^2.1.5, readable-stream@npm:^2.2.2, readable-stream@npm:^2.3.6, readable-stream@npm:^2.3.7, readable-stream@npm:~2.3.6":
+"readable-stream@npm:1 || 2, readable-stream@npm:2, readable-stream@npm:^2.0.0, readable-stream@npm:^2.0.1, readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.6, readable-stream@npm:^2.1.5, readable-stream@npm:^2.2.2, readable-stream@npm:^2.3.3, readable-stream@npm:^2.3.6, readable-stream@npm:^2.3.7, readable-stream@npm:~2.3.6":
   version: 2.3.7
   resolution: "readable-stream@npm:2.3.7::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Freadable-stream%2Fdownload%2Freadable-stream-2.3.7.tgz"
   dependencies:
@@ -26349,7 +27201,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.11.0, resolve@^1.12.0, resolve@^1.14.1, resolve@^1.14.2, resolve@^1.15.1, resolve@^1.17.0, resolve@^1.3.2, resolve@^1.8.1":
+"resolve@^1.0.0, resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.11.0, resolve@^1.12.0, resolve@^1.14.1, resolve@^1.14.2, resolve@^1.15.1, resolve@^1.17.0, resolve@^1.3.2, resolve@^1.8.1":
   version: 1.17.0
   resolution: "resolve@npm:1.17.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fresolve%2Fdownload%2Fresolve-1.17.0.tgz"
   dependencies:
@@ -26361,16 +27213,16 @@ resolve@1.1.7:
 "resolve@patch:resolve@1.1.7#builtin<compat/resolve>":
   version: 1.1.7
   resolution: "resolve@patch:resolve@npm%3A1.1.7%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Fresolve%252Fdownload%252Fresolve-1.1.7.tgz#builtin<compat/resolve>::version=1.1.7&hash=3388aa"
-  checksum: 5238277188664a6948dd7288d16f1a09e098fb36d4f9b2c749130969c998faa9bccefd30fd618073af5210fdc768730cadfc15588bbee4fc64b257f20cab6783
+  checksum: ca4e21815c78134fdb248d2175d98c2ead024c680a3a9c7b8ee13fc8a7f5157e061b13ae29ee07a60e1b9faea33c3740cb88d48d94966d7e94479add70d3f544
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.14.1#builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#builtin<compat/resolve>, resolve@patch:resolve@^1.15.1#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#builtin<compat/resolve>":
+"resolve@patch:resolve@^1.0.0#builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.14.1#builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#builtin<compat/resolve>, resolve@patch:resolve@^1.15.1#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#builtin<compat/resolve>":
   version: 1.17.0
   resolution: "resolve@patch:resolve@npm%3A1.17.0%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Fresolve%252Fdownload%252Fresolve-1.17.0.tgz#builtin<compat/resolve>::version=1.17.0&hash=3388aa"
   dependencies:
     path-parse: ^1.0.6
-  checksum: 99df12ab341fb8e96c6bce2ea521d3a1294c5c56f85524369808f7294fbf6f01d6f6c7f4408a1f6cd4fb5762b800a889629ff64abc08f12bcc8c3553e3564ab8
+  checksum: 4bcfb568860d0c361fd16c26b6fce429711138ff0de7dd353bdd73fcb5c7eede2f4602d40ccfa08ff45ec7ef9830845eab2021a46036af0a6e5b58bab1ff6399
   languageName: node
   linkType: hard
 
@@ -26891,7 +27743,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^2.5.0, schema-utils@npm:^2.6.1, schema-utils@npm:^2.6.5, schema-utils@npm:^2.6.6":
+"schema-utils@npm:^2.6.1, schema-utils@npm:^2.6.5, schema-utils@npm:^2.6.6":
   version: 2.7.0
   resolution: "schema-utils@npm:2.7.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fschema-utils%2Fdownload%2Fschema-utils-2.7.0.tgz"
   dependencies:
@@ -27076,7 +27928,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"setimmediate@npm:^1.0.5":
+"setimmediate@npm:^1.0.4, setimmediate@npm:^1.0.5":
   version: 1.0.5
   resolution: "setimmediate@npm:1.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsetimmediate%2Fdownload%2Fsetimmediate-1.0.5.tgz"
   checksum: 87884d8add4779fe47ccf763396a5bf875640ae34d80a10802da4de5c25d87647c12f6e7748fd5b8c143b57201caf2a5a781631456c228825f166ca305c12f20
@@ -27521,7 +28373,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"source-list-map@npm:^2.0.0, source-list-map@npm:^2.0.1":
+"source-list-map@npm:^2.0.0":
   version: 2.0.1
   resolution: "source-list-map@npm:2.0.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsource-list-map%2Fdownload%2Fsource-list-map-2.0.1.tgz"
   checksum: d8d45f29987d00d995ccda308dcc78b710031a9958fdb5d26674d32220c952eb7a8562062638d91896628ae4eef30e1cd112a6a547563dfda0b013024c2a9bf7
@@ -27550,7 +28402,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12":
+"source-map-support@npm:^0.5.12, source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12":
   version: 0.5.19
   resolution: "source-map-support@npm:0.5.19::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsource-map-support%2Fdownload%2Fsource-map-support-0.5.19.tgz"
   dependencies:
@@ -27868,6 +28720,16 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"stream-browserify@npm:^2.0.1":
+  version: 2.0.2
+  resolution: "stream-browserify@npm:2.0.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstream-browserify%2Fdownload%2Fstream-browserify-2.0.2.tgz"
+  dependencies:
+    inherits: ~2.0.1
+    readable-stream: ^2.0.2
+  checksum: d50d9a28df714f2d599f416388541de445bfa417039a4808a1ca68381f0152205b8e50dbc04e39959b3b1a9c5e561cab1ecb1bdf4f6ab2f66f6b1450000049d9
+  languageName: node
+  linkType: hard
+
 "stream-combiner@npm:~0.0.4":
   version: 0.0.4
   resolution: "stream-combiner@npm:0.0.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstream-combiner%2Fdownload%2Fstream-combiner-0.0.4.tgz"
@@ -27887,7 +28749,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"stream-http@npm:2.8.2":
+"stream-http@npm:2.8.2, stream-http@npm:^2.7.2":
   version: 2.8.2
   resolution: "stream-http@npm:2.8.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstream-http%2Fdownload%2Fstream-http-2.8.2.tgz"
   dependencies:
@@ -28084,7 +28946,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"string_decoder@npm:^1.1.1":
+"string_decoder@npm:^1.0.0, string_decoder@npm:^1.1.1":
   version: 1.3.0
   resolution: "string_decoder@npm:1.3.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstring_decoder%2Fdownload%2Fstring_decoder-1.3.0.tgz"
   dependencies:
@@ -28243,7 +29105,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"strip-json-comments@npm:^2.0.1, strip-json-comments@npm:~2.0.1":
+"strip-json-comments@npm:^2.0.0, strip-json-comments@npm:^2.0.1, strip-json-comments@npm:~2.0.1":
   version: 2.0.1
   resolution: "strip-json-comments@npm:2.0.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fstrip-json-comments%2Fdownload%2Fstrip-json-comments-2.0.1.tgz"
   checksum: e60d99aa2849c27a04dce0620334f45822197df6b83664dd3746971e9a0a766d989dbb8d87f9cb7350725d2b5df401a2343222ad06e36a1ba7d62c6633267fcb
@@ -28487,13 +29349,6 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"tapable@npm:^2.0.0-beta.10":
-  version: 2.0.0-beta.11
-  resolution: "tapable@npm:2.0.0-beta.11::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftapable%2Fdownload%2Ftapable-2.0.0-beta.11.tgz"
-  checksum: e4c750918ab2804dc10ad7088a0f30fbe812faff4134dece91a2804c099372c90bea70fe7f14c92f8c27c91ce82b2b266f1574f5fd5fee6401d774f79dbf9a40
-  languageName: node
-  linkType: hard
-
 "tar-fs@npm:^2.0.0":
   version: 2.1.0
   resolution: "tar-fs@npm:2.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftar-fs%2Fdownload%2Ftar-fs-2.1.0.tgz"
@@ -28587,6 +29442,22 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"telejson@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "telejson@npm:5.0.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftelejson%2Fdownload%2Ftelejson-5.0.2.tgz"
+  dependencies:
+    "@types/is-function": ^1.0.0
+    global: ^4.4.0
+    is-function: ^1.0.2
+    is-regex: ^1.1.1
+    is-symbol: ^1.0.3
+    isobject: ^4.0.0
+    lodash: ^4.17.19
+    memoizerific: ^1.11.3
+  checksum: 53e258fedaab15b23dd72674008561dc2f8b52f63b7a6e11bab4b3cc0bf8d396fab62dfa52f8c56315b4cdf84f27bc529dc4f8779d8efa80135d81239fdcda1f
+  languageName: node
+  linkType: hard
+
 "temp-dir@npm:^1.0.0":
   version: 1.0.0
   resolution: "temp-dir@npm:1.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftemp-dir%2Fdownload%2Ftemp-dir-1.0.0.tgz"
@@ -28645,6 +29516,25 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"terser-webpack-plugin@npm:^1.4.3":
+  version: 1.4.5
+  resolution: "terser-webpack-plugin@npm:1.4.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fterser-webpack-plugin%2Fdownload%2Fterser-webpack-plugin-1.4.5.tgz"
+  dependencies:
+    cacache: ^12.0.2
+    find-cache-dir: ^2.1.0
+    is-wsl: ^1.1.0
+    schema-utils: ^1.0.0
+    serialize-javascript: ^4.0.0
+    source-map: ^0.6.1
+    terser: ^4.1.2
+    webpack-sources: ^1.4.0
+    worker-farm: ^1.7.0
+  peerDependencies:
+    webpack: ^4.0.0
+  checksum: 8fadaece64d2e67bc5794e8fc2944d693f644c899a489e78ca64e5b90dfed1148f171a084e738df6770c102553d6b4a5dfe582d98b3560004f2b91bca6ad919e
+  languageName: node
+  linkType: hard
+
 "terser-webpack-plugin@npm:^3.0.0":
   version: 3.0.6
   resolution: "terser-webpack-plugin@npm:3.0.6::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fterser-webpack-plugin%2Fdownload%2Fterser-webpack-plugin-3.0.6.tgz"
@@ -28664,26 +29554,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^3.0.2":
-  version: 3.1.0
-  resolution: "terser-webpack-plugin@npm:3.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fterser-webpack-plugin%2Fdownload%2Fterser-webpack-plugin-3.1.0.tgz"
-  dependencies:
-    cacache: ^15.0.5
-    find-cache-dir: ^3.3.1
-    jest-worker: ^26.2.1
-    p-limit: ^3.0.2
-    schema-utils: ^2.6.6
-    serialize-javascript: ^4.0.0
-    source-map: ^0.6.1
-    terser: ^4.8.0
-    webpack-sources: ^1.4.3
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: f185038d6410d29a6672cc4930784e131a0f27ed6dd48432b828c59f261f9bc4b58b62251b9ba76c9add55facf046c6f40410d27b5fe00b33d0661539a042696
-  languageName: node
-  linkType: hard
-
-"terser@npm:4.8.0, terser@npm:^4.7.0, terser@npm:^4.8.0":
+"terser@npm:4.8.0, terser@npm:^4.1.2, terser@npm:^4.7.0, terser@npm:^4.8.0":
   version: 4.8.0
   resolution: "terser@npm:4.8.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fterser%2Fdownload%2Fterser-4.8.0.tgz"
   dependencies:
@@ -28845,6 +29716,15 @@ resolve@1.1.7:
   version: 2.0.0
   resolution: "tildify@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftildify%2Fdownload%2Ftildify-2.0.0.tgz"
   checksum: c5743c23c5ad4da4afa4c4282bebcd999a702ab39b728d288741b2aa3a7dd40c7c869399170a24ed4f914abb455d1dfd3098749c1b2bd643f6ce833f361892fa
+  languageName: node
+  linkType: hard
+
+"timers-browserify@npm:^2.0.4":
+  version: 2.0.11
+  resolution: "timers-browserify@npm:2.0.11::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftimers-browserify%2Fdownload%2Ftimers-browserify-2.0.11.tgz"
+  dependencies:
+    setimmediate: ^1.0.4
+  checksum: 73faad065e503db39235ea6c7803cd42c6be41365a427f95fcba773d42c4a77d595ace955a2248f638cd983c61f8e928422dbf27d9237dd876645ed88a595e29
   languageName: node
   linkType: hard
 
@@ -29070,6 +29950,15 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"tree-kill@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "tree-kill@npm:1.2.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftree-kill%2Fdownload%2Ftree-kill-1.2.2.tgz"
+  bin:
+    tree-kill: cli.js
+  checksum: 967643efa4a231868232ea9d046c3ba7494ea6061fbb1e661c699b43ca0f0a14dad0782a631d915959d562830035166bab80ed726f9fe33b838af8a7516624ed
+  languageName: node
+  linkType: hard
+
 "trim-lines@npm:^1.0.0":
   version: 1.1.3
   resolution: "trim-lines@npm:1.1.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftrim-lines%2Fdownload%2Ftrim-lines-1.1.3.tgz"
@@ -29254,6 +30143,34 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"ts-node-dev@npm:^1.0.0-pre.61":
+  version: 1.0.0-pre.61
+  resolution: "ts-node-dev@npm:1.0.0-pre.61::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-node-dev%2Fdownload%2Fts-node-dev-1.0.0-pre.61.tgz"
+  dependencies:
+    chokidar: ^3.4.0
+    dateformat: ~1.0.4-1.2.3
+    dynamic-dedupe: ^0.3.0
+    minimist: ^1.2.5
+    mkdirp: ^1.0.4
+    resolve: ^1.0.0
+    rimraf: ^2.6.1
+    source-map-support: ^0.5.12
+    tree-kill: ^1.2.2
+    ts-node: ^8.10.2
+    tsconfig: ^7.0.0
+  peerDependencies:
+    node-notifier: "*"
+    typescript: "*"
+  peerDependenciesMeta:
+    node-notifier:
+      optional: true
+  bin:
+    ts-node-dev: lib/bin.js
+    tsnd: lib/bin.js
+  checksum: 0907d4ba0fe273e6bd6497ef39d35e1af0ea3f44d84a85e3ce7a38c6fc2fd680b6dcf00aa0d73ad30f028b54d64e842bfea3497c68785be49ea418beb433c062
+  languageName: node
+  linkType: hard
+
 "ts-node@npm:8.9.1":
   version: 8.9.1
   resolution: "ts-node@npm:8.9.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-node%2Fdownload%2Fts-node-8.9.1.tgz"
@@ -29349,6 +30266,18 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"tsconfig@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "tsconfig@npm:7.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftsconfig%2Fdownload%2Ftsconfig-7.0.0.tgz"
+  dependencies:
+    "@types/strip-bom": ^3.0.0
+    "@types/strip-json-comments": 0.0.30
+    strip-bom: ^3.0.0
+    strip-json-comments: ^2.0.0
+  checksum: c2d07c1030896f6341a819d403679cf0ff9ede086d0860f909f293c4a2e456001f173e2efb8073738b5d20ed7e4218254bc1163ef7fc3fefd97426b38cb89234
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^1.10.0, tslib@npm:^1.11.1, tslib@npm:^1.11.2, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
   version: 1.13.0
   resolution: "tslib@npm:1.13.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-1.13.0.tgz"
@@ -29378,6 +30307,13 @@ resolve@1.1.7:
   peerDependencies:
     typescript: ">=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta"
   checksum: bed8ff7998d90a7ab9f3bdb26d36dae0edfcdb3e4f07994fb59df8d42e62ee07d591d3a435fb65cb50b6ca9af6b76c9bc9423a216186e5085d91793fa169c248
+  languageName: node
+  linkType: hard
+
+"tty-browserify@npm:0.0.0":
+  version: 0.0.0
+  resolution: "tty-browserify@npm:0.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Ftty-browserify%2Fdownload%2Ftty-browserify-0.0.0.tgz"
+  checksum: ef28fe256a17bac17d094e0120a042aee441efca0a44734082caa697b8326cc9888a8042b754cb6830205b65fe716960ba159597fdbcb8b53abf08ae5c9acd7f
   languageName: node
   linkType: hard
 
@@ -29605,21 +30541,21 @@ typescript@3.9.3:
 
 "typescript@patch:typescript@3.9.3#builtin<compat/typescript>":
   version: 3.9.3
-  resolution: "typescript@patch:typescript@npm%3A3.9.3%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ftypescript%252Fdownload%252Ftypescript-3.9.3.tgz#builtin<compat/typescript>::version=3.9.3&hash=64df9d"
+  resolution: "typescript@patch:typescript@npm%3A3.9.3%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ftypescript%252Fdownload%252Ftypescript-3.9.3.tgz#builtin<compat/typescript>::version=3.9.3&hash=5b02a2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 9fefeb14e5facf55be95b5256ddb36810e41f4e3c5ec93268e8228bcc463caa50e8f94902f3caa168f818c83a3142cc25ab70eeab58bdfdc2b2fb29c03e2c517
+  checksum: dd2cbe8012bd4dfc41ee99c2b2b560149d0150edbc17165c0f7dd917f89d26c2a5a94bade686340dd6ffb43036a6034440afe63d4cf6129c6bbb40b53393b318
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@^3#builtin<compat/typescript>, typescript@patch:typescript@latest#builtin<compat/typescript>":
   version: 3.9.5
-  resolution: "typescript@patch:typescript@npm%3A3.9.5%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ftypescript%252Fdownload%252Ftypescript-3.9.5.tgz#builtin<compat/typescript>::version=3.9.5&hash=64df9d"
+  resolution: "typescript@patch:typescript@npm%3A3.9.5%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npm.taobao.org%252Ftypescript%252Fdownload%252Ftypescript-3.9.5.tgz#builtin<compat/typescript>::version=3.9.5&hash=5b02a2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5849aa7c2d887b4d0b289530b45690fc26e606ea3719cf958dbb7f531ca1b968895bbef89b21ecb3903d5039fb047ebf6a0047ba147123060cbe1940ce5c91be
+  checksum: 452cdd20d801630727433a990652c1e65f5eb5586383dda60f178b4fbda5c7951256f9aa31327c73722af9b1b664e3a53d724aabfd8a68866e9b1631818f004c
   languageName: node
   linkType: hard
 
@@ -30244,6 +31180,15 @@ typescript@3.9.3:
   languageName: node
   linkType: hard
 
+"util@npm:^0.11.0":
+  version: 0.11.1
+  resolution: "util@npm:0.11.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Futil%2Fdownload%2Futil-0.11.1.tgz"
+  dependencies:
+    inherits: 2.0.3
+  checksum: f05afc3d9a284eff28017d8bd474d56fbd27e7a5ad81f44720341b02ae5554ac9c06d0d08034aaf537d56116624232123054e58ec3873133144bda3b521de9ef
+  languageName: node
+  linkType: hard
+
 "utila@npm:^0.4.0, utila@npm:~0.4":
   version: 0.4.0
   resolution: "utila@npm:0.4.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Futila%2Fdownload%2Futila-0.4.0.tgz"
@@ -30506,7 +31451,7 @@ typescript@3.9.3:
   languageName: node
   linkType: hard
 
-"vm-browserify@npm:1.1.2":
+"vm-browserify@npm:1.1.2, vm-browserify@npm:^1.0.1":
   version: 1.1.2
   resolution: "vm-browserify@npm:1.1.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fvm-browserify%2Fdownload%2Fvm-browserify-1.1.2.tgz"
   checksum: fc571a62d2cf797ae8773ebb3cb0d2bea50ed02059e128dd9087975929fce4c80a6485ce1aaf7d44ef69db99dfdcde50b6be5d5eb73b296660d761c32fb544fe
@@ -30552,7 +31497,7 @@ typescript@3.9.3:
   languageName: node
   linkType: hard
 
-"vue-template-compiler@npm:^2.0.0, vue-template-compiler@npm:^2.6.11":
+"vue-template-compiler@npm:^2.0.0":
   version: 2.6.11
   resolution: "vue-template-compiler@npm:2.6.11::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-template-compiler%2Fdownload%2Fvue-template-compiler-2.6.11.tgz"
   dependencies:
@@ -30605,6 +31550,15 @@ typescript@3.9.3:
   languageName: node
   linkType: hard
 
+"watchpack-chokidar2@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "watchpack-chokidar2@npm:2.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwatchpack-chokidar2%2Fdownload%2Fwatchpack-chokidar2-2.0.0.tgz"
+  dependencies:
+    chokidar: ^2.1.8
+  checksum: 1ef78773db2e712d2ad8b2b36f448df9e8f891c003414671aa5fd32fab5649784c20fa82a2cdb6973145a5c31b817e4e181de2812a484d27f25af2fb3146c379
+  languageName: node
+  linkType: hard
+
 "watchpack@npm:2.0.0-beta.13":
   version: 2.0.0-beta.13
   resolution: "watchpack@npm:2.0.0-beta.13::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwatchpack%2Fdownload%2Fwatchpack-2.0.0-beta.13.tgz"
@@ -30615,13 +31569,20 @@ typescript@3.9.3:
   languageName: node
   linkType: hard
 
-"watchpack@npm:2.0.0-beta.14":
-  version: 2.0.0-beta.14
-  resolution: "watchpack@npm:2.0.0-beta.14::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwatchpack%2Fdownload%2Fwatchpack-2.0.0-beta.14.tgz"
+"watchpack@npm:^1.7.4":
+  version: 1.7.4
+  resolution: "watchpack@npm:1.7.4::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwatchpack%2Fdownload%2Fwatchpack-1.7.4.tgz"
   dependencies:
-    glob-to-regexp: ^0.4.1
+    chokidar: ^3.4.1
     graceful-fs: ^4.1.2
-  checksum: 78a2e946f951be9ec6d5fc319ccfc5d93723bd6ba579f784563f97c5e48c14ff2ff5529843caa151b6d68fbf1edced36bec004fefcba8869d993d598cd07962e
+    neo-async: ^2.5.0
+    watchpack-chokidar2: ^2.0.0
+  dependenciesMeta:
+    chokidar:
+      optional: true
+    watchpack-chokidar2:
+      optional: true
+  checksum: 61876d6e60ddb1e9b0a6143c65a4453543bb1a27638254635d179d4681f15af200de9a61c1a3faec220a29e41ca37381e604345ffa9d48c064a29cff4cb25732
   languageName: node
   linkType: hard
 
@@ -30768,23 +31729,13 @@ typescript@3.9.3:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:1.4.3, webpack-sources@npm:^1.1.0, webpack-sources@npm:^1.3.0, webpack-sources@npm:^1.4.3":
+"webpack-sources@npm:1.4.3, webpack-sources@npm:^1.1.0, webpack-sources@npm:^1.3.0, webpack-sources@npm:^1.4.0, webpack-sources@npm:^1.4.1, webpack-sources@npm:^1.4.3":
   version: 1.4.3
   resolution: "webpack-sources@npm:1.4.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-sources%2Fdownload%2Fwebpack-sources-1.4.3.tgz"
   dependencies:
     source-list-map: ^2.0.0
     source-map: ~0.6.1
   checksum: 2a753b36adf0ddd4dadf6ff375824108a918d180c4ea5383b377526f543e6db0c1ecd40b4154bae8e94c4b209b7814d764879691a468fe230ef9eb32b27fdde4
-  languageName: node
-  linkType: hard
-
-"webpack-sources@npm:2.0.0-beta.8":
-  version: 2.0.0-beta.8
-  resolution: "webpack-sources@npm:2.0.0-beta.8::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-sources%2Fdownload%2Fwebpack-sources-2.0.0-beta.8.tgz"
-  dependencies:
-    source-list-map: ^2.0.1
-    source-map: ~0.6.1
-  checksum: acf94efb2efab065a63ff1384b749d83736ca38a748a2e7eab98a4b63b80c5cfa5c1f8bdb162934dd3e408e1957693045b3f35d631d4302a3f6723c922ff2f23
   languageName: node
   linkType: hard
 
@@ -30797,41 +31748,44 @@ typescript@3.9.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.0.0-beta.22":
-  version: 5.0.0-beta.25
-  resolution: "webpack@npm:5.0.0-beta.25::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.0.0-beta.25.tgz"
+"webpack@npm:4.44.1, webpack@npm:^4.43.0":
+  version: 4.44.1
+  resolution: "webpack@npm:4.44.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-4.44.1.tgz"
   dependencies:
-    "@types/eslint-scope": ^3.7.0
-    "@types/estree": ^0.0.45
     "@webassemblyjs/ast": 1.9.0
     "@webassemblyjs/helper-module-context": 1.9.0
     "@webassemblyjs/wasm-edit": 1.9.0
     "@webassemblyjs/wasm-parser": 1.9.0
-    acorn: ^7.3.0
+    acorn: ^6.4.1
+    ajv: ^6.10.2
+    ajv-keywords: ^3.4.1
     chrome-trace-event: ^1.0.2
-    enhanced-resolve: 5.0.0-beta.10
-    eslint-scope: ^5.0.0
-    events: ^3.0.0
-    glob-to-regexp: ^0.4.1
-    graceful-fs: ^4.1.15
+    enhanced-resolve: ^4.3.0
+    eslint-scope: ^4.0.3
     json-parse-better-errors: ^1.0.2
-    loader-runner: ^4.0.0
-    mime-types: ^2.1.26
+    loader-runner: ^2.4.0
+    loader-utils: ^1.2.3
+    memory-fs: ^0.4.1
+    micromatch: ^3.1.10
+    mkdirp: ^0.5.3
     neo-async: ^2.6.1
-    pkg-dir: ^4.2.0
-    schema-utils: ^2.5.0
-    tapable: ^2.0.0-beta.10
-    terser-webpack-plugin: ^3.0.2
-    watchpack: 2.0.0-beta.14
-    webpack-sources: 2.0.0-beta.8
+    node-libs-browser: ^2.2.1
+    schema-utils: ^1.0.0
+    tapable: ^1.1.3
+    terser-webpack-plugin: ^1.4.3
+    watchpack: ^1.7.4
+    webpack-sources: ^1.4.1
   peerDependencies:
     webpack-cli: "*"
+    webpack-command: "*"
   peerDependenciesMeta:
     webpack-cli:
       optional: true
+    webpack-command:
+      optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: a9aba254024a3564c16f13e8b460ca629d4e4fc759fe8b6d9f830f5802f677140a2fc7a2a4c4136a12dc0031ff6194771e2de5de3875780eadc8823a5e810f7e
+  checksum: d4d140010bdf1fe4a5ef5435733e4b4fb71081cafd5e995adca0ca6259e271c7b51af909477e03bbbeb35487bd399a672bb0bc4a4726baebac059444b489b412
   languageName: node
   linkType: hard
 
@@ -31250,6 +32204,15 @@ typescript@3.9.3:
   dependencies:
     workbox-core: ^5.1.3
   checksum: 8bca74541cf1240bf26239f1895b811a33bb67369112830936c6ac7400f30ab334836b2f53cc565ec6a59a5fcef00943b1f2b341597e4139ec8481170a1fec05
+  languageName: node
+  linkType: hard
+
+"worker-farm@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "worker-farm@npm:1.7.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fworker-farm%2Fdownload%2Fworker-farm-1.7.0.tgz"
+  dependencies:
+    errno: ~0.1.7
+  checksum: ef76a6892bdf6a4231e6d657c13e2e960278535915d6235d9e0e3e23b65da94a56e5bed17ac5fda282370601d4cd18f4cba9552aa52f4fa9a25cc9fd3fcf58a9
   languageName: node
   linkType: hard
 
