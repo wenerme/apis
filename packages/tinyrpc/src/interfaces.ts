@@ -1,43 +1,41 @@
-/// Represent a registry service
-export interface ServiceDefinition {
-  target: any;
-  /// service name
-  name: string;
-  /// allowed methods
-  methods: Record<string, Function>;
+export interface AbstractType<T> extends Function {
+  prototype: T;
 }
 
-/// Represent a request from endpoint
-export interface ServiceInvocation {
-  requestId?: any;
-
+export interface ServiceCoordinate {
   service: string;
-  method: string;
-  arguments: any[];
+  version?: string;
+  group?: string;
 }
 
-/// Represent a response from server
-export interface ServiceResponse {
-  requestId?: any;
-  result: any;
-  error?: ServiceError;
+export interface ServiceConsumeOptions<T = any> extends ServiceCoordinate {
+  type?: AbstractType<T>;
 }
 
-export interface ServiceError {
-  code: number;
-  message: string;
-  data?: any;
+export type ServiceConsumeType<T> = ServiceConsumeOptions<T> | AbstractType<T>;
+
+export interface Consumer {
+  consume<T>(coord: ServiceConsumeType<T>): T;
 }
 
-/// Minimal handler signature
-export type ServiceInvocationHandler = (req: ServiceInvocation) => Promise<ServiceResponse>;
+export interface ServiceRegistration<T = any> {
+  service?: string;
+  version?: string;
+  group?: string;
 
-export interface ServiceProvider {
-  provide(sd: ServiceDefinition): void;
+  type?: AbstractType<T>
+  target: T;
+  methods?: RegistrationMethod[];
 
-  invoke(req: ServiceInvocation): Promise<ServiceResponse>;
+  context?: any
 }
 
-export interface ServiceConsumer {
-  consume<T>(s: string): T;
+export type ServiceRegistrationType<T = any> = ServiceRegistration<T> | T
+
+export interface RegistrationMethod {
+  name: string
+}
+
+export interface Provider extends Consumer {
+  registry(meta: ServiceRegistrationType);
 }

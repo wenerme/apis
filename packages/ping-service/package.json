@@ -69,7 +69,7 @@
     "polka": "^0.5.2",
     "rollup": "^2.3.2",
     "rollup-plugin-terser": "^6",
-    "ts-jest": "^25",
+    "ts-jest": "^26",
     "ts-node-dev": "^1.0.0-pre.61",
     "typedoc": "^0",
     "typescript": "^3"
@@ -80,5 +80,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@wener/tinyrpc": "workspace:packages/tinyrpc"
   }
 }

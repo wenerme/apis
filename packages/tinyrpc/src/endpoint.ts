@@ -1,8 +1,6 @@
 import {
   AbstractType,
   Consumer,
-  getPathOfCoordinate,
-  getServiceCoordinateOfType,
   Provider,
   RegistrationMethod,
   ServiceConsumeType,
@@ -11,16 +9,23 @@ import {
   ServiceRegistrationType,
 } from './interfaces';
 import { MethodInterceptor, MethodInvocation } from './aop';
+import { getPathOfCoordinate, getServiceCoordinateOfType } from './utils';
 
 type Func = (...args) => any;
 
 export class TinyConsumer implements Consumer {
   protected services: Record<string, any> = {};
   protected interceptors: MethodInterceptor[] = [];
+  protected onInvoke: (invocation: MethodInvocation) => any;
 
-  protected onInvoke: (invocation: MethodInvocation) => any = () => {
-    throw new Error('no invoke handler');
-  };
+  constructor(init: { onInvoke?: (invocation: MethodInvocation) => any } = {}) {
+    const {
+      onInvoke = () => {
+        throw new Error('no invoke handler');
+      },
+    } = init;
+    this.onInvoke = onInvoke;
+  }
 
   use(...v: MethodInterceptor[]): this {
     this.interceptors = [...this.interceptors, ...v];
@@ -160,7 +165,7 @@ export class TinyProvider extends TinyConsumer implements Provider {
     }
 
     // hook
-
+    console.info(`Registry group: ${r.group} version:${r.version} service:${r.service}`);
     this.registries.push(r);
   }
 }

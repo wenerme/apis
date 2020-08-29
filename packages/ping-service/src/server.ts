@@ -1,6 +1,6 @@
 import polka from 'polka';
 import http, { IncomingMessage, Server as HttpServer } from 'http';
-import { getServiceCoordinateOfType, JsonInvocationRequest, JsonInvocationResponse, TinyProvider } from './tinyrpc';
+import { getServiceCoordinateOfType, JsonInvocationRequest, JsonInvocationResponse, TinyProvider } from '@wener/tinyrpc';
 import { PingService } from './PingService';
 import { json } from 'body-parser';
 
@@ -18,10 +18,6 @@ polka({ onError })
   })
   .get('/health', (req, res) => {
     res.end('Service healthy');
-  })
-  .get('/users/:id', (req, res) => {
-    console.log(`~> Hello, ${req.hello}`);
-    res.end(`User: ${req.params.id}`);
   })
   // test error
   .get('/error/:code', (req, res) => {

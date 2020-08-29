@@ -7896,6 +7896,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^14.6.2":
+  version: 14.6.2
+  resolution: "@types/node@npm:14.6.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.6.2.tgz"
+  checksum: e88f4749fd95d7358a719dee27bb3c02aa7d93a69d95887b4baaeae3fcc21c65d8675e6a9633e499de22fa77651fc12188fd3657a6729dbce9e44a4fe5c0691b
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.0
   resolution: "@types/normalize-package-data@npm:2.4.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnormalize-package-data%2Fdownload%2F%40types%2Fnormalize-package-data-2.4.0.tgz"
@@ -9227,7 +9234,7 @@ __metadata:
     buffer: ^5.6.0
     canvas: ^2.6.1
     cheerio: ^1.0.0-rc.3
-    class-transformer: ^0.2.3
+    class-transformer: ^0.3.1
     cli-progress: ^3.6.0
     commander: ^5.1.0
     console-feed: ^3.0.0
@@ -9419,6 +9426,7 @@ __metadata:
     "@types/node": ^12
     "@types/node-fetch": ^2.5.7
     "@vercel/ncc": ^0.24.0
+    "@wener/tinyrpc": "workspace:packages/tinyrpc"
     body-parser: ^1.19.0
     cross-fetch: ^3.0.5
     dotenv: ^8
@@ -9428,7 +9436,7 @@ __metadata:
     polka: ^0.5.2
     rollup: ^2.3.2
     rollup-plugin-terser: ^6
-    ts-jest: ^25
+    ts-jest: ^26
     ts-node-dev: ^1.0.0-pre.61
     typedoc: ^0
     typescript: ^3
@@ -9454,14 +9462,27 @@ __metadata:
     "@types/babel__preset-env": ^7
     "@types/jest": latest
     "@types/lodash": ^4
+    "@types/node": ^14.6.2
+    "@types/node-fetch": ^2.5.7
+    body-parser: "*"
+    cross-fetch: ^3.0.5
     dotenv: ^8
     jest: ^26
     lodash: ^4
+    node-fetch: ^2.6.0
+    polka: "*"
     rollup: ^2.3.2
     rollup-plugin-terser: ^6
-    ts-jest: ^25
+    ts-jest: ^26
     typedoc: ^0
     typescript: ^3
+  dependenciesMeta:
+    body-parser:
+      optional: true
+    cross-fetch:
+      optional: true
+    polka:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -9552,7 +9573,7 @@ __metadata:
     styled-components: next
     svgo: ^1.3.2
     tinacms: ^0
-    ts-jest: ^25
+    ts-jest: ^26
     ts-node: ^8.10.2
     tsconfig-paths-webpack-plugin: ^3
     typedoc: ^0
@@ -11661,7 +11682,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:1.19.0, body-parser@npm:^1.19.0":
+"body-parser@npm:*, body-parser@npm:1.19.0, body-parser@npm:^1.19.0":
   version: 1.19.0
   resolution: "body-parser@npm:1.19.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fbody-parser%2Fdownload%2Fbody-parser-1.19.0.tgz"
   dependencies:
@@ -12617,10 +12638,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"class-transformer@npm:^0.2.3":
-  version: 0.2.3
-  resolution: "class-transformer@npm:0.2.3::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fclass-transformer%2Fdownload%2Fclass-transformer-0.2.3.tgz"
-  checksum: e5967902d0d3b142f055608b85236ad099b42445ffbe61d69f8e5d6a5cfed80fe0ee68f7becfc0a821685d7e72d8decc5feb8d45d84d921cbfc11a01b6d895b9
+"class-transformer@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "class-transformer@npm:0.3.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fclass-transformer%2Fdownload%2Fclass-transformer-0.3.1.tgz"
+  checksum: 3ae3ef2510d2822766a97d31eb7ca550dabda56cbfe70968f295420531667ca95b4d84cddfe2dc302abc41c8e26d667d43235b0f4759eee09a007741cc307bc8
   languageName: node
   linkType: hard
 
@@ -21865,7 +21886,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:0.x, mkdirp@npm:^0.5.0, mkdirp@npm:^0.5.1, mkdirp@npm:^0.5.3, mkdirp@npm:~0.5.1":
+"mkdirp@npm:^0.5.0, mkdirp@npm:^0.5.1, mkdirp@npm:^0.5.3, mkdirp@npm:~0.5.1":
   version: 0.5.5
   resolution: "mkdirp@npm:0.5.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fmkdirp%2Fdownload%2Fmkdirp-0.5.5.tgz"
   dependencies:
@@ -24011,7 +24032,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"polka@npm:^0.5.2":
+"polka@npm:*, polka@npm:^0.5.2":
   version: 0.5.2
   resolution: "polka@npm:0.5.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fpolka%2Fdownload%2Fpolka-0.5.2.tgz"
   dependencies:
@@ -27811,15 +27832,6 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"semver@npm:6.x, semver@npm:^6.0.0, semver@npm:^6.2.0, semver@npm:^6.3.0":
-  version: 6.3.0
-  resolution: "semver@npm:6.3.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsemver%2Fdownload%2Fsemver-6.3.0.tgz"
-  bin:
-    semver: ./bin/semver.js
-  checksum: f0d155c06a67cc7e500c92d929339f1c6efd4ce9fe398aee6acc00a2333489cca0f5b4e76ee7292beba237fcca4b5a3d4a6153471f105f56299801bdab37289f
-  languageName: node
-  linkType: hard
-
 "semver@npm:7.0.0":
   version: 7.0.0
   resolution: "semver@npm:7.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsemver%2Fdownload%2Fsemver-7.0.0.tgz"
@@ -27835,6 +27847,15 @@ resolve@1.1.7:
   bin:
     semver: bin/semver.js
   checksum: bceb46d396d039afb5be2b2860bce1b0a43ecbadc72dde7ebe9c56dd9035ca50d9b8e086208ff9bbe53773ebde0bcfc6fc0842d7358398bca7054bb9ced801e3
+  languageName: node
+  linkType: hard
+
+"semver@npm:^6.0.0, semver@npm:^6.2.0, semver@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "semver@npm:6.3.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fsemver%2Fdownload%2Fsemver-6.3.0.tgz"
+  bin:
+    semver: ./bin/semver.js
+  checksum: f0d155c06a67cc7e500c92d929339f1c6efd4ce9fe398aee6acc00a2333489cca0f5b4e76ee7292beba237fcca4b5a3d4a6153471f105f56299801bdab37289f
   languageName: node
   linkType: hard
 
@@ -30072,29 +30093,6 @@ resolve@1.1.7:
   peerDependencies:
     typescript: ">=3.7.0"
   checksum: 767c686785d0ab498271b8283eba05d969fa5892aa175329ff2f48964067814aa8368911e3457557d92f99ec010df7fd534bf9c91bbd5ab6cb4a7fabd14782f8
-  languageName: node
-  linkType: hard
-
-"ts-jest@npm:^25":
-  version: 25.5.1
-  resolution: "ts-jest@npm:25.5.1::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-jest%2Fdownload%2Fts-jest-25.5.1.tgz"
-  dependencies:
-    bs-logger: 0.x
-    buffer-from: 1.x
-    fast-json-stable-stringify: 2.x
-    json5: 2.x
-    lodash.memoize: 4.x
-    make-error: 1.x
-    micromatch: 4.x
-    mkdirp: 0.x
-    semver: 6.x
-    yargs-parser: 18.x
-  peerDependencies:
-    jest: ">=25 <26"
-    typescript: ">=3.4 <4.0"
-  bin:
-    ts-jest: cli.js
-  checksum: 438de5a3649597e76d218e025faaecc385ee17e468019324e3833e9f3880ccca2677f43c80dafbfa296490b64ee2a5cb8260d403cdcafff471494e0969dd5c5e
   languageName: node
   linkType: hard
 
