@@ -1,6 +1,6 @@
 {
   "name": "@wener/utils",
-  "version": "1.0.0-alpha.16",
+  "version": "1.0.0-alpha.17",
   "description": "Utils for daily use",
   "keywords": [
     "utils",
@@ -15,7 +15,7 @@
   "author": "wener",
   "main": "lib/index.js",
   "source": "src/index.ts",
-  "typings": "lib/index.d.ts",
+  "typings": "src/index.ts",
   "module": "es/index.js",
   "umd:main": "dist/wener-utils.umd.min.js",
   "unpkg": "dist/wener-utils.umd.min.js",

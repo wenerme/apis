@@ -9210,7 +9210,7 @@ __metadata:
     "@types/webtorrent": ^0.107.1
     "@types/xmldom": ^0.1.29
     "@types/zxcvbn": ^4.4.0
-    "@wener/tinyrpc": ^1.0.0-alpha.14
+    "@wener/tinyrpc": ^1.0.0-alpha.15
     "@wener/ui": "workspace:packages/ui"
     "@wener/utils": "workspace:packages/utils"
     "@zeit/ncc": ^0.22.0
@@ -9448,7 +9448,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@wener/tinyrpc@^1.0.0-alpha.14, @wener/tinyrpc@workspace:packages/tinyrpc":
+"@wener/tinyrpc@^1.0.0-alpha.15, @wener/tinyrpc@workspace:packages/tinyrpc":
   version: 0.0.0-use.local
   resolution: "@wener/tinyrpc@workspace:packages/tinyrpc"
   dependencies:
@@ -9465,7 +9465,7 @@ __metadata:
     "@types/node": ^14.6.2
     "@types/node-fetch": ^2.5.7
     body-parser: "*"
-    cross-fetch: ^3.0.5
+    cross-fetch: "*"
     dotenv: ^8
     jest: ^26
     lodash: ^4
@@ -9539,7 +9539,7 @@ __metadata:
     antd: ^4
     babel-plugin-inline-react-svg: ^1.1.1
     babel-plugin-styled-components: ^1
-    crypto-js: ^4.0.0
+    crypto-js: ^4
     dotenv: ^8
     fs-extra: ^9
     glob: ^7
@@ -9567,14 +9567,14 @@ __metadata:
     react-tinacms-inline: ^0
     rollup: ^2
     rollup-plugin-peer-deps-external: ^2
-    rollup-plugin-terser: ^6.1.0
+    rollup-plugin-terser: ^6
     rxjs: ^6
     single-spa-react: ^3.0.0
     styled-components: next
     svgo: ^1.3.2
     tinacms: ^0
     ts-jest: ^26
-    ts-node: ^8.10.2
+    ts-node: ^8
     tsconfig-paths-webpack-plugin: ^3
     typedoc: ^0
     typescript: ^3
@@ -13630,7 +13630,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:3.0.5, cross-fetch@npm:^3.0.5":
+"cross-fetch@npm:*, cross-fetch@npm:3.0.5":
+  version: 3.0.5
+  resolution: "cross-fetch@npm:3.0.5"
+  dependencies:
+    node-fetch: 2.6.0
+  checksum: 99f0f4ae222c611bfd45c176e95335ffb4046c662e349afcdcfad8edf9a76cefb68e6dfb6707cddf0ad23d231290346a76d70ba1205f8af4cb335eb52321b4bc
+  languageName: node
+  linkType: hard
+
+"cross-fetch@npm:^3.0.5":
   version: 3.0.5
   resolution: "cross-fetch@npm:3.0.5::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcross-fetch%2Fdownload%2Fcross-fetch-3.0.5.tgz"
   dependencies:
@@ -13693,7 +13702,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-js@npm:^4.0.0":
+"crypto-js@npm:^4":
   version: 4.0.0
   resolution: "crypto-js@npm:4.0.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fcrypto-js%2Fdownload%2Fcrypto-js-4.0.0.tgz"
   checksum: fdd1415b9e4b317f6ac7f055a00495dabea6aa93ab82ccd63866b0a76d2da9587942764816a8a7976cb23b8bbfd7eea23ccb852b3fef218d166cc5db8c008ab3
@@ -27450,7 +27459,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"rollup-plugin-terser@npm:^6, rollup-plugin-terser@npm:^6.1.0":
+"rollup-plugin-terser@npm:^6":
   version: 6.1.0
   resolution: "rollup-plugin-terser@npm:6.1.0::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Frollup-plugin-terser%2Fdownload%2Frollup-plugin-terser-6.1.0.tgz"
   dependencies:
@@ -30189,7 +30198,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^8.10.2, ts-node@npm:latest":
+"ts-node@npm:^8, ts-node@npm:^8.10.2, ts-node@npm:latest":
   version: 8.10.2
   resolution: "ts-node@npm:8.10.2::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-node%2Fdownload%2Fts-node-8.10.2.tgz"
   dependencies:
