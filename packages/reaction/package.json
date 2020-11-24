@@ -1,0 +1,24 @@
+{
+  "name": "@wener/reaction",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "source": "src/index.ts",
+  "typings": "src/index.ts",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^6.1.0",
+    "@types/react": "^17",
+    "react": "^17",
+    "rollup": "^2",
+    "typescript": "^4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
