@@ -1,7 +1,6 @@
 import babel from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { camelCase, startCase } from 'lodash';
-import { terser } from 'rollup-plugin-terser';
 
 const libraryName = require('./package.json').name.replace('@', '').replace('/', '-');
 const globals = {
@@ -20,24 +19,6 @@ function onwarn(warning) {
     return;
   }
   console.warn(warning.code, warning.message);
-}
-
-function addMini() {
-  return (src) => {
-    let opt = {};
-    if (src.output.find((v) => v.format === 'esm')) {
-      opt = {
-        ecma: 6,
-        module: true,
-      };
-    }
-    const mini = {
-      ...src,
-      output: src.output.map((o) => ({ ...o, file: o.file.replace(/([.]\w+)$/, '.min$1') })),
-      plugins: [...src.plugins, terser(opt)],
-    };
-    return [src, mini];
-  };
 }
 
 export default [
@@ -101,4 +82,4 @@ export default [
       },
     ],
   },
-].flatMap(addMini());
+];

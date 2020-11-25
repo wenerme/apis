@@ -1,19 +1,27 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "es2019",
-    "module": "commonjs",
+    "target": "es5",
+    "module": "es2015",
     "lib": ["esnext", "dom"],
     "strict": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "declaration": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noImplicitAny": false,
-    "outDir": "lib"
+    "pretty": true,
+    "stripInternal": true
   },
-  "exclude": ["node_modules", "**/__tests__/*"],
-  "include": ["src"]
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*"
+  ],
+  "include": [
+    "src"
+  ]
 }

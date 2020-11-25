@@ -1,19 +1,13 @@
-.PHONY: build bundle clean
 
-SHELL:=/bin/bash
-
-build: es lib bundle docs
-
-lib:
-	yarn tsc --build tsconfig.json .
-es:
-	yarn tsc --build tsconfig.es.json .
-bundle:
+compile:
+	# esm
+	yarn tsc -m es2015 --outDir lib/esm
+	# cjs
+	yarn tsc -m commonjs --outDir lib/cjs
+	# esnext
+	yarn tsc -m esnext --outDir lib/esnext
+	# dist
 	yarn rollup -c rollup.config.ts
-docs:
-	yarn typedoc --out docs --target es6 --theme minimal --mode file src
-clean:
-	rm -rf ./lib ./dist ./es ./docs
 
-server-modules:
-	cp -v dist/wener-utils.system{,.min}.js{,.map} ../server/public/modules/
+clean:
+	rm -rf dist/* && rm -rf lib/*
