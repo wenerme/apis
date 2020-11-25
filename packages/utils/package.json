@@ -1,6 +1,6 @@
 {
   "name": "@wener/utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utils for daily use",
   "keywords": [
     "utils",
@@ -32,7 +32,6 @@
     "index.js",
     "index.d.ts",
     "lib",
-    "es",
     "dist",
     "src",
     "README.md",
@@ -44,7 +43,7 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "build": "make build",
+    "build": "make compile",
     "clean": "make clean",
     "test": "jest"
   },
@@ -68,10 +67,7 @@
     "ts-jest": "^26",
     "tslib": "^2",
     "typedoc": "^0",
-    "typescript": "^3"
-  },
-  "peerDependencies": {
-    "lodash": "*"
+    "typescript": "^4"
   },
   "publishConfig": {
     "access": "public"

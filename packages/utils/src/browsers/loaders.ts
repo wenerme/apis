@@ -1,7 +1,7 @@
 function load(
   el: HTMLScriptElement | HTMLLinkElement,
   resolve: (v: any) => void,
-  reject: Function,
+  reject: (v: any) => void,
   options: { attributes: Record<string, string> } | undefined,
 ) {
   el.onload = resolve;

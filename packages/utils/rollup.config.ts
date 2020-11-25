@@ -1,14 +1,8 @@
 import babel from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { camelCase, startCase } from 'lodash';
 
-const libraryName = require('./package.json').name.replace('@', '').replace('/', '-');
-const globals = {
-  lodash: '_',
-};
-const globalName = startCase(camelCase(libraryName)).replace(/\W/g, '');
-const external = Object.keys(require('./package.json').peerDependencies);
-const input = 'src/index.ts';
+const libraryName = 'wener-utils';
+const globalName = 'WenerUtils';
 
 /* Common Rollup Script
  * =====================
@@ -23,7 +17,7 @@ function onwarn(warning) {
 
 export default [
   {
-    input,
+    input: 'src/index.ts',
     plugins: [
       nodeResolve({
         browser: true,
@@ -36,14 +30,12 @@ export default [
         extensions: ['.js', '.ts'],
       }),
     ],
-    external,
     onwarn,
     output: [
       {
         file: `dist/${libraryName}.umd.js`,
         format: 'umd',
         name: globalName,
-        globals,
         sourcemap: true,
       },
       {
@@ -59,7 +51,7 @@ export default [
     ],
   },
   {
-    input,
+    input: 'src/index.ts',
     plugins: [
       nodeResolve({
         browser: true,
@@ -72,7 +64,6 @@ export default [
         extensions: ['.js', '.ts'],
       }),
     ],
-    external,
     onwarn,
     output: [
       {
