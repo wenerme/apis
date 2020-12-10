@@ -1,16 +1,17 @@
 import { DependencyList, useEffect, useRef } from 'react';
 
 export function useAsyncEffect(
-  effect: (o: { setCloser: (v: () => void) => void }) => Promise<void | (() => void | undefined)>,
+  effect: (o: { controller: AbortController }) => Promise<void | (() => void | undefined)>,
   deps?: DependencyList,
-): void {
-  const ref = useRef<() => void>();
+): { getAbortController: () => AbortController | undefined } {
+  const ref = useRef<AbortController>();
   useEffect(() => {
-    effect({ setCloser: (v) => (ref.current = v) })
-      .then((v) => (typeof v === 'function' ? (ref.current = v) : null))
+    ref.current = new AbortController();
+    effect({ controller: ref.current })
       .catch((e) => {
-        console.trace(`useAsyncEffect error`, deps, e);
+        console.trace(`uncaught useAsyncEffect error`, deps, e);
       });
-    return () => ref.current?.();
+    return () => ref.current?.abort();
   }, deps);
+  return { getAbortController: () => ref.current };
 }

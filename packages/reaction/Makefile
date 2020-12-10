@@ -8,4 +8,4 @@ compile:
 	yarn tsc -m esnext --outDir lib/esnext
 
 clean:
-	rm -rf dist/* && rm -rf lib/*
+	rm -rf src/**/*.{js,d.ts,js.map} dist/* && rm -rf lib/*
