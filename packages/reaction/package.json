@@ -1,23 +1,7 @@
 {
   "name": "@wener/reaction",
+  "version": "1.0.2",
   "description": "React hooks, utils",
-  "version": "1.0.1",
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
-  "typings": "lib/esm/index.d.ts",
-  "esnext": "lib/esnext/index.js",
-  "homepage": "https://github.com/wenerme/apis#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/wenerme/apis.git",
-    "directory": "packages/reaction"
-  },
-  "files": [
-    "src",
-    "lib",
-    "tsconfig.json",
-    "Makefile"
-  ],
   "keywords": [
     "components",
     "react",
@@ -25,9 +9,21 @@
     "util",
     "tool"
   ],
-  "peerDependencies": {
-    "react": "*"
+  "homepage": "https://github.com/wenerme/apis#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wenerme/apis.git",
+    "directory": "packages/reaction"
   },
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "typings": "lib/esm/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "tsconfig.json",
+    "Makefile"
+  ],
   "devDependencies": {
     "@rollup/plugin-typescript": "^6.1.0",
     "@types/react": "^17",
@@ -35,7 +31,11 @@
     "rollup": "^2",
     "typescript": "^4"
   },
+  "peerDependencies": {
+    "react": "*"
+  },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "esnext": "lib/esnext/index.js"
 }

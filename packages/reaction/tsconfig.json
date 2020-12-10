@@ -20,7 +20,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "pretty": true,
+    "removeComments": false,
     "stripInternal": true
   },
   "exclude": [

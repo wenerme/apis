@@ -3,7 +3,13 @@
     "moduleResolution": "node",
     "target": "es5",
     "module": "es2015",
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es5",
+      "es2015.collection",
+      "es2015.iterable"
+    ],
     "strict": true,
     "sourceMap": true,
     "skipLibCheck": true,
@@ -14,7 +20,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "pretty": true,
+    "removeComments": false,
     "stripInternal": true
   },
   "exclude": [
