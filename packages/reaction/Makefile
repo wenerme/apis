@@ -9,3 +9,6 @@ compile:
 
 clean:
 	rm -rf src/**/*.{js,d.ts,js.map} dist/* && rm -rf lib/*
+
+publish: clean compile
+	npm publish
