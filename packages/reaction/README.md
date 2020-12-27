@@ -1,5 +1,0 @@
-# @wener/reaction
-
-React
-
-* hooks
