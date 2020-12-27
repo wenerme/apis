@@ -10884,6 +10884,7 @@ __metadata:
     debug: ^4.3.1
     dotenv: ^8.2.0
     emotion: ^11.0.0
+    esbuild: ^0.8.26
     events: ^3.2.0
     fast-xml-parser: ^3.17.3
     finalhandler: ^1.1.2
@@ -17086,6 +17087,15 @@ __metadata:
     d: ^1.0.1
     ext: ^1.1.2
   checksum: 0915d72de8760b56b69ca4360276123a4f61de5a3172fe340ce9288271cf48bcebe3ee46ca8ee0f2fd73206bbbefa7c4a40a6673d278a87c97d3a155de778931
+  languageName: node
+  linkType: hard
+
+"esbuild@npm:^0.8.26":
+  version: 0.8.26
+  resolution: "esbuild@npm:0.8.26::__archiveUrl=https%3A%2F%2Fregistry.npm.taobao.org%2Fesbuild%2Fdownload%2Fesbuild-0.8.26.tgz"
+  bin:
+    esbuild: bin/esbuild
+  checksum: dd77cde85ab0be203a665f7453c313c116811938ffd69cd967711fafa3d484f7d6cdbaba186ec980a5abb823cddca96db31c7b1e737bd925b82eb07ab3698594
   languageName: node
   linkType: hard
 

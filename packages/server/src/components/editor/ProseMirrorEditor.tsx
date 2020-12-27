@@ -26,10 +26,11 @@ export function createEditor(options: EditorOptions = {}): EditorInstance {
   if (!state) {
     if (!schema) {
       if (!markdown) {
-        schema = new Schema({
-          nodes: addListNodes(basicSchema.spec.nodes as any, 'paragraph block*', 'block'),
-          marks: basicSchema.spec.marks,
-        });
+        // FIXME
+        // schema = new Schema({
+        //   nodes: addListNodes(basicSchema.spec.nodes as any, 'paragraph block*', 'block') as any,
+        //   marks: basicSchema.spec.marks,
+        // });
         if (typeof initialDoc === 'string') {
           initial = DOMParser.fromSchema(schema).parse(new window.DOMParser().parseFromString(initialDoc, 'text/html'));
         }
