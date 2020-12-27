@@ -25,7 +25,7 @@
     "Makefile"
   ],
   "devDependencies": {
-    "@rollup/plugin-typescript": "^6.1.0",
+    "@rollup/plugin-typescript": "^8.1.0",
     "@types/react": "^17",
     "react": "^17",
     "rollup": "^2",

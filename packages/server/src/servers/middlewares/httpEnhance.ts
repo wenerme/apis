@@ -56,7 +56,7 @@ export async function httpEnhance(req: IncomingMessage, res: ServerResponse, par
   apiRes.status = (statusCode) => sendStatusCode(apiRes, statusCode);
   apiRes.send = (data) => sendData(apiReq, apiRes, data);
   apiRes.json = (data) => sendJson(apiRes, data);
-  apiRes['redirect'] = (statusOrUrl, url) => redirect(apiRes, statusOrUrl, url);
+  (apiRes as any)['redirect'] = (statusOrUrl, url) => redirect(apiRes, statusOrUrl, url);
 }
 
 /**
