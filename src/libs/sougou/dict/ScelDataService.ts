@@ -1,6 +1,6 @@
 import unfetch from 'isomorphic-unfetch';
 import { buildIpfsUrl } from '../../ipfs/gateway/selector';
-import { API } from 'src/apis/api';
+import { API } from '../../../apis/api';
 
 export const ScelDirectoryIpfsHash = 'QmaTARJ73WduELvCkPtnYfoBD4Qn74fFEicuc76eTT8p62';
 

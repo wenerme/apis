@@ -1,4 +1,4 @@
-import { API } from 'src/apis/api';
+import { API } from '../../../../apis/api';
 import * as url from 'url';
 
 export function buildZxcvbnLink(query: { password }) {

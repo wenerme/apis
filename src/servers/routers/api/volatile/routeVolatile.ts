@@ -1,8 +1,8 @@
-import { VolatileManager } from 'src/modules/volatile/VolatileManager';
+import { VolatileManager } from '../../../../modules/volatile/VolatileManager';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { objectOfMaybeArray } from '@wener/utils';
 import { File, IncomingForm } from 'formidable';
-import { RequestError } from 'src/libs/nexts/middlewares/errors';
+import { RequestError } from '../../../../libs/nexts/middlewares/errors';
 import fs from 'fs-extra';
 
 const mgr = new VolatileManager();

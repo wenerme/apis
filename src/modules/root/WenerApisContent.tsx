@@ -1,4 +1,4 @@
-import { LayoutFrameContent } from 'src/ui/antds';
+import { LayoutFrameContent } from '../../ui/antds';
 import React from 'react';
 import { PageHeader } from 'antd';
 

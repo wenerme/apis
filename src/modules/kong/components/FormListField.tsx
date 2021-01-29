@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormFieldProps } from 'src/libs/antds/form/builder';
+import { FormFieldProps } from '../../../libs/antds/form/builder';
 import { Button, Form } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons/lib';
 import { Trans } from 'react-i18next';

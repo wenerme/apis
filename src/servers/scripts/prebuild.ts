@@ -1,7 +1,7 @@
-import { ScelDirectoryIpfsHash } from 'src/libs/sougou/dict/ScelDataService';
-import { PublicGateways } from 'src/libs/ipfs/gateway/gateways';
+import { ScelDirectoryIpfsHash } from '../../libs/sougou/dict/ScelDataService';
+import { PublicGateways } from '../../libs/ipfs/gateway/gateways';
 import fs from 'fs';
-import { buildIpfsUrl, detectingDummyFastestGateway } from 'src/libs/ipfs/gateway/selector';
+import { buildIpfsUrl, detectingDummyFastestGateway } from '../../libs/ipfs/gateway/selector';
 import unfetch from 'isomorphic-unfetch';
 import { lineInFile } from './utils';
 

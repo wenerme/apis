@@ -1,6 +1,6 @@
 // import Router from 'router';
 import polka from 'polka';
-import { routes } from 'src/servers/routers/routes';
+import { routes } from './routes';
 
 let _router;
 

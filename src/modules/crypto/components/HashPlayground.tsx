@@ -5,7 +5,7 @@ import {
   AlgorithmSelectorList,
   SelectorChangeEvent,
   SelectorOption,
-} from 'src/modules/crypto/components/AlgorithmSelectorList';
+} from './AlgorithmSelectorList';
 import { CopyOutlined } from '@ant-design/icons';
 import { copy } from '@wener/utils';
 

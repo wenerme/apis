@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Button, Dropdown, Form, Input, Menu, message, Modal, notification } from 'antd';
-import { ModuleInfo, ModuleManagementService } from 'src/modules/mgmt/ModuleManagementService';
+import { ModuleInfo, ModuleManagementService } from '../ModuleManagementService';
 import { useImmer } from 'use-immer';
-import { getBootService } from 'src/modules/boot';
+import { getBootService } from '../../boot';
 import { ClearOutlined, PlusSquareOutlined, ReloadOutlined } from '@ant-design/icons';
-import { ModuleList } from 'src/modules/mgmt/components/ModuleList';
+import { ModuleList } from './ModuleList';
 import { DownOutlined, EditOutlined, MinusSquareOutlined, UploadOutlined } from '@ant-design/icons/lib';
 
 let _svc;
