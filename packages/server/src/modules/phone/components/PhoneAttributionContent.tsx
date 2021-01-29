@@ -10,14 +10,10 @@ export const PhoneAttributionContent: React.FC<{ initialData?: PhoneAttributionR
 }) => {
   const svc = consumeClientService(PhoneAttributionService);
   const [number, setNumber] = useState(initialData?.number || initialNumber || '13000000000');
-  const { isLoading, data, refetch } = useQuery(
-    ['phoneAttribution', number],
-    (_, number) => svc.getAttribution({ number }),
-    {
-      enabled: false,
-      initialData,
-    },
-  );
+  const { isLoading, data, refetch } = useQuery(['phoneAttribution', number], (ctx) => svc.getAttribution({ number }), {
+    enabled: false,
+    initialData,
+  });
   useEffect(() => {
     if (!initialData && number) {
       refetch();

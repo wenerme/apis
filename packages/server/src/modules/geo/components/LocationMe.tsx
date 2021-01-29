@@ -53,7 +53,7 @@ export const LocationMe: React.FC = () => {
 
 async function watchPosition(options: {
   console?: Console;
-  onPositionChange?: (pos: Position) => void;
+  onPositionChange?: (pos: GeolocationPosition) => void;
 }): Promise<(() => void) | undefined> {
   const { console = window.console, onPositionChange = () => null } = options;
 
@@ -125,7 +125,7 @@ async function watchPosition(options: {
   return () => navigator.geolocation.clearWatch(watchId);
 }
 
-export const LocationDescription: React.FC<{ position?: Position }> = ({ position }) => {
+export const LocationDescription: React.FC<{ position?: GeolocationPosition }> = ({ position }) => {
   if (!position) {
     return <div>获取中...</div>;
   }

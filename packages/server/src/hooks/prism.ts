@@ -95,7 +95,7 @@ export function usePrismLanguage(language) {
     getLoader(components, [language], loaded)
       .load(
         (id) => {
-          return new Promise((resolve, reject) => {
+          return new Promise<void>((resolve, reject) => {
             const script = document.createElement('script');
             script.src = `${_prism()}/components/prism-${id}.min.js`;
             // script.src = `https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/components/prism-${id}.js`;

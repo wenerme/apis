@@ -23,7 +23,7 @@ const PingButton: React.FC = () => {
 
 const HelloButton: React.FC = () => {
   const svc = consumeClientService(PingService);
-  const [hello, { isLoading, isError }] = useMutation<string, string>((name) => svc.hello(name), {
+  const { isLoading, isError, mutateAsync: hello } = useMutation((name: string) => svc.hello(name), {
     onSuccess(data) {
       notification.success({ message: JSON.stringify(data) });
     },

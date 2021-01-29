@@ -24,5 +24,5 @@ export async function createSeed(client: Instance, options: CreateSeedOptions) {
 function createTextSeed(client: Instance, options: CreateTextSeedOptions) {
   const { filename, content, ...opts } = options;
 
-  return client.seed(new Buffer(content), { name: filename, ...opts });
+  return client.seed(new Buffer(content), { path: filename, ...opts });
 }

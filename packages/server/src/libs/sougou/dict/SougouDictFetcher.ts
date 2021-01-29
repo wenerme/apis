@@ -6,6 +6,7 @@ import { URL } from 'url';
 import cheerio from 'cheerio';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { SougouDictCacheMetaEntity } from './cache';
+import Root = cheerio.Root;
 
 export interface SougouDictMeta {
   id?;
@@ -49,7 +50,7 @@ export class SougouDictFetcher {
   sqlArRepo: Repository<SqlArEntity>;
 
   static parseMeta(content: string | Buffer): SougouDictMeta {
-    const doc: CheerioStatic = cheerio.load(content);
+    const doc: Root = cheerio.load(content);
     const downloadHref = doc('#dict_dl_btn a').attr('href');
     if (!downloadHref) {
       return null;
@@ -159,12 +160,12 @@ export class SougouDictFetcher {
     return this.sqlArRepo
       .query(
         `
-      select cast(substr(name, length('cache/scel/html/') + 1, length(name) - length('cache/scel/html/.html')) as integer) as id
-      from sqlar
-      where name like 'cache/scel/html/%'
-      order by id desc
-      limit 1
-    `,
+          select cast(substr(name, length('cache/scel/html/') + 1,
+                             length(name) - length('cache/scel/html/.html')) as integer) as id
+          from sqlar
+          where name like 'cache/scel/html/%'
+          order by id desc limit 1
+        `,
       )
       .then((v) => v[0]?.id ?? 1);
   }
@@ -173,16 +174,16 @@ export class SougouDictFetcher {
     return this.sqlArRepo
       .query(
         `
-      with names(name) as (
-          select substr(name, length('scel/files/') + 1)
-          from sqlar
-          where name like 'scel/files/%'
-            and data is not null
-      )
-      select cast(substr(name, 0, instr(name, '/')) as integer) as id
-      from names
-      order by id desc
-    `,
+          with names(name) as (
+            select substr(name, length('scel/files/') + 1)
+            from sqlar
+            where name like 'scel/files/%'
+              and data is not null
+          )
+          select cast(substr(name, 0, instr(name, '/')) as integer) as id
+          from names
+          order by id desc
+        `,
       )
       .then((v) => v[0]?.id ?? 1);
   }

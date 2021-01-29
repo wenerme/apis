@@ -1,12 +1,9 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { NextApiRequest, NextApiResponse, PageConfig } from 'next';
-import generateETag from 'next/dist/compiled/etag';
-import fresh from 'next/dist/compiled/fresh';
-import getRawBody from 'next/dist/compiled/raw-body';
+import { NextApiRequest, NextApiResponse } from 'next';
+//import generateETag from 'next/dist/compiled/etag';
+//import fresh from 'next/dist/compiled/fresh';
 import { Stream } from 'stream';
-import { parse } from 'next/dist/compiled/content-type';
 import { Params } from 'next/dist/next-server/server/router';
-import { ApiError } from 'next/dist/next-server/server/api-utils';
 
 export type NextApiRequestCookies = { [key: string]: string };
 export type NextApiRequestQuery = { [key: string]: string | string[] };
@@ -18,45 +15,45 @@ export type __ApiPreviewProps = {
 };
 
 export async function httpEnhance(req: IncomingMessage, res: ServerResponse, params: any) {
-  const apiReq = req as NextApiRequest;
-  const apiRes = res as NextApiResponse;
-  // if (!resolverModule) {
-  //   res.statusCode = 404
-  //   res.end('Not Found')
-  //   return
-  // }
-  // const config: PageConfig = resolverModule.config || {}
-  const config: PageConfig = {};
-  const bodyParser = config.api?.bodyParser !== false;
-  const externalResolver = config.api?.externalResolver || false;
-
-  // Parsing of cookies
-  setLazyProp({ req: apiReq }, 'cookies', getCookieParser(req));
-  // Parsing query string
-  setLazyProp({ req: apiReq, params }, 'query', getQueryParser(req));
-  // Parsing preview data
-  // setLazyProp({ req: apiReq }, 'previewData', () =>
-  //   tryGetPreviewData(req, res, apiContext)
-  // )
-  // Checking if preview mode is enabled
-  // setLazyProp({ req: apiReq }, 'preview', () =>
-  //   apiReq.previewData !== false ? true : undefined
-  // )
-
-  // Parsing of body
-  // if (bodyParser) {
-  //   apiReq.body = await parseBody(
-  //     apiReq,
-  //     config.api && config.api.bodyParser && config.api.bodyParser.sizeLimit
-  //       ? config.api.bodyParser.sizeLimit
-  //       : '1mb',
-  //   );
-  // }
-
-  apiRes.status = (statusCode) => sendStatusCode(apiRes, statusCode);
-  apiRes.send = (data) => sendData(apiReq, apiRes, data);
-  apiRes.json = (data) => sendJson(apiRes, data);
-  (apiRes as any)['redirect'] = (statusOrUrl, url) => redirect(apiRes, statusOrUrl, url);
+  // const apiReq = req as NextApiRequest;
+  // const apiRes = res as NextApiResponse;
+  // // if (!resolverModule) {
+  // //   res.statusCode = 404
+  // //   res.end('Not Found')
+  // //   return
+  // // }
+  // // const config: PageConfig = resolverModule.config || {}
+  // const config: PageConfig = {};
+  // const bodyParser = config.api?.bodyParser !== false;
+  // const externalResolver = config.api?.externalResolver || false;
+  //
+  // // Parsing of cookies
+  // setLazyProp({ req: apiReq }, 'cookies', getCookieParser(req));
+  // // Parsing query string
+  // setLazyProp({ req: apiReq, params }, 'query', getQueryParser(req));
+  // // Parsing preview data
+  // // setLazyProp({ req: apiReq }, 'previewData', () =>
+  // //   tryGetPreviewData(req, res, apiContext)
+  // // )
+  // // Checking if preview mode is enabled
+  // // setLazyProp({ req: apiReq }, 'preview', () =>
+  // //   apiReq.previewData !== false ? true : undefined
+  // // )
+  //
+  // // Parsing of body
+  // // if (bodyParser) {
+  // //   apiReq.body = await parseBody(
+  // //     apiReq,
+  // //     config.api && config.api.bodyParser && config.api.bodyParser.sizeLimit
+  // //       ? config.api.bodyParser.sizeLimit
+  // //       : '1mb',
+  // //   );
+  // // }
+  //
+  // apiRes.status = (statusCode) => sendStatusCode(apiRes, statusCode);
+  // apiRes.send = (data) => sendData(apiReq, apiRes, data);
+  // apiRes.json = (data) => sendJson(apiRes, data);
+  // (apiRes as any)['redirect'] = (statusOrUrl, url) => redirect(apiRes, statusOrUrl, url);
 }
 
 /**
@@ -64,77 +61,77 @@ export async function httpEnhance(req: IncomingMessage, res: ServerResponse, par
  * @param req request object
  */
 export async function parseBody(req: NextApiRequest, limit: string | number): Promise<any> {
-  const contentType = parse(req.headers['content-type'] || 'text/plain');
-  const { type, parameters } = contentType;
-  const encoding = parameters.charset || 'utf-8';
-
-  let buffer;
-
-  try {
-    buffer = await getRawBody(req, { encoding, limit });
-  } catch (e) {
-    if (e.type === 'entity.too.large') {
-      throw new ApiError(413, `Body exceeded ${limit} limit`);
-    } else {
-      throw new ApiError(400, 'Invalid body');
-    }
-  }
-
-  const body = buffer.toString();
-
-  if (type === 'application/json' || type === 'application/ld+json') {
-    return parseJson(body);
-  } else if (type === 'application/x-www-form-urlencoded') {
-    const qs = require('querystring');
-    return qs.decode(body);
-  } else {
-    return body;
-  }
-}
-
-/**
- * Parse `JSON` and handles invalid `JSON` strings
- * @param str `JSON` string
- */
-function parseJson(str: string): any {
-  if (str.length === 0) {
-    // special-case empty json body, as it's a common client-side mistake
-    return {};
-  }
-
-  try {
-    return JSON.parse(str);
-  } catch (e) {
-    throw new ApiError(400, 'Invalid JSON');
-  }
-}
-
-/**
- * Parsing query arguments from request `url` string
- * @param url of request
- * @returns Object with key name of query argument and its value
- */
-export function getQueryParser({ url }: IncomingMessage) {
-  return function parseQuery(): NextApiRequestQuery {
-    const { URL } = require('url');
-    // we provide a placeholder base url because we only want searchParams
-    const params = new URL(url, 'https://n').searchParams;
-
-    const query: { [key: string]: string | string[] } = {};
-    for (const [key, value] of params) {
-      if (query[key]) {
-        if (Array.isArray(query[key])) {
-          (query[key] as string[]).push(value);
-        } else {
-          query[key] = [query[key], value];
-        }
-      } else {
-        query[key] = value;
-      }
-    }
-
-    return query;
-  };
+  //   const contentType = parse(req.headers['content-type'] || 'text/plain');
+  //   const { type, parameters } = contentType;
+  //   const encoding = parameters.charset || 'utf-8';
+  //
+  //   let buffer;
+  //
+  //   try {
+  //     buffer = await getRawBody(req, { encoding, limit });
+  //   } catch (e) {
+  //     if (e.type === 'entity.too.large') {
+  //       throw new ApiError(413, `Body exceeded ${limit} limit`);
+  //     } else {
+  //       throw new ApiError(400, 'Invalid body');
+  //     }
+  //   }
+  //
+  //   const body = buffer.toString();
+  //
+  //   if (type === 'application/json' || type === 'application/ld+json') {
+  //     return parseJson(body);
+  //   } else if (type === 'application/x-www-form-urlencoded') {
+  //     const qs = require('querystring');
+  //     return qs.decode(body);
+  //   } else {
+  //     return body;
+  //   }
+  // }
+  //
+  // /**
+  //  * Parse `JSON` and handles invalid `JSON` strings
+  //  * @param str `JSON` string
+  //  */
+  // function parseJson(str: string): any {
+  //   if (str.length === 0) {
+  //     // special-case empty json body, as it's a common client-side mistake
+  //     return {};
+  //   }
+  //
+  //   try {
+  //     return JSON.parse(str);
+  //   } catch (e) {
+  //     throw new ApiError(400, 'Invalid JSON');
+  //   }
+  // }
+  //
+  // /**
+  //  * Parsing query arguments from request `url` string
+  //  * @param url of request
+  //  * @returns Object with key name of query argument and its value
+  //  */
+  // export function getQueryParser({ url }: IncomingMessage) {
+  //   return function parseQuery(): NextApiRequestQuery {
+  //     const { URL } = require('url');
+  //     // we provide a placeholder base url because we only want searchParams
+  //     const params = new URL(url, 'https://n').searchParams;
+  //
+  //     const query: { [key: string]: string | string[] } = {};
+  //     for (const [key, value] of params) {
+  //       if (query[key]) {
+  //         if (Array.isArray(query[key])) {
+  //           (query[key] as string[]).push(value);
+  //         } else {
+  //           query[key] = [query[key], value];
+  //         }
+  //       } else {
+  //         query[key] = value;
+  //       }
+  //     }
+  //
+  //     return query;
+  //   };
 }
 
 /**
@@ -142,16 +139,16 @@ export function getQueryParser({ url }: IncomingMessage) {
  * @param req request object
  */
 export function getCookieParser(req: IncomingMessage) {
-  return function parseCookie(): NextApiRequestCookies {
-    const header: undefined | string | string[] = req.headers.cookie;
-
-    if (!header) {
-      return {};
-    }
-
-    const { parse: parseCookieFn } = require('next/dist/compiled/cookie');
-    return parseCookieFn(Array.isArray(header) ? header.join(';') : header);
-  };
+  // return function parseCookie(): NextApiRequestCookies {
+  //   const header: undefined | string | string[] = req.headers.cookie;
+  //
+  //   if (!header) {
+  //     return {};
+  //   }
+  //
+  //   const { parse: parseCookieFn } = require('next/dist/compiled/cookie');
+  //   return parseCookieFn(Array.isArray(header) ? header.join(';') : header);
+  // };
 }
 
 /**
@@ -181,15 +178,15 @@ export function redirect(res: NextApiResponse, statusOrUrl: string | number, url
 }
 
 function sendEtagResponse(req: NextApiRequest, res: NextApiResponse, body: string | Buffer): boolean {
-  const etag = generateETag(body);
-
-  if (fresh(req.headers, { etag })) {
-    res.statusCode = 304;
-    res.end();
-    return true;
-  }
-
-  res.setHeader('ETag', etag);
+  // const etag = generateETag(body);
+  //
+  // if (fresh(req.headers, { etag })) {
+  //   res.statusCode = 304;
+  //   res.end();
+  //   return true;
+  // }
+  //
+  // res.setHeader('ETag', etag);
   return false;
 }
 

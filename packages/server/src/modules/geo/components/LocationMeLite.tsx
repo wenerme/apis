@@ -5,7 +5,7 @@ import { useConstant } from '@wener/ui';
 // import { Console as ConsoleFeed, Hook, Unhook } from 'console-feed';
 // import type { HookedConsole } from 'console-feed/lib/definitions/Console';
 
-function usePosition(options: { console?; onError?; onWarn?; onInfo?; onPosition?: (pos: Position) => void }) {
+function usePosition(options: { console?; onError?; onWarn?; onInfo?; onPosition?: (pos: GeolocationPosition) => void }) {
   const idRef = useRef<any>();
   useAsyncEffect(async () => {
     const {
@@ -135,7 +135,7 @@ export const LocationMeLite: React.FC = () => {
   );
 };
 
-export const LocationDescription: React.FC<{ position?: Position }> = ({ position }) => {
+export const LocationDescription: React.FC<{ position?: GeolocationPosition }> = ({ position }) => {
   if (!position) {
     return <div>获取中...</div>;
   }

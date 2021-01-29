@@ -49,5 +49,11 @@ clean:
 always:
 
 calc:
-	yarn esbuild src/apps/calc/index.ts --outfile=out/apps/calc.js --bundle --minify --sourcemap --target=chrome80 --define:process.env.NODE_ENV='"production"' --external:react
+	npx esbuild src/apps/calc/index.ts --outfile=out/apps/calc.js --bundle --minify --sourcemap --target=chrome80 --define:process.env.NODE_ENV=\"production\" --external:react
 # --target=chrome58,firefox57,safari11,edge16
+
+postinstall:
+	npm link ../ui
+
+build:
+	npx next build
