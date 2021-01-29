@@ -9,9 +9,9 @@ import { menus } from './menus';
 import { Portal } from 'src/components/Portal';
 import { DarkModeFilled, LightModeFilled } from 'src/ui/icons';
 import styled from 'styled-components';
-import { useAntdTheme } from 'src/ui/antds';
+import { useAntdTheme , LayoutFrame } from 'src/ui/antds';
 import Head from 'next/head';
-import { LayoutFrame } from 'src/ui/antds';
+
 import { NamedThemeProvider, useNamedTheme } from 'src/ui';
 
 const Footer: React.FC = () => {

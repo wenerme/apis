@@ -1,6 +1,6 @@
-import { HashPage } from 'src/modules/crypto/components/HashPage';
+import { HashPage } from '../../../../modules/crypto/components/HashPage';
 import { NextPage } from 'next';
-import { fetchHashing } from 'src/modules/crypto/apis/fetchs';
+import { fetchHashing } from '../../../../modules/crypto/apis/fetchs';
 import { firstOfMaybeArray } from '@wener/utils';
 
 const Page: NextPage<{ algorithm; content?; initialData? }> = HashPage;

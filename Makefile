@@ -65,3 +65,11 @@ now-build:
 
 dev:
 	npm run dev
+
+lint:
+	npx eslint src --ext .ts,.tsx
+fmt:
+	npx prettier -w src --loglevel warn
+fix:
+	npx prettier -w src --loglevel warn
+	npx eslint src --fix --ext .ts,.tsx

@@ -37,8 +37,8 @@ function loadTheme(options: LoadThemeOption): MaybePromise<boolean> {
 
 // fixme - should use current version ?
 const urls = {
-  light: 'https://unpkg.com/antd/dist/antd.min.css',
-  dark: 'https://unpkg.com/antd/dist/antd.dark.min.css',
+  light: 'https://cdn.jsdelivr.net/npm/antd@4.11.2/dist/antd.min.css',
+  dark: 'https://cdn.jsdelivr.net/npm/antd@4.11.2/dist/antd.dark.min.css',
 };
 
 export function loadAntdTheme(options?: { theme; src? }): MaybePromise<boolean> {

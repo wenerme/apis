@@ -4,7 +4,7 @@ import {
   EditOutlined,
   InteractionOutlined,
   PartitionOutlined,
-} from '@ant-design/icons';
+ EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';
 import {
   BarcodePrintOutlined,
   BarcodeReadOutlined,
@@ -19,7 +19,7 @@ import {
 import { HashingAlgorithms } from 'src/modules/crypto/types';
 import React from 'react';
 
-import { EnvironmentOutlined, HomeOutlined, KeyOutlined, LinkOutlined, PhoneOutlined } from '@ant-design/icons';
+
 //@ts-ignore - missing type
 import type { MenuSpec } from 'src/ui/antd';
 

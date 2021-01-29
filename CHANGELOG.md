@@ -19,6 +19,7 @@
     - 样式使用上比不上 blueprint - 样式可单独使用
     - 如果组件难用，又无法独立使用样式 - 那么 antd 就失去了价值
 - [ ] p1 项目重构/脚本调整为 makefile
+- [ ] p2 减少 First Load JS
 
 ## 20210129
 - [x] P1 NPM - 因为 Vercel 依然不支持 YARN - 使用 YARN 变得无意义

@@ -1,4 +1,4 @@
-import { handleRequest } from 'src/servers/routers/handleRequest';
+import { handleRequest } from '../../servers/routers/handleRequest';
 
 export default handleRequest;
 export const config = {

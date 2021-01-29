@@ -1,11 +1,7 @@
 import React from 'react';
 import { Alert, Button, Card, Col, Divider, Input, List, message, Row } from 'antd';
 import { useImmer } from 'use-immer';
-import {
-  AlgorithmSelectorList,
-  SelectorChangeEvent,
-  SelectorOption,
-} from './AlgorithmSelectorList';
+import { AlgorithmSelectorList, SelectorChangeEvent, SelectorOption } from './AlgorithmSelectorList';
 import { CopyOutlined } from '@ant-design/icons';
 import { copy } from '@wener/utils';
 
