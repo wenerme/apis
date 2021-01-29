@@ -24,6 +24,10 @@ export class PeerManager {
   };
   private sessionPollId;
 
+  constructor(options: PeerManagerInit = {}) {
+    Object.assign(this, options);
+  }
+
   get id() {
     return this.currentData.id;
   }
@@ -34,10 +38,6 @@ export class PeerManager {
 
   get currentData() {
     return this.data.value;
-  }
-
-  constructor(options: PeerManagerInit = {}) {
-    Object.assign(this, options);
   }
 
   close() {

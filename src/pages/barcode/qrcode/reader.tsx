@@ -5,7 +5,6 @@ import React from 'react';
 import { QrcodeOutlined } from '@ant-design/icons/lib';
 import { QrCodeReaderPlayground } from 'src/modules/qrcode/reader/QrCodeReaderPlayground';
 
-
 const Page = () => {
   return (
     <PageLayout title="二维码/QR code/快速响应码 解析器">

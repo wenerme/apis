@@ -6,9 +6,8 @@ import { CertificateVerifiedFilled } from 'src/ui/icons';
 import Certificate from 'pkijs/src/Certificate';
 import { API } from 'src/apis/api';
 import { DownloadOutlined } from '@ant-design/icons';
-import { download } from '@wener/utils';
+import { download, getFile } from '@wener/utils';
 import { resultOf } from 'src/utils/axioses';
-import { getFile } from '@wener/utils';
 import { readFileAsText } from 'src/utils/io';
 import { CertificateViewer } from 'src/modules/pki/components/CertificateViewer';
 

@@ -2014,7 +2014,9 @@ export interface IParseOptions {
   filename?: string;
   startRule?: string;
   tracer?: any;
+
   [key: string]: any;
 }
+
 export type ParseFunction = (input: string, options?: IParseOptions) => any;
 export const parse: ParseFunction = peg$parse;

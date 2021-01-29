@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
-import { PageContent } from 'src/components/layout/PageLayout/PageContent';
+import { PageContent } from '../../../components/layout/PageLayout/PageContent';
 import { Alert, Input, PageHeader } from 'antd';
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { useRouter } from 'next/router';
 import { HashingAlgorithms } from '../types';
 import Link from 'next/link';
-import { API } from 'src/apis/api';
+import { API } from '../../../apis/api';
 import { Buffer } from 'buffer/';
 import { LockOutlined } from '@ant-design/icons';
 

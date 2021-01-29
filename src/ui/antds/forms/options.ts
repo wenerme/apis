@@ -1,5 +1,6 @@
 export type OptionLike = string[] | number[] | string[][] | Array<LabelValue>;
 export type LabelValue = { label: string; value: any; [k: string]: any };
+
 export function normalizeOptions(o: OptionLike): Array<LabelValue> {
   if (o === null || o === undefined) {
     return [];

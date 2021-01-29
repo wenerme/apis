@@ -11,6 +11,7 @@ export function stringifyIni(o: any) {
   }
   return s.join('\n');
 }
+
 function stringifyIniObject(o: any) {
   const s = [];
   for (const [k, v] of Object.entries(o)) {

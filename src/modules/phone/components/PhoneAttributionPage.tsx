@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { PageContent } from 'src/components/layout/PageLayout/PageContent';
-import { Alert, Input, PageHeader } from 'antd';
+import { Input, PageHeader } from 'antd';
 import { PhoneAttributionDetail } from './PhoneAttributionDetail';
 import { useFetchEffect } from 'src/ui';
 import { useRouter } from 'next/router';
@@ -86,8 +86,6 @@ export const PhoneAttributionPage: React.FC<{ initialData }> = ({ initialData = 
           />
 
           <PhoneAttributionPageContent initialData={initialData} />
-
-
         </PageContent>
       </PageLayout>
     </React.Fragment>

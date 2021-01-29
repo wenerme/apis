@@ -1,5 +1,6 @@
 import { Alert } from 'antd';
 import React from 'react';
+
 export const PasswordSiteNote = () => (
   <div style={{ marginTop: 18 }}>
     <Alert

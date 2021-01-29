@@ -22,6 +22,7 @@ function getContentLength(url): Promise<number> {
     return v.arrayBuffer().then((v) => v.byteLength);
   });
 }
+
 async function refreshSize(modules: ModuleInfo[], updater, all = false) {
   let list = modules
     .map<[number, ModuleInfo]>((v, i) => [i, v])

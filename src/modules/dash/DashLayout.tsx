@@ -27,9 +27,7 @@ export const DashLayout: React.FC = ({ children }) => {
               // selectedKeys={[selected]}
             >
               <Menu.Item>
-                <div>
-                  Go for it
-                </div>
+                <div>Go for it</div>
                 {/*<Menu.Item key={path || title}>*/}
                 {/*  <Link href={path}>*/}
                 {/*    <div>*/}
@@ -40,7 +38,7 @@ export const DashLayout: React.FC = ({ children }) => {
                 {/*</Menu.Item>*/}
               </Menu.Item>
             </Menu>
-            <BoxShuffle/>
+            <BoxShuffle />
           </div>
         </Layout.Sider>
         <Layout>

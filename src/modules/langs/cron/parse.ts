@@ -1987,12 +1987,14 @@ function peg$parse(input: string, options?: IParseOptions) {
   }
 
   const _dayOfWeekNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
   function dayOfWeek(name) {
     // 0-6
     return _dayOfWeekNames.indexOf(name);
   }
 
   const _monthOfYearNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
   function monthOfYearNames(name) {
     // 1-31
     return _monthOfYearNames.indexOf(name) + 1;
@@ -2021,7 +2023,9 @@ export interface IParseOptions {
   filename?: string;
   startRule?: string;
   tracer?: any;
+
   [key: string]: any;
 }
+
 export type ParseFunction = (input: string, options?: IParseOptions) => any;
 export const parse: ParseFunction = peg$parse;

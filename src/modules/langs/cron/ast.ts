@@ -32,6 +32,7 @@ export class StepValue extends BaseFieldValue {
     return `${this.interval}/${this.nth}`;
   }
 }
+
 export class RangeStepValue extends BaseFieldValue {
   type: 'range-step';
   from: number;
@@ -43,6 +44,7 @@ export class RangeStepValue extends BaseFieldValue {
     return `${this.from}-${this.to}/${this.nth}`;
   }
 }
+
 export class AnyStepValue extends BaseFieldValue {
   type: 'any-step';
 

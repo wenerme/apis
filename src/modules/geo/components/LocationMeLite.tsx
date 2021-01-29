@@ -1,11 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { useAsyncEffect } from 'src/ui';
+import { useAsyncEffect, useConstant } from 'src/ui';
 import { Alert, Descriptions } from 'antd';
-import { useConstant } from 'src/ui';
 // import { Console as ConsoleFeed, Hook, Unhook } from 'console-feed';
 // import type { HookedConsole } from 'console-feed/lib/definitions/Console';
 
-function usePosition(options: { console?; onError?; onWarn?; onInfo?; onPosition?: (pos: GeolocationPosition) => void }) {
+function usePosition(options: {
+  console?;
+  onError?;
+  onWarn?;
+  onInfo?;
+  onPosition?: (pos: GeolocationPosition) => void;
+}) {
   const idRef = useRef<any>();
   useAsyncEffect(async () => {
     const {

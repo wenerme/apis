@@ -1,12 +1,15 @@
-import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
-import HashLockSvg from './../svgr/HashLock'
-import {IconProps,IconComponent} from '../types'
+import { createElement, forwardRef, ForwardRefRenderFunction } from 'react';
+import HashLockSvg from './../svgr/HashLock';
+import { IconComponent, IconProps } from '../types';
 
 const HashLock: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
-  return createElement(IconComponent, Object.assign({}, props, {
-    ref,
-    component: HashLockSvg
-  }));
+  return createElement(
+    IconComponent,
+    Object.assign({}, props, {
+      ref,
+      component: HashLockSvg,
+    }),
+  );
 };
 
 HashLock.displayName = 'HashLock';

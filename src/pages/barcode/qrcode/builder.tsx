@@ -1,6 +1,6 @@
 import { PageLayout } from 'src/components/layout/PageLayout/PageLayout';
 import { PageContent } from 'src/components/layout/PageLayout/PageContent';
-import { Alert, PageHeader } from 'antd';
+import { PageHeader } from 'antd';
 import React from 'react';
 import { QrcodeOutlined } from '@ant-design/icons';
 import { QrCodeBuilderPlayground } from 'src/modules/qrcode/components/QrCodeBuilderPlayground';

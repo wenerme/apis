@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { HashRouter as Router, Link } from 'react-router-dom';
-import { RouteFrameContent } from 'src/components/layout/RouteFrame/RouteFrameContent';
 import { RouteSpec } from 'src/components/layout/RouteFrame/types';
 import i18next from 'i18next';
 import {
@@ -26,7 +25,6 @@ import { doSetupConfig } from '../reducers/actions';
 import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next, Trans, useTranslation } from 'react-i18next';
-import { KongAdminConfigShareModal } from './KongAdminConfigShareModal';
 import { decrypt } from '../libs/encryption';
 import { I18nLanguageSelector } from './I18nLanguageSelector';
 import { HeaderInput } from './HeaderInput';

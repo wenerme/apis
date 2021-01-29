@@ -1,7 +1,6 @@
 import { IncomingMessage } from 'http';
 import { parseRequestUrl } from '../libs/http/parseRequestUrl';
-import { urljoin } from '@wener/utils';
-import { isDev } from '@wener/utils';
+import { isDev, urljoin } from '@wener/utils';
 
 export const API = {
   get origin(): string {

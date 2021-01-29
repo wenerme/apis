@@ -6,6 +6,7 @@ class Ini {
   stringify(s: any) {
     return stringifyIni(s);
   }
+
   parse(s) {
     return buildIniObject(parse(s));
   }

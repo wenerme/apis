@@ -1,12 +1,15 @@
-import {ForwardRefRenderFunction,forwardRef,createElement} from 'react';
-import ManTiedOutlinedSvg from './../svgr/ManTiedOutlined'
-import {IconProps,IconComponent} from '../types'
+import { createElement, forwardRef, ForwardRefRenderFunction } from 'react';
+import ManTiedOutlinedSvg from './../svgr/ManTiedOutlined';
+import { IconComponent, IconProps } from '../types';
 
 const ManTiedOutlined: ForwardRefRenderFunction<any, IconProps> = (props, ref) => {
-  return createElement(IconComponent, Object.assign({}, props, {
-    ref,
-    component: ManTiedOutlinedSvg
-  }));
+  return createElement(
+    IconComponent,
+    Object.assign({}, props, {
+      ref,
+      component: ManTiedOutlinedSvg,
+    }),
+  );
 };
 
 ManTiedOutlined.displayName = 'ManTiedOutlined';

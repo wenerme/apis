@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input } from 'antd';
 // import url from 'url/';
 import url from 'url';
-import { useRouter } from 'next/router';
 import { pick } from 'lodash';
-import { firstOfMaybeArray } from '@wener/utils';
 import { UrEditablePart } from 'src/modules/uri/components/UrlEditablePart';
 
 function parseUrl(current: string) {

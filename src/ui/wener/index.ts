@@ -1,1 +1,1 @@
-export * from './components/WenerApisWelcome'
+export * from './components/WenerApisWelcome';

@@ -7,7 +7,6 @@ import { SketchColorPicker } from 'src/libs/antds/form/SketchColorPicker';
 import { merge } from 'lodash';
 import { ResourceLinkButton } from 'src/components/ResourceLinkButton';
 import { buildQrCodeLink } from 'src/servers/routers/api/barcode/buildQrCodeLink';
-import { QrCodeSiteNote } from 'src/modules/qrcode/components/QrCodeSiteNote';
 
 function buildValue(o) {
   const v = o[o.type];

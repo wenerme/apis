@@ -1,1 +1,138 @@
-[{"id":"boot","name":"@wener/apis-boot","metadata":{"name":"@wneer/apis-boot","title":"启动模块","description":"控制映射模块，控制模块版本。"}},{"id":"client","name":"@wener/apis-client","metadata":{"title":"RPC Client","description":"远程调用客户端"}},{"id":"dash","name":"@wener/apis-dash","metadata":{"title":"公共布局组件","description":"Dashboard、Layout 等组件"}},{"id":"geo","name":"@wener/apis-geo","metadata":{"title":"定位工具","description":"基于HTML技术获取定位信息"}},{"id":"ipfs","name":"@wener/apis-ipfs","metadata":{"title":"IPFS 工具","description":"网管检测"}},{"id":"lang-xml","name":"@wener/apis-lang-xml","metadata":{"title":"XML工具","description":"XML格式化、JSON 转换、生成"}},{"id":"langs","name":"@wener/apis-langs"},{"id":"lite","name":"@wener/apis-lite","metadata":{"title":"Wener's APIs Lite version","description":"APIs Lite - basic setup and configuration to bootstrap"}},{"id":"mgmt","name":"@wener/apis-mgmt","metadata":{"title":"应用管理","description":"模块管理，本地模块开发，模块更新发布。"}},{"id":"password","name":"@wener/apis-password","metadata":{"title":"密码校验","description":"Zxcvvn 密码强度检测"}},{"id":"phone","name":"@wener/apis-phone","metadata":{"title":"电话号码工具","description":"号码归属地查询"}},{"id":"polyfill","name":"@wener/apis-polyfill","metadata":{"title":"浏览器兼容","description":"添加 babel 需要的 runtime - corejs、regenerator"}},{"id":"qrcode","name":"@wener/apis-qrcode","metadata":{"title":"二维码","description":"二维码生成、二维码照片识别","externals":{"pngjs":"https://cdn.jsdelivr.net/npm/pngjs@5.0.0/browser.min.js"}}},{"id":"root","name":"@wener/apis-root","metadata":{"title":"APIs 应用","description":"菜单、路由、页面布局控制；动态加载外部组件；Single SPA root config；"}},{"id":"test","name":"@wener/apis-test","metadata":{"title":"测试模块","description":"测试 Ping 接口；Single SPA 测试应用"}},{"id":"uri","name":"@wener/apis-uri","metadata":{"title":"URL工具","description":"解析、格式化 URL"}},{"id":"webrtc","name":"@wener/apis-webrtc","metadata":{"title":"WebRTC 工具","description":"WebRTC浏览器兼容检测"}}]
+[
+  {
+    "id": "boot",
+    "name": "@wener/apis-boot",
+    "metadata": {
+      "name": "@wneer/apis-boot",
+      "title": "启动模块",
+      "description": "控制映射模块，控制模块版本。"
+    }
+  },
+  {
+    "id": "client",
+    "name": "@wener/apis-client",
+    "metadata": {
+      "title": "RPC Client",
+      "description": "远程调用客户端"
+    }
+  },
+  {
+    "id": "dash",
+    "name": "@wener/apis-dash",
+    "metadata": {
+      "title": "公共布局组件",
+      "description": "Dashboard、Layout 等组件"
+    }
+  },
+  {
+    "id": "geo",
+    "name": "@wener/apis-geo",
+    "metadata": {
+      "title": "定位工具",
+      "description": "基于HTML技术获取定位信息"
+    }
+  },
+  {
+    "id": "ipfs",
+    "name": "@wener/apis-ipfs",
+    "metadata": {
+      "title": "IPFS 工具",
+      "description": "网管检测"
+    }
+  },
+  {
+    "id": "lang-xml",
+    "name": "@wener/apis-lang-xml",
+    "metadata": {
+      "title": "XML工具",
+      "description": "XML格式化、JSON 转换、生成"
+    }
+  },
+  {
+    "id": "langs",
+    "name": "@wener/apis-langs"
+  },
+  {
+    "id": "lite",
+    "name": "@wener/apis-lite",
+    "metadata": {
+      "title": "Wener's APIs Lite version",
+      "description": "APIs Lite - basic setup and configuration to bootstrap"
+    }
+  },
+  {
+    "id": "mgmt",
+    "name": "@wener/apis-mgmt",
+    "metadata": {
+      "title": "应用管理",
+      "description": "模块管理，本地模块开发，模块更新发布。"
+    }
+  },
+  {
+    "id": "password",
+    "name": "@wener/apis-password",
+    "metadata": {
+      "title": "密码校验",
+      "description": "Zxcvvn 密码强度检测"
+    }
+  },
+  {
+    "id": "phone",
+    "name": "@wener/apis-phone",
+    "metadata": {
+      "title": "电话号码工具",
+      "description": "号码归属地查询"
+    }
+  },
+  {
+    "id": "polyfill",
+    "name": "@wener/apis-polyfill",
+    "metadata": {
+      "title": "浏览器兼容",
+      "description": "添加 babel 需要的 runtime - corejs、regenerator"
+    }
+  },
+  {
+    "id": "qrcode",
+    "name": "@wener/apis-qrcode",
+    "metadata": {
+      "title": "二维码",
+      "description": "二维码生成、二维码照片识别",
+      "externals": {
+        "pngjs": "https://cdn.jsdelivr.net/npm/pngjs@5.0.0/browser.min.js"
+      }
+    }
+  },
+  {
+    "id": "root",
+    "name": "@wener/apis-root",
+    "metadata": {
+      "title": "APIs 应用",
+      "description": "菜单、路由、页面布局控制；动态加载外部组件；Single SPA root config；"
+    }
+  },
+  {
+    "id": "test",
+    "name": "@wener/apis-test",
+    "metadata": {
+      "title": "测试模块",
+      "description": "测试 Ping 接口；Single SPA 测试应用"
+    }
+  },
+  {
+    "id": "uri",
+    "name": "@wener/apis-uri",
+    "metadata": {
+      "title": "URL工具",
+      "description": "解析、格式化 URL"
+    }
+  },
+  {
+    "id": "webrtc",
+    "name": "@wener/apis-webrtc",
+    "metadata": {
+      "title": "WebRTC 工具",
+      "description": "WebRTC浏览器兼容检测"
+    }
+  }
+]

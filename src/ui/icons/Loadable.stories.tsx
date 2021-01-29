@@ -6,11 +6,12 @@ export default {
   title: 'icons/loadable',
 };
 
-const LoadIcon = loadable<AntdIconProps>((props) =>
-  import(
-    /* webpackInclude: /\.js$/ */
-    `@ant-design/icons/${props.type}`
-  ),
+const LoadIcon = loadable<AntdIconProps>(
+  (props) =>
+    import(
+      /* webpackInclude: /\.js$/ */
+      `@ant-design/icons/${props.type}`
+    ),
 );
 
 export const Demo = () => {

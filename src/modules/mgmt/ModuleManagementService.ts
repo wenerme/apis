@@ -63,10 +63,12 @@ export class ModuleManagementService {
     this._modules.overrides[name] = resolved;
     await this.persistImportOverrides();
   }
+
   async removeOverrideModule({ name }) {
     delete this._modules.overrides[name];
     await this.persistImportOverrides();
   }
+
   async resetOverrideModules() {
     this._modules.overrides = {};
     await this.persistImportOverrides();

@@ -11,6 +11,7 @@ class CronUtils {
     midnight: '0 0 * * *',
     hourly: '0 * * * *',
   };
+
   parseSyntax(s: string, options?: ParseSyntaxOptions) {
     const { tryResolvePredefined } = options ?? {};
     const r = parse(s, options);
