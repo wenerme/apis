@@ -60,7 +60,7 @@ build: always
 # tsc --project tsconfig.server.json && yarn run gen && next build
 
 now-build:
-	bash ./build/build-apis.sh
+	npm run build
 	npm run set-platform NOW
 
 dev:
