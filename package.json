@@ -172,8 +172,6 @@
     "systemjs": "^6.8.2",
     "tar": "^6.0.1",
     "ts-pegjs": "^0.3.0",
-    "tsconfig-paths": "^3.9.0",
-    "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typeorm": "^0.2.22",
     "typeorm-naming-strategies": "^2.0.0",
     "urijs": "^1.19.2",
