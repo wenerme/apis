@@ -6,18 +6,14 @@ cd "$BASEDIR"
 
 echo Building apis - "$BASEDIR"
 
-yarn install
+npm ci
+npm run build
+mkdir -p public/docs
+mkdir -p public/storybook
 
-yarn build
-yarn workspaces foreach -p run build:docs
-yarn workspaces foreach -p run build:storybook
-
-mkdir -p packages/server/public/docs
-mkdir -p packages/server/public/storybook
-
-for i in ui tinyrpc utils rjsf-antd-theme; do
-  name=$(jq '.name' -r packages/$i/package.json)
-  mkdir -p packages/server/public/pkgs/$name/{docs,storybook}
-  [ -d "packages/$i/docs" ] && rsync -a packages/$i/docs/ packages/server/public/pkgs/$name/docs/
-  [ -d "packages/$i/storybook" ] && rsync -a packages/$i/storybook/ packages/server/public/pkgs/$name/storybook/
-done
+#for i in ui tinyrpc utils rjsf-antd-theme; do
+#  name=$(jq '.name' -r packages/$i/package.json)
+#  mkdir -p packages/server/public/pkgs/$name/{docs,storybook}
+#  [ -d "packages/$i/docs" ] && rsync -a packages/$i/docs/ packages/server/public/pkgs/$name/docs/
+#  [ -d "packages/$i/storybook" ] && rsync -a packages/$i/storybook/ packages/server/public/pkgs/$name/storybook/
+#done

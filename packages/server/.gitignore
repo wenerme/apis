@@ -1,3 +1,0 @@
-# ignore mosules in main repo
-public/modules/*
-!public/modules/README.md
