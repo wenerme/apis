@@ -3,6 +3,7 @@ import App from 'next/app';
 import Router from 'next/router';
 import { initGA, logPageView } from '../utils/analytics';
 import '../../public/styles/global.css';
+import 'tailwindcss/tailwind.css';
 
 import 'nprogress/nprogress.css';
 // todo no need to global

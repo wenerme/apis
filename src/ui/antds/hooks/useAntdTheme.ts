@@ -35,7 +35,6 @@ function loadTheme(options: LoadThemeOption): MaybePromise<boolean> {
   return true;
 }
 
-// fixme - should use current version ?
 const urls = {
   light: 'https://cdn.jsdelivr.net/npm/antd@4.11.2/dist/antd.min.css',
   dark: 'https://cdn.jsdelivr.net/npm/antd@4.11.2/dist/antd.dark.min.css',
