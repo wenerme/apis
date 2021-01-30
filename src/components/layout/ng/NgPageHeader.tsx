@@ -264,7 +264,7 @@ const ToolMenuContent: React.FC<{ className? }> = ({ className }) => {
           {items.map(({ href, icon, title, description }, i) => {
             return (
               <Link href={href} key={i}>
-                <a href="#" className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50">
+                <a href={href} className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50">
                   <div className="flex md:h-full lg:flex-col">
                     <div className="flex-shrink-0">
                       <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
