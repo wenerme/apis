@@ -86,7 +86,7 @@
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-xhr-backend": "^3.2.2",
-    "immer": "^8.0.0",
+    "immer": "^9.0.6",
     "inflection": "^1.12.0",
     "is-hotkey": "^0.2.0",
     "isomorphic-unfetch": "^3.1.0",
