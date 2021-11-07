@@ -1,0 +1,41 @@
+{
+  "name": "@wener/apis-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.4.1",
+    "autoprefixer": "^10.4.0",
+    "classnames": "^2.3.1",
+    "daisyui": "^1.16.1",
+    "date-fns": "^2.25.0",
+    "immer": "^9.0.6",
+    "jotai": "^1.4.2",
+    "lodash-es": "^4.17.21",
+    "postcss": "^8.3.11",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-fast-compare": "^3.2.0",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.0.1",
+    "tailwindcss": "^2.2.19",
+    "use-immer": "^0.6.0",
+    "zustand": "^3.6.4"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react": "^1.0.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4"
+  },
+  "keywords": [],
+  "author": "wener",
+  "license": "ISC"
+}
