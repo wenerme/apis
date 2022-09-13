@@ -17,7 +17,7 @@ space:= $(empty) $(empty)
 comma:= ,
 
 mod-dev:
-	yarn rollup -c rollup.mod.ts --watch
+	pnpm exec rollup -c rollup.mod.ts --watch
 
 # pre build
 make-%: always
@@ -33,13 +33,13 @@ modules-pre: $(addprefix make-,$(MODULES))
 
 modules: modules-pre
 	@echo Building all modules $(MODULES)
-	NODE_ENV=production MOD_NAME="$(subst $(space),$(comma),${MODULES})" yarn rollup -c rollup.mod.ts
+	NODE_ENV=production MOD_NAME="$(subst $(space),$(comma),${MODULES})" pnpm exec rollup -c rollup.mod.ts
 
 build-%: public/modules/$(ModulePrefix)-%.system.js
 	@echo Done build
 
 public/modules/$(ModulePrefix)-%.system.js: $$(shell find src/modules/% -type f  -name '*.ts' -o -name '*.tsx')
-	MOD_NAME=$* yarn rollup -c rollup.mod.ts
+	MOD_NAME=$* pnpm exec rollup -c rollup.mod.ts
 
 clean-%:
 	rm -rfv public/modules/$(ModulePrefix)-$**
