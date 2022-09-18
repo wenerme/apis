@@ -73,3 +73,6 @@ fmt:
 fix:
 	npx prettier -w src --loglevel warn
 	npx eslint src --fix --ext .ts,.tsx
+ci:
+	@echo Building
+	

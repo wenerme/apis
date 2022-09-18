@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
+  extends: 'next/core-web-vitals',
   // https://eslint.org/docs/user-guide/configuring#specifying-environments
   env: {
     browser: true,
@@ -9,7 +10,7 @@ module.exports = {
     // 影响 global
     es2017: true,
   },
-  plugins: ['@typescript-eslint', 'jest', 'react-hooks', 'import'],
+  plugins: ['@typescript-eslint', 'react-hooks', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -18,7 +19,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:jest/recommended',
+    // 'plugin:jest/recommended',
     'plugin:react/recommended',
   ],
   settings: {
