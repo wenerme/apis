@@ -1,4 +1,4 @@
-export const menus: MenuSpec[] = [
+export const menus = [
   {
     title: '首页',
     // iconComponent: <HomeOutlined />,

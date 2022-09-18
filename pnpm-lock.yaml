@@ -46,6 +46,9 @@ importers:
     specifiers:
       '@types/react': ^18
       '@types/react-dom': ^18
+      '@wener/reaction': ^1.2.13
+      '@wener/utils': ^1.1.2
+      dayjs: ^1.11.5
       immer: ^9.0.15
       lodash: ^4.17.21
       next: ^12.3.0
@@ -59,6 +62,9 @@ importers:
       valtio: ^1.7.0
       zustand: ^4
     dependencies:
+      '@wener/reaction': 1.2.13_v2m5e27vhdewzwhryxwfaorcca
+      '@wener/utils': 1.1.2
+      dayjs: 1.11.5
       immer: 9.0.15
       lodash: 4.17.21
       next: 12.3.0_biqbaboplfbrettd7655fr4n2y
@@ -960,6 +966,23 @@ packages:
       - supports-color
     dev: true
 
+  /@wener/reaction/1.2.13_v2m5e27vhdewzwhryxwfaorcca:
+    resolution: {integrity: sha512-clWvgXQKwll42iBlbRVNOogYQO35s/nzYs1lRpHtiURhW8XoU4Dj1ptZH/otHGz9cvyxHVVNuvji0y6500yWZg==}
+    peerDependencies:
+      prop-types: '>=15'
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@wener/utils/1.1.2:
+    resolution: {integrity: sha512-CEJks0Z52qsZp8H4iwwcueFU64MgsAcsQ+D7HcY5ViiPE+dtr7SOwcqwVrQQPJeJvwHVdNvnC1HDnmdPVpqkaw==}
+    engines: {node: '16', npm: '8'}
+    dev: false
+
   /abab/2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
     dev: true
@@ -1518,6 +1541,10 @@ packages:
     dependencies:
       time-zone: 1.0.0
     dev: true
+
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
