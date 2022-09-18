@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@wener/apis-ui": "workspace:^1.0.0",
     "@wener/reaction": "^1.2.13",
     "@wener/utils": "^1.1.2",
     "dayjs": "^1.11.5",
