@@ -1,15 +1,22 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: [
-    './src/pages/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
-    './src/modules/hash/**/*.{js,ts,jsx,tsx}',
-  ],
-  darkMode: 'class', // or 'media' or 'class'
+  mode: 'jit',
+  content: ['./packages/src/**/*.{html,ts,tsx,js}', './apps/src/**/*.{html,ts,tsx,js}'],
+  darkMode: 'media',
   theme: {
     extend: {},
   },
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/line-clamp'), require('daisyui')],
+  daisyui: {
+    // themes: [
+    //   {
+    //     light: {
+    //       ...require('daisyui/src/colors/themes')['[data-theme=light]'],
+    //     },
+    //   },
+    // ],
+  },
 };

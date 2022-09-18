@@ -1,7 +1,33 @@
-// https://prettier.io/docs/en/options.html
 module.exports = {
+  bracketSameLine: false,
+  trailingComma: 'all',
   printWidth: 120,
   singleQuote: true,
-  trailingComma: 'all',
-  jsxBracketSameLine: false,
+  overrides: [
+    {
+      files: ['*.html', '*.css'],
+      options: {
+        singleQuote: false,
+      },
+    },
+  ],
+  // @trivago/prettier-plugin-sort-imports
+  importOrder: [
+    '^react',
+    '^systemjs/dist/system',
+    '^systemjs/dist/extra',
+    '^[a-z]',
+    '^@(?!src/)',
+    '^@[^/]',
+    '^[.][.]',
+    '^[.][/]',
+  ],
+  importOrderSeparation: false,
+
+  plugins: [
+    require('prettier-plugin-tailwindcss'),
+    require('@trivago/prettier-plugin-sort-imports'),
+    //
+  ],
+  tailwindConfig: './tailwind.config.js',
 };

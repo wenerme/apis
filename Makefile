@@ -1,3 +1,6 @@
+REPO_ROOT ?= $(shell git rev-parse --show-toplevel)
+-include $(REPO_ROOT)/node.mk
+
 ModulePrefix:=wener-apis
 # Keep file
 .PRECIOUS: public/modules/$(ModulePrefix)-%.system.js
@@ -56,7 +59,11 @@ postinstall:
 	npm link ../ui
 
 build: always
-	npx next build
+	$(EXEC) turbo run build --filter=@wener/apis
+
+# build: always
+
+# 	# npx next build
 # tsc --project tsconfig.server.json && yarn run gen && next build
 
 now-build:
@@ -75,4 +82,4 @@ fix:
 	npx eslint src --fix --ext .ts,.tsx
 ci:
 	@echo Building
-	
+

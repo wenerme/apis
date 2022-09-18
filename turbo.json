@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "baseBranch": "origin/main",
+  "globalDependencies": ["Makefile", "package.json", "tsconfig.json", "rollup.config.ts", "rollup.config.js", ".env"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "lib/**", ".next/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.js", "src/**/*.jsx", "src/**/*.css"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "clean": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    }
+  }
+}
